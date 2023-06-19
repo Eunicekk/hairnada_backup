@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HairNada</title>
+    <link rel="stylesheet" href="/css/hairstyle/hairStyleList.css" />
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  </head>
+  <body>
+    <div class="container">
+
+      <!-- 배너 -->
+      <div class="banner">
+        <img src="/img/tab-banner-06.png" alt="배너">
+      </div>
+
+      <!-- 검색 기능 -->
+      <article class="topBox">
+        <div class="searchBox">
+          <!-- 모달창 테스트 -->
+          <button id="modalBtn1" class="modalBtn">
+            <span class="material-symbols-rounded">
+              sync_alt
+            </span>
+            <span class="gender-name">성별</span>
+          </button>
+          <button id="modalBtn2" class="modalBtn">
+            <span class="material-symbols-rounded">
+              sync_alt
+            </span>
+            <span class="face-name">얼굴형</span>
+          </button>
+          <button id="modalBtn3" class="modalBtn">
+            <span class="material-symbols-rounded">
+              sync_alt
+            </span>
+            <span class="hair-name">머리 길이</span>
+          </button>
+
+          <!-- 성별 모달창 -->
+          <div id="genderModal" class="modal">
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <div class="modalText-box">
+                <p id="genderText">성별을 선택하세요.</p>
+              </div>
+              <div class="label-container">
+                <label>
+                  <span class="radio-image" id="male-image"></span>
+                  남성
+                  <input type="radio" name="gender" value="male" style="display: none;" />
+                </label>
+                <label>
+                  <span class="radio-image" id="female-image"></span>
+                  여성
+                  <input type="radio" name="gender" value="female" style="display: none;" />
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- 얼굴형 모달창 -->
+          <div id="faceModal" class="modal">
+            <div class="modal-content">
+              <span class="close" id="closeBtn">&times;</span>
+              <div class="modalText-box">
+                <p id="faceText">얼굴형을 선택하세요.</p>
+              </div>
+              <div class="label-container">
+                <label>
+                  <span class="face-image face-image-egg"></span>
+                  계란형
+                  <input type="radio" name="face" value="egg" style="display: none;" />
+                </label>
+                <label>
+                  <span class="face-image face-image-long-face"></span>
+                  긴 얼굴형
+                  <input type="radio" name="face" value="long-face" style="display: none;" />
+                </label>
+                <label>
+                  <span class="face-image face-image-round"></span>
+                  둥근형
+                  <input type="radio" name="face" value="round" style="display: none;" />
+                </label>
+                <label>
+                  <span class="face-image face-image-heart"></span>
+                  하트형
+                  <input type="radio" name="face" value="heart" style="display: none;" />
+                </label>
+                <label>
+                  <span class="face-image face-image-inverted-triangle"></span>
+                  역삼각형
+                  <input type="radio" name="face" value="inverted-triangle" style="display: none;" />
+                </label>
+                <label>
+                  <span class="face-image face-image-hexagon"></span>
+                  육각형
+                  <input type="radio" name="face" value="hexagon" style="display: none;" />
+                </label>
+                <label>
+                  <span class="face-image face-image-quadrangle"></span>
+                  사각형
+                  <input type="radio" name="face" value="quadrangle" style="display: none;" />
+                </label>
+                <label>
+                  <span class="face-image face-image-egg-chin"></span>
+                  계란턱형
+                  <input type="radio" name="face" value="egg-chin" style="display: none;" />
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- 머리길이 모달창 -->
+          <div id="hairModal" class="modal">
+            <div class="modal-content">
+              <span class="close" id="closeBtn">&times;</span>
+              <div class="modalText-box">
+                <p id="hairText">머리 길이를 선택하세요.</p>
+              </div>
+              <div class="label-container">
+                <label>
+                  <span class="hair-image hair-image-short"></span>
+                  숏
+                  <input type="radio" name="hair" value="short" style="display: none;" />
+                </label>
+                <label>
+                  <span class="hair-image hair-image-medium"></span>
+                  미디엄
+                  <input type="radio" name="hair" value="medium" style="display: none;" />
+                </label>
+                <label>
+                  <span class="hair-image hair-image-long"></span>
+                  롱
+                  <input type="radio" name="hair" value="long" style="display: none;" />
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <input type="text" id="text" placeholder="검색 단어를 입력해 주세요.">
+          <button class="search-btn" type="button">검색</button>
+          <!-- <button type="button">등록하기</button> -->
+        </div>
+      </article>
+
+      <!-- 리스트 -->
+      <article class="holder">
+        <div class="communityList cL">
+          <ul class="ListUl">
+            <!-- 첫번째 -->
+            <li class="ListLi">
+              <a href="">
+                <div class="img-list">
+                  <div class="main-img">
+                    <img src="https://img1.daumcdn.net/thumb/C360x360/?fname=https://mud-kage.kakao.com/dn/tiTz0/btsjboVScnc/36eDc0R0JCIeBLE6uPouDk/img_1080.jpg&scode=purple" alt="헤어스타일">
+                  </div>
+                </div>
+              </a>
+              <div class="hairTitle">
+                <p class="product-title">머리스타일이름이여유</p>
+                <div class="buttons">
+                  <button type="button" class="like">하트</button>
+                </div>
+              </div>
+            </li>
+
+            <!-- 두번째 -->
+            <li class="ListLi">
+              <a href="">
+                <div class="img-list">
+                  <div class="main-img">
+                    <img src="https://img1.daumcdn.net/thumb/C360x360/?fname=https://mud-kage.kakao.com/dn/tiTz0/btsjboVScnc/36eDc0R0JCIeBLE6uPouDk/img_1080.jpg&scode=purple" alt="헤어스타일">
+                  </div>
+                </div>
+              </a>
+              <div class="hairTitle">
+                <p class="product-title">머리스타일이름이여유</p>
+                <div class="buttons">
+                  <button type="button" class="like">하트</button>
+                </div>
+              </div>
+            </li>
+
+            <!-- 세번째 -->
+            <li class="ListLi">
+              <a href="">
+                <div class="img-list">
+                  <div class="main-img">
+                    <img src="https://img1.daumcdn.net/thumb/C360x360/?fname=https://mud-kage.kakao.com/dn/tiTz0/btsjboVScnc/36eDc0R0JCIeBLE6uPouDk/img_1080.jpg&scode=purple" alt="헤어스타일">
+                  </div>
+                </div>
+              </a>
+              <div class="hairTitle">
+                <p class="product-title">머리스타일이름이여유</p>
+                <div class="buttons">
+                  <button type="button" class="like">하트</button>
+                </div>
+              </div>
+            </li>
+
+            <!-- 네번째 -->
+            <li class="ListLi">
+              <a href="">
+                <div class="img-list">
+                  <div class="main-img">
+                    <img src="https://img1.daumcdn.net/thumb/C360x360/?fname=https://mud-kage.kakao.com/dn/tiTz0/btsjboVScnc/36eDc0R0JCIeBLE6uPouDk/img_1080.jpg&scode=purple" alt="헤어스타일">
+                  </div>
+                </div>
+              </a>
+              <div class="hairTitle">
+                <p class="product-title">머리스타일이름이여유</p>
+                <div class="buttons">
+                  <button type="button" class="like">하트</button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        
+
+            <!-- 페이징 처리 -->
+            <div class="pagination">
+              <ul>
+                <li><a href="#" class="prev">&laquo;</a></li>
+                <li><a href="#" class="active">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#" class="next">&raquo;</a></li>
+            </div>
+          </ul>
+      </article>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+    <script src="/js/hairstyle/hairStyleList.js"></script>
+  </body>
+</html>

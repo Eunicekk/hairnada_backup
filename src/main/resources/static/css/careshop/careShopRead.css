@@ -1,0 +1,136 @@
+.main{
+    width: 1300px;
+    margin: 0 auto;
+    background-color: white;
+    color: #222;
+    font-size: 16px;
+}
+
+/* 이미지 구역 (메인) */
+.img-box{
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.img-box .material-symbols-rounded{
+    background-color: rgba(255, 255, 255, 0.76);
+    box-shadow: 0 0 0 1px transparent, 0 0 0 4px transparent, 0 2px 4px rgba(0 0 0 / 18%);
+    border-radius: 50%;
+    color: #222;
+    font-size: 32px;
+    padding: 8px;
+}
+
+.img-box .left{
+    position: absolute;
+    top: 370px; left: 20px;
+    cursor: pointer;
+    z-index: 20;
+}
+
+.img-box .right{
+    position: absolute;
+    top: 370px; right: 20px;
+    cursor: pointer;
+    z-index: 20;
+}
+
+.img-main{
+    width: 1200px; height: 800px;
+    overflow: hidden;
+}
+
+.img-main img{
+    min-width: 1200px; min-height: 800px;
+    text-align: center;
+}
+
+.img-main-box{
+    display: flex;
+    position: relative;
+    left: 0;
+}
+
+/* 이미지 구역 (서브) */
+.img-sub{
+    margin: 10px auto;
+    width: 1200px;
+}
+
+.img-sub ul{
+    display: flex;
+    justify-content: center;
+    gap: calc(40px / 3);
+    margin: calc(40px / 3);
+}
+
+.img-sub img{
+    width: 290px;
+}
+
+/* 장소 정보 */
+.place-info{
+    width: 1200px;
+    margin: 50px auto;
+}
+
+.place-name{
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -2px;
+    padding-bottom: 80px;
+    border-bottom: 0.5px solid #a0a0a0;
+}
+
+.place-text{
+    margin: 40px 0;
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 40px;
+    border-bottom: 0.2px solid #dddddd;
+}
+
+.place-text .title{
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 500;
+    color: #8a8a8a;
+    width: 150px;
+}
+
+.place-text .content{
+    font-size: 18px;
+    line-height: 24px;
+    width: 1050px;
+}
+
+#map{
+    margin: 20px 0 0 150px;
+}
+
+.place-text a{
+    text-decoration: underline;
+}
+
+/* 뒤로 가기 */
+.back{
+    width: 1200px; height: 46.13px;
+    margin: 0 auto 80px;
+    position: relative;
+}
+
+.back a{
+    position: absolute;
+    right: 0;
+    border: 1px solid #222;
+    background-color: transparent;
+    color: #222;
+    padding: 14px 34px;
+}
+
+.back a:hover{
+    background-color: #222;
+    color: white;
+}

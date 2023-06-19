@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HairNada</title>
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/user/find-id.css" />
+  </head>
+  <body>
+    <div class="body-main">
+      <div class="main-header"></div>
+      <div class="main-body">
+        <div class="find-id">
+          <h1 class="find-id-text">계정 찾기</h1>
+          <div class="input-box">
+            <input type="text" class="input-name" placeholder="이름" />
+            <input type="text" class="input-email" placeholder="이메일" />
+            <button type="button" class="find-btn">계정 찾기</button>
+            <div
+              class="naver-login"
+              id="naverIdLogin_loginButton"
+              href="javascript:void(0)"
+            >
+              <div class="naver-a">
+                <img
+                  src="https://d2v80xjmx68n4w.cloudfront.net/assets/icon/icon_naver.png"
+                  alt=""
+                  class="naver-logo"
+                />
+                네이버 아이디 로그인
+              </div>
+            </div>
+            <div class="kakao-login" onclick="kakaoLogin();">
+              <div class="kakao-a">
+                <img
+                  src="https://d2v80xjmx68n4w.cloudfront.net/assets/icon/icon_kakao.png"
+                  alt=""
+                  class="kakao-logo"
+                />
+                카카오 아이디 로그인
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="main-footer"></div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.7.0.js"
+      integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <script
+      src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"
+      charset="utf-8"
+    ></script>
+    <script src="/js/user/find-id.js"></script>
+  </body>
+</html>

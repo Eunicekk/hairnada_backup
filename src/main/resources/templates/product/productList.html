@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HairNada</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/product/productList.css" />
+  </head>
+  <body>
+    <div class="container">
+
+      <!-- 배너 -->
+      <div class="banner">
+        <img src="/img/tab-banner-03.png" alt="배너">
+      </div>
+
+      <!-- 카테고리 -->
+      <div class="product-category">
+        <table class="category">
+          <tr>
+            <td>
+              <button>전체 <span>(521)</span></button>
+            </td>
+            <td>
+              <button>트리트먼트/팩 <span>(300)</span></button>
+            </td>
+            <td>
+              <button>헤어에센스 <span>(200)</span></button>
+            </td>
+            <td>
+              <button>염색약/펌 <span>(1)</span></button>
+            </td>
+            <td>
+              <button>헤어기기 <span>(15)</span></button>
+            </td>
+            <td>
+              <button>스타일링 <span>(3)</span></button>
+            </td>
+            <td>
+              <button>샴푸/린스 <span>(2)</span></button>
+            </td>
+          </tr>
+        </table>
+          
+        <div class="dropdown">
+          <div class="dropdown-btn">
+            인기순
+            <span class="material-symbols-rounded">
+              expand_more
+            </span>
+          </div>
+          <ul class="dropdown-menu">
+            <li>인기순</li>
+            <li>가격 높은 순</li>
+            <li>가격 낮은 순</li>
+          </ul>
+        </div>
+
+      </div>
+      </div>
+
+      <article class="holder">
+        <div class="communityList cL">
+          <ul class="ListUl">
+            <!-- 첫번째 -->
+            <li class="ListLi">
+              <a href="">
+                <div class="img-list">
+                  <div class="main-img">
+                    <img src="https://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0014/A00000014950306ko.jpg?l=ko" alt="제품 이미지">
+                  </div>
+                </div>
+              </a>
+              <div class="titleAndBnt">
+                <p class="product-title">제품이름이여유</p>
+                <div class="profile">
+                  <button id="basketButton" type="button" class="basket">
+                    구매
+                  </button>
+                  <div class="buttons">
+                    <button type="button" class="like">하트</button>
+                  </div>
+                </div>
+              </div>
+              <div class="productInformation">
+                <p class="productCate">트리트먼트/팩</p>
+                <p class="productPrice">₩ <span class="price">22000</span></p>
+              </div>
+            </li>
+
+            <!-- 두번째 -->
+            <li class="ListLi">
+              <a href="">
+                <div class="img-list">
+                  <div class="main-img">
+                    <img src="https://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0014/A00000014950306ko.jpg?l=ko" alt="제품 이미지">
+                  </div>
+                </div>
+              </a>
+              <div class="titleAndBnt">
+                <p class="product-title">제품이름이여유</p>
+                <div class="profile">
+                  <button id="basketButton" type="button" class="basket">
+                    구매
+                  </button>
+                  <div class="buttons">
+                    <button type="button" class="like">하트</button>
+                  </div>
+                </div>
+              </div>
+              <div class="productInformation">
+                <p class="productCate">트리트먼트/팩</p>
+                <p class="productPrice">₩ <span class="price">22000</span></p>
+              </div>
+            </li>
+
+            <!-- 세번째 -->
+            <li class="ListLi">
+              <a href="">
+                <div class="img-list">
+                  <div class="main-img">
+                    <img src="https://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0014/A00000014950306ko.jpg?l=ko" alt="제품 이미지">
+                  </div>
+                </div>
+              </a>
+              <div class="titleAndBnt">
+                <p class="product-title">제품이름이여유</p>
+                <div class="profile">
+                  <button id="basketButton" type="button" class="basket">
+                    구매
+                  </button>
+                  <div class="buttons">
+                    <button type="button" class="like">하트</button>
+                  </div>
+                </div>
+              </div>
+              <div class="productInformation">
+                <p class="productCate">트리트먼트/팩</p>
+                <p class="productPrice">₩ <span class="price">22000</span></p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 페이징 처리 -->
+        <div class="pagination">
+          <ul>
+            <li><a href="#" class="prev">&laquo;</a></li>
+            <li><a href="#" class="active">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#" class="next">&raquo;</a></li>
+          </ul>
+        </div>
+      </article>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+    <script src="/js/product/productList.js"></script>
+  </body>
+</html>

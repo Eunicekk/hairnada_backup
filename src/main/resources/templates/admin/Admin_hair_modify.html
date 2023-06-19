@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HairNada</title>
+    <link rel="stylesheet" href="/css/admin/Admin_hair_modify.css" />
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/admin/Admin_Member_management.css" />
+  </head>
+  <body>
+    <div class="header">
+      <a href="#">
+        <img class="logo" src="/img/logo2.jpg" />
+      </a>
+      <button class="logout-btn" type="button">로그아웃</button>
+    </div>
+    <div class="body-container">
+      <div class="main-container">
+        <div class="left-bar">
+          <nav class="nav-var">
+            <ul class="admin-nav-list">
+              <h3>회원</h3>
+              <li><a class="page-move">회원 목록 조회 및 관리</a></li>
+              <li><a class="page-move">회원 등급 관리</a></li>
+            </ul>
+            <ul class="admin-nav-list">
+              <h3>상품</h3>
+              <li><a class="page-move">상품 목록</a></li>
+              <li><a class="page-move">상품 등록</a></li>
+            </ul>
+            <ul class="admin-nav-list">
+              <h3>헤어스타일</h3>
+              <li><a class="page-move">헤어스타일 목록</a></li>
+              <li><a class="page-move this">헤어스타일 등록</a></li>
+            </ul>
+            <ul class="admin-nav-list">
+              <h3>배송</h3>
+              <li><a class="page-move">배송 목록</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="main-box">
+          <div class="board-write-box">
+            <div class="hair-img-box">
+              <!-- 대표 이미지 업로드 -->
+              <div class="form-group">
+                <ul class="file-wrap">
+                  <!-- 썸네일 처리 해야함 -->
+                  <li class="img-list">
+                    <input
+                      type="file"
+                      id="post-image"
+                      name="boardFile"
+                      accept="image/*"
+                      multiple
+                    />
+                  </li>
+                  <li><img class="img-list" /></li>
+                  <li><img class="img-list" /></li>
+                  <li><img class="img-list" /></li>
+                  <li><img class="img-list" /></li>
+                </ul>
+              </div>
+            </div>
+            <div class="board-information">
+              <div class="select-box">
+                <div class="gender-box">
+                  <span>성별</span>
+                  <input type="radio" class="female" name="gender" />여성
+                  <input type="radio" class="male" name="gender" />남성
+                </div>
+                <div class="hair-length-box">
+                  <span>기장</span>
+                  <input type="radio" class="short" name="lenght" />숏
+                  <input type="radio" class="middle" name="lenght" />미디엄
+                  <input type="radio" class="long" name="lenght" />롱
+                </div>
+                <div class="face-shape-box">
+                  <span>얼굴형</span>
+                  <input type="radio" class="egg" name="face-shape" />계란형
+                  <input type="radio" class="long-face" name="face-shape" />긴
+                  얼굴형
+                  <input
+                    type="radio"
+                    class="heart-rhombus"
+                    name="face-shape"
+                  />하트/마름모형
+                  <input type="radio" class="angular" name="face-shape" />각진형
+                  <input type="radio" class="round" name="face-shape" />둥근형
+                </div>
+              </div>
+              <input
+                type="text"
+                class="board-title"
+                placeholder="제목 입력..."
+              />
+              <textarea
+                class="board-content"
+                placeholder="콘텐츠 입력..."
+              ></textarea>
+              <div class="btn-box">
+                <button type="button" class="back-to-list">
+                  목록으로 돌아가기
+                </button>
+                <button type="button" class="modify-btn">수정 완료</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.7.0.js"
+      integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+      crossorigin="anonymous"
+    ></script>
+    <script src="/js/admin/Admin_hair_update.js"></script>
+  </body>
+</html>

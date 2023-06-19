@@ -1,0 +1,137 @@
+.main-box {
+  /* background-color: rgb(255, 233, 204); */
+  /* margin-top: 96px;
+  margin-left: 280px; */
+  width: 1035px;
+  height: 300px;
+}
+
+.main-box > h1 {
+  display: flex;
+  font-size: 30px;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  margin-bottom: 50px;
+  border-bottom: 1px solid black;
+  padding-bottom: 40px;
+}
+
+.nav-list {
+  color: #ffffff;
+  background-color: #222;
+}
+
+.nav,
+.member {
+  display: flex;
+  height: 70px;
+  align-items: center;
+}
+
+.nav > li,
+.member > li {
+  text-align: center;
+}
+
+.member-number {
+  width: 100px;
+}
+
+.member-name {
+  width: 130px;
+}
+
+.member-id {
+  width: 250px;
+}
+
+.member-nickname {
+  width: 250px;
+}
+
+.member-membership {
+  width: 100px;
+}
+
+.member-status {
+  width: 100px;
+}
+
+.nav-member-number {
+  width: 100px;
+}
+
+.nav-member-name {
+  width: 130px;
+}
+
+.nav-member-id {
+  width: 250px;
+}
+
+.nav-member-nickname {
+  width: 250px;
+}
+
+.nav-member-membership {
+  width: 100px;
+}
+
+.nav-member-status {
+  width: 100px;
+}
+
+.member {
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.stop-button,
+.recovery-button {
+  width: 100px;
+  background-color: #222;
+  color: #ffffff;
+  border-style: none;
+  margin-left: 55px;
+  cursor: pointer;
+  height: 30px;
+  border-radius: 4px;
+  font-size: 15px;
+}
+
+.recovery-button {
+  display: none;
+}
+
+/* 페이징 */
+.page-a {
+  text-decoration: none;
+  color: #222;
+  display: flex;
+}
+
+.page-box {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+}
+
+.page-num {
+  width: 30px;
+  height: 40px;
+  /* border-radius: 5px; */
+  margin: 0 10px;
+  text-align: center;
+  line-height: 40px;
+  /* background-color: white; */
+  cursor: pointer;
+}
+
+.active,
+.page-num:hover {
+  color: #969696;
+}

@@ -1,0 +1,227 @@
+.main{
+    width: 1300px;
+    margin: 0 auto;
+    background-color: white;
+    color: #222;
+    font-size: 16px;
+    position: relative;
+}
+
+/* 페이지 이름 */
+.main-title h1{
+    margin-top: 30px;
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -2px;
+    text-align: center;
+}
+
+.main-title p{
+    font-size: 14px;
+    font-weight: 300;
+    text-align: center;
+    margin: 10px auto;
+}
+
+.main-title img{
+    width: 100%;
+    height: 70px;
+    background-color: #222;
+    margin: 30px 0 60px;
+}
+
+/* 배송지 정보 */
+.address-info{
+    width: 80%;
+    margin-bottom: 80px;
+}
+
+h2{
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: -1px;
+    padding: 20px 0;
+    border-bottom: 2px solid #222;
+}
+
+.info-content{
+    padding: 24px;
+    border-bottom: 0.8px solid #ddd;
+    display: flex;
+    align-items: center;
+}
+
+.info-content:last-child{
+    border-bottom: 2px solid #222;
+}
+
+.info-content .title{
+    width: 200px;
+}
+
+.info-content label{
+    margin-right: 10px;
+}
+
+.info-content input[type="radio"]:checked{
+    accent-color: #222;
+}
+
+.info-content button{
+    background-color: #222;
+    border: none;
+    color: white;
+    padding: 6px 0;
+    width: 100px; height: 32px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.info-content input[type="text"]{
+    padding: 8px;
+    background-color: #ddd;
+    border: none;
+    outline: none;
+    width: 320px;
+    margin-right: 4px;
+}
+
+.info-content input[type="text"]{
+    margin-bottom: 8px;
+}
+
+.dropdown{
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    cursor: pointer;
+    margin-right: 4px;
+}
+
+.dropbtn span{
+    font-size: 14px;
+    font-weight: 300;
+}
+  
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 300px;
+    box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    margin-top: 6px;
+    padding: 4px 0;
+}
+  
+.dropdown-content li {
+    padding: 8px 12px;
+}
+
+.dropdown-content li:hover{
+    background-color: #222;
+    color: white;
+}
+
+/* 주문상품 */
+.product{
+    width: 80%;
+}
+
+.product-tbl{
+    width: 100%;
+}
+
+.product-tbl th{
+    font-size: 18px;
+    font-weight: 500;
+    min-width: 80px;
+}
+
+.product-tbl tr{
+    border-bottom: 1px solid #ddd;
+}
+
+.product-tbl th, .product-tbl td{
+    padding: 30px 0;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.product-tbl td:nth-child(1){
+    text-align: left;
+    display: flex;
+    align-items: center;
+    padding: 30px 20px;
+}
+
+.product-tbl tbody tr:last-child{
+    border-bottom: 2px solid #222;
+}
+
+.product-tbl img{
+    width: 150px;
+    margin-right: 30px;
+}
+
+.plus-text{
+    font-size: 14px;
+    color: #666;
+    margin: 10px 0 80px;
+}
+
+/* 최종결제금액 */
+.price{
+    width: 230px;
+    position: absolute;
+    right: 0px; top: 280px;
+    background-color: #e8e8e8;
+}
+
+h3{
+    text-align: center;
+    padding: 20px 0;
+    font-size: 18px;
+    font-weight: 500;
+    border-bottom: 1px solid #8e8e8e;
+}
+
+.price-content{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    font-weight: 300;
+}
+
+.price-content:last-child{
+    border-top: 1px solid #8e8e8e;
+}
+
+.price-number, .delivery-number, .discount-number{
+    font-weight: 500;
+}
+
+.final-price-number{
+    color: #ff3d3d;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.purchase-btn{
+    position: absolute;
+    right: 0; top: 580px;
+    text-align: center;
+}
+
+.purchase-btn a{
+    display: inline-block;
+    width: 230px;
+    color: white;
+    background-color: #222;
+    padding: 20px 0;
+}

@@ -1,0 +1,581 @@
+textarea {
+  resize: none;
+}
+
+.body-main {
+  width: 1300px;
+  height: 2359px;
+  margin: 0 auto;
+  /* background-color: #fff9f3; */
+}
+
+.main-body {
+  height: 2130px;
+}
+
+.main-header {
+  width: 1300px;
+  height: 96px;
+  background-color: black;
+}
+
+.mypage-name {
+  width: 500px;
+  height: 200px;
+  position: absolute;
+  z-index: 1;
+  left: 510px;
+  top: 230px;
+  background-color: #fbfb7287;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  font-size: 50px;
+}
+
+.my-cate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+}
+
+.my-info,
+.my-post,
+.my-like,
+.my-basket {
+  border: 1px solid rgb(139, 139, 139);
+  width: 300px;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid black;
+  cursor: pointer;
+}
+
+.my-info:hover,
+.my-post:hover,
+.my-like:hover,
+.my-basket:hover {
+  background-color: black;
+  color: white;
+}
+
+/* .my-info-a:hover,
+.my-post-a:hover,
+.my-like-a:hover,
+.my-basket-a:hover {
+  background-color: black;
+  color: white;
+} */
+
+.explanation-text {
+  width: 1200px;
+  display: flex;
+  justify-content: flex-end;
+  margin: 100px auto 10px;
+  font-size: 16px;
+}
+
+.my-modify-box {
+  width: 1200px;
+  height: 100px;
+  /* background-color: yellow; */
+  margin: 0 auto;
+  /* margin-top: 40px; */
+  display: flex;
+  margin-bottom: 50px;
+  justify-content: center;
+  align-items: center;
+}
+
+.my-modify {
+  /* background-color: white; */
+  width: 600px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 20px;
+  border-bottom: 5px solid #969696;
+  cursor: pointer;
+}
+
+/* .active-banner {
+  border-bottom: 5px solid black;
+} */
+
+.my-tier {
+  /* background-color: white; */
+  width: 600px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 20px;
+  border-bottom: 5px solid #969696;
+  cursor: pointer;
+}
+
+/* 회원가입 페이지 복붙함 */
+.main-join {
+  width: 1200px;
+  height: 1000px;
+  background-color: white;
+  margin: 0 auto;
+}
+
+.information-text {
+  font-weight: bolder;
+  font-size: 30px;
+  margin-left: 30px;
+}
+
+.input-box {
+  width: 1000px;
+  /* height: 940px; */
+  margin: 30px auto 0;
+}
+
+.input-id,
+.input-password,
+.input-repassword,
+.input-name,
+.input-nickname,
+.input-gender,
+.input-email,
+.input-phone,
+.input-address {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin-left: 10px;
+  margin-top: 20px;
+  color: #626262;
+  font-weight: bold;
+}
+
+.double-check {
+  cursor: pointer;
+  margin-left: 15px;
+  width: 118px;
+  height: 50px;
+  background-color: white;
+  border: 1px solid black;
+}
+
+.password-box {
+  margin-left: 60px;
+  height: 45px;
+  width: 850px;
+  padding-left: 5px;
+}
+
+.repassword-box {
+  margin-left: 27px;
+  height: 45px;
+  width: 850px;
+  padding-left: 5px;
+}
+
+.name-box {
+  margin-left: 90px;
+  height: 45px;
+  width: 850px;
+  padding-left: 5px;
+}
+
+.nickname-box {
+  margin-left: 75px;
+  height: 45px;
+  width: 850px;
+  padding-left: 5px;
+}
+
+.female-box {
+  margin-left: 90px;
+  width: 424px;
+  height: 45px;
+  cursor: pointer;
+  background-color: white;
+  border: 1px solid #868585;
+}
+
+.male-box {
+  margin-left: 12px;
+  width: 424px;
+  height: 45px;
+  cursor: pointer;
+  background-color: white;
+  border: 1px solid #868585;
+}
+
+.search-address:hover,
+.certification:hover,
+.double-check:hover,
+.female-box:hover,
+.male-box:hover {
+  background-color: #e0e0e0;
+}
+
+.phone-box {
+  margin-left: 27px;
+  height: 45px;
+  width: 850px;
+  padding-left: 5px;
+}
+
+.email-box {
+  margin-left: 75px;
+  height: 45px;
+  width: 640px;
+  padding-left: 5px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  color: #222;
+  border: 1px solid #868585;
+  margin-left: 10px;
+  height: 50px;
+  width: 200px;
+  padding: 8px 8px 8px 12px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  left: 10px; top: 54px;
+  background-color: #f9f9f9;
+  min-width: 150px;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  padding: 8px 0;
+}
+
+.dropdown-menu li {
+  padding: 12px 12px;
+}
+
+.dropdown-menu li:hover{
+  background-color: #222;
+  color: white;
+}
+
+.certification {
+  margin-left: 10px;
+  height: 50px;
+  width: 150px;
+  cursor: pointer;
+  background-color: white;
+  border: 1px solid black;
+}
+
+.email-text {
+  margin-top: 10px;
+  margin-left: 125px;
+  color: gray;
+}
+
+#sample6_postcode {
+  margin-left: 90px;
+  height: 45px;
+  width: 300px;
+  background-color: #d1d1d18a;
+  cursor: default;
+  border: 1px solid;
+  padding-left: 5px;
+}
+
+#sample6_address,
+#sample6_extraAddress {
+  background-color: #d1d1d18a;
+  cursor: default;
+  border: 1px solid;
+  padding-left: 5px;
+}
+
+.search-address {
+  margin-left: 10px;
+  height: 50px;
+  width: 125px;
+  background-color: white;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+#sample6_address,
+#sample6_extraAddress,
+#sample6_detailAddress {
+  margin-top: 15px;
+  margin-left: 130px;
+  height: 45px;
+  width: 851.6px;
+}
+
+.ok-btn {
+  margin-top: 70px;
+  height: 65px;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  display: block;
+  width: 1000px;
+  /* margin-left: auto; */
+  padding: 0;
+  margin-right: 5px;
+}
+
+.profile-file {
+  margin-left: 75px;
+  /* background-color: #969696; */
+  width: 220px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  cursor: pointer;
+  font-weight: bold;
+  color: black;
+}
+
+.my-profile {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  margin-left: 10px;
+  color: #626262;
+  font-weight: bold;
+}
+
+.main-footer {
+  background-color: black;
+  width: 1300px;
+  height: 400px;
+}
+
+.my-remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+  width: 1000px;
+  margin-left: auto;
+}
+
+.remove-btn {
+  color: #969696;
+  text-decoration: underline;
+  text-underline-position: under;
+}
+
+.remove-btn:hover {
+  color: black;
+}
+
+/* .active-banner {
+  border-bottom: solid 5px black;
+} */
+
+/* 마이페이지 등급신청 */
+.tier-input-box {
+  width: 1000px;
+  height: 940px;
+  margin: 0 auto;
+  margin-top: 30px;
+  /* background-color: yellow; */
+}
+
+.certificate-img-box {
+  display: flex;
+  flex-direction: column;
+  color: #626262;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 80px;
+}
+
+.certiflcate-img {
+  margin-top: 10px;
+  /* border: 1px solid black; */
+  width: 1000px;
+  height: 205px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  cursor: pointer;
+  font-weight: bold;
+  color: black;
+}
+
+.now-tier-box {
+  display: flex;
+  flex-direction: column;
+  color: #626262;
+  font-weight: bold;
+}
+
+.tier-input {
+  margin-top: 10px;
+  width: 1000px;
+  height: 50px;
+  background-color: #d1d1d18a;
+  cursor: default;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  box-sizing: border-box;
+}
+
+.explanation-box {
+  display: flex;
+  flex-direction: column;
+  color: #626262;
+  font-weight: bold;
+  margin: 20px auto 0;
+}
+
+.explanation1 {
+  margin-top: 10px;
+  width: 1000px;
+  height: 45px;
+  box-sizing: border-box;
+}
+
+.explanation2 {
+  margin-top: 10px;
+  width: 1000px;
+  height: 300px;
+  box-sizing: border-box;
+}
+
+.app-btn {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.application {
+  width: 75px;
+  height: 30px;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+
+.cancel {
+  margin-right: 7px;
+  width: 60px;
+  height: 30px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+input:focus {
+  outline: none;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+.selected {
+  border-bottom: 5px solid black;
+}
+/* 마이페이지 등급신청 */
+
+.main-box {
+  /* background-color: yellow; */
+  width: 1300px;
+  height: 1420px;
+  margin-top: 40px;
+}
+
+.err-text {
+  margin-left: 130px;
+  font-size: 15px;
+  color: red;
+}
+
+.profile-img {
+  width: 250px;
+  height: 250px;
+}
+
+#post-image {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.img-list,
+.file-wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+#post-image2 {
+  width: 100%;
+  height: 100%;
+  /* opacity: 0; */
+  cursor: pointer;
+}
+
+.img-list2 {
+  width: 100%;
+  height: 100%;
+}
+
+.img-list {
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNiIgaGVpZ2h0PSIzNiI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48ZyBzdHJva2U9IiNCNUI1QjUiIHN0cm9rZS13aWR0aD0iMS41IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0IDQpIj48cmVjdCB3aWR0aD0iMjgiIGhlaWdodD0iMjgiIHJ4PSIzLjUiLz48Y2lyY2xlIGN4PSI4LjU1NiIgY3k9IjguNTU2IiByPSIyLjMzMyIvPjxwYXRoIGQ9Ik0yOCAxOC42NjdsLTcuNzc3LTcuNzc4TDMuMTExIDI4Ii8+PC9nPjxwYXRoIGQ9Ik0wIDBoMzZ2MzZIMHoiLz48L2c+PC9zdmc+);
+  /* no-repeat 50% #f2f2f2" */
+  background-repeat: no-repeat;
+  /* background-size: 50%; */
+  background-position: 50%;
+  border: 3px solid #f2f2f2;
+  border-radius: 10px;
+}
+
+#post-image2 {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 10;
+}
+
+.img-lists {
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNiIgaGVpZ2h0PSIzNiI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48ZyBzdHJva2U9IiNCNUI1QjUiIHN0cm9rZS13aWR0aD0iMS41IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0IDQpIj48cmVjdCB3aWR0aD0iMjgiIGhlaWdodD0iMjgiIHJ4PSIzLjUiLz48Y2lyY2xlIGN4PSI4LjU1NiIgY3k9IjguNTU2IiByPSIyLjMzMyIvPjxwYXRoIGQ9Ik0yOCAxOC42NjdsLTcuNzc3LTcuNzc4TDMuMTExIDI4Ii8+PC9nPjxwYXRoIGQ9Ik0wIDBoMzZ2MzZIMHoiLz48L2c+PC9zdmc+);
+  /* no-repeat 50% #f2f2f2" */
+  background-repeat: no-repeat;
+  /* background-size: 50%; */
+  background-position: 50%;
+  border: 3px solid #f2f2f2;
+  border-radius: 10px;
+  list-style: none;
+  width: 250px;
+  height: 250px;
+}
+
+.tier__file-wrap {
+  position: relative;
+}

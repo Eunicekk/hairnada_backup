@@ -1,0 +1,270 @@
+
+body {
+  background-color: white;
+}
+
+.container {
+  margin: 0 auto;
+  width: 1300px;
+  font-size: 16px;
+  color: #222;
+}
+
+/* 상단 찾기 */
+.topBox {
+  margin: 40px 0 70px;
+}
+
+.searchBox {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input[type="text"]{
+  width: 250px; height: 35px;
+  padding: 0 0 0 8px;
+  outline: none;
+  margin-left: 30px;
+  border: 0.5px solid #222;
+  font-size: 14px;
+}
+
+.topBox .search-btn{
+  background-color: #222;
+  color: white;
+  width: 100px; height: 36.6px;
+  border: none;
+  margin-left: 4px;
+  position: relative;
+  bottom: -1.2px;
+  font-size: 14px;
+}
+
+/* 제품 리스트 */
+.holder {
+  position: relative;
+  margin: 0 auto;
+  max-width: 1300px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.ListUl {
+  display: flex;
+  gap: calc(100px/3);
+  position: relative;
+  left: 0;
+}
+
+.cL {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.ListLi {
+  display: inline-block;
+  position: relative;
+  width: 300px;
+}
+
+.cL a {
+  position: relative;
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.cL a:hover {
+  text-decoration: underline;
+}
+
+.hairTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.like {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: transparent;
+  color: transparent;
+  cursor: pointer;
+  display: block;
+  height: 50px;
+  background-image: url("/img/heart1.png");
+  border: none;
+}
+
+.img-list {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.main-img {
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+}
+
+.main-img img{
+  width: 100%;
+  min-height: 300px;
+}
+
+.product-title {
+  margin: 0;
+  font-size: 18px;
+  color: black;
+  font-weight: bold;
+}
+
+/* 페이징 스타일 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.pagination ul {
+  display: flex;
+  list-style: none;
+}
+
+.pagination a {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px;
+  margin: 0 5px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination a:hover {
+  text-decoration: underline;
+}
+
+.pagination .active {
+  text-decoration: underline;
+}
+
+/* 모달 테스트 */
+.modalBtn {
+  width: auto;
+  background-color: #fff;
+  height: 40px;
+  padding: 0 20px 0 24px;
+  border: 1px solid #222;
+  box-sizing: border-box;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-right: 10px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #222;
+}
+
+.modalBtn:hover{
+  background-color: #222;
+  color: white;
+}
+
+.modalBtn .gender-name,
+.modalBtn .face-name,
+.modalBtn .hair-name {
+  text-align: center;
+  line-height: 1;
+}
+
+.searchBox .material-symbols-rounded{
+  font-size: 16px;
+  margin-right: 8px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.4);
+  
+}
+
+.radio-image,
+.face-image,
+.hair-image {
+  display: none;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  background-image: url("/img/checking.png");
+  background-size: cover;
+  cursor: pointer;
+}
+
+.modal-content {
+  position: relative;
+  max-width: 1300px;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 0 0 20px 20px;
+  background-color: #fff;
+}
+
+.modalText-box {
+  padding: 32px 16px 0 40px;
+  font-size: 20px;
+  font-weight: 600;
+  height: 60px;
+}
+
+.label-container label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.label-container label:last-child{
+  padding-bottom: 20px;
+}
+
+.label-container label:hover{
+  text-decoration: underline;
+}
+
+.label-container input[type="radio"] {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  padding: 32px 40px;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}

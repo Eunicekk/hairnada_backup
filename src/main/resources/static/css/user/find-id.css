@@ -1,0 +1,132 @@
+input:focus {
+  outline: none;
+}
+
+.body-main {
+  width: 1300px;
+  height: 1100px;
+  margin: 0 auto;
+  /* background-color: blanchedalmond; */
+}
+
+.main-header {
+  width: 1300px;
+  height: 96px;
+  background-color: black;
+}
+
+.find-id {
+  width: 500px;
+  height: 630px;
+  margin: 0 auto;
+  /* background-color: teal; */
+}
+
+.find-id-text {
+  font-size: 35px;
+  width: 400px;
+  height: 100px;
+  /* background-color: yellow; */
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-weight: bold;
+  margin-top: 40px;
+}
+
+.input-box {
+  width: 500px;
+  height: 350px;
+  margin-top: 45px;
+  display: flex;
+  /* background-color: yellow; */
+  flex-direction: column;
+}
+
+.input-name {
+  width: 300px;
+  height: 40px;
+  margin: 0 auto;
+}
+
+.input-email {
+  width: 300px;
+  height: 40px;
+  margin: 0 auto;
+  margin-top: 15px;
+}
+
+.find-btn {
+  width: 306px;
+  height: 50px;
+  margin: 0 auto;
+  margin-top: 45px;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+
+.naver-login {
+  width: 306px;
+  height: 50px;
+  background-color: rgb(99, 195, 61);
+  display: flex;
+  align-items: center;
+  color: white;
+  /* margin-top: 20px; */
+  margin-top: 20px;
+  margin-left: 97px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.naver-logo {
+  margin-left: 18px;
+  margin-right: 25px;
+  width: 40px;
+  height: 40px;
+}
+
+.kakao-login {
+  width: 306px;
+  height: 50px;
+  background-color: rgb(252, 232, 77);
+  display: flex;
+  align-items: center;
+  color: brown;
+  margin-top: 8px;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.kakao-logo {
+  margin-left: 18px;
+  margin-right: 25px;
+  width: 40px;
+  height: 40px;
+}
+
+.kakao-a {
+  color: rgb(51, 51, 51);
+  display: flex;
+  align-items: center;
+}
+.naver-a {
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.naver-login:hover {
+  background-color: rgb(71, 155, 38);
+}
+.kakao-login:hover {
+  background-color: rgb(175, 155, 38);
+}
+
+.main-footer {
+  background-color: black;
+  width: 1300px;
+  height: 400px;
+}

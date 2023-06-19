@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HairNada</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+    <link rel="stylesheet" href="/css/product/productRead.css" />
+    <link rel="stylesheet" href="/css/reset.css" />
+  </head>
+  <body>
+    <div class="container">
+
+      <!-- 배너 -->
+      <div class="banner">
+        <img src="/img/tab-banner-03.png" alt="배너">
+      </div>
+
+      <div class="styleInformation">
+        <div class="product-img-box">
+          <!-- 대표 이미지 업로드 -->
+          <div class="form-group">
+            <ul class="file-wrap">
+              <!-- 썸네일 처리 해야함 -->
+              <li class="img-list">
+                <img src="https://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0018/A00000018061322ko.jpg?l=ko" alt="제품 이미지">
+              </li>
+              <li class="img-list">
+                <img src="https://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0018/A00000018061322ko.jpg?l=ko" alt="제품 이미지">
+              </li>
+              <li class="img-list">
+                <img src="https://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0018/A00000018061322ko.jpg?l=ko" alt="제품 이미지">
+              </li>
+              <li class="img-list">
+                <img src="https://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0018/A00000018061322ko.jpg?l=ko" alt="제품 이미지">
+              </li>
+              <li class="img-list">
+                <img src="https://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0018/A00000018061322ko.jpg?l=ko" alt="제품 이미지">
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 모달창 -->
+        <div class="modal">
+          <div class="background"></div>
+          <img class="view-img" />
+        </div>
+
+        <div class="style-content">
+          <div class="styleBox">
+            <div class="style-title">
+              실크테라피 오리지널 헤어에센스 150ml x 2p
+            </div>
+            <div class="title-content">
+              제주로 떠나온 듯, 다채로운 제주의 퍼퓸함을 담은 에센스
+            </div>
+            <div class="like">
+              <div class="starScoreBox">
+                <div class="starScore-img">
+                  <span class="material-symbols-rounded">star</span>
+                </div>
+                <span class="starSecore-avg">4.5</span>
+              </div>
+              <div class="likeBox">
+                <div class="like-img"></div>
+                <span class="like-cnt">999</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="contentBox">
+            <div class="productContent">
+              <div class="productBox">
+                <span class="product-name">판매가</span
+                ><span class="product-price">17000 <span>원</span></span>
+              </div>
+              <div class="productBox">
+                <span class="product-name">배송비</span
+                ><span class="delivery-content"
+                  >3,000원 (25,000원이상 구매시 무료배송)</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="cntBox">
+            <span class="boxName">수량</span>
+            <div class="quantity-box">
+              <button id="decreaseButton">-</button>
+              <input id="quantityInput" type="text" value="0" readonly />
+              <button id="increaseButton">+</button>
+            </div>
+          </div>
+
+          <div class="allButtons">
+            <div class="basketButtons">
+              <button type="button" class="basket">구매</button>
+            </div>
+            <div class="buttons">
+              <button type="button" class="likeBtn">하트</button>
+            </div>
+            <div class="buyButtons">
+              <button type="button" class="buyBtn">구매하기</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 카테고리 -->
+      <table class="category">
+        <tr>
+          <td>
+            <button id="button0" class="info1 categoryBtn">상세정보</button>
+          </td>
+          <td>
+            <button id="button1" class="info2 categoryBtn">유의사항</button>
+          </td>
+          <td>
+            <button id="button2" class="info3 categoryBtn">
+              리뷰&nbsp;<span>(1202)</span>
+            </button>
+          </td>
+        </tr>
+      </table>
+
+      <div class="bigBox">
+        <div class="productData">
+          <div class="contentImg">
+            <img src="https://image.oliveyoung.co.kr/uploads/images/editor/QuickUpload/C16689/image/20230531164235/qc16_20230531164235.jpg" alt="제품 상세">
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="attentionData">
+        <h3 class="attentionTitle">상품정보 제공고시</h3>
+        <div class="attentionDetail">
+          <dl class="detail-info">
+            <dt>내용물의 용량 또는 중량</dt>
+            <dd>50ml+50ml</dd>
+          </dl>
+          <dl class="detail-info">
+            <dt>제품 주요 사양</dt>
+            <dd>모든 피부 타입</dd>
+          </dl>
+          <dl class="detail-info">
+            <dt>사용기한(또는 개봉 후 사용기간)</dt>
+            <dd>30개월(개봉 후 12개월)</dd>
+          </dl>
+          <dl class="detail-info">
+            <dt>사용방법</dt>
+            <dd>스킨케어 마지막 단계에서 적당량을 취해 피부에 골고루 펴 발라줍니다.</dd>
+          </dl>
+          <dl class="detail-info">
+            <dt>제조국</dt>
+            <dd>대한민국</dd>
+          </dl>
+          <dl class="detail-info">
+            <dt>사용할 때의 주의사항</dt>
+            <dd>"1) 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우 전문의 등과 상담할 것 2) 상처가 있는 부위 등에는 사용을 자제할 것 3) 보관 및 취급 시의 주의사항 가) 어린이의 손이 닿지 않는 곳에 보관할 것 나) 직사광선을 피해서 보관할 것"</dd>
+          </dl>
+          <dl class="detail-info">
+            <dt>소비자상담 전화번호</dt>
+            <dd>010-8468-6643</dd>
+          </dl>
+        </div>
+        <h3 class="attentionTitle">배송안내</h3>
+        <dl class="detail-info">
+          <dt>배송비 / 배송가능일</dt>
+          <dd>
+            <div>
+              <p><strong>[일반 배송]</strong></p>
+              <p><strong>배송지역 : </strong>전국</p>
+              <p><strong>배송비 : </strong><span class="dataName">2,500원</span></p>
+              <p>올리브영 배송 상품의 총 결제금액<span class="dataName">25,000원</span> 이상일 경우<span class="dataName"> 무료 배송</span> 됩니다.</p>
+              <p><strong>배송가능일 : </strong><span class="dataName">6</span>일</p>
+              <p>배송가능일이란 본 상품을 주문하신 고객님들께 상품 배송이 가능한 기간을 의미합니다. 단, 연휴 및 공휴일은 기간 계산시 제외하며 현금 주문일 경우 입금일 기준 입니다.</p>
+              <p>예약 상품의 경우 예약된 날짜에 출고되며, 상품의 입고가 빠르게 진행된 경우 예약일 보다 일찍 배송될 수 있습니다.</p>
+            </div>
+          </dd>
+        </dl>
+      </div> -->
+
+      <!-- 리뷰 -->
+      <!-- <div class="commentBox">
+      <div class="comment-form">
+        <div class="holder">
+          <form action="">
+            <fieldset>
+              <div class="star-score">
+                <span class="star-text">별점&nbsp; | &nbsp;</span>
+                <label for="star1">
+                  <span class="material-symbols-rounded">star</span>
+                </label>
+                <label for="star2">
+                  <span class="material-symbols-rounded">star</span>
+                </label>
+                <label for="star3">
+                  <span class="material-symbols-rounded">star</span>
+                </label>
+                <label for="star4">
+                  <span class="material-symbols-rounded">star</span>
+                </label>
+                <label for="star5">
+                  <span class="material-symbols-rounded">star</span>
+                </label>
+                <input type="radio" value="1" id="star1" />
+                <input type="radio" value="2" id="star2" />
+                <input type="radio" value="3" id="star3" />
+                <input type="radio" value="4" id="star4" />
+                <input type="radio" value="5" id="star5" />
+              </div>
+            </fieldset>
+            <div>
+              <input
+            type="hidden"
+            name="boardNumber"
+            value="${board.getBoardNumber()}"
+          />
+          <div class="replyBox">
+            <textarea
+              id="replyContent"
+              name="replyContent"
+              required
+              placeholder="댓글을 작성하세요."
+            ></textarea>
+          </div>
+          <button type="button" class="submit-btn">확인</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="comment-list"> -->
+      <!-- 댓글 리스트 예시 -->
+      <!-- <ul id="comment-list">
+          <li>
+            <div class="comment-wrap">
+              <div class="comment-info">
+                <span class="writer">메시</span> ｜ 
+                <div class="user-star-score">
+                    <span class="material-symbols-rounded">star</span> <span>5</span>
+                </div> ｜ 
+                <span class="date">2222-22-22</span>
+              </div>
+              <div class="comment-content-wrap">
+                <div class="comment-btn-group">
+                  <button type="button" class="comment-modify-ready">수정</button>
+                  <button type="button" class="comment-delete">삭제</button>
+                </div>
+                <div class="comment-btn-group none">
+                  <button type="button" class="comment-modify">수정 완료</button>
+                </div>
+              </div>
+            </div>
+            <div class="comment-content">
+              <p>안녕하세요</p>
+            </div>
+          </li>
+        </ul> -->
+      <!-- 댓글 리스트 예시 -->
+      <!-- </div>
+    </div> -->
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+    <script src="/js/product/productRead.js"></script>
+  </body>
+</html>

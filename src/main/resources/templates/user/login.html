@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HairNada</title>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/user/login.css" />
+  </head>
+  <body>
+    <div class="body-main">
+      <div class="main-header"></div>
+      <div class="main-body">
+        <div class="main-login">
+          <h1 class="login-text">로그인</h1>
+          <div class="input-login">
+            <input type="text" class="login-box" placeholder="아이디" />
+            <span class="id-no">일치NO</span>
+            <input
+              type="password"
+              class="password-box"
+              placeholder="비밀번호"
+            />
+            <span class="pw-no">일치nonono</span>
+          </div>
+          <div class="login-button-box">
+            <button type="button" class="login-button">로그인</button>
+          </div>
+          <div class="join-box">
+            <a href="/html/user/join.html" class="join">회원가입</a>
+            <a href="/html/user/find-id.html" class="find-id">계정찾기</a>
+          </div>
+          <div class="login-api-box">
+            <div
+              class="naver-login"
+              id="naverIdLogin_loginButton"
+              href="javascript:void(0)"
+            >
+              <div class="naver-a">
+                <img
+                  src="https://d2v80xjmx68n4w.cloudfront.net/assets/icon/icon_naver.png"
+                  alt=""
+                  class="naver-logo"
+                />
+                네이버 아이디 로그인
+              </div>
+            </div>
+            <div class="kakao-login" onclick="kakaoLogin();">
+              <div class="kakao-a">
+                <img
+                  src="https://d2v80xjmx68n4w.cloudfront.net/assets/icon/icon_kakao.png"
+                  alt=""
+                  class="kakao-logo"
+                />
+                카카오 아이디 로그인
+              </div>
+            </div>
+          </div>
+          <div class="gwang-go">
+            <a href="#" class="gwang-go-a">
+              <img
+                src="https://www.themoviedb.org/t/p/original/70xTjXpb0kfOhTRJqKwDYSG8Kle.jpg"
+                alt=""
+                class="gwang-go-img"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="main-footer"></div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.7.0.js"
+      integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <script
+      src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"
+      charset="utf-8"
+    ></script>
+    <script src="/js/user/login.js"></script>
+  </body>
+</html>

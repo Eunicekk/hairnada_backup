@@ -1,0 +1,79 @@
+.body-container {
+  width: 1300px;
+  margin: 0 auto;
+  color: #222;
+}
+
+.header {
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  border-bottom: 1px solid #222;
+  width: 1300px;
+}
+
+.main-container {
+  display: flex;
+}
+
+.logo {
+  margin-left: 30px;
+  height: 80px;
+}
+
+.logout-btn {
+  font-size: 20px;
+  border: none;
+  background-color: #ffffff;
+  cursor: pointer;
+  margin-right: 30px;
+}
+
+/* 사이드 바 */
+
+.left-bar {
+  width: 250px;
+  height: 500px;
+}
+.nav-var {
+  margin: 35px auto 0;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 20px;
+}
+
+.nav-var > ul {
+  height: 150px !important;
+}
+
+.page-move {
+  display: block;
+  cursor: pointer;
+  width: fit-content;
+  height: fit-content;
+  margin-left: 10px;
+  margin-top: 15px;
+  color: #969696;
+}
+
+.page-move:hover {
+  color: #222;
+  text-decoration: underline;
+}
+
+.admin-nav-list > h3 {
+  font-size: 20px;
+}
+
+.main-box {
+  margin-top: 50px;
+}
+
+.this {
+  color: #222 !important;
+  text-decoration: underline;
+}

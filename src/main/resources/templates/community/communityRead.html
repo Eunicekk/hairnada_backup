@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HairNada</title>
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/community/communityRead.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- 배너 -->
+      <div class="banner">
+        <img src="/img/tab-banner-04.png" alt="배너">
+      </div>
+
+
+      <div class="community-title">
+        <h1>커뮤니티 제목입니다.</h1>
+        <div class="buttons">
+          <button type="button" class="like">하트</button>
+        </div>
+      </div>
+
+      <!-- 프로필 -->
+      <article class="information">
+        <div class="informationBox">
+          <div class="profile">
+            <a href="#">
+              <div class="profiles profile-img">
+                <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTgz/MDAxNjM5NTc2MDYxMjQw.jGbcfmGy9UjE1k3obpZy9piP41BQTf_PbLi0VdBRL9sg.vfIiwqDJVvwviW1J9I0QZwNCcfleCTAGemKH_INjJfwg.JPEG.se413496/c55c762ce418abefd071aa7e81c5a213.jpg?type=w800" alt="프로필 이미지">
+              </div>
+              <p class="profiles profile-nick">닉네임</p>
+            </a>
+        </div>
+        <div class="count">
+          <span class="reply">댓글</span>
+                  <span class="replyCnt">3</span>
+                  <span class="view">조회수 </span>
+                  <span class="viewCnt">5</span>
+        </div>
+      </article>
+
+      <div class="communityRead">
+
+      </div>
+
+      <!-- 뒤로 가기 -->
+      <div class="back">
+        <a href="#">수정</a>
+        <a href="#">삭제</a>
+        <a href="#">목록</a>
+      </div>
+
+      <!-- 댓글 수정 -->
+      <hr />
+
+      <div class="comment-form">
+        <div class="holder">
+          <h3 class="subtit">
+            댓글 (<span class="comment-count">12</span>)
+          </h3>
+        </div>
+        <form id="comment-form">
+          <input
+            type="hidden"
+            name="boardNumber"
+            value="${board.getBoardNumber()}"
+          />
+          <div class="replyBox">
+            <textarea
+              id="replyContent"
+              name="replyContent"
+              required
+              placeholder="댓글을 작성하세요."
+            ></textarea>
+          </div>
+          <button type="button" class="submit-btn">확인</button>
+        </form>
+      </div>
+
+      <div class="comment-list">
+        <!-- 댓글 리스트 예시 -->
+        <ul id="comment-list">
+          <li>
+            <div class="comment-wrap">
+              <div class="comment-info">
+                <span class="writer">메시</span>
+                <span class="date">2222-22-22</span>
+              </div>
+              <div class="comment-btn-group">
+                <button type="button" class="comment-modify-ready">수정</button>
+                <button type="button" class="comment-delete">삭제</button>
+              </div>
+              <div class="comment-btn-group none">
+                <button type="button" class="comment-modify">수정 완료</button>
+              </div>
+            </div>
+            <div class="comment-content">
+              <p>안녕하세요</p>
+            </div>
+          </li>
+        </ul>
+        <!-- 댓글 리스트 예시 -->
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+    <script src="/js/community/communityRead.js"></script>
+  </body>
+</html>
