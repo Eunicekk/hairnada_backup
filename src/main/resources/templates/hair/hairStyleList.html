@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HairNada</title>
-    <link rel="stylesheet" href="/css/hairstyle/hairStyleList.css" />
-    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" th:href="@{/css/hair/hairStyleList.css}" />
+    <link rel="stylesheet" th:href="@{/css/reset.css}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   </head>
   <body>
@@ -85,11 +85,6 @@
                   <input type="radio" name="face" value="round" style="display: none;" />
                 </label>
                 <label>
-                  <span class="face-image face-image-heart"></span>
-                  하트형
-                  <input type="radio" name="face" value="heart" style="display: none;" />
-                </label>
-                <label>
                   <span class="face-image face-image-inverted-triangle"></span>
                   역삼각형
                   <input type="radio" name="face" value="inverted-triangle" style="display: none;" />
@@ -103,11 +98,6 @@
                   <span class="face-image face-image-quadrangle"></span>
                   사각형
                   <input type="radio" name="face" value="quadrangle" style="display: none;" />
-                </label>
-                <label>
-                  <span class="face-image face-image-egg-chin"></span>
-                  계란턱형
-                  <input type="radio" name="face" value="egg-chin" style="display: none;" />
                 </label>
               </div>
             </div>
