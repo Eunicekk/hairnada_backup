@@ -1,0 +1,190 @@
+
+.body-main {
+  width: 1300px;
+  height: 1000px;
+  margin: 0 auto;
+  /* background-color: red; */
+}
+
+.main-header {
+  width: 1300px;
+  height: 96px;
+  background-color: black;
+}
+
+.main-login {
+  width: 500px;
+  height: 800px;
+  /* background-color: white; */
+  margin: 0 auto;
+}
+
+.login-text {
+  font-size: 35px;
+  width: 400px;
+  height: 100px;
+  /* background-color: yellow; */
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-weight: bold;
+  margin-top: 40px;
+}
+
+.input-login {
+  display: flex;
+  margin: 0 auto;
+  width: 400px;
+  height: 190px;
+  /* background-color: green; */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-box,
+.password-box {
+  margin: 8px;
+  width: 300px;
+  height: 40px;
+}
+
+.login-button-box {
+  width: 400px;
+  height: 70px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+}
+
+.login-button {
+  width: 300px;
+  height: 50px;
+  cursor: pointer;
+  color: white;
+  background-color: black;
+}
+
+.join-box {
+  margin: 0 auto;
+  width: 400px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.join {
+  color: #969696;
+  margin-right: 14px;
+  text-decoration: underline;
+  text-underline-position: under;
+}
+
+.find-id {
+  color: #969696;
+  text-decoration: underline;
+  text-underline-position: under;
+}
+
+.join:hover,
+.find-id:hover {
+  color: black;
+}
+
+.login-api-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
+  height: 180px;
+  /* background-color: aqua; */
+  margin: 0 auto;
+}
+
+.naver-login {
+  width: 300px;
+  height: 50px;
+  background-color: rgb(99, 195, 61);
+  display: flex;
+  align-items: center;
+  color: white;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.naver-logo {
+  margin-left: 18px;
+  margin-right: 25px;
+  width: 40px;
+  height: 40px;
+}
+
+.kakao-login {
+  width: 300px;
+  height: 50px;
+  background-color: rgb(252, 232, 77);
+  display: flex;
+  align-items: center;
+  color: brown;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.kakao-logo {
+  margin-left: 18px;
+  margin-right: 25px;
+  width: 40px;
+  height: 40px;
+}
+
+.kakao-a {
+  color: rgb(51, 51, 51);
+  display: flex;
+  align-items: center;
+}
+.naver-a {
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.naver-login:hover {
+  background-color: rgb(71, 155, 38);
+}
+.kakao-login:hover {
+  background-color: rgb(175, 155, 38);
+}
+
+.gwang-go {
+  width: 300px;
+  height: 110px;
+  margin: 0 auto;
+  /* background-color: yellow; */
+}
+
+.gwang-go-img {
+  width: 300px;
+  height: 140px;
+}
+
+.main-footer {
+  background-color: black;
+  width: 1300px;
+  height: 400px;
+}
+
+input:focus {
+  outline: none;
+}
+
+.id-no {
+  color: red;
+  font-size: 12px;
+}
+
+.pw-no {
+  color: red;
+  font-size: 12px;
+}

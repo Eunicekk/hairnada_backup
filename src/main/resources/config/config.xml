@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <typeAliases>
+        <typeAlias type="com.example.hairnada.dto.user.UserDto" alias="userDto" />
+        <typeAlias type="com.example.hairnada.dto.user.UserFileDto" alias="userFileDto" />
+        <typeAlias type="com.example.hairnada.dto.user.BasketDto" alias="basketDto" />
+        <typeAlias type="com.example.hairnada.dto.user.BuyDto" alias="buyDto" />
+        <typeAlias type="com.example.hairnada.dto.user.DeliveryDto" alias="deliveryDto" />
+        <typeAlias type="com.example.hairnada.dto.user.MembershipDto" alias="membershipDto" />
+
+        <typeAlias type="com.example.hairnada.dto.admin.AdminDto" alias="adminDto" />
+
+        <typeAlias type="com.example.hairnada.dto.store.StoreDto" alias="storeDto" />
+        <typeAlias type="com.example.hairnada.dto.store.StoreFileDto" alias="storeFileDto" />
+        <typeAlias type="com.example.hairnada.dto.store.StoreLikeDto" alias="storeLikeDto" />
+        <typeAlias type="com.example.hairnada.dto.store.StoreReplyDto" alias="storeReplyDto" />
+        <typeAlias type="com.example.hairnada.dto.store.StoreCategoryDto" alias="storeCategoryDto" />
+
+        <typeAlias type="com.example.hairnada.dto.level.LevelDto" alias="levelDto" />
+        <typeAlias type="com.example.hairnada.dto.level.LevelFileDto" alias="LevelFileDto" />
+
+        <typeAlias type="com.example.hairnada.dto.board.BoardDto" alias="boardDto" />
+        <typeAlias type="com.example.hairnada.dto.board.BoardFileDto" alias="boardFileDto" />
+        <typeAlias type="com.example.hairnada.dto.board.BoardLikeDto" alias="boardLikeDto" />
+        <typeAlias type="com.example.hairnada.dto.board.BoardReplyDto" alias="boardReplyDto" />
+        <typeAlias type="com.example.hairnada.dto.board.BoardCategoryDto" alias="boardCategoryDto" />
+
+        <typeAlias type="com.example.hairnada.dto.hair.HairDto" alias="hairDto" />
+        <typeAlias type="com.example.hairnada.dto.hair.HairFileDto" alias="hairFileDto" />
+        <typeAlias type="com.example.hairnada.dto.hair.HairLikeDto" alias="hairLikeDto" />
+        <typeAlias type="com.example.hairnada.dto.hair.FaceShapeDto" alias="faceShapeDto" />
+
+        <typeAlias type="com.example.hairnada.dto.hairshop.HairShopDto" alias="hairShopDto" />
+        <typeAlias type="com.example.hairnada.dto.hairshop.HairShopFileDto" alias="hairShopFileDto" />
+
+        <typeAlias type="com.example.hairnada.dto.careshop.CareShopDto" alias="careShopDto" />
+        <typeAlias type="com.example.hairnada.dto.careshop.CareShopFileDto" alias="careShopFileDto" />
+    </typeAliases>
+</configuration>

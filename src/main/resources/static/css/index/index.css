@@ -1,0 +1,454 @@
+.main{
+    width: 1300px;
+    margin: 0 auto;
+    background-color: white;
+    color: #222;
+    font-size: 16px;
+}
+
+/* 메인 배너 */
+.banner-wrap{
+    height: 600px;
+    margin-top: 2px;
+    margin-bottom: 140px;
+    overflow: hidden;
+    position: relative;
+}
+
+.banner-box{
+    display: flex;
+    position: absolute;
+    left: 0;
+}
+
+/* 헤어 스타일 추천 */
+.main-content-01{
+    margin: 140px 0;
+    position: relative;
+}
+
+.main-content-01 .material-symbols-rounded{
+    background-color: rgba(255, 255, 255, 0.76);
+    box-shadow: 0 0 0 1px transparent, 0 0 0 4px transparent, 0 2px 4px rgba(0 0 0 / 18%);
+    border-radius: 50%;
+    color: #222;
+    font-size: 32px;
+    padding: 8px;
+}
+
+.main-content-01 .left{
+    position: absolute;
+    top: 230px; left: 120px;
+    cursor: pointer;
+    z-index: 5;
+}
+
+.main-content-01 .right{
+    position: absolute;
+    top: 230px; right: 120px;
+    cursor: pointer;
+    z-index: 5;
+}
+
+.main-content-01>h2{
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -2px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.main-content-01>p{
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.hair-section{
+    margin: 0 auto;
+    width: 1000px;
+    overflow: hidden;
+}
+
+.hair-box{
+    display: flex;
+    position: relative;
+    left: 0;
+    gap: 80px;
+}
+
+.hair-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.img-overflow{
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.img-overflow img{
+    width: 284px;
+    transition: transform 0.5s ease-in-out;
+}
+
+.img-overflow img:hover{
+    transform: scale(1.1);
+}
+
+.main-content-01 .hair-content p{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* 서브 배너 (테스트 참여하기) */
+.sub-banner{
+    height: 360px;
+    background-image: url(/img/sub-banner.jpg);
+    color: white;
+    margin: 140px 0;
+}
+
+.sub-banner-text{
+    height: 360px;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0 100px;
+}
+
+.sub-banner h2{
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+
+.sub-banner p{
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -2px;
+}
+
+.sub-banner a{
+    font-size: 18px;
+    color: white;
+    margin-top: 48px;
+    padding: 20px 64px;
+    border: 1px solid white;
+    background-color: transparent;
+}
+
+.sub-banner a:hover{
+    background-color: white;
+    color: #222;
+}
+
+/* 스타일샵 및 케어샵 연결 */
+.main-content-02{
+    margin: 140px 0;
+    display: flex;
+    justify-content: center;
+    gap: 70px;
+}
+
+.img-motion{
+    width: 600px;
+    height: 420px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-content-02 img{
+    width: 600px;
+    transition: top 0.5s ease-out;
+}
+
+.img-text-area h2{
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 32px;
+}
+
+.img-text-area p{
+    font-size: 32px;
+    line-height: 42px;
+    font-weight: 700;
+    letter-spacing: -2px;
+    margin-bottom: 48px;
+}
+
+.img-text-area a{
+    display: block;
+    font-size: 18px;
+    color: #222;
+    padding: 20px 64px;
+    border: 1px solid #222;
+    background-color: transparent;
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.img-text-area a:hover{
+    background-color: #222;
+    color: white;
+}
+
+/* 제품 판매 */
+.main-content-03{
+    margin: 140px 0;
+    height: 560px;
+    position: relative;
+}
+
+.product-category{
+    width: 1300px;
+    position: absolute;
+    opacity: 0;
+    top: 0;
+}
+
+.category-img{
+    width: 480px;
+    height: 560px;
+}
+
+.category-img img{
+    width: 480px;
+    height: 560px;
+    position: relative;
+    z-index: 10;
+}
+
+.product-text{
+    width: 760px;
+    height: 200px;
+    position: absolute;
+    left: 560px; top: 0;
+}
+
+.product-text h2{
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 32px;
+}
+
+.product-text p{
+    font-size: 32px;
+    line-height: 42px;
+    font-weight: 700;
+    letter-spacing: -2px;
+    margin-bottom: 48px;
+}
+
+.product-wrap{
+    width: 760px;
+    overflow: hidden;
+    position: absolute;
+    bottom: 50px;
+    padding-left: 560px;
+}
+
+.product-box{
+    display: flex;
+    gap: 80px;
+    position: relative;
+    left: 0;
+}
+
+.product-image img{
+    border-radius: 50%;
+    width: 300px;
+}
+
+.caption{
+    color: #222;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 12px;
+}
+
+/* 커뮤니티 */
+.main-content-04{
+    margin: 140px 0;
+    position: relative;
+}
+
+.community-text h2{
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -2px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.community-text p{
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.holder {
+    position: relative;
+    margin: 0 auto;
+    max-width: 1300px;
+    overflow: hidden;
+    display: flex;
+  }
+  
+  .ListUl {
+    display: flex;
+    gap: 24.575px;
+    position: relative;
+    left: 0;
+  }
+  
+  .cL {
+    display: flex;
+  }
+  
+  .ListLi {
+    display: inline-block;
+    position: relative;
+    width: 416.95px;
+    margin-bottom: 50px;
+  }
+  
+  .profile {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .cL .profile {
+    position: relative;
+    height: 56px;
+  }
+  
+  .cL a {
+    position: relative;
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .cL a:hover {
+    text-decoration: underline;
+  }
+  
+  .profile .profile-img {
+    margin: 10px 0;
+    border-radius: 100%;
+    border: 1px solid #d9d9d9;
+    overflow: hidden;
+  }
+  
+  .profile-img img{
+    width: 34px;
+    height: 34px;
+  }
+  
+  .profiles {
+    float: left;
+  }
+  
+  .profile-nick {
+    max-width: 65%;
+    margin-left: 10px;
+    margin-right: 18px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    line-height: 20px;
+    font-size: 15px;
+  }
+  
+  .like {
+    background-image: url("/img/heart1.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: transparent;
+    margin-left: 10px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    line-height: 20px;
+    color: transparent;
+    cursor: pointer;
+    border: none;
+  }
+  
+  .img-list {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+  }
+  
+  .main-img {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .main-img:hover {
+    transform: scale(1.1);
+  }
+  
+  .main-img img{
+    width: 100%; height: 100%;
+  }
+  
+  .titleAndCnt {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .community-title {
+    margin: 0;
+    font-size: 20px;
+    color: #222;
+    font-weight: 700;
+  }
+  
+  .count span {
+    font-size: 16px;
+    color: #696969;
+    font-weight: 400;
+    margin-left: 2px;
+  }
+  
+.main-content-04 .material-symbols-rounded{
+    background-color: rgba(255, 255, 255, 0.76);
+    box-shadow: 0 0 0 1px transparent, 0 0 0 4px transparent, 0 2px 4px rgba(0 0 0 / 18%);
+    border-radius: 50%;
+    color: #222;
+    font-size: 32px;
+    padding: 8px;
+}
+
+.main-content-04 .left{
+    position: absolute;
+    top: 280px; left: -30px;
+    cursor: pointer;
+    z-index: 5;
+}
+
+.main-content-04 .right{
+    position: absolute;
+    top: 280px; right: -30px;
+    cursor: pointer;
+    z-index: 5;
+}
+  

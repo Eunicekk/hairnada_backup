@@ -1,0 +1,298 @@
+
+body {
+  background-color: white;
+}
+
+.container {
+  margin: 0 auto;
+  width: 1200px;
+  padding: 20px;
+}
+
+.topBox {
+  display: block;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+.searchBox {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.radioBox {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+input[type="radio"] {
+  accent-color: #000;
+  margin-right: 10px;
+}
+
+.searchBox input[type="text"] {
+  padding: 10px;
+  width: 500px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  font-size: 15px;
+  border-radius: 5px;
+  border: 1px solid #e0e0e0;
+}
+
+/* 검색 및 글쓰기 버튼 */
+.search-button {
+  color: #fff;
+  background-color: #333;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.write-button {
+  color: #fff;
+  background-color: #333;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.search-button:hover {
+  background-color: black;
+  color: #fff;
+}
+
+.write-button:hover {
+  background-color: black;
+  color: #fff;
+}
+
+/* 카테고리 */
+.category {
+  border-collapse: collapse;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.category tr {
+  width: 100%;
+}
+
+.category button {
+  background-color: #fff;
+  color: black;
+  border: 1px solid #e0e0e0;
+  border-bottom: 2px solid black;
+  cursor: pointer;
+  padding: 10px;
+  width: 260px;
+  height: 60px;
+  margin-top: 30px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.category button:hover {
+  background-color: black;
+  color: #fff;
+}
+
+/* 이미지 리스트 스타일 */
+.holder {
+  position: relative;
+  margin: 0 auto;
+  max-width: 1200px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.ListUl {
+  display: flex;
+  column-gap: 25px;
+  position: relative;
+  left: 0;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.cL {
+  display: flex;
+}
+
+.ListLi {
+  display: inline-block;
+  position: relative;
+  width: calc(1150px/3);
+  margin-bottom: 50px;
+}
+
+.profile {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cL .profile {
+  position: relative;
+  height: 56px;
+}
+
+.cL a {
+  position: relative;
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.cL a:hover {
+  text-decoration: underline;
+}
+
+.profile .profile-img {
+  margin: 10px 0;
+  border-radius: 100%;
+  border: 1px solid #d9d9d9;
+  overflow: hidden;
+}
+
+.profile-img img{
+  width: 34px;
+  height: 34px;
+}
+
+.profiles {
+  float: left;
+}
+
+.profile-nick {
+  max-width: 65%;
+  margin-left: 10px;
+  margin-right: 18px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  line-height: 20px;
+  font-size: 15px;
+}
+
+.like {
+  background-image: url("/img/heart1.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: transparent;
+  margin-left: 10px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  line-height: 20px;
+  color: transparent;
+  cursor: pointer;
+  border: none;
+}
+
+.img-list {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.main-img {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  transition: transform 0.5s ease-in-out;
+}
+
+.main-img:hover {
+  transform: scale(1.1);
+}
+
+.main-img img{
+  width: 100%; height: 100%;
+}
+
+.titleAndCnt {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.community-title {
+  margin: 0;
+  font-size: 20px;
+  color: #222;
+  font-weight: 700;
+}
+
+.count span {
+  font-size: 16px;
+  color: #696969;
+  font-weight: 400;
+  margin-left: 2px;
+}
+
+/* 페이징 스타일 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.pagination ul {
+  display: flex;
+  list-style: none;
+}
+
+.pagination a {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px;
+  margin: 0 5px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination a:hover {
+  text-decoration: underline;
+}
+
+.pagination .active {
+  text-decoration: underline;
+}
+
+.main-box {
+  background-color: beige;
+  width: 1400px;
+  height: 1420px;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+
+.my-board-text {
+  width: 1200px;
+  height: 100px;
+  margin: 0 auto;
+  border-bottom: 5px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  font-size: 20px;
+  font-weight: bold;
+}

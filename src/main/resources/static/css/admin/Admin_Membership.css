@@ -1,0 +1,115 @@
+.main-box {
+  /* background-color: rgb(255, 233, 204);
+  margin-top: 96px;
+  margin-left: 280px; */
+  width: 1035px;
+  height: 300px;
+}
+
+.main-box > h1 {
+  display: flex;
+  font-size: 30px;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  margin-bottom: 50px;
+  border-bottom: 1px solid black;
+  padding-bottom: 40px;
+}
+
+.new-quest-container > h3 {
+  font-size: 20px;
+  margin-left: 10px;
+  border-bottom: 1px solid;
+  padding-bottom: 20px;
+}
+
+.nav-list {
+  color: #ffffff;
+  background-color: #222;
+}
+
+.nav,
+.member {
+  display: flex;
+  height: 70px;
+  align-items: center;
+  position: relative;
+}
+
+.nav > li,
+.member > li {
+  text-align: center;
+}
+
+.member-number,
+.quest-board-number {
+  width: 100px;
+}
+
+.member-name {
+  width: 130px;
+}
+
+.quest-board-title {
+  width: 400px;
+}
+
+.member > .quest-board-title {
+  cursor: pointer;
+}
+
+.member > .quest-board-title:hover {
+  color: #969696;
+}
+.member-id {
+  width: 250px;
+}
+
+.member-membership {
+  width: 100px;
+}
+
+.member {
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+}
+
+#view-more {
+  position: absolute;
+  right: 0;
+  font-size: 40px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+/* 페이징 */
+.page-a {
+  text-decoration: none;
+  color: #222;
+  display: flex;
+}
+
+.page-box {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-num {
+  width: 30px;
+  height: 40px;
+  /* border-radius: 5px; */
+  margin: 0 10px;
+  text-align: center;
+  line-height: 40px;
+  /* background-color: white; */
+  cursor: pointer;
+}
+
+.active,
+.page-num:hover {
+  color: #969696;
+}

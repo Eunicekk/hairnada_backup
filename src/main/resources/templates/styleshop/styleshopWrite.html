@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/styleshop/styleshopWrite.css">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <title>HairNada</title>
+</head>
+<body>
+    <div class="main">
+
+        <!-- 배너 -->
+        <div class="banner">
+            <img src="/img/tab-banner-01+.png" alt="배너">
+        </div>
+
+        <!-- 이미지 등록 -->
+        <div class="content">
+            <div class="title">장소 이미지</div>
+            <div class="image-upload-wrap">
+                <input type="file" name="cafeFile" id="file" accept=".jpg, .jpeg, .png" multiple>
+                <div class="image-upload-box">
+                    <p>
+                        <span class="material-symbols-outlined">
+                            upload
+                        </span>
+                        이미지 업로드 (<span class="count">0</span>/4)
+                    </p>
+                    <p>최대 4개까지 업로드 가능</p>
+                    <p>파일 형식 : jpg, jpeg, png</p>
+                    <p>※이미지를 등록하면 즉시 반영됩니다.</p>
+                </div>
+            </div>
+            <div class="img-controller-box">
+                <ul class="file-list">
+
+                </ul>
+            </div>
+        </div>
+        
+        <!-- 장소 이름 등록 -->
+        <div class="content">
+            <div class="title">장소 이름</div>
+            <input type="text" required placeholder="장소 이름을 입력하세요.">
+        </div>
+        
+        <!-- 주소 등록 -->
+        <div class="content">
+            <div class="title">주소</div>
+            <input type="text" required placeholder="주소를 입력하세요.">
+        </div>
+        
+        <!-- 전화번호 등록 -->
+        <div class="content">
+            <div class="title">전화번호</div>
+            <input type="text" required placeholder="전화번호를 입력하세요.">
+        </div>
+        
+        <!-- 예약 링크 등록 -->
+        <div class="content">
+            <div class="title">예약 링크</div>
+            <input type="text" required placeholder="예약 링크를 입력하세요.">
+        </div>
+        
+        <!-- 운영 시간 등록 -->
+        <div class="content">
+            <div class="title">운영 시간</div>
+            <textarea class="text" required placeholder="운영 시간을 입력하세요."></textarea>
+        </div>
+
+        <!-- 내용 등록 - 썸머노트 -->
+        <div class="content">
+            <div class="title">내용</div>
+            <div id="summernote"></div>
+        </div>
+
+        <!-- 완료 및 취소 버튼 -->
+        <div class="buttons">
+            <button type="button">작성 취소</button>
+            <button type="submit">작성 완료</button>
+        </div>
+        
+    </div>
+
+    <script src="/js/styleshop/styleshopWrite.js"></script>
+</body>
+</html>

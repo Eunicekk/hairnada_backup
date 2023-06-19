@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HairNada</title>
+    <link rel="stylesheet" href="/css/admin/Admin_Member_management.css" />
+    <link rel="stylesheet" href="/css/admin/Admin_hair_list.css" />
+    <link rel="stylesheet" href="/css/reset.css" />
+  </head>
+  <body>
+    <div class="header">
+      <a href="#">
+        <img class="logo" src="/img/logo2.jpg" />
+      </a>
+      <button class="logout-btn" type="button">로그아웃</button>
+    </div>
+    <div class="body-container">
+      <div class="main-container">
+        <div class="left-bar">
+          <nav class="nav-var">
+            <ul class="admin-nav-list">
+              <h3>회원</h3>
+              <li><a class="page-move">회원 목록 조회 및 관리</a></li>
+              <li><a class="page-move">회원 등급 관리</a></li>
+            </ul>
+            <ul class="admin-nav-list">
+              <h3>상품</h3>
+              <li><a class="page-move">상품 목록</a></li>
+              <li><a class="page-move">상품 등록</a></li>
+            </ul>
+            <ul class="admin-nav-list">
+              <h3>헤어스타일</h3>
+              <li><a class="page-move this">헤어스타일 목록</a></li>
+              <li><a class="page-move">헤어스타일 등록</a></li>
+            </ul>
+            <ul class="admin-nav-list">
+              <h3>배송</h3>
+              <li><a class="page-move">배송 목록</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="main-box">
+          <h1>헤어스타일 게시글 목록</h1>
+          <div class="select-nav">
+            <div class="filter">
+              <select name="gender" class="gender">
+                <option value="">성별</option>
+                <option value="female">여성</option>
+                <option value="male">남성</option>
+              </select>
+
+              <select name="hair-length" class="hair-length">
+                <option value="">기장</option>
+                <option value="short">숏</option>
+                <option value="middle">미디엄</option>
+                <option value="long">롱</option>
+              </select>
+              <select name="face-shape" class="face-shape">
+                <option value="">얼굴형</option>
+                <option value="egg">계란형</option>
+                <option value="long-face">긴 얼굴형</option>
+                <option value="heart-rhombus">하트/마름모형</option>
+                <option value="angular">각진형</option>
+                <option value="round">둥근형</option>
+              </select>
+              <button type="button" class="search">검색</button>
+            </div>
+            <div class="select-by-title">
+              <input
+                type="text"
+                class="select-title"
+                placeholder="제목으로 검색"
+              />
+              <button type="button" class="search">검색</button>
+            </div>
+          </div>
+
+          <div class="hair-list-container">
+            <article class="holder">
+              <div class="hl">
+                <ul class="list-ul">
+                  <!-- 첫번째 -->
+                  <li class="list-li">
+                    <a href="">
+                      <div class="img-list">
+                        <img src="https://img1.daumcdn.net/thumb/C360x360/?fname=https://mud-kage.kakao.com/dn/tiTz0/btsjboVScnc/36eDc0R0JCIeBLE6uPouDk/img_1080.jpg&scode=purple" alt="">
+                      </div>
+                    </a>
+                    <div class="hair-title-box">
+                      <p class="hair-title">머리스타일이름이여유</p>
+                    </div>
+                  </li>
+                </ul>
+                <ul class="list-ul">
+                  <!-- 첫번째 -->
+                  <li class="list-li">
+                    <a href="">
+                      <div class="img-list">
+                        <img src="https://img1.daumcdn.net/thumb/C360x360/?fname=https://mud-kage.kakao.com/dn/tiTz0/btsjboVScnc/36eDc0R0JCIeBLE6uPouDk/img_1080.jpg&scode=purple" alt="">
+                      </div>
+                    </a>
+                    <div class="hair-title-box">
+                      <p class="hair-title">머리스타일이름이여유</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </article>
+          </div>
+
+          <div class="page-container">
+            <ul class="page-box">
+              <a href="#" class="page-a">
+                <li class="page-num prev">&lt</li>
+              </a>
+
+              <a href="#" class="page-a">
+                <li class="page-num active">1</li>
+                <li class="page-num">2</li>
+                <li class="page-num">3</li>
+                <li class="page-num">4</li>
+                <li class="page-num">5</li>
+              </a>
+
+              <a href="#" class="page-a">
+                <li class="page-num next">&gt</li>
+              </a>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.7.0.js"
+      integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+      crossorigin="anonymous"
+    ></script>
+    <script src="/js/admin/Admin_hair_list.js"></script>
+  </body>
+</html>
