@@ -10,11 +10,9 @@ import org.springframework.stereotype.Component;
 public class HairShopDto {
     private Long hairShopNumber;
     private String hairShopAddress;
-    private String hairShopAddressDetail;
     private String hairShopPhoneNumber;
     private String hairShopName;
     private String hairShopLink;
     private String hairShopOpenTime;
-    private String hairShopCloseTime;
     private Long hairShopFileNumber;
 }

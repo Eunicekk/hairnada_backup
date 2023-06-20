@@ -13,8 +13,6 @@ public class BoardDto {
     private Long boardViewCnt;
     private Long boardContent;
     private Long userNumber;
-    private Long shapeNumber;
-    private Long hairShopNumber;
     private Long boardCategoryNumber;
 
 }

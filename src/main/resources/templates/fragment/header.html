@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <title>header</title>
+</head>
+<body>
+    <div class="header" th:fragment="header">
+        <div class="header-content">
+            <div class="header-left">
+                <a href="#" class="header-logo">
+                    <img src="/img/logo.png" alt="로고" height="70px">
+                </a>
+
+                <ul class="header-menu">
+                    <li>
+                        <a href="#">스타일</a>
+                    </li>
+                    <li>
+                        <a href="#">케어</a>
+                    </li>
+                    <li>
+                        <a href="#">제품</a>
+                    </li>
+                    <li>
+                        <a href="#">커뮤니티</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="header-right">
+                <a href="#" class="header-icon">
+                    <span class="material-symbols-rounded basket" style="font-size:28px;">
+                        shopping_bag
+                        <span class="basket-count">
+                            0
+                        </span>
+                    </span>
+                </a>
+
+                <div class="header-icon" th:if="${session.userNumber == null}">
+                    <span class="material-symbols-rounded" style="font-size:28px;">
+                        sentiment_satisfied
+                    </span>
+                    <div class="dropdown-content">
+                        <ul>
+                            <a th:href="@{/user/login}"><li>로그인</li></a>
+                            <a th:href="@{/user/join}"><li>회원가입</li></a>
+                        </ul>
+                    </div>
+                </div>
+                <div class="header-icon" th:unless="${session.userNumber == null}">
+                    <span class="material-symbols-rounded" style="font-size:28px;">
+                        sentiment_satisfied
+                    </span>
+                    <div class="dropdown-content">
+                        <ul>
+                            <a th:href="@{/user/logout}"><li>로그아웃</li></a>
+                            <a th:href="@{/user/mypage}"><li>마이페이지</li></a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+
+</body>
+</html>
