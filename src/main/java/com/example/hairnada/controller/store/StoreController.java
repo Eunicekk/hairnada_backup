@@ -1,4 +1,4 @@
-package com.example.hairnada.controller.hair;
+package com.example.hairnada.controller.store;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -6,13 +6,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/hair/*")
+@RequestMapping("/store/*")
 @RequiredArgsConstructor
-public class HairController {
+public class StoreController {
 
-    @GetMapping("/hairStyleList")
-    public void hairStyleList(){}
+    @GetMapping("/productList")
+    public void productList(){}
 
-    @GetMapping("/hairStyleRead")
-    public void hairStyleRead(){}
+    @GetMapping("/productRead")
+    public void productRead(){}
+
 }
