@@ -28,14 +28,15 @@ $(document).ready(function () {
 
 // 사진 눌렀을 때 모달 띄우면서 확대
 
-$(".img-list").on("click", function () {
-  var backgroundImageUrl = $(this).css("background-image");
-  backgroundImageUrl = backgroundImageUrl
-    .replace(/^url\(["']?/, "")
-    .replace(/["']?\)$/, "");
-  console.log(backgroundImageUrl);
+$(".img-list-thumbnail").on("click", function () {
+  let viewImg = $(this).find('img').attr("src");
   $(".modal").css("display", "flex");
-  $(".view-img").css("background-image", "url('" + backgroundImageUrl + "')");
+  // $(".view-img").attr("src", viewImg);
+
+  $(".view-img2").css("width", '600px');
+  $(".view-img2").css("height", '600px');
+  $(".view-img2").css("background-image", `url(${viewImg})`);
+  console.log(viewImg)
 });
 
 $(".background").on("click", function () {

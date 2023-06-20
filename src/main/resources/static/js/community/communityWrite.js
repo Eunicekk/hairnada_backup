@@ -46,7 +46,7 @@ $fileInput.on("change", function () {
 			`);
   }
 
-  $(".delete-button").on("click", function () {
+  $(".img-cancel-btn").on("click", function () {
     $(this).parent().parent().remove();
     let fileName = $(this).data("name");
     let dt = new DataTransfer();
@@ -83,3 +83,9 @@ $(".dropdown-menu li").click(function() {
         </span>
     `);
 });
+
+// 작성취소버튼
+$('.writeCancel-btn').on('click', function (){
+  window.location.href = '/board/communityList';
+});
+

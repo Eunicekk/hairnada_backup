@@ -12,6 +12,7 @@ body {
   margin: 0 auto;
   width: 1300px;
   padding: 20px;
+  margin-bottom: 100px;
 }
 
 .styleInformation {
@@ -43,7 +44,7 @@ body {
   overflow: hidden;
 }
 
-.img-list img{
+.img-list-thumbnail img{
   width: 100%;
   min-height: 140px;
 }
@@ -273,11 +274,12 @@ input[type="file"] {
   height: 100%;
 }
 
-.view-img {
+.view-img2 {
+  z-index: 10;
+  background-repeat: no-repeat;
+  background-size: contain;
   width: 600px;
   height: 600px;
-  z-index: 20;
-  background-size: 600px 600px;
 }
 
 .background {

@@ -7,8 +7,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
     <link rel="stylesheet" th:href="@{/css/store/productRead.css}" />
     <link rel="stylesheet" th:href="@{/css/reset.css}" />
+    <link rel="stylesheet" th:href="@{/css/index/header.css}" />
+    <link rel="stylesheet" th:href="@{/css/index/footer.css}" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   </head>
   <body>
+  <header class="header" th:replace="fragment/header :: header"></header>
     <div class="container">
 
       <!-- 배너 -->
@@ -41,11 +45,7 @@
           </div>
         </div>
 
-        <!-- 모달창 -->
-        <div class="modal">
-          <div class="background"></div>
-          <img class="view-img" />
-        </div>
+
 
         <div class="style-content">
           <div class="styleBox">
@@ -262,8 +262,16 @@
       <!-- </div>
     </div> -->
     </div>
+  <footer class="footer" th:replace="fragment/footer :: footer"></footer>
+
+  <!-- 모달창 -->
+  <div class="modal">
+    <div class="background"></div>
+    <div class="view-img2"></div>
+  </div>
 
     <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+  <script th:src="@{/js/index/header.js}"></script>
     <script src="/js/product/productRead.js"></script>
   </body>
 </html>

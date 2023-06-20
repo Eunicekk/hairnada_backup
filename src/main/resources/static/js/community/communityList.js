@@ -42,3 +42,9 @@ for (var i = 0; i < buttons.length; i++) {
     clickedButton.classList.add("active");
   });
 }
+
+// 글쓰기 버튼
+$('.write-btn').on('click', function (){
+  window.location.href = '/board/communityWrite';
+});
+
