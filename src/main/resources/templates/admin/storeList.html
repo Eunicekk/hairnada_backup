@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HairNada</title>
-    <link rel="stylesheet" href="/css/reset.css" />
-    <link rel="stylesheet" href="/css/admin/Admin_Member_management.css" />
-    <link rel="stylesheet" href="/css/admin/Admin_product_list.css" />
+    <link rel="stylesheet" th:href="@{/css/reset.css}" />
+    <link rel="stylesheet" th:href="@{/css/admin/adminHeader.css}" />
+    <link rel="stylesheet" th:href="@{/css/admin/storeList.css}" />
   </head>
   <body>
     <div class="header">
@@ -22,22 +22,22 @@
           <nav class="nav-var">
             <ul class="admin-nav-list">
               <h3>회원</h3>
-              <li><a class="page-move">회원 목록 조회 및 관리</a></li>
-              <li><a class="page-move">회원 등급 관리</a></li>
+              <li><a class="page-move" th:href="@{/admin/userList}">회원 목록 조회 및 관리</a></li>
+              <li><a class="page-move" th:href="@{/admin/membership}">회원 등급 관리</a></li>
             </ul>
             <ul class="admin-nav-list">
               <h3>상품</h3>
-              <li><a class="page-move this">상품 목록</a></li>
-              <li><a class="page-move">상품 등록</a></li>
+              <li><a class="page-move this" th:href="@{/admin/storeList}">상품 목록</a></li>
+              <li><a class="page-move" th:href="@{/admin/storeUpload}">상품 등록</a></li>
             </ul>
             <ul class="admin-nav-list">
               <h3>헤어스타일</h3>
-              <li><a class="page-move">헤어스타일 목록</a></li>
-              <li><a class="page-move">헤어스타일 등록</a></li>
+              <li><a class="page-move" th:href="@{/admin/hairList}">헤어스타일 목록</a></li>
+              <li><a class="page-move" th:href="@{/admin/hairUpload}">헤어스타일 등록</a></li>
             </ul>
             <ul class="admin-nav-list">
               <h3>배송</h3>
-              <li><a class="page-move">배송 목록</a></li>
+              <li><a class="page-move" th:href="@{/admin/delivery}">배송 목록</a></li>
             </ul>
           </nav>
         </div>
