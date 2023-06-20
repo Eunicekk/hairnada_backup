@@ -7,8 +7,8 @@ input,
 .logo {
   width: 400px;
   height: 400px;
-  margin: 0 auto;
-  display: block;
+  margin: 0 auto !important;
+  display: block !important;
 }
 
 .id-password-box {

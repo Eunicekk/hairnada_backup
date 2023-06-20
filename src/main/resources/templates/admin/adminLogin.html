@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AdminLogin</title>
-    <link rel="stylesheet" href="/css/admin/Admin_Login.css" />
-    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" th:href="@{/css/admin/adminLogin.css}" />
+    <link rel="stylesheet" th:href="@{/css/reset.css}" />
   </head>
   <body>
-    <img class="logo" src="/img/logo.png" />
+    <img class="logo" src="/img/logo2.jpg" />
     <div class="id-password-box">
       <input type="text" placeholder=" 아이디 입력" />
       <input type="password" placeholder=" 비밀번호 입력" />
