@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/reset.css}" />
     <link rel="stylesheet" th:href="@{/css/careshop/careShopRead.css}" />
+    <link rel="stylesheet" th:href="@{/css/index/header.css}">
+    <link rel="stylesheet" th:href="@{/css/index/footer.css}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>HairNada</title>
 </head>
 <body>
+    <header class="header" th:replace="fragment/header :: header"></header>
     <div class="main">
 
-        <header class="header" th:replace="index/header :: header"></header>
-        
         <!-- 배너 -->
         <div class="banner">
             <img src="/img/tab-banner-02.png" alt="배너">
@@ -77,16 +78,22 @@
             </div>
         </div>
 
-        <!-- 뒤로 가기 -->
+        <!-- 버튼 및 뒤로 가기 -->
         <div class="back">
-            <a href="#">목록</a>
+            <div class="buttons">
+                <div class="button-on">
+                    <button type="button">수정</button>
+                    <button type="button">삭제</button>
+                </div>
+                <a href="#">목록</a>
+            </div>
         </div>
 
-        <footer class="footer" th:replace="index/footer :: footer"></footer>
-
     </div>
+    <footer class="footer" th:replace="fragment/footer :: footer"></footer>
 
     <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
     <script th:src="@{/js/careshop/careshopRead.js}"></script>
+    <script th:src="@{/js/index/header.js}"></script>
 </body>
 </html>

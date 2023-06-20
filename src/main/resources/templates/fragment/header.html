@@ -12,16 +12,18 @@
     <div class="header" th:fragment="header">
         <div class="header-content">
             <div class="header-left">
-                <a href="#" class="header-logo">
+                <a th:href="@{/main}" class="header-logo">
                     <img src="/img/logo.png" alt="로고" height="70px">
                 </a>
 
                 <ul class="header-menu">
                     <li>
                         <a href="#">스타일</a>
+                    <li>
+                        <a th:href="@{/hairshop/list}">헤어샵</a>
                     </li>
                     <li>
-                        <a href="#">케어</a>
+                        <a th:href="@{/careshop/list}">케어샵</a>
                     </li>
                     <li>
                         <a href="#">제품</a>
@@ -34,7 +36,7 @@
 
             <div class="header-right">
                 <a href="#" class="header-icon">
-                    <span class="material-symbols-rounded basket" style="font-size:28px;">
+                    <span class="material-symbols-rounded basket-btn" style="font-size:28px;">
                         shopping_bag
                         <span class="basket-count">
                             0
