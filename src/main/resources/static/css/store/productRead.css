@@ -8,6 +8,7 @@ body {
   width: 1300px;
   color: #222;
   font-size: 16px;
+  margin-bottom: 100px;
 }
 
 .styleInformation {
@@ -598,11 +599,12 @@ fieldset {
   height: 100%;
 }
 
-.view-img {
+.view-img2 {
+  z-index: 10;
+  background-repeat: no-repeat;
+  background-size: contain;
   width: 600px;
   height: 600px;
-  z-index: 2;
-  background-size: 600px 600px;
 }
 
 .background {

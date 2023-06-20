@@ -8,6 +8,7 @@ body {
   margin: 0 auto;
   width: 1300px;
   font-size: 16px;
+  margin-bottom: 100px;
 }
 
 .community-title {
@@ -123,13 +124,13 @@ button {
 }
 
 /* 뒤로 가기 */
-.back{
-  width: 1200px; height: 46.13px;
+.btn-modify,.btn-back,.btn-remove{
+  height: 46.13px;
   margin: 40px auto;
-  position: relative; left: 876px;
+  position: relative; left: 944px;
 }
 
-.back a{
+.btn-modify,.btn-back,.btn-remove{
   border: 1px solid #222;
   background-color: transparent;
   color: #222;
@@ -137,7 +138,7 @@ button {
   margin-right: 8px;
 }
 
-.back a:hover{
+.btn-modify,.btn-back,.btn-remove:hover{
   background-color: #222;
   color: white;
 }

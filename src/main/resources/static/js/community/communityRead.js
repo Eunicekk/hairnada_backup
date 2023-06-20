@@ -11,3 +11,8 @@ $(document).ready(function () {
     }
   });
 });
+
+// 목록 버튼
+$('.btn-back').on('click', function (){
+  window.location.href = '/board/communityList';
+});

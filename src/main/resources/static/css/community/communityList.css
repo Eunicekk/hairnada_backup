@@ -18,6 +18,7 @@ body {
 
 input[type="radio"]:checked{
   accent-color: #222;
+  cursor: pointer;
 }
 
 input[type="text"]{
@@ -38,6 +39,7 @@ input[type="text"]{
   position: relative;
   bottom: -1.2px;
   font-size: 14px;
+  cursor: pointer;
 }
 
 /* 카테고리 */
@@ -85,6 +87,7 @@ input[type="text"]{
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  margin-bottom: 100px;
 }
 
 .ListUl {

@@ -6,8 +6,12 @@
     <title>HairNada</title>
     <link rel="stylesheet" th:href="@{/css/hair/hairStyleRead.css}" />
     <link rel="stylesheet" th:href="@{/css/reset.css}" />
+      <link rel="stylesheet" th:href="@{/css/index/header.css}" />
+      <link rel="stylesheet" th:href="@{/css/index/footer.css}" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   </head>
   <body>
+  <header class="header" th:replace="fragment/header :: header"></header>
     <div class="container">
 
       <!-- 배너 -->
@@ -21,20 +25,16 @@
           <div class="form-group">
             <ul class="file-wrap">
               <!-- 썸네일 처리 해야함 -->
-              <li class="img-list"><img src="/img/styleImg.jpg" alt=""></li>
-              <li class="img-list"><img src="/img/styleImg.jpg" alt=""></li>
-              <li class="img-list"><img src="/img/styleImg.jpg" alt=""></li>
-              <li class="img-list"><img src="/img/styleImg.jpg" alt=""></li>
-              <li class="img-list"><img src="/img/styleImg.jpg" alt=""></li>
+              <li class="img-list-thumbnail"><img src="/img/styleImg.jpg" alt=""></li>
+              <li class="img-list-thumbnail"><img src="/img/styleImg.jpg" alt=""></li>
+              <li class="img-list-thumbnail"><img src="/img/styleImg.jpg" alt=""></li>
+              <li class="img-list-thumbnail"><img src="/img/styleImg.jpg" alt=""></li>
+              <li class="img-list-thumbnail"><img src="/img/styleImg.jpg" alt=""></li>
             </ul>
           </div>
         </div>
 
-        <!-- 모달창 -->
-        <div class="modal">
-          <div class="background"></div>
-          <img class="view-img" />
-        </div>
+
 
         <div class="style-content">
           <div class="styleBox">
@@ -151,8 +151,15 @@
         </div>
       </div>
     </div>
+  <footer class="footer" th:replace="fragment/footer :: footer"></footer>
 
+  <!-- 모달창 -->
+  <div class="modal">
+      <div class="background"></div>
+      <div class="view-img2"></div>
+  </div>
     <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+  <script th:src="@{/js/index/header.js}"></script>
     <script src="/js/hairstyle/hairStyleRead.js"></script>
   </body>
 </html>

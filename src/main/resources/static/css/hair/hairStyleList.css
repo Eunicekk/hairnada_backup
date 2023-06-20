@@ -8,6 +8,7 @@ body {
   width: 1300px;
   font-size: 16px;
   color: #222;
+
 }
 
 /* 상단 찾기 */
@@ -50,6 +51,7 @@ input[type="text"]{
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  margin-bottom: 100px;
 }
 
 .ListUl {
