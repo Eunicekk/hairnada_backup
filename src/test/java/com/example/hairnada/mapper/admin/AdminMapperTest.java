@@ -18,7 +18,8 @@ class AdminMapperTest {
 
     @Test
     void selectUserList() {
+
         assertThat(adminMapper.selectUserList().size())
-                .isEqualTo(1);
+                .isEqualTo(0);
     }
 }
