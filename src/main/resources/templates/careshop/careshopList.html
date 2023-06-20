@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/careshop/careshopList.css">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/careshop/careshopList.css}">
+    <link rel="stylesheet" th:href="@{/css/index/header.css}">
+    <link rel="stylesheet" th:href="@{/css/index/footer.css}">
     <title>HairNada</title>
 </head>
 <body>
+<header class="header" th:replace="fragment/header :: header"></header>
     <div class="main">
 
         <!-- 배너 -->
@@ -157,11 +160,13 @@
               <li><a href="#">5</a></li>
               <li><a href="#" class="next">&raquo;</a></li>
             </ul>
-          </div>
+        </div>
 
     </div>
+<footer class="footer" th:replace="fragment/footer :: footer"></footer>
 
     <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-    <script src="/js/careshop/careshopList.js"></script>
+    <script th:src="@{/js/careshop/careshopList.js}"></script>
+    <script th:src="@{/js/index/header.js}"></script>
 </body>
 </html>

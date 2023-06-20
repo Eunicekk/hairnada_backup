@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/styleshop/styleshopRead.css" class="css">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/hairshop/styleshopRead.css}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>HairNada</title>
 </head>
 <body>
     <div class="main">
+
+        <header class="header" th:replace="index/header :: header"></header>
 
         <!-- 배너 -->
         <div class="banner">
@@ -80,9 +82,11 @@
             <a href="#">목록</a>
         </div>
 
+        <footer class="footer" th:replace="index/footer :: footer"></footer>
+
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-    <script src="/js/styleshop/styleshopRead.js"></script>
+    <script th:src="@{/js/hairshop/styleshopRead.js}"></script>
 </body>
 </html>

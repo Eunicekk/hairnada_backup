@@ -10,8 +10,9 @@ import org.springframework.stereotype.Component;
 public class CareShopDto {
     private Long careShopNumber;
     private String careShopAddress;
-    private String careShopAddressDetail;
     private String careShopPhoneNumber;
+    private String careShopOpenTime;
     private String careShopName;
     private String careShopLink;
+    private Long careShopFileNumber;
 }
