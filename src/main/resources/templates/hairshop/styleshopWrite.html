@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/reset.css}">
     <link rel="stylesheet" th:href="@{/css/hairshop/styleshopWrite.css}">
+    <link rel="stylesheet" th:href="@{/css/index/header.css}">
+    <link rel="stylesheet" th:href="@{/css/index/footer.css}">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>HairNada</title>
 </head>
 <body>
+    <header class="header" th:replace="fragment/header :: header"></header>
     <div class="main">
-
-        <header class="header" th:replace="index/header :: header"></header>
 
         <!-- 배너 -->
         <div class="banner">
@@ -88,10 +89,10 @@
             <button type="submit">작성 완료</button>
         </div>
 
-        <footer class="footer" th:replace="index/footer :: footer"></footer>
-        
     </div>
+    <footer class="footer" th:replace="fragment/footer :: footer"></footer>
 
     <script th:src="@{/js/hairshop/styleshopWrite.js}"></script>
+    <script th:src="@{/js/index/header.js}"></script>
 </body>
 </html>

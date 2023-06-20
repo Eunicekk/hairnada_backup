@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,7 +12,7 @@
     <title>HairNada</title>
 </head>
 <body>
-<header class="header" th:replace="fragment/header :: header"></header>
+    <header class="header" th:replace="fragment/header :: header"></header>
     <div class="main">
 
         <!-- 대형 배너 -->
@@ -102,8 +102,8 @@
                     스타일 / 케어 전문점을<br>
                     지금 확인해보세요.
                 </p>
-                <a href="#">스타일 전문점 바로가기</a>
-                <a href="#">케어 전문점 바로가기</a>
+                <a th:href="@{/hairshop/list}">스타일 전문점 바로가기</a>
+                <a th:href="@{/careshop/list}">케어 전문점 바로가기</a>
             </div>
         </div>
 
@@ -428,7 +428,7 @@
         </div>
 
     </div>
-<footer class="footer" th:replace="fragment/footer :: footer"></footer>
+    <footer class="footer" th:replace="fragment/footer :: footer"></footer>
 
     <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
     <script th:src="@{/js/index/index.js}"></script>

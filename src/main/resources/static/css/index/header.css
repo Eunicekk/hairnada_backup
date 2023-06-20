@@ -42,7 +42,7 @@
     font-weight: 700;
 }
 
-.basket{
+.basket-btn{
     position: relative;
 }
 
@@ -73,7 +73,7 @@
 .dropdown-content {
     display: none;
     position: absolute;
-    top: 90px;
+    top: 90px; right: 100px;
     background-color: #fff;
     min-width: 120px;
     z-index: 1;

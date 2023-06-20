@@ -18,7 +18,6 @@ $('#summernote').summernote({
 // 파일 첨부 처리
 let $fileInput = $('#file');
 let $fileList = $('.file-list');
-let $fileInfo = $('.image-upload-box');
 let $cnt = $('.count');
 
 console.log($fileInput);
@@ -55,24 +54,23 @@ $fileInput.on('change', function() {
 		`);
 	}
 	$cnt.text(files.length);
-	
+
 	$('.img-cancel-btn').on('click', function() {
-    	/* console.log("클릭!"); */
+		console.log("클릭!");
 		// 버튼의 부모의 부모를 삭제한다.
 		$(this).parent().parent().remove();
 		/*console.log($fileInput[0].files);*/
-		
+
 		let fileName = $(this).data('name');
 		let dt = new DataTransfer();
-		
-		for(let i=0; i<files.length; i++){
+
+		for(let i=0; i<$fileInput[0].files.length; i++){
 			if(files[i].name !== fileName){
-				dt.items.add(files[i]);		
-			}	
+				dt.items.add($fileInput[0].files[i]);
+			}
 		}
-		files = dt.files;
-		console.log(files);
-		$cnt.text(files.length);
+		$fileInput[0].files = dt.files;
+		$cnt.text($fileInput[0].files.length);
 	});
 
 });
