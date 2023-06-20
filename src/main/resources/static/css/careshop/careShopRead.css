@@ -117,20 +117,37 @@
 /* 뒤로 가기 */
 .back{
     width: 1200px; height: 46.13px;
-    margin: 0 auto 80px;
+    margin: 0 auto 100px;
     position: relative;
 }
 
-.back a{
+.buttons{
     position: absolute;
     right: 0;
+}
+
+.button-on{
+    display: inline-block;
+}
+
+.buttons a{
     border: 1px solid #222;
     background-color: transparent;
     color: #222;
     padding: 14px 34px;
+    margin-left: 6px;
 }
 
-.back a:hover{
+.buttons button{
+    font-size: 16px;
+    padding: 14px 34px;
+    border: 1px solid #222;
+    background-color: transparent;
+    color: #222;
+    margin-left: 6px;
+}
+
+.buttons a:hover, .buttons button:hover{
     background-color: #222;
     color: white;
 }
