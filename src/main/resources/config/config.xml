@@ -33,11 +33,16 @@
         <typeAlias type="com.example.hairnada.dto.hair.FaceShapeDto" alias="faceShapeDto" />
 
         <typeAlias type="com.example.hairnada.dto.hairshop.HairShopDto" alias="hairShopDto" />
+        <typeAlias type="com.example.hairnada.vo.hairshop.HairShopVo" alias="hairShopVo" />
         <typeAlias type="com.example.hairnada.dto.hairshop.HairShopFileDto" alias="hairShopFileDto" />
 
         <typeAlias type="com.example.hairnada.dto.careshop.CareShopDto" alias="careShopDto" />
         <typeAlias type="com.example.hairnada.dto.careshop.CareShopFileDto" alias="careShopFileDto" />
 
+
         <typeAlias type="com.example.hairnada.vo.level.LevelVo" alias="levelVo"/>
+
+        <typeAlias type="com.example.hairnada.vo.page.Criteria03" alias="criteria03" />
+
     </typeAliases>
 </configuration>
