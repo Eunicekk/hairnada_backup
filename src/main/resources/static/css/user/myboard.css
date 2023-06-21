@@ -1,3 +1,8 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
 
 body {
   background-color: white;
@@ -112,10 +117,11 @@ input[type="radio"] {
 }
 
 /* 이미지 리스트 스타일 */
+
 .holder {
   position: relative;
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 1300px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -123,11 +129,11 @@ input[type="radio"] {
 
 .ListUl {
   display: flex;
-  column-gap: 25px;
+  column-gap: 24.575px;
   position: relative;
   left: 0;
   flex-wrap: wrap;
-  margin-top: 40px;
+  margin-top: 50px;
 }
 
 .cL {
@@ -137,7 +143,7 @@ input[type="radio"] {
 .ListLi {
   display: inline-block;
   position: relative;
-  width: calc(1150px/3);
+  width: 416.95px;
   margin-bottom: 50px;
 }
 
@@ -165,14 +171,16 @@ input[type="radio"] {
 
 .profile .profile-img {
   margin: 10px 0;
-  border-radius: 100%;
-  border: 1px solid #d9d9d9;
-  overflow: hidden;
-}
-
-.profile-img img{
   width: 34px;
   height: 34px;
+  border-radius: 100%;
+  border: 1px solid #d9d9d9;
+  background-image: url("https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTgz/MDAxNjM5NTc2MDYxMjQw.jGbcfmGy9UjE1k3obpZy9piP41BQTf_PbLi0VdBRL9sg.vfIiwqDJVvwviW1J9I0QZwNCcfleCTAGemKH_INjJfwg.JPEG.se413496/c55c762ce418abefd071aa7e81c5a213.jpg?type=w800");
+}
+
+.profile-img {
+  background-position: center center;
+  background-size: cover;
 }
 
 .profiles {
@@ -190,7 +198,7 @@ input[type="radio"] {
 }
 
 .like {
-  background-image: url("/img/heart1.png");
+  background-image: url("../img/heart1.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -201,7 +209,6 @@ input[type="radio"] {
   line-height: 20px;
   color: transparent;
   cursor: pointer;
-  border: none;
 }
 
 .img-list {
@@ -213,16 +220,15 @@ input[type="radio"] {
 .main-img {
   width: 100%;
   height: 250px;
-  overflow: hidden;
+  background-image: url("https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800");
+  background-position: center center;
+  background-size: cover;
+  border-radius: 4px;
   transition: transform 0.5s ease-in-out;
 }
 
 .main-img:hover {
   transform: scale(1.1);
-}
-
-.main-img img{
-  width: 100%; height: 100%;
 }
 
 .titleAndCnt {
@@ -240,10 +246,10 @@ input[type="radio"] {
 }
 
 .count span {
+  height: 40px;
   font-size: 16px;
   color: #696969;
   font-weight: 400;
-  margin-left: 2px;
 }
 
 /* 페이징 스타일 */
@@ -278,15 +284,14 @@ input[type="radio"] {
 }
 
 .main-box {
-  background-color: beige;
-  width: 1300px;
+  /*background-color: beige;*/
+  width: 1400px;
   height: 1420px;
-  margin: 0 auto;
-  margin-top: 40px;
+  margin: 40px auto;
 }
 
 .my-board-text {
-  width: 1200px;
+  width: 1260px;
   height: 100px;
   margin: 0 auto;
   border-bottom: 5px solid black;

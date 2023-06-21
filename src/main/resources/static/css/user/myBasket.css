@@ -1,9 +1,9 @@
 .main-box {
-  background-color: beige;
+  /*background-color: beige;*/
   width: 1300px;
   height: 1420px;
-  margin: 0 auto;
-  margin-top: 40px;
+  margin: 40px auto;
+
 }
 
 .my-basket-box {
@@ -18,7 +18,7 @@
   align-items: center;
 }
 
-.my-basket {
+.my-basket2 {
   /* background-color: white; */
   width: 600px;
   height: 100px;
@@ -123,7 +123,7 @@
 }
 
 .check-img-input:checked + label {
-  background-image: url("../img/check.png");
+  background-image: url("/img/check.png");
   background-position: 58%;
   background-size: 40px;
   background-repeat: no-repeat;
