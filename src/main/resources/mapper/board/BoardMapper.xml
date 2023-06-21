@@ -2,4 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.hairnada.mapper.board.BoardMapper">
 
+<!--    <select id="selectAll" resultType="boardVo">-->
+<!--        SELECT BOARD_NUMBER, BOARD_TITLE, BOARD_CONTENT, BOARD_REGISTER_DATE, BOARD_UPDATE_DATE,-->
+<!--               USER_NUMBER, USER_ID,-->
+<!--               FILE_UPLOAD_PATH, FILE_UUID, FILE_NAME-->
+<!--        FROM(-->
+<!--                SELECT ROWNUM AS RNUM, BOARD_NUMBER, BOARD_TITLE, BOARD_CONTENT, BOARD_REGISTER_DATE, BOARD_UPDATE_DATE,-->
+<!--                       USER_NUMBER, USER_ID,-->
+<!--                       FILE_UPLOAD_PATH, FILE_UUID, FILE_NAME-->
+<!--                FROM(-->
+<!--                        SELECT B.BOARD_NUMBER, BOARD_TITLE, BOARD_CONTENT, BOARD_REGISTER_DATE, BOARD_UPDATE_DATE,-->
+<!--                               B.USER_NUMBER, USER_ID,-->
+<!--                               J.FILE_UPLOAD_PATH, J.FILE_UUID, FILE_NAME-->
+<!--                        FROM TBL_USER U JOIN TBL_BOARD B-->
+<!--                                             ON U.USER_NUMBER = B.USER_NUMBER-->
+<!--                                        LEFT JOIN (-->
+<!--                            SELECT FILE_NUMBER, FILE_UPLOAD_PATH, FILE_UUID, FILE_NAME, BOARD_NUMBER-->
+<!--                            FROM (-->
+<!--                                     SELECT FILE_NUMBER,-->
+<!--                                            FILE_UPLOAD_PATH,-->
+<!--                                            FILE_UUID,-->
+<!--                                            FILE_NAME,-->
+<!--                                            BOARD_NUMBER,-->
+<!--                                            RANK() OVER (PARTITION BY BOARD_NUMBER ORDER BY FILE_NUMBER) RK-->
+<!--                                     FROM TBL_FILE F-->
+<!--                                 )-->
+<!--                            WHERE RK = 1-->
+<!--                        ) J ON B.BOARD_NUMBER = J.BOARD_NUMBER-->
+<!--                        ORDER BY B.BOARD_NUMBER DESC-->
+<!--                    ) s1-->
+<!--        <![CDATA[-->
+<!--                WHERE ROWNUM <= #{page} * #{amount}-->
+<!--            ]]>-->
+<!--        ) s2-->
+<!--        WHERE RNUM > (#{page} - 1) * #{amount}-->
+<!--    </select>-->
+
+
 </mapper>
