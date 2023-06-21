@@ -4,14 +4,11 @@ textarea {
 
 .body-main {
   width: 1300px;
-  height: 2359px;
+  height: max-content;
   margin: 0 auto;
   /* background-color: #fff9f3; */
 }
 
-.main-body {
-  height: 2130px;
-}
 
 .main-header {
   width: 1300px;
@@ -505,7 +502,7 @@ textarea:focus {
   /* background-color: yellow; */
   width: 1300px;
   height: 1420px;
-  margin-top: 40px;
+  margin: 40px auto;
 }
 
 .err-text {

@@ -1,6 +1,6 @@
 // 체크박스
 
-$(function () {
+function checkBoxBtn(){
   $("#check-label").click(function () {
     var chk = $(this).is(":checked");
 
@@ -10,7 +10,7 @@ $(function () {
       $(".check-img-input").prop("checked", false);
     }
   });
-});
+}
 
 $(".product-list").on("change", ".check-img-input", function (e) {
   let target = e.target;
@@ -20,12 +20,10 @@ $(".product-list").on("change", ".check-img-input", function (e) {
 });
 // 체크박스
 
-// for (let i = 0; i < 10; i++) {
-//   let html = `<input type="checkbox" id="check-label${i}" class="check-img-label" />`;
-// }
 
 function mainBasket() {
   $(".big-box").html(getBigBox);
+  checkBoxBtn();
 }
 
 mainBasket();

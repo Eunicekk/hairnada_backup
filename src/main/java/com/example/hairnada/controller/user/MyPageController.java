@@ -8,22 +8,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/user/*")
 @RequiredArgsConstructor
-public class UserController {
+public class MyPageController {
 
-    @GetMapping("/login")
-    public void login(){
 
-    }
-
-    @GetMapping("/join")
-    public void join(){
+    @GetMapping("/myPageMain")
+    public void myPageMain(){
 
     }
 
-    @GetMapping("/find-id")
-    public void find(){
+    @GetMapping("/myPage")
+    public void myPage(){
 
     }
 
+    @GetMapping("/myBasket")
+    public void myBasket(){
 
+    }
+
+    @GetMapping("/myLike")
+    public void myLike(){
+
+    }
+
+    @GetMapping("/myboard")
+    public void myboard(){
+
+    }
 }
