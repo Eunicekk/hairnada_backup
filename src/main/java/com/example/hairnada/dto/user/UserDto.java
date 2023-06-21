@@ -19,6 +19,7 @@ public class UserDto {
     private String userNickname;
     private String userGender;
     private String userEmail;
-    private Long MembershipNumber;
+    private Long membershipNumber;
     private Long userFileNumber;
+    private String membershipName;
 }

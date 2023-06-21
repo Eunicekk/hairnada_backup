@@ -75,9 +75,14 @@
   color: #222;
   margin-right: 2px;
 }
-.angular {
-  margin-left: 67px;
-  margin-top: 10px;
+
+.face-shape {
+  width: 200px;
+  height: 30px;
+  font-size: 20px;
+  color: #757575;
+  border: none;
+  outline: none;
 }
 
 .board-title {

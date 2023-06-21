@@ -1,4 +1,4 @@
-package com.example.hairnada.dto.level;
+package com.example.hairnada.vo.level;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Data
 @NoArgsConstructor
-public class LevelDto {
+public class LevelVo {
     private Long levelNumber;
     private String levelName;
     private String levelTitle;
@@ -16,4 +16,7 @@ public class LevelDto {
     private Long membershipNumber;
     private Long userNumber;
     private Long userFileNumber;
+    private String userName;
+    private String userId;
+    private String membershipName;
 }
