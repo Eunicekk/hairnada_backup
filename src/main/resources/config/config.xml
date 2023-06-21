@@ -37,5 +37,7 @@
 
         <typeAlias type="com.example.hairnada.dto.careshop.CareShopDto" alias="careShopDto" />
         <typeAlias type="com.example.hairnada.dto.careshop.CareShopFileDto" alias="careShopFileDto" />
+
+        <typeAlias type="com.example.hairnada.vo.level.LevelVo" alias="levelVo"/>
     </typeAliases>
 </configuration>

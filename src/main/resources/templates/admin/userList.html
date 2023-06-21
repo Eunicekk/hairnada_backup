@@ -53,74 +53,20 @@
               <li class="nav-member-status">상태</li>
             </ul>
           </div>
-          <div class="memeber-list">
+          <div class="member-list" th:each="user : ${userList}">
             <!--  ul 반복 생성  -->
             <ul class="member">
-              <li class="member-number">1</li>
-              <li class="member-name">송지호</li>
-              <li class="member-id">wlgh123@naver.com</li>
-              <li class="member-nickname">wlgh123</li>
-              <li class="member-membership">일반 회원</li>
-              <li class="member-status">활동중</li>
+              <li class="member-number" th:text="${user.userNumber}"></li>
+              <li class="member-name" th:text="${user.userName}">송지호</li>
+              <li class="member-id" th:text="${user.userId}">wlgh123@naver.com</li>
+              <li class="member-nickname" th:text="${user.userNickname}">wlgh123</li>
+              <li class="member-membership" th:text="${user.membershipName}">일반 회원</li>
+              <li class="member-status" th:text="${user.userStatus}">활동중</li>
               <!-- recovery-button은 display none처리 했습니다 정지된 회원일 경우에만 보이게 해주세요! 정지 회원은 stop-button 안 보여도 됨 -->
               <button type="button" class="stop-button">정지</button>
               <button type="button" class="recovery-button">복구</button>
             </ul>
-            <ul class="member">
-              <li class="member-number">1</li>
-              <li class="member-name">송지호</li>
-              <li class="member-id">wlgh123@naver.com</li>
-              <li class="member-nickname">wlgh123</li>
-              <li class="member-membership">일반 회원</li>
-              <li class="member-status">활동중</li>
-              <!-- recovery-button은 display none처리 했습니다 정지된 회원일 경우에만 보이게 해주세요! 정지 회원은 stop-button 안 보여도 됨 -->
-              <button type="button" class="stop-button">정지</button>
-              <button type="button" class="recovery-button">복구</button>
-            </ul>
-            <ul class="member">
-              <li class="member-number">1</li>
-              <li class="member-name">송지호</li>
-              <li class="member-id">wlgh123@naver.com</li>
-              <li class="member-nickname">wlgh123</li>
-              <li class="member-membership">일반 회원</li>
-              <li class="member-status">활동중</li>
-              <!-- recovery-button은 display none처리 했습니다 정지된 회원일 경우에만 보이게 해주세요! 정지 회원은 stop-button 안 보여도 됨 -->
-              <button type="button" class="stop-button">정지</button>
-              <button type="button" class="recovery-button">복구</button>
-            </ul>
-            <ul class="member">
-              <li class="member-number">1</li>
-              <li class="member-name">송지호</li>
-              <li class="member-id">wlgh123@naver.com</li>
-              <li class="member-nickname">wlgh123</li>
-              <li class="member-membership">일반 회원</li>
-              <li class="member-status">활동중</li>
-              <!-- recovery-button은 display none처리 했습니다 정지된 회원일 경우에만 보이게 해주세요! 정지 회원은 stop-button 안 보여도 됨 -->
-              <button type="button" class="stop-button">정지</button>
-              <button type="button" class="recovery-button">복구</button>
-            </ul>
-            <ul class="member">
-              <li class="member-number">1</li>
-              <li class="member-name">송지호</li>
-              <li class="member-id">wlgh123@naver.com</li>
-              <li class="member-nickname">wlgh123</li>
-              <li class="member-membership">일반 회원</li>
-              <li class="member-status">활동중</li>
-              <!-- recovery-button은 display none처리 했습니다 정지된 회원일 경우에만 보이게 해주세요! 정지 회원은 stop-button 안 보여도 됨 -->
-              <button type="button" class="stop-button">정지</button>
-              <button type="button" class="recovery-button">복구</button>
-            </ul>
-            <ul class="member">
-              <li class="member-number">1</li>
-              <li class="member-name">송지호</li>
-              <li class="member-id">wlgh123@naver.com</li>
-              <li class="member-nickname">wlgh123</li>
-              <li class="member-membership">일반 회원</li>
-              <li class="member-status">활동중</li>
-              <!-- recovery-button은 display none처리 했습니다 정지된 회원일 경우에만 보이게 해주세요! 정지 회원은 stop-button 안 보여도 됨 -->
-              <button type="button" class="stop-button">정지</button>
-              <button type="button" class="recovery-button">복구</button>
-            </ul>
+
           </div>
 
           <div class="page-container">

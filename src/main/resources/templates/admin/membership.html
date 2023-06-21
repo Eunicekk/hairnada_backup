@@ -59,80 +59,17 @@
               </ul>
             </div>
           </div>
-          <div class="member-list">
+          <div class="member-list" th:each="level : ${levelList}">
             <!--  ul 반복 생성  -->
             <ul class="member">
-              <li class="quest-board-number">1</li>
-              <li class="member-number">1</li>
-              <li class="quest-board-title">안녕하세요 등업 신청합니다람쥐</li>
-              <li class="member-name">송지호</li>
-              <li class="member-id">wlgh123@naver.com</li>
-              <li class="member-membership">일반 회원</li>
+              <li class="quest-board-number" th:text="${level.levelNumber}"></li>
+              <li class="member-number" th:text="${level.userNumber}"></li>
+              <li class="quest-board-title" th:text="${level.levelTitle}"></li>
+              <li class="member-name" th:text="${level.userName}"></li>
+              <li class="member-id" th:text="${level.userId}"></li>
+              <li class="member-membership" th:text="${level.membershipName}"></li>
             </ul>
-            <ul class="member">
-              <li class="quest-board-number">1</li>
-              <li class="member-number">1</li>
-              <li class="quest-board-title">안녕하세요 등업 신청합니다람쥐</li>
-              <li class="member-name">송지호</li>
-              <li class="member-id">wlgh123@naver.com</li>
-              <li class="member-membership">일반 회원</li>
-            </ul>
-            <ul class="member">
-              <li class="quest-board-number">1</li>
-              <li class="member-number">1</li>
-              <li class="quest-board-title">안녕하세요 등업 신청합니다람쥐</li>
-              <li class="member-name">송지호</li>
-              <li class="member-id">wlgh123@naver.com</li>
-              <li class="member-membership">일반 회원</li>
-            </ul>
-            <ul class="member">
-              <li class="quest-board-number">10</li>
-              <li class="member-number">10</li>
-              <li class="quest-board-title">ㅋㅋㄹ삥뽕</li>
-              <li class="member-name">가나다라마바사</li>
-              <li class="member-id">wlgh123@naver.com</li>
-              <li class="member-membership">일반 회원</li>
-            </ul>
-            <ul class="member">
-              <li class="quest-board-number">1</li>
-              <li class="member-number">1</li>
-              <li class="quest-board-title">안녕하세요 등업 신청합니다람쥐</li>
-              <li class="member-name">송지호</li>
-              <li class="member-id">wlgh123@naver.com</li>
-              <li class="member-membership">일반 회원</li>
-            </ul>
-            <ul class="member">
-              <li class="quest-board-number">1</li>
-              <li class="member-number">1</li>
-              <li class="quest-board-title">안녕하세요 등업 신청합니다람쥐</li>
-              <li class="member-name">송지호</li>
-              <li class="member-id">wlgh123@naver.com</li>
-              <li class="member-membership">일반 회원</li>
-            </ul>
-            <ul class="member">
-              <li class="quest-board-number">1</li>
-              <li class="member-number">1</li>
-              <li class="quest-board-title">안녕하세요 등업 신청합니다람쥐</li>
-              <li class="member-name">송지호</li>
-              <li class="member-id">wlgh123@naver.com</li>
-              <li class="member-membership">일반 회원</li>
-            </ul>
-            <ul class="member">
-              <li class="quest-board-number">1</li>
-              <li class="member-number">1</li>
-              <li class="quest-board-title">안녕하세요 등업 신청합니다람쥐</li>
-              <li class="member-name">송지호</li>
-              <li class="member-id">wlgh123@naver.com</li>
-              <li class="member-membership">일반 회원</li>
-            </ul>
-            <ul class="member">
-              <li class="quest-board-number">1</li>
-              <li class="member-number">1</li>
-              <li class="quest-board-title">안녕하세요 등업 신청합니다람쥐</li>
-              <li class="member-name">송지호</li>
-              <li class="member-id">wlgh123@naver.com</li>
-              <li class="member-membership">일반 회원</li>
-            </ul>
+
           </div>
           <div class="page-container">
             <ul class="page-box">
