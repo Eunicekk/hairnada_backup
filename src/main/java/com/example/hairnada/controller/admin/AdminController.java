@@ -1,17 +1,28 @@
 package com.example.hairnada.controller.admin;
 
+import com.example.hairnada.dto.user.UserDto;
+import com.example.hairnada.service.admin.AdminService;
+import com.example.hairnada.vo.level.LevelVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin/*")
 @RequiredArgsConstructor
 public class AdminController {
+    private final AdminService adminService;
+
     // 유저 리스트
     @GetMapping("/userList")
-    public void memberList(){}
+    public void memberList(Model model){
+        List<UserDto> userList = adminService.findUserList();
+        model.addAttribute("userList", userList);
+    }
 
     // 로그인
     @GetMapping("/adminLogin")
@@ -39,7 +50,10 @@ public class AdminController {
 
     // 등업 신청 목록
     @GetMapping("/membership")
-    public void membership(){}
+    public void membership(Model model){
+        List<LevelVo> levelList = adminService.findLevelList();
+        model.addAttribute("levelList", levelList);
+    }
 
     // 등업 신청 게시글 읽기
     @GetMapping("/levelUp")
