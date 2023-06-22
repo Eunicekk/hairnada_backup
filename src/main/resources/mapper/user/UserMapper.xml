@@ -6,9 +6,9 @@
             SELECT SEQ_USER.NEXTVAL FROM DUAL
         </selectKey>
         INSERT INTO TBL_USER (USER_NUMBER, USER_ID, USER_PASSWORD, USER_PHONE_NUMBER, USER_ADDRESS, USER_ADDRESS_DETAIL,
-                              USER_STATUS, USER_NICKNAME, USER_GENDER, MEMBERSHIP_NUMBER, USER_NAME, USER_EMAIL)
+                               USER_NICKNAME, USER_GENDER, USER_NAME, USER_EMAIL)
         VALUES (#{userNumber}, #{userId}, #{userPassword}, #{userPhoneNumber}, #{userAddress}, #{userAddressDetail},
-                #{userStatus}, #{userNickname}, #{userGender}, #{membershipNumber}, #{userName}, #{userEmail});
+                 #{userNickname}, #{userGender}, #{userName}, #{userEmail})
     </insert>
 
     <select id="selectUserNumber" resultType="long">
@@ -16,9 +16,15 @@
         WHERE USER_ID = #{userId} AND USER_PASSWORD = #{userPassword}
     </select>
 
-    <select id="findUserId" resultType="string">
+    <select id="findUserIdPassword" resultType="UserDto">
         SELECT USER_ID, USER_PASSWORD
         FROM TBL_USER
-        WHERE USER_NAME = #{userName} AND USER_EMAILE = #{userEmail}
+        WHERE USER_NAME = #{userName} AND USER_EMAIL = #{userEmail}
     </select>
+
+    <select id="checkId" resultType="int">
+        SELECT COUNT(*) FROM TBL_USER
+        WHERE USER_ID = #{userID}
+    </select>
+
 </mapper>
