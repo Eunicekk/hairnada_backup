@@ -41,20 +41,23 @@
             </ul>
           </nav>
         </div>
-        <div class="main-box">
-          <h2 class="board-title">안녕하세요 등업 신청 합니다.</h2>
+        <div class="main-box" th:each="view : ${LevelBoard}">
+          <input type="hidden" class="userNumber" th:value="${view.userNumber}">
+          <h2 class="board-title" th:text="${view.levelTitle}"></h2>
           <div class="name-date-box">
-            <span class="member-name">송지호</span>
-            <span class="member-id">wlgh123@naver.com</span>
-            <span class="text">신청 등급 : </span>
-            <span class="membership-status">헤어 디자이너</span>
-            <span class="board-register-date">2023.06.09 09:18</span>
+            <span class="member-name" th:text="${view.userName}"></span>
+            <span class="member-id" th:text="${view.userId}"></span>
+            <span class="text">신청 등급 :  </span>
+            <span class="membership-status" th:text="${view.membershipName}"></span>
+            <input type="hidden" class="membershipNumber" th:value="${view.membershipNumber}">
+            <input type="hidden" class="userMembership" th:value="${view.userMembershipNumber}">
+            <span class="board-register-date" th:text="${view.levelRegisterDate}"></span>
           </div>
 
           <div class="board-main">
             <img class="license-photo" src="../LogoImg/Hairnada.jpg" />
             <span class="board-content"
-              >안녕하세요 열심히 하겠습니당 제 자격증 입니당
+               th:text="${view.levelContent}">
             </span>
           </div>
           <div class="btn-box">
@@ -67,5 +70,11 @@
         </div>
       </div>
     </div>
+    <script
+            src="https://code.jquery.com/jquery-3.7.0.js"
+            integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+            crossorigin="anonymous"
+    ></script>
+    <script src="/js/admin/levelUp.js"></script>
   </body>
 </html>

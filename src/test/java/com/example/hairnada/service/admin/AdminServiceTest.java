@@ -59,4 +59,25 @@ class AdminServiceTest {
 
         assertThat(foundLevelList).size().isEqualTo(1);
     }
+
+    @Test
+    @DisplayName("등업 신청 게시글 읽기")
+    void findLevelBoard(){
+        doReturn(levelVo).when(adminMapper).levelBoardRead(any(Long.class));
+
+        LevelVo foundLevelBoard = adminService.findLevelBoard(1L);
+
+        assertThat(foundLevelBoard).isEqualTo(levelVo);
+    }
+
+    @Test
+    @DisplayName("등업 요청 수락")
+    void acceptQuest(){
+        doNothing().when(adminMapper).updateMembershipNumber(any(Long.class), any(Long.class));
+
+        adminService.acceptQuest(1L, 2L);
+
+        verify(adminMapper , times(1)).updateMembershipNumber(1L, 2L);
+    }
+
 }
