@@ -57,7 +57,9 @@ public class AdminController {
 
     // 등업 신청 게시글 읽기
     @GetMapping("/levelUp")
-    public void levelUP(){}
+    public void levelUP(){
+
+    }
 
     // 상품 리스트
     @GetMapping("/storeList")

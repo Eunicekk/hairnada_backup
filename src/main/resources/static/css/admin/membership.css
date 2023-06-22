@@ -55,11 +55,11 @@
   width: 400px;
 }
 
-.member > .quest-board-title {
-  cursor: pointer;
+a > .quest-board-title {
+  text-align: center;
 }
 
-.member > .quest-board-title:hover {
+a > .quest-board-title:hover {
   color: #969696;
 }
 .member-id {
