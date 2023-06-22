@@ -4,12 +4,16 @@ import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.service.admin.AdminService;
 import com.example.hairnada.vo.level.LevelVo;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
+import java.util.logging.Level;
 
 @Controller
 @RequestMapping("/admin/*")
@@ -57,9 +61,17 @@ public class AdminController {
 
     // 등업 신청 게시글 읽기
     @GetMapping("/levelUp")
-    public void levelUP(){
-
+    public void levelUP(Long levelNumber, Model model){
+        LevelVo levelVo = adminService.findLevelBoard(levelNumber);
+        model.addAttribute("LevelBoard", levelVo);
     }
+
+//    // 회원 기존 등급 조회
+//    @GetMapping("/findUserMembership")
+//    public Long levelUp(@Param("userNumber")Long userNumber){
+//        Long userMembership = adminService.matchingMembership(userNumber);
+//        return userMembership;
+//    }
 
     // 상품 리스트
     @GetMapping("/storeList")
