@@ -2,6 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.hairnada.mapper.board.BoardMapper">
 
+    <insert id="insert">
+        <selectKey keyProperty="boardNumber" order="BEFORE" resultType="long">
+            SELECT SEQ_BOARD.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO TBL_BOARD(BOARD_NUMBER, BOARD_TITLE, BOARD_CONTENT, USER_NUMBER)
+        VALUES (#{boardNumber}, #{boardTitle}, #{boardContent}, #{userNumber})
+    </insert>
+
 <!--    <select id="selectAll" resultType="boardVo">-->
 <!--        SELECT BOARD_NUMBER, BOARD_TITLE, BOARD_CONTENT, BOARD_REGISTER_DATE, BOARD_UPDATE_DATE,-->
 <!--               USER_NUMBER, USER_ID,-->
@@ -33,10 +41,16 @@
 <!--                    ) s1-->
 <!--        <![CDATA[-->
 <!--                WHERE ROWNUM <= #{page} * #{amount}-->
-<!--            ]]>-->
-<!--        ) s2-->
+<!--        ]]>-->
+<!--    ) s2-->
 <!--        WHERE RNUM > (#{page} - 1) * #{amount}-->
 <!--    </select>-->
 
+    <select id="selectAll" resultType="boardVo">
+        SELECT BOARD_NUMBER, BOARD_TITLE, BOARD_CONTENT, B.USER_NUMBER, U.USER_NICKNAME, BC.BOARD_CATEGORY_NUMBER
+        FROM TBL_BOARD B JOIN TBL_USER U ON B.USER_NUMBER = U.USER_NUMBER
+                         LEFT OUTER JOIN TBL_BOARD_CATEGORY BC ON B.BOARD_CATEGORY_NUMBER = BC.BOARD_CATEGORY_NUMBER
+        ORDER BY BOARD_NUMBER DESC
+    </select>
 
 </mapper>
