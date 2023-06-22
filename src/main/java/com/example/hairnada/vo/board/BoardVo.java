@@ -18,5 +18,8 @@ public class BoardVo {
     private String boardFileName;
     private String boardFileUploadPath;
     private String boardFileUuid;
+    private String userFileName;
+    private String userFileUploadPath;
+    private String userFileUuid;
 
 }

@@ -22,6 +22,7 @@
         <typeAlias type="com.example.hairnada.dto.level.LevelFileDto" alias="LevelFileDto" />
 
         <typeAlias type="com.example.hairnada.dto.board.BoardDto" alias="boardDto" />
+        <typeAlias type="com.example.hairnada.vo.board.BoardVo" alias="boardVo" />
         <typeAlias type="com.example.hairnada.dto.board.BoardFileDto" alias="boardFileDto" />
         <typeAlias type="com.example.hairnada.dto.board.BoardLikeDto" alias="boardLikeDto" />
         <typeAlias type="com.example.hairnada.dto.board.BoardReplyDto" alias="boardReplyDto" />

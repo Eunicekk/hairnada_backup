@@ -68,13 +68,13 @@
         <div class="communityList cL">
           <ul class="ListUl">
             <!-- 첫번째 -->
-            <li class="ListLi">
+            <li class="ListLi" th:each="board : ${boardList}">
               <div class="profile">
                 <a href="#">
                   <div class="profiles profile-img">
                     <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTgz/MDAxNjM5NTc2MDYxMjQw.jGbcfmGy9UjE1k3obpZy9piP41BQTf_PbLi0VdBRL9sg.vfIiwqDJVvwviW1J9I0QZwNCcfleCTAGemKH_INjJfwg.JPEG.se413496/c55c762ce418abefd071aa7e81c5a213.jpg?type=w800" alt="프로필 이미지">
                   </div>
-                  <p class="profiles profile-nick">닉네임</p>
+                  <p class="profiles profile-nick" th:text="${board.UserNickName}"></p>
                 </a>
                 <div class="buttons">
                   <button type="button" class="like">하트</button>
@@ -88,97 +88,7 @@
                 </div>
               </a>
               <div class="titleAndCnt">
-                <p class="community-title">제목이여유</p>
-                <div class="count">
-                  <span class="reply">댓글</span>
-                  <span class="replyCnt">3</span>
-                  <span class="view">조회수 </span>
-                  <span class="viewCnt">5</span>
-                </div>
-              </div>
-            </li>
-            <!-- 두번째 -->
-            <li class="ListLi">
-              <div class="profile">
-                <a href="#">
-                  <div class="profiles profile-img">
-                    <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTgz/MDAxNjM5NTc2MDYxMjQw.jGbcfmGy9UjE1k3obpZy9piP41BQTf_PbLi0VdBRL9sg.vfIiwqDJVvwviW1J9I0QZwNCcfleCTAGemKH_INjJfwg.JPEG.se413496/c55c762ce418abefd071aa7e81c5a213.jpg?type=w800" alt="프로필 이미지">
-                  </div>
-                  <p class="profiles profile-nick">닉네임</p>
-                </a>
-                <div class="buttons">
-                  <button type="button" class="like">하트</button>
-                </div>
-              </div>
-              <a href="#">
-                <div class="img-list">
-                  <div class="main-img">
-                    <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800" alt="썸네일">
-                  </div>
-                </div>
-              </a>
-              <div class="titleAndCnt">
-                <p class="community-title">제목이여유</p>
-                <div class="count">
-                  <span class="reply">댓글</span>
-                  <span class="replyCnt">3</span>
-                  <span class="view">조회수 </span>
-                  <span class="viewCnt">5</span>
-                </div>
-              </div>
-            </li>
-            <!-- 세번째 -->
-            <li class="ListLi">
-              <div class="profile">
-                <a href="#">
-                  <div class="profiles profile-img">
-                    <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTgz/MDAxNjM5NTc2MDYxMjQw.jGbcfmGy9UjE1k3obpZy9piP41BQTf_PbLi0VdBRL9sg.vfIiwqDJVvwviW1J9I0QZwNCcfleCTAGemKH_INjJfwg.JPEG.se413496/c55c762ce418abefd071aa7e81c5a213.jpg?type=w800" alt="프로필 이미지">
-                  </div>
-                  <p class="profiles profile-nick">닉네임</p>
-                </a>
-                <div class="buttons">
-                  <button type="button" class="like">하트</button>
-                </div>
-              </div>
-              <a href="#">
-                <div class="img-list">
-                  <div class="main-img">
-                    <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800" alt="썸네일">
-                  </div>
-                </div>
-              </a>
-              <div class="titleAndCnt">
-                <p class="community-title">제목이여유</p>
-                <div class="count">
-                  <span class="reply">댓글</span>
-                  <span class="replyCnt">3</span>
-                  <span class="view">조회수 </span>
-                  <span class="viewCnt">5</span>
-                </div>
-              </div>
-            </li>
-            <!-- 네번째 -->
-            <li class="ListLi">
-              <div class="profile">
-                <a href="#">
-                  <div class="profiles profile-img">
-                    <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTgz/MDAxNjM5NTc2MDYxMjQw.jGbcfmGy9UjE1k3obpZy9piP41BQTf_PbLi0VdBRL9sg.vfIiwqDJVvwviW1J9I0QZwNCcfleCTAGemKH_INjJfwg.JPEG.se413496/c55c762ce418abefd071aa7e81c5a213.jpg?type=w800" alt="프로필 이미지">
-                  </div>
-                  <p class="profiles profile-nick">닉네임</p>
-                </a>
-                <div class="buttons">
-                  <button type="button" class="like">하트</button>
-                </div>
-              </div>
-              <a href="">
-                <div class="img-list">
-                  <div class="main-img">
-                    <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800" alt="썸네일">
-                  </div>
-                </div>
-              </a>
-              <div class="titleAndCnt">
-                <p class="community-title">제목이여유</p>
+                <p class="community-title" th:text="${board.boardTitle}"></p>
                 <div class="count">
                   <span class="reply">댓글</span>
                   <span class="replyCnt">3</span>
@@ -202,12 +112,13 @@
             <li><a href="#" class="next">&raquo;</a></li>
           </ul>
         </div>
+
       </article>
     </div>
   <footer class="footer" th:replace="fragment/footer :: footer"></footer>
 
     <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
     <script th:src="@{/js/index/header.js}"></script>
-    <script src="/js/community/communityList.js"></script>
+    <script th:src="@{/js/community/communityList.js}"></script>
   </body>
 </html>
