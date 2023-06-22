@@ -2,4 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.hairnada.mapper.hairshop.HairShopMapper">
 
+    <!--    헤어샵 리스트-->
+    <select id="selectAll" resultType="hairShopDto">
+        SELECT HAIR_SHOP_NUMBER, HAIR_SHOP_NAME, HAIR_SHOP_ADDRESS,
+        S.HAIR_SHOP_FILE_UPLOAD_PATH, S.HAIR_SHOP_FILE_UUID, S.HAIR_SHOP_FILE_NAME
+        FROM (
+                SELECT RNUM, HAIR_SHOP_NUMBER, HAIR_SHOP_NAME,
+                HAIR_SHOP_ADDRESS, HAIR_SHOP_FILE_UPLOAD_PATH, HAIR_SHOP_FILE_UUID,
+                HAIR_SHOP_FILE_NAME
+                FROM (
+                        SELECT ROWNUM AS RNUM, H.HAIR_SHOP_NUMBER, H.HAIR_SHOP_NAME,
+                        H.HAIR_SHOP_ADDRESS, J.HAIR_SHOP_FILE_UPLOAD_PATH,
+                        J.HAIR_SHOP_FILE_UUID, J.HAIR_SHOP_FILE_NAME
+                        FROM TBL_HAIR_SHOP H
+                        LEFT JOIN (
+                            SELECT HAIR_SHOP_FILE_NUMBER, HAIR_SHOP_FILE_UPLOAD_PATH,
+                            HAIR_SHOP_FILE_UUID, HAIR_SHOP_FILE_NAME, HAIR_SHOP_NUMBER
+                            FROM(
+                                    SELECT HAIR_SHOP_FILE_NUMBER, HAIR_SHOP_FILE_UPLOAD_PATH,
+                                    HAIR_SHOP_FILE_UUID, HAIR_SHOP_FILE_NAME, HAIR_SHOP_NUMBER,
+                                    RANK() OVER (PARTITION BY HAIR_SHOP_NUMBER ORDER BY HAIR_SHOP_FILE_NUMBER) AS RK
+                                    FROM TBL_HAIR_SHOP_FILE F
+                            ) WHERE RK = 1
+                        ) J ON H.HAIR_SHOP_NUMBER = J.HAIR_SHOP_NUMBER
+                    )
+                    <![CDATA[WHERE ROWNUM <= #{page} * #{amount}]]>
+                    ORDER BY HAIR_SHOP_NUMBER DESC
+            ) S WHERE RNUM > (#{page} - 1) * #{amount}
+    </select>
+
+    <!--    헤어샵 리스트 전체 개수-->
+    <select id="selectTotal" resultType="_int">
+        SELECT COUNT(HAIR_SHOP_NUMBER)
+        FROM TBL_HAIR_SHOP
+    </select>
+
 </mapper>
