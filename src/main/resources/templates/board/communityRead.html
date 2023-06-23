@@ -20,7 +20,7 @@
 
 
       <div class="community-title">
-        <h1>커뮤니티 제목입니다.</h1>
+        <h1 th:text="${board.boardTitle}"></h1>
         <div class="buttons">
           <button type="button" class="like">하트</button>
         </div>
@@ -34,7 +34,7 @@
               <div class="profiles profile-img">
                 <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTgz/MDAxNjM5NTc2MDYxMjQw.jGbcfmGy9UjE1k3obpZy9piP41BQTf_PbLi0VdBRL9sg.vfIiwqDJVvwviW1J9I0QZwNCcfleCTAGemKH_INjJfwg.JPEG.se413496/c55c762ce418abefd071aa7e81c5a213.jpg?type=w800" alt="프로필 이미지">
               </div>
-              <p class="profiles profile-nick">닉네임</p>
+              <p class="profiles profile-nick" th:text="${board.userNickName}"></p>
             </a>
         </div>
         <div class="count">
@@ -43,16 +43,23 @@
                   <span class="view">조회수 </span>
                   <span class="viewCnt">5</span>
         </div>
+        </div>
       </article>
 
-      <div class="communityRead">
+      <div class="communityRead" th:text="${board.boardContent}">
 
       </div>
 
       <!-- 뒤로 가기 -->
+      <div class="button-container">
+            <th:block th:if="${session.userNumber == board.userNumber}">
       <button type="button" class="btn-modify">수정</button>
       <button type="button" class="btn-remove">삭제</button>
+            </th:block>
+        <input type="hidden" class="board-num" th:value="${board.boardNumber}">
       <button type="button" class="btn-back">목록</button>
+      </div>
+
 
 
       <!-- 댓글 수정 -->
