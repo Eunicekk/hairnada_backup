@@ -117,17 +117,20 @@ button {
 }
 
 .communityRead {
-  background-color: #333;
   width: 1200px;
   height: 1500px;
   margin: 20px auto 0;
 }
 
 /* 뒤로 가기 */
+.button-container {
+  text-align: right;
+}
+
 .btn-modify,.btn-back,.btn-remove{
   height: 46.13px;
   margin: 40px auto;
-  position: relative; left: 944px;
+  position: relative;
 }
 
 .btn-modify,.btn-back,.btn-remove{

@@ -21,7 +21,8 @@
         <img src="/img/tab-banner-04+.png" alt="배너">
       </div>
 
-      <form th:action="@{/board/communityWrite}" method="post" enctype="multipart/form-data">
+      <form th:action="@{/board/communityModify}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="boardNumber" th:value="${board.boardNumber}">
         <!-- 이미지 등록 -->
         <div class="content">
           <div class="title">대표이미지</div>
@@ -67,16 +68,16 @@
         <!-- 제목 -->
         <div class="content">
           <div class="title">제목</div>
-          <input type="text" name="boardTitle" required placeholder="게시물 제목을 입력하세요.">
+          <input type="text" name="boardTitle" th:value="${board.boardTitle}" required />
       </div>
 
         <!-- 서머노트 -->
-        <div id="editor" name="boardContent"></div>
+        <div id="editor" name="boardContent" th:text="${board.boardContent}"></div>
         
         <!-- 완료 및 취소 버튼 -->
         <div class="buttons">
-          <button type="button" class="writeCancel-btn">작성 취소</button>
-          <button type="submit">작성 완료</button>
+          <button type="button" class="writeCancel-btn">수정 취소</button>
+          <button type="submit">수정 완료</button>
       </div>
     </form>
     </div>
