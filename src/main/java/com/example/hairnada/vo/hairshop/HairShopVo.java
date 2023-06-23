@@ -18,4 +18,6 @@ public class HairShopVo {
     private String hairShopFileName;
     private String hairShopFileUploadPath;
     private String hairShopFileUuid;
+    private Long userNumber;
+    private String hairShopContent;
 }

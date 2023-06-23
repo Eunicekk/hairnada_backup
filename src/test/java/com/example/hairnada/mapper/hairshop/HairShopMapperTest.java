@@ -26,9 +26,7 @@ public class HairShopMapperTest {
     private HairShopVo hairShopVo;
 
     @BeforeEach
-    void setUp(){
-
-    }
+    void setUp(){}
 
     @Test
     void selectAll(){
@@ -42,4 +40,7 @@ public class HairShopMapperTest {
         int size = hairShopMapper.selectTotal();
         assertThat(size).isEqualTo(160);
     }
+
+    @Test
+    void select(){}
 }
