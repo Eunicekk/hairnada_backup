@@ -91,4 +91,14 @@ class UserServiceTest {
         assertThat(result).isEqualTo(1);
     }
 
+    @Test
+    @DisplayName("아이디 실패검사")
+    void loginFail(){
+        doReturn(1).when(userMapper).loginFail(any(String.class), any(String.class));
+
+        int result = userService.loginFail("test", "1234");
+
+        assertThat(result).isEqualTo(1);
+    }
+
 }

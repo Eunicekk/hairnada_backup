@@ -74,5 +74,15 @@ public class UserService {
         return userMapper.checkNickname(userNickname);
     }
 
+    @Transactional(readOnly = true)
+    public int loginFail(String userId, String userPassword){
+        if(userId == null){
+            throw new IllegalArgumentException("아이디 누락");
+        }else if(userPassword == null){
+            throw new IllegalArgumentException("비밀번호 누락");
+        }
+        return userMapper.loginFail(userId, userPassword);
+    }
+
 
 }

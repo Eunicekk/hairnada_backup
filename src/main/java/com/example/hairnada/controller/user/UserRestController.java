@@ -22,7 +22,9 @@ public class UserRestController {
         return userService.checkUserNickname(userNickname);
     }
 
-//    @GetMapping("/noLogin")
-//    public
+    @GetMapping("/loginFail")
+    public int loginFail(String userId, String userPassword){
+        return userService.loginFail(userId, userPassword);
+    }
 
 }

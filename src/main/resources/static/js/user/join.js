@@ -197,3 +197,7 @@ $('.dropdown-menu li').on('click', function () {
     });
 
 
+// 회원가입 실패처리
+// $(document).ready(function(){
+//
+// });
