@@ -83,3 +83,14 @@ function naverLogout() {
     closePopUp();
   }, 1000);
 }
+
+// 로그인 안됨 처리
+// console.log(window.location.search)
+//
+// let queryString = location.search;
+// let urlParams = new URLSearchParams(queryString);
+// let login = urlParams.get('login');
+//
+// if(login == 'fail'){
+//   $('.id-pw-no').css("display","inline-block");
+// }
