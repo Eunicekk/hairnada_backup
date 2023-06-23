@@ -2,12 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.hairnada.mapper.admin.AdminMapper">
 
+<!-- 회원 정보 전체 조회 -->
  <select id="selectUserList" resultType="userDto">
   SELECT USER_NUMBER , USER_NAME,USER_ID, USER_NICKNAME, tm.MEMBERSHIP_NAME , USER_STATUS FROM TBL_USER tu
   JOIN TBL_MEMBERSHIP tm  ON tm.MEMBERSHIP_NUMBER  = tu.MEMBERSHIP_NUMBER
   ORDER BY USER_NUMBER DESC
  </select>
- 
+
+<!-- 등업 신청 목록 조회 -->
  <select id="selectLevelList" resultType="levelVo">
   SELECT LEVEL_NUMBER , LEVEL_TITLE , tu.USER_NUMBER , tu.USER_NAME, tu.USER_ID , tm.MEMBERSHIP_NAME FROM TBL_LEVEL tl
   JOIN TBL_USER tu
@@ -16,5 +18,26 @@
   ON tm.MEMBERSHIP_NUMBER  = tu.MEMBERSHIP_NUMBER
   ORDER BY LEVEL_NUMBER DESC
  </select>
+
+<!-- 등업 게시글 읽어오기 -->
+ <select id="levelBoardRead" resultType="levelVo">
+  SELECT LEVEL_NUMBER , LEVEL_TITLE , LEVEL_CONTENT , LEVEL_REGISTER_DATE, tm.MEMBERSHIP_NUMBER, tm.MEMBERSHIP_NAME , tl.USER_NUMBER ,
+  tu.USER_ID , tu.USER_NAME, tu.MEMBERSHIP_NUMBER AS USER_MEMBERSHIP_NUMBER FROM TBL_LEVEL tl
+  JOIN TBL_MEMBERSHIP tm
+  ON tm.MEMBERSHIP_NUMBER  = tl.MEMBERSHIP_NUMBER
+  JOIN TBL_USER tu
+  ON tu.USER_NUMBER  = tl.USER_NUMBER
+  WHERE LEVEL_NUMBER  = #{levelNumber}
+ </select>
+
+<!-- 등업 게시글 수락 -->
+ <update id="updateMembershipNumber">
+  UPDATE TBL_USER
+  SET MEMBERSHIP_NUMBER = #{membershipNumber}
+  WHERE USER_NUMBER = #{userNumber}
+ </update>
+
+
+
 
 </mapper>

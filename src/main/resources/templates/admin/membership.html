@@ -64,7 +64,9 @@
             <ul class="member">
               <li class="quest-board-number" th:text="${level.levelNumber}"></li>
               <li class="member-number" th:text="${level.userNumber}"></li>
+              <a th:href="@{/admin/levelUp(levelNumber=${level.levelNumber})}">
               <li class="quest-board-title" th:text="${level.levelTitle}"></li>
+                </a>
               <li class="member-name" th:text="${level.userName}"></li>
               <li class="member-id" th:text="${level.userId}"></li>
               <li class="member-membership" th:text="${level.membershipName}"></li>
@@ -93,5 +95,11 @@
         </div>
       </div>
     </div>
+  <script
+          src="https://code.jquery.com/jquery-3.7.0.js"
+          integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+          crossorigin="anonymous"
+  ></script>
+  <script src="/js/admin/membership.js"></script>
   </body>
 </html>

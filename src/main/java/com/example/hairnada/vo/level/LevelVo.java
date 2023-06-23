@@ -19,4 +19,5 @@ public class LevelVo {
     private String userName;
     private String userId;
     private String membershipName;
+    private Long userMembershipNumber;
 }
