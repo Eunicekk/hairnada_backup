@@ -15,4 +15,6 @@ public class HairShopDto {
     private String hairShopLink;
     private String hairShopOpenTime;
     private Long hairShopFileNumber;
+    private Long userNumber;
+    private String hairShopContent;
 }

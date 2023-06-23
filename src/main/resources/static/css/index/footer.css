@@ -28,14 +28,14 @@
     color: #FBE852;
 }
 
-.address li{
+.member-info li{
     font-size: 14px;
     color: #A7A7A7;
     margin-bottom: 8px;
     font-weight: 300;
 }
 
-.address li:nth-child(5){
+.member-info li:nth-child(5){
     margin-top: 16px;
 }
 

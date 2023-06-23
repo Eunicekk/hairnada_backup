@@ -42,14 +42,30 @@ public class HairShopServiceTest {
     @Test
     @DisplayName("게시물 전체 조회")
     void findAll(){
-//        List<HairShopVo> list = hairShopMapper.selectAll(criteria03);
-//        assertThat(list).isNotNull();
-//        List<HairShopVo> list = hairShopService.findAll(criteria03);
-//        assertThat(list).isNotNull();
-        System.out.println(hairShopVo);
-        System.out.println(List.of(hairShopVo));
         doReturn(List.of(hairShopVo)).when(hairShopMapper).selectAll(any(Criteria03.class));
         List<HairShopVo> hairShopList = hairShopService.findAll(criteria03);
         assertThat(hairShopList).contains(hairShopVo);
+    }
+
+    @Test
+    @DisplayName("게시물 조회")
+    void fidnHairShop(){
+        doReturn(hairShopVo).when(hairShopMapper).select(any(Long.class));
+        HairShopVo foundShop = hairShopService.findHairShop(1L);
+
+        assertThat(foundShop).isNotNull();
+        assertThatThrownBy(()->hairShopService.findHairShop(null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("없습니다.");
+    }
+
+    @Test
+    @DisplayName("게시물 조회 예외")
+    void findHairShopException(){
+        doReturn(null).when(hairShopMapper).select(any(Long.class));
+
+        assertThatThrownBy(()->hairShopService.findHairShop(1L))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("존재하지");
     }
 }

@@ -13,4 +13,7 @@ public interface HairShopMapper {
 
     // 전체 게시글 수 조회
     public int selectTotal();
+
+    // 게시물 선택
+    public HairShopVo select(Long hairShopNumber);
 }
