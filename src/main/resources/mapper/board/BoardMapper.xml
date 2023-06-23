@@ -6,51 +6,63 @@
         <selectKey keyProperty="boardNumber" order="BEFORE" resultType="long">
             SELECT SEQ_BOARD.NEXTVAL FROM DUAL
         </selectKey>
-        INSERT INTO TBL_BOARD(BOARD_NUMBER, BOARD_TITLE, BOARD_CONTENT, USER_NUMBER)
-        VALUES (#{boardNumber}, #{boardTitle}, #{boardContent}, #{userNumber})
+            INSERT INTO TBL_BOARD(BOARD_NUMBER, BOARD_TITLE, BOARD_CONTENT,BOARD_VIEW_CNT ,USER_NUMBER)
+            VALUES (#{boardNumber}, #{boardTitle}, #{boardContent, jdbcType=CLOB}, 0,#{userNumber})
     </insert>
 
-<!--    <select id="selectAll" resultType="boardVo">-->
-<!--        SELECT BOARD_NUMBER, BOARD_TITLE, BOARD_CONTENT, BOARD_REGISTER_DATE, BOARD_UPDATE_DATE,-->
-<!--               USER_NUMBER, USER_ID,-->
-<!--               FILE_UPLOAD_PATH, FILE_UUID, FILE_NAME-->
-<!--        FROM(-->
-<!--                SELECT ROWNUM AS RNUM, BOARD_NUMBER, BOARD_TITLE, BOARD_CONTENT, BOARD_REGISTER_DATE, BOARD_UPDATE_DATE,-->
-<!--                       USER_NUMBER, USER_ID,-->
-<!--                       FILE_UPLOAD_PATH, FILE_UUID, FILE_NAME-->
-<!--                FROM(-->
-<!--                        SELECT B.BOARD_NUMBER, BOARD_TITLE, BOARD_CONTENT, BOARD_REGISTER_DATE, BOARD_UPDATE_DATE,-->
-<!--                               B.USER_NUMBER, USER_ID,-->
-<!--                               J.FILE_UPLOAD_PATH, J.FILE_UUID, FILE_NAME-->
-<!--                        FROM TBL_USER U JOIN TBL_BOARD B-->
-<!--                                             ON U.USER_NUMBER = B.USER_NUMBER-->
-<!--                                        LEFT JOIN (-->
-<!--                            SELECT FILE_NUMBER, FILE_UPLOAD_PATH, FILE_UUID, FILE_NAME, BOARD_NUMBER-->
-<!--                            FROM (-->
-<!--                                     SELECT FILE_NUMBER,-->
-<!--                                            FILE_UPLOAD_PATH,-->
-<!--                                            FILE_UUID,-->
-<!--                                            FILE_NAME,-->
-<!--                                            BOARD_NUMBER,-->
-<!--                                            RANK() OVER (PARTITION BY BOARD_NUMBER ORDER BY FILE_NUMBER) RK-->
-<!--                                     FROM TBL_FILE F-->
-<!--                                 )-->
-<!--                            WHERE RK = 1-->
-<!--                        ) J ON B.BOARD_NUMBER = J.BOARD_NUMBER-->
-<!--                        ORDER BY B.BOARD_NUMBER DESC-->
-<!--                    ) s1-->
-<!--        <![CDATA[-->
-<!--                WHERE ROWNUM <= #{page} * #{amount}-->
-<!--        ]]>-->
-<!--    ) s2-->
-<!--        WHERE RNUM > (#{page} - 1) * #{amount}-->
-<!--    </select>-->
+    <delete id="delete">
+        DELETE FROM TBL_BOARD
+        WHERE BOARD_NUMBER = #{boardNumber}
+    </delete>
+
+    <update id="update">
+        UPDATE TBL_BOARD
+        SET BOARD_TITLE = #{boardTitle}, BOARD_CONTENT = #{boardContent}
+        WHERE BOARD_NUMBER = #{boardNumber}
+    </update>
+
+
+
+    <select id="select" resultType="boardVo">
+        SELECT BOARD_NUMBER, BOARD_TITLE, BOARD_CONTENT, B.USER_NUMBER, U.USER_NICKNAME
+        FROM TBL_BOARD B JOIN TBL_USER U
+            ON B.board_number = #{boardNumber} AND B.USER_NUMBER = U.USER_NUMBER
+    </select>
 
     <select id="selectAll" resultType="boardVo">
-        SELECT BOARD_NUMBER, BOARD_TITLE, BOARD_CONTENT, B.USER_NUMBER, U.USER_NICKNAME, BC.BOARD_CATEGORY_NUMBER
-        FROM TBL_BOARD B JOIN TBL_USER U ON B.USER_NUMBER = U.USER_NUMBER
-                         LEFT OUTER JOIN TBL_BOARD_CATEGORY BC ON B.BOARD_CATEGORY_NUMBER = BC.BOARD_CATEGORY_NUMBER
-        ORDER BY BOARD_NUMBER DESC
+        SELECT BOARD_NUMBER, BOARD_TITLE, BOARD_VIEW_CNT, BOARD_CONTENT,
+        USER_NUMBER, USER_NICKNAME,
+        BOARD_FILE_UPLOAD_PATH, BOARD_FILE_UUID, BOARD_FILE_NAME
+        FROM(
+        SELECT ROWNUM AS RNUM, BOARD_NUMBER, BOARD_TITLE, BOARD_VIEW_CNT, BOARD_CONTENT,
+        USER_NUMBER, USER_NICKNAME,
+        BOARD_FILE_UPLOAD_PATH, BOARD_FILE_UUID, BOARD_FILE_NAME
+        FROM(
+        SELECT B.BOARD_NUMBER, BOARD_TITLE, BOARD_VIEW_CNT, BOARD_CONTENT,
+        B.USER_NUMBER, USER_NICKNAME,
+        J.BOARD_FILE_UPLOAD_PATH, J.BOARD_FILE_UUID, J.BOARD_FILE_NAME
+        FROM TBL_USER U JOIN TBL_BOARD B
+        ON U.USER_NUMBER = B.USER_NUMBER
+        LEFT JOIN (
+        SELECT BOARD_FILE_NUMBER, BOARD_FILE_UPLOAD_PATH, BOARD_FILE_UUID, BOARD_FILE_NAME, BOARD_NUMBER
+        FROM(
+        SELECT BOARD_FILE_NUMBER, BOARD_FILE_UPLOAD_PATH, BOARD_FILE_UUID, BOARD_FILE_NAME, BOARD_NUMBER,
+        RANK() OVER(PARTITION BY BOARD_NUMBER ORDER BY BOARD_FILE_NUMBER) RK
+        FROM TBL_BOARD_FILE
+        )
+        WHERE RK = 1
+        ) J ON B.BOARD_NUMBER = J.BOARD_NUMBER
+        ORDER BY B.BOARD_NUMBER DESC
+        ) S1
+        <![CDATA[
+        WHERE ROWNUM <= #{page} * #{amount}
+        ]]>
+        ) S2
+        WHERE RNUM > (#{page} - 1) * #{amount}
+    </select>
+
+    <select id="selectTotal" resultType="_int">
+        SELECT COUNT(BOARD_NUMBER) FROM TBL_BOARD
     </select>
 
 </mapper>
