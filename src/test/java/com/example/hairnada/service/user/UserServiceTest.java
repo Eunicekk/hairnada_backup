@@ -80,4 +80,15 @@ class UserServiceTest {
 
         assertThat(result).isEqualTo(1);
     }
+
+    @Test
+    @DisplayName("닉네임 중복검사")
+    void checkUserNickname(){
+        doReturn(1).when(userMapper).checkNickname(any(String.class));
+
+        int result = userService.checkUserNickname("test");
+
+        assertThat(result).isEqualTo(1);
+    }
+
 }

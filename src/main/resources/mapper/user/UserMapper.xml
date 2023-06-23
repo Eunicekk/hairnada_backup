@@ -27,4 +27,14 @@
         WHERE USER_ID = #{userID}
     </select>
 
+    <select id="checkNickname" resultType="int">
+        SELECT COUNT(*) FROM TBL_USER
+        WHERE USER_NICKNAME = #{userNickname}
+    </select>
+
+    <select id="loginFail" resultType="int">
+        SELECT COUNT(*) FROM TBL_USER
+        WHERE USER_ID = #{userId} AND USER_PASSWORD = #{userPassword}
+    </select>
+
 </mapper>

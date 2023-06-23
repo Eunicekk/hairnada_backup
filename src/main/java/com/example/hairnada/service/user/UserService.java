@@ -66,6 +66,13 @@ public class UserService {
        return userMapper.checkId(userId);
     }
 
+    @Transactional(readOnly = true)
+    public int checkUserNickname(String userNickname){
+        if(userNickname == null){
+            throw new IllegalArgumentException("닉네임 누락");
+        }
+        return userMapper.checkNickname(userNickname);
+    }
 
 
 }

@@ -341,3 +341,17 @@ input {
   color: green;
   display: none;
 }
+
+.nickName-err-text{
+  margin-left: 130px;
+  font-size: 15px;
+  color: red;
+  display: none;
+}
+
+.nickName-err-text2{
+  margin-left: 130px;
+  font-size: 15px;
+  color: green;
+  display: none;
+}

@@ -184,7 +184,8 @@ input:focus {
   font-size: 12px;
 }
 
-.pw-no {
+.id-pw-no {
   color: red;
   font-size: 12px;
+  display: none;
 }

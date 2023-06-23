@@ -115,15 +115,17 @@ $(document).ready(function() {
 // 비밀번호 일치
 let pw1;
 let pw2;
+
 // 비밀번호 정규식 (특수문자, 8글자 이상)
-let regex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[a-zA-Z\d!@#$%^&*()_+]{8,}$/;
+let regex;
 
 $('.password-box').on('change', function(){
-   pw1 = $(this).val();
+    pw1 = $(this).val();
+    regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
     console.log(pw1);
-    if(pw1 == regex){
+    if(regex.test(pw1)){
         $('.pw-err-text').css("display","none");
-    }else {
+    } else {
         $('.pw-err-text').css("display","inline-block");
     }
 });
@@ -142,6 +144,56 @@ $('.repassword-box').on('change', function(){
 
 
 
+// 닉네임 중복검사
+$('.nickname-box').on('blur', function (){
+    var userNickname = $(".nickname-box").val();
 
+    $.ajax({
+        url: "/users/checkNickname",
+        type: "GET",
+        data: { userNickname : userNickname },
+        success: function(result) {
+            // 중복 여부에 따라 처리
+            if (result == 0) {
+                $('.nickName-err-text2').css("display","inline-block");
+                $('.nickName-err-text').css("display", "none");
+            } else {
+                $('.nickName-err-text').css("display","inline-block");
+                $('.nickName-err-text2').css("display", "none");
+            }
+        },
+        error: function() {
+            console.log("오류 발생");
+        }
+    });
+});
+
+
+// 이메일 주소 연결
+let emailReal;
+let email2;
+let result;
+
+$('.email-box').on('change', function () {
+        let email = $(this).val();
+        console.log(email);
+
+        email2 = email;
+    });
+
+$('.dropdown-menu li').on('click', function () {
+        let text = $(this).text();
+        if (text == '직접입력') {
+            $('.realEmail').val(email2);
+            console.log($('.realEmail').val());
+            return;
+        }else {
+            emailReal = email2 + text;
+            $('.realEmail').val(emailReal);
+        }
+
+
+    console.log($('.realEmail').val());
+    });
 
 

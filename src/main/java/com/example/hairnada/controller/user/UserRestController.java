@@ -17,4 +17,12 @@ public class UserRestController {
         return userService.checkUserId(userId);
     }
 
+    @GetMapping("/checkNickname")
+    public int checkUserNickname(String userNickname){
+        return userService.checkUserNickname(userNickname);
+    }
+
+//    @GetMapping("/noLogin")
+//    public
+
 }

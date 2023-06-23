@@ -21,4 +21,7 @@ public interface UserMapper {
 
 //    아이디 중복확인
     public int checkId(String userId);
+
+//    닉네임 중복확인
+    public int checkNickname(String userNickname);
 }
