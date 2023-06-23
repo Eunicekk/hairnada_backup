@@ -31,7 +31,10 @@ public class HairShopController {
 
     // read 페에지 띄우기
     @GetMapping("/read")
-    public String hairshopRead(){
+    public String hairshopRead(Long hairShopNumber, Model model){
+        HairShopVo hairShopVo = hairShopService.findHairShop(hairShopNumber);
+        model.addAttribute("hairShop", hairShopVo);
+
         return "hairshop/styleshopRead";
     }
 

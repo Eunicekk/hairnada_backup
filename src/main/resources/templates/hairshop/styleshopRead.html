@@ -47,21 +47,18 @@
 
         <!-- 장소 정보 -->
         <div class="place-info">
-            <div class="place-name">스타일샵 이름입니다</div>
+            <div class="place-name" th:text="${hairShop.hairShopName}"></div>
             <div class="place-text">
                 <div class="title">운영시간</div>
-                <div class="content">
-                    월요일 ~ 목요일: 10:30 ~ 20:00<br>
-                    금요일 ~ 일요일: 10:30 ~ 20:30
-                </div>
+                <div class="content" th:text="${hairShop.hairShopOpenTime}"></div>
             </div>
             <div class="place-text">
                 <div class="title">전화번호</div>
-                <div class="content">02-123-4567</div>
+                <div class="content" th:text="${hairShop.hairShopPhoneNumber}"></div>
             </div>
             <div class="place-text">
                 <div class="title">주소</div>
-                <div class="content address">서울특별시 강북구 도봉로 62 롯데백화점 1층</div>
+                <div class="content address" th:text="${hairShop.hairShopAddress}"></div>
                 <div class="box">
                     <div id="map" style="width:600px; height:400px;"></div>
                 </div>
@@ -69,12 +66,12 @@
             <div class="place-text">
                 <div class="title">예약</div>
                 <div class="content">
-                    <a href="https://hairshop.kakao.com/shops/15312">https://hairshop.kakao.com/shops/15312</a>
+                    <a th:href="${hairShop.hairShopLink}" th:text="${hairShop.hairShopLink}"></a>
                 </div>
             </div>
             <div class="place-text">
                 <div class="title">소개</div>
-                <div class="content">저희 헤어샵 많이 찾아와 주세요!</div>
+                <div class="content" th:utext="${hairShop.hairShopContent}"></div>
             </div>
         </div>
 
