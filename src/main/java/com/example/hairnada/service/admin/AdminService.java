@@ -1,5 +1,6 @@
 package com.example.hairnada.service.admin;
 
+import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.mapper.admin.AdminMapper;
 import com.example.hairnada.vo.level.LevelVo;
@@ -45,6 +46,15 @@ public class AdminService {
         adminMapper.updateMembershipNumber(userNumber, membershipNumber);
     }
 
+    // 상품 목록 조회
+    public List<StoreDto> findStoreList(){ return adminMapper.selectStoreList(); }
 
-
+    // 카테고리로 상품 조회
+    public List<StoreDto> findStoreListByCategory(Long storeCategoryNumber){
+        if (storeCategoryNumber == null) {
+            throw new IllegalArgumentException("카테고리 선택 정보가 없습니다.");
+        }
+        return Optional.ofNullable(adminMapper.selectStoreListByCategory(storeCategoryNumber))
+                .orElseThrow(()-> {throw new IllegalArgumentException("존재하는 게시글이 없습니다");});
+    }
 }

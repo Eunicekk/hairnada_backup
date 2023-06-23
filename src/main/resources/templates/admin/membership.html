@@ -65,7 +65,7 @@
               <li class="quest-board-number" th:text="${level.levelNumber}"></li>
               <li class="member-number" th:text="${level.userNumber}"></li>
               <a th:href="@{/admin/levelUp(levelNumber=${level.levelNumber})}">
-              <li class="quest-board-title" th:text="${level.levelTitle}"></li>
+              <li class="quest-board-title success" th:text="${level.levelTitle}"></li>
                 </a>
               <li class="member-name" th:text="${level.userName}"></li>
               <li class="member-id" th:text="${level.userId}"></li>

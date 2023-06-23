@@ -1,5 +1,6 @@
 package com.example.hairnada.mapper.admin;
 
+import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.vo.level.LevelVo;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,4 +22,12 @@ public interface AdminMapper {
     // 등업 요청 수락
     public void updateMembershipNumber(@Param("userNumber")Long userNumber, @Param("membershipNumber")Long membershipNumber);
 
+    // 상품 리스트 목록
+    public List<StoreDto> selectStoreList();
+
+    // 상품 카테고리로 검색
+    public List<StoreDto> selectStoreListByCategory(Long storeCategoryNumber);
+
+    // 상품 제목으로 검색
+    public List<StoreDto> selectStoreListByTitle(String storeTitle);
 }

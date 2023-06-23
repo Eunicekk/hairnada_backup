@@ -1,5 +1,6 @@
 package com.example.hairnada.controller.admin;
 
+import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.service.admin.AdminService;
 import com.example.hairnada.vo.level.LevelVo;
@@ -66,20 +67,19 @@ public class AdminController {
         model.addAttribute("LevelBoard", levelVo);
     }
 
-//    // 회원 기존 등급 조회
-//    @GetMapping("/findUserMembership")
-//    public Long levelUp(@Param("userNumber")Long userNumber){
-//        Long userMembership = adminService.matchingMembership(userNumber);
-//        return userMembership;
-//    }
 
     // 상품 리스트
     @GetMapping("/storeList")
-    public void storeList(){}
+    public void storeList(Model model){
+        List<StoreDto> storeList = adminService.findStoreList();
+        model.addAttribute("storeList", storeList);
+    }
+
 
     // 상품 읽어오기
     @GetMapping("/storeRead")
     public void storeRead(){}
+
 
     // 상품 올리기
     @GetMapping("/storeUpload")

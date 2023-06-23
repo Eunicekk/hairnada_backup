@@ -1,5 +1,6 @@
 package com.example.hairnada.service.admin;
 
+import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.mapper.admin.AdminMapper;
 import static org.assertj.core.api.Assertions.*;
@@ -31,11 +32,13 @@ class AdminServiceTest {
 
     private UserDto userDto;
     private LevelVo levelVo;
+    private StoreDto storeDto;
 
     @BeforeEach
     void setUp(){
         userDto = new UserDto();
         levelVo = new LevelVo();
+        storeDto = new StoreDto();
     }
 
 
@@ -80,4 +83,24 @@ class AdminServiceTest {
         verify(adminMapper , times(1)).updateMembershipNumber(1L, 2L);
     }
 
+    @Test
+    @DisplayName("상품 목록 조회")
+    void findStoreList(){
+        doReturn(List.of(storeDto)).when(adminMapper).selectStoreList();
+
+        List<StoreDto> foundStoreList = adminService.findStoreList();
+
+        assertThat(foundStoreList).size().isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("카테고리로 상품 조회")
+    void findStoreListByCategoryNumber(){
+        doReturn(List.of(storeDto)).when(adminMapper).selectStoreListByCategory(any(Long.class));
+
+        List<StoreDto> foundStoreListByCategory =  adminService.findStoreListByCategory(1L);
+
+        assertThat(foundStoreListByCategory).size().isEqualTo(1);
+
+    }
 }

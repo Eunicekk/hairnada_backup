@@ -37,7 +37,27 @@
   WHERE USER_NUMBER = #{userNumber}
  </update>
 
+<!-- 상품 게시글 목록 조회 -->
+ <select id="selectStoreList" resultType="storeDto">
+  SELECT STORE_NUMBER , STORE_TITLE , STORE_PRICE , ts.STORE_CATEGORY_NUMBER, tsc.STORE_CATEGORY_NAME  FROM TBL_STORE ts
+  JOIN TBL_STORE_CATEGORY tsc
+  ON tsc.STORE_CATEGORY_NUMBER  = ts.STORE_CATEGORY_NUMBER
+ </select>
 
+<!-- 카테고리에 따른 스토어 게시글 목록 조회 -->
+ <select id="selectStoreListByCategory" resultType="storeDto">
+  SELECT STORE_NUMBER , STORE_TITLE , STORE_PRICE , ts.STORE_CATEGORY_NUMBER, tsc.STORE_CATEGORY_NAME  FROM TBL_STORE ts
+  JOIN TBL_STORE_CATEGORY tsc
+  ON tsc.STORE_CATEGORY_NUMBER  = ts.STORE_CATEGORY_NUMBER
+  WHERE ts.STORE_CATEGORY_NUMBER = #{storeCategoryNumber}
+ </select>
 
+<!-- 제목에 따른 스토어 게시글 목록 조회 -->
+ <select id="selectStoreListByTitle" resultType="storeDto">
+  SELECT STORE_NUMBER , STORE_TITLE , STORE_PRICE , ts.STORE_CATEGORY_NUMBER, tsc.STORE_CATEGORY_NAME  FROM TBL_STORE ts
+  JOIN TBL_STORE_CATEGORY tsc
+  ON tsc.STORE_CATEGORY_NUMBER  = ts.STORE_CATEGORY_NUMBER
+  WHERE ts.STORE_TITLE LIKE '%'||#{storeTitle}||'%'
+ </select>
 
 </mapper>

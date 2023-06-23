@@ -47,15 +47,15 @@
             <div class="product-category-box">
               <span>카테고리</span>
               <select name="category" class="category">
-                <option value="select-all">전체</option>
-                <option value="treatment-pack">트리트먼트/팩</option>
-                <option value="essence">에센스</option>
-                <option value="hair-dye-perm">염색/펌</option>
-                <option value="hair-device">헤어기기</option>
-                <option value="styling">스타일링</option>
-                <option value="shampoo-rinse">샴푸/린스</option>
+                <option value="0">전체</option>
+                <option value="1">트리트먼트/팩</option>
+                <option value="2">에센스</option>
+                <option value="3">염색/펌</option>
+                <option value="4">헤어기기</option>
+                <option value="5">스타일링</option>
+                <option value="6">샴푸/린스</option>
               </select>
-              <button type="button">조회</button>
+              <button type="button" class="select">조회</button>
             </div>
             <div class="select-by-title">
               <input
@@ -70,92 +70,20 @@
           <div class="product-list-container">
             <article class="holder">
               <div class="cl">
-                <ul class="list-ul">
+                <ul class="list-ul" th:each="store : ${storeList}">
                   <!-- 첫번째 -->
                   <li class="list-li">
-                    <a href="">
+                    <a>
                       <div class="img-list">
                         <img src="https://sitem.ssgcdn.com/69/72/95/item/1000197957269_i2_750.jpg" alt="">
                       </div>
                     </a>
 
                     <div class="product-information">
-                      <p class="product-title">제품이름이여유</p>
-                      <p class="product-category">트리트먼트/팩</p>
+                      <p class="product-title" th:text="${store.storeTitle}"></p>
+                      <p class="product-category" th:text="${store.storeCategoryName}"></p>
                       <p class="product-price">
-                        ₩ <span class="price">22000</span>
-                      </p>
-                    </div>
-                  </li>
-                </ul>
-                <ul class="list-ul">
-                  <!-- 첫번째 -->
-                  <li class="list-li">
-                    <a href="">
-                      <div class="img-list">
-                        <img src="https://sitem.ssgcdn.com/69/72/95/item/1000197957269_i2_750.jpg" alt="">
-                      </div>
-                    </a>
-
-                    <div class="product-information">
-                      <p class="product-title">제품이름이여유</p>
-                      <p class="product-category">트리트먼트/팩</p>
-                      <p class="product-price">
-                        ₩ <span class="price">22000</span>
-                      </p>
-                    </div>
-                  </li>
-                </ul>
-                <ul class="list-ul">
-                  <!-- 첫번째 -->
-                  <li class="list-li">
-                    <a href="">
-                      <div class="img-list">
-                        <img src="https://sitem.ssgcdn.com/69/72/95/item/1000197957269_i2_750.jpg" alt="">
-                      </div>
-                    </a>
-
-                    <div class="product-information">
-                      <p class="product-title">제품이름이여유</p>
-                      <p class="product-category">트리트먼트/팩</p>
-                      <p class="product-price">
-                        ₩ <span class="price">22000</span>
-                      </p>
-                    </div>
-                  </li>
-                </ul>
-                <ul class="list-ul">
-                  <!-- 첫번째 -->
-                  <li class="list-li">
-                    <a href="">
-                      <div class="img-list">
-                        <img src="https://sitem.ssgcdn.com/69/72/95/item/1000197957269_i2_750.jpg" alt="">
-                      </div>
-                    </a>
-
-                    <div class="product-information">
-                      <p class="product-title">제품이름이여유</p>
-                      <p class="product-category">트리트먼트/팩</p>
-                      <p class="product-price">
-                        ₩ <span class="price">22000</span>
-                      </p>
-                    </div>
-                  </li>
-                </ul>
-                <ul class="list-ul">
-                  <!-- 첫번째 -->
-                  <li class="list-li">
-                    <a href="">
-                      <div class="img-list">
-                        <img src="https://sitem.ssgcdn.com/69/72/95/item/1000197957269_i2_750.jpg" alt="">
-                      </div>
-                    </a>
-
-                    <div class="product-information">
-                      <p class="product-title">제품이름이여유</p>
-                      <p class="product-category">트리트먼트/팩</p>
-                      <p class="product-price">
-                        ₩ <span class="price">22000</span>
+                        ₩ <span class="price"  th:text="${store.storePrice}"></span>
                       </p>
                     </div>
                   </li>
@@ -186,5 +114,11 @@
         </div>
       </div>
     </div>
+    <script
+            src="https://code.jquery.com/jquery-3.7.0.js"
+            integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+            crossorigin="anonymous"
+    ></script>
+    <script src="/js/admin/storeList.js"></script>
   </body>
 </html>

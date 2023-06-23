@@ -55,6 +55,25 @@ class AdminMapperTest {
 
     }
 
+    @Test
+    @DisplayName("상품 목록 조회")
+    void selectStoreList(){
+        assertThat(adminMapper.selectStoreList()).size().isEqualTo(6);
+    }
+
+    @Test
+    @DisplayName("카테고리로 상품 조회")
+    void selectStoreListByCategory(){
+        Long categoryNumber = adminMapper.selectStoreListByCategory(1L).get(0).getStoreCategoryNumber();
+        assertThat(categoryNumber).isEqualTo(1);
+    }
+ 
+    @Test
+    @DisplayName("이름으로 상품 조회")
+    void selectStoreListByTitle(){
+        Long categoryNumber = adminMapper.selectStoreListByTitle("미쟝센").get(0).getStoreCategoryNumber();
+        assertThat(categoryNumber).isEqualTo(3);
+    }
 
 
 }
