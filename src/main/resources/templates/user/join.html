@@ -31,6 +31,7 @@
                 class="id-box"
                 name="userId"
                 placeholder="영문 또는 영문 및 숫자 4자리 이상"
+                autocomplete="off"
                 required
               />
               <button type="button" class="double-check">중복확인</button>
@@ -44,6 +45,7 @@
                 class="password-box"
                 name="userPassword"
                 placeholder="영문 대소문자 및 숫자 중 2개 이상 조합, 8자리 이상"
+                autocomplete="off"
                 required
               />
             </div>
@@ -53,17 +55,17 @@
             >
             <div class="input-repassword">
               <div class="repassword">비밀번호 확인</div>
-              <input type="password" class="repassword-box" required/>
+              <input type="password" class="repassword-box" required autocomplete="off"/>
             </div>
             <span class="pw-err-text1">일치하지 않는 비밀번호 입니다.</span>
             <span class="pw-err-text2">일치하는 비밀번호 입니다.</span>
             <div class="input-name">
               <div class="name">이름</div>
-              <input type="text" class="name-box" name="userName" required/>
+              <input type="text" class="name-box" name="userName" required autocomplete="off"/>
             </div>
             <div class="input-nickname">
               <div class="nickname">닉네임</div>
-              <input type="text" class="nickname-box" name="userNickname" required/>
+              <input type="text" class="nickname-box" name="userNickname" required autocomplete="off"/>
             </div>
             <span class="nickName-err-text">중복된 닉네임 입니다.</span>
             <span class="nickName-err-text2">사용 가능한 닉네임 입니다.</span>
@@ -80,12 +82,12 @@
             </div>
             <div class="input-phone">
               <div class="phone">휴대전화 번호</div>
-              <input type="text" class="phone-box" name="userPhoneNumber" required/>
+              <input type="text" class="phone-box" name="userPhoneNumber" required autocomplete="off"/>
             </div>
             <div class="input-email">
               <div class="email">이메일</div>
               <input type="hidden" name="userEmail" class="realEmail" value="">
-              <input type="text" class="email-box" required/>
+              <input type="text" class="email-box" required autocomplete="off"/>
 
               <div class="dropdown">
                 <button class="dropdown-btn" type="button">
@@ -126,7 +128,7 @@
               name="userAddress"
               readonly
             />
-            <input type="text" placeholder="상세주소" name="userAddressDetail" id="sample6_detailAddress" />
+            <input type="text" placeholder="상세주소" name="userAddressDetail" autocomplete="off" id="sample6_detailAddress" />
             <input type="text" placeholder="참고항목" id="sample6_extraAddress" readonly />
             <button type="submit" class="ok-btn">회원가입</button>
           </div>

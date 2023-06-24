@@ -1,4 +1,4 @@
-
+// Kakao.init("286502551dc04dfa252e2363dc526b97"); //발급받은 키 중 javascript키를 사용해준다.
 console.log(Kakao.isInitialized()); // sdk초기화여부판단
 //카카오로그인
 function kakaoLogin() {
