@@ -19,5 +19,6 @@ public class HairShopVo {
     private String hairShopFileUploadPath;
     private String hairShopFileUuid;
     private Long userNumber;
+    private Long memberShipNumber;
     private String hairShopContent;
 }

@@ -36,6 +36,7 @@ input[type="text"]{
     position: relative;
     bottom: -1.2px;
     font-size: 14px;
+    cursor: pointer;
 }
 
 /* 콘텐츠 */

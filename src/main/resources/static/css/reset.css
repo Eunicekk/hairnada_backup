@@ -151,3 +151,8 @@ input::placeholder, textarea::placeholder{
 select{
     font-family: 'Noto Sans KR', sans-serif;
 }
+
+textarea{
+    font-family: 'Noto Sans KR', sans-serif;
+    white-space: pre-line;
+}
