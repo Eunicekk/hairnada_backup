@@ -24,11 +24,10 @@
         </div>
 
         <!-- 이미지 등록 -->
-        <form th:action="@{/hairshop/write}" method="post" enctype="multipart/form-data">
         <div class="content">
             <div class="title">장소 이미지</div>
             <div class="image-upload-wrap">
-                <input type="file" name="hairShopFile" id="file" accept=".jpg, .jpeg, .png" multiple>
+                <input type="file" name="cafeFile" id="file" accept=".jpg, .jpeg, .png" multiple>
                 <div class="image-upload-box">
                     <p>
                         <span class="material-symbols-outlined">
@@ -51,46 +50,44 @@
         <!-- 장소 이름 등록 -->
         <div class="content">
             <div class="title">장소 이름</div>
-            <input type="text" name="hairShopName" required placeholder="장소 이름을 입력하세요.">
+            <input type="text" required placeholder="장소 이름을 입력하세요.">
         </div>
         
         <!-- 주소 등록 -->
         <div class="content">
             <div class="title">주소</div>
-            <input type="text" name="hairShopAddress" required placeholder="주소를 입력하세요.">
+            <input type="text" required placeholder="주소를 입력하세요.">
         </div>
         
         <!-- 전화번호 등록 -->
         <div class="content">
             <div class="title">전화번호</div>
-            <input type="text" name="hairShopPhoneNumber" required placeholder="전화번호를 입력하세요.">
+            <input type="text" required placeholder="전화번호를 입력하세요.">
         </div>
         
         <!-- 예약 링크 등록 -->
         <div class="content">
             <div class="title">예약 링크</div>
-            <input type="text" name="hairShopLink" required placeholder="예약 링크를 입력하세요.">
+            <input type="text" required placeholder="예약 링크를 입력하세요.">
         </div>
         
         <!-- 운영 시간 등록 -->
         <div class="content">
             <div class="title">운영 시간</div>
-            <textarea class="text" name="hairShopOpenTime" required placeholder="운영 시간을 입력하세요."></textarea>
+            <textarea class="text" required placeholder="운영 시간을 입력하세요."></textarea>
         </div>
 
         <!-- 내용 등록 - 썸머노트 -->
         <div class="content">
             <div class="title">내용</div>
-            <div id="summernote" name="hairShopContent"></div>
+            <div id="summernote"></div>
         </div>
 
         <!-- 완료 및 취소 버튼 -->
         <div class="buttons">
-            <button type="button" class="cancel-post">작성 취소</button>
+            <button type="button">작성 취소</button>
             <button type="submit">작성 완료</button>
         </div>
-
-        </form>
 
     </div>
     <footer class="footer" th:replace="fragment/footer :: footer"></footer>

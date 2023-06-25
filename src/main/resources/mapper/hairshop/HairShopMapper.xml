@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.hairnada.mapper.hairshop.HairShopMapper">
 
-    <!--    헤어샵 리스트 -->
+    <!-- 헤어샵 리스트 -->
     <select id="selectAll" resultType="hairShopVo">
         SELECT HAIR_SHOP_NUMBER, HAIR_SHOP_NAME, HAIR_SHOP_ADDRESS,
         HAIR_SHOP_FILE_UPLOAD_PATH, HAIR_SHOP_FILE_UUID, HAIR_SHOP_FILE_NAME,
@@ -36,18 +36,44 @@
         ) T2 WHERE RNUM > (#{page} - 1) * #{amount}
     </select>
 
-    <!--    헤어샵 리스트 전체 개수 -->
+    <!-- 헤어샵 전체 개수 -->
     <select id="selectTotal" resultType="_int">
         SELECT COUNT(HAIR_SHOP_NUMBER)
         FROM TBL_HAIR_SHOP
     </select>
 
-    <!--    헤어샵 선택 -->
+    <!-- 헤어샵 조회 -->
     <select id="select" resultType="hairShopVo">
         SELECT HAIR_SHOP_NUMBER, HAIR_SHOP_ADDRESS, HAIR_SHOP_PHONE_NUMBER, HAIR_SHOP_OPEN_TIME,
         HAIR_SHOP_NAME, HAIR_SHOP_LINK, HAIR_SHOP_CONTENT, H.USER_NUMBER
         FROM TBL_HAIR_SHOP H JOIN TBL_USER U
         ON H.HAIR_SHOP_NUMBER = #{hairShopNumber} AND H.USER_NUMBER = U.USER_NUMBER
     </select>
+
+    <!-- 헤어샵 추가 -->
+    <insert id="insert">
+        <selectKey keyProperty="hairShopNumber" order="BEFORE" resultType="long">
+            SELECT SEQ_HAIR_SHOP.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO TBL_HAIR_SHOP(HAIR_SHOP_NUMBER, HAIR_SHOP_ADDRESS, HAIR_SHOP_PHONE_NUMBER, HAIR_SHOP_OPEN_TIME,
+        HAIR_SHOP_NAME, HAIR_SHOP_LINK, HAIR_SHOP_CONTENT, USER_NUMBER)
+        VALUES(#{hairShopNumber}, #{hairShopAddress}, #{hairShopPhoneNumber}, #{hairShopOpenTime},
+        #{hairShopName}, #{hairShopLink}, #{hairShopContent}, #{userNumber})
+    </insert>
+
+    <!-- 헤어샵 삭제 -->
+    <delete id="delete">
+        DELETE FROM TBL_HAIR_SHOP
+        WHERE HAIR_SHOP_NUMBER = #{hairShopNumber}
+    </delete>
+
+    <!-- 헤어샵 수정 -->
+    <update id="update">
+        UPDATE TBL_HAIR_SHOP
+        SET HAIR_SHOP_ADDRESS = #{hairShopAddress}, HAIR_SHOP_PHONE_NUMBER = #{hairShopPhoneNumber},
+        HAIR_SHOP_OPEN_TIME = #{hairShopOpenTime}, HAIR_SHOP_NAME = #{hairShopName},
+        HAIR_SHOP_LINK = #{hairShopLink}, HAIR_SHOP_CONTENT = #{hairShopContent}
+        WHERE HAIR_SHOP_NUMBER = #{hairShopNumber}
+    </update>
 
 </mapper>

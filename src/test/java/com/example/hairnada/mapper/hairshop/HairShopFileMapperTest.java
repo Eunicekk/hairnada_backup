@@ -38,5 +38,12 @@ class HairShopFileMapperTest {
     }
 
     @Test
+    void delete(){
+        hairShopFileMapper.insert(hairShopFileDto);
+        hairShopFileMapper.delete(hairShopFileDto.getHairShopNumber());
+        assertThat(hairShopFileMapper.selectList(hairShopFileDto.getHairShopNumber()).size()).isEqualTo(0);
+    }
+
+    @Test
     void selectList() {}
 }

@@ -22,11 +22,13 @@
         <!-- 필터 및 검색 -->
         <div class="search">
             <form action="#">
-                    <input type="radio" id="title" name="search" checked> <label for="title">매장명</label>
-                    <input type="radio" id="address" name="search"> <label for="address">주소</label>
-                    <input type="text" id="text" placeholder="검색 단어를 입력해 주세요.">
-                    <button type="submit">검색</button>
-                    <button type="button">등록하기</button>
+                <input type="radio" id="title" name="search" checked> <label for="title">매장명</label>
+                <input type="radio" id="address" name="search"> <label for="address">주소</label>
+                <input type="text" id="text" placeholder="검색 단어를 입력해 주세요.">
+                <button type="submit">검색</button>
+                <th:block th:if="${session.membershipNumber != null and session.membershipNumber == 2}">
+                    <button type="button" class="add-post">등록하기</button>
+                </th:block>
             </form>
         </div>
 
@@ -38,10 +40,9 @@
                 <a th:href="@{read(hairShopNumber=${hairShop.hairShopNumber})}">
                     <div class="img-list">
                         <div class="main-img">
-                            <img src="https://3.bp.blogspot.com/-ZKBbW7TmQD4/U6P_DTbE2MI/AAAAAAAADjg/wdhBRyLv5e8/s1600/noimg.gif" alt="임시 썸네일">
-
-<!--                            <img th:if="${hairshop.hairShopFileName == null}" src="https://3.bp.blogspot.com/-ZKBbW7TmQD4/U6P_DTbE2MI/AAAAAAAADjg/wdhBRyLv5e8/s1600/noimg.gif" alt="임시 썸네일">-->
-<!--                            <img th:unless="${hairshop.hairShopFileName == null}" src="/upload/${hairshop.hairShopFileUploadPath}/th_${hairshop.hairShopFileUuid}_${hairshop.hairShopFileName}" alt="진짜 썸네일">-->
+<!--                            <img src="https://3.bp.blogspot.com/-ZKBbW7TmQD4/U6P_DTbE2MI/AAAAAAAADjg/wdhBRyLv5e8/s1600/noimg.gif" alt="임시 썸네일">-->
+                            <img th:if="${hairshop == null || hairshop.hairShopFileName == null}" src="https://3.bp.blogspot.com/-ZKBbW7TmQD4/U6P_DTbE2MI/AAAAAAAADjg/wdhBRyLv5e8/s1600/noimg.gif" alt="임시 썸네일">
+                            <img th:unless="${hairshop == null || hairshop.hairShopFileName == null}" th:src="@{/upload/${hairshop.hairShopFileUploadPath}/th_${hairshop.hairShopFileUuid}_${hairshop.hairShopFileName}}" alt="진짜 썸네일">
                         </div>
                     </div>
                 </a>

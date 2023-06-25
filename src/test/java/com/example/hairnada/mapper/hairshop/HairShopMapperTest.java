@@ -26,7 +26,17 @@ public class HairShopMapperTest {
     private HairShopVo hairShopVo;
 
     @BeforeEach
-    void setUp(){}
+    void setUp(){
+        hairShopDto = new HairShopDto();
+        hairShopDto.setHairShopAddress("서울 어딘가");
+        hairShopDto.setHairShopName("헤어샵");
+        hairShopDto.setHairShopOpenTime("오진 9시");
+        hairShopDto.setHairShopPhoneNumber("01012341234");
+        hairShopDto.setHairShopLink("www.aaa.co.kr");
+        hairShopDto.setHairShopContent("헤어샵 소개글");
+        hairShopDto.setUserNumber(2L);
+        hairShopMapper.insert(hairShopDto);
+    }
 
     @Test
     void selectAll(){
@@ -38,9 +48,27 @@ public class HairShopMapperTest {
     @Test
     void selectTotal(){
         int size = hairShopMapper.selectTotal();
-        assertThat(size).isEqualTo(160);
+        assertThat(size).isEqualTo(161);
     }
 
     @Test
     void select(){}
+
+    @Test
+    void insert(){}
+
+    @Test
+    void delete(){
+        hairShopMapper.delete(hairShopDto.getHairShopNumber());
+        assertThat(hairShopMapper.select(hairShopDto.getHairShopNumber())).isNull();
+    }
+
+    @Test
+    void upadate(){
+        hairShopDto.setHairShopName("변경된 헤어샵 이름");
+        hairShopDto.setHairShopAddress("경기도 어딘가");
+        hairShopMapper.update(hairShopDto);
+        assertThat(hairShopMapper.select(hairShopDto.getHairShopNumber()).getHairShopName())
+                .isEqualTo(hairShopDto.getHairShopName());
+    }
 }

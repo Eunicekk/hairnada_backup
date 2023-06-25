@@ -2,17 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.hairnada.mapper.hairshop.HairShopFileMapper">
 
-    <!--    헤어샵 리스트 파일 -->
+    <!-- 헤어샵 파일 리스트 -->
     <select id="selectList" resultType="hairShopFileDto">
         SELECT HAIR_SHOP_FILE_NUMBER, HAIR_SHOP_FILE_NAME, HAIR_SHOP_FILE_UPLOAD_PATH, HAIR_SHOP_FILE_UUID, HAIR_SHOP_NUMBER
         FROM TBL_HAIR_SHOP_FILE
         WHERE HAIR_SHOP_NUMBER = #{hairShopNumber}
     </select>
 
-    <!--    헤어샵 파일 삽입-->
+    <!-- 헤어샵 파일 추가 -->
     <insert id="insert">
         INSERT INTO TBL_HAIR_SHOP_FILE(HAIR_SHOP_FILE_NUMBER, HAIR_SHOP_FILE_NAME, HAIR_SHOP_FILE_UPLOAD_PATH, HAIR_SHOP_FILE_UUID, HAIR_SHOP_NUMBER)
         VALUES(SEQ_HAIR_SHOP_FILE.NEXTVAL, #{hairShopFileName}, #{hairShopFileUploadPath}, #{hairShopFileUuid}, #{hairShopNumber})
     </insert>
+
+    <!-- 헤어샵 파일 삭제 -->
+    <delete id="delete">
+        DELETE FROM TBL_HAIR_SHOP_FILE
+        WHERE HAIR_SHOP_NUMBER = #{hairShopNumber}
+    </delete>
 
 </mapper>

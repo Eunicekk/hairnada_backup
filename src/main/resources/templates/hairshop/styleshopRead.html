@@ -77,14 +77,15 @@
 
         <div class="back">
             <div class="buttons">
-                <div class="button-on">
-                    <button type="button">수정</button>
-                    <button type="button">삭제</button>
-                </div>
-                <a href="#">목록</a>
+                <th:block th:if="${session.userNumber == hairShop.userNumber}">
+                    <div class="button-on">
+                        <button type="button">수정</button>
+                        <button type="button">삭제</button>
+                    </div>
+                </th:block>
+                <a th:href="@{/hairshop/list}">목록</a>
             </div>
         </div>
-
 
     </div>
     <footer class="footer" th:replace="fragment/footer :: footer"></footer>

@@ -37,6 +37,11 @@ public class HairShopServiceTest {
     void setUp(){
         hairShopVo = new HairShopVo();
         criteria03 = new Criteria03();
+
+        hairShopDto = new HairShopDto();
+        hairShopDto.setHairShopName("헤어샵 이름이다");
+        hairShopDto.setHairShopAddress("서울시 어딘가에 있다");
+        hairShopDto.setHairShopContent("우리 헤어샵 소개다");
     }
 
     @Test
@@ -49,7 +54,7 @@ public class HairShopServiceTest {
 
     @Test
     @DisplayName("게시물 조회")
-    void fidnHairShop(){
+    void findHairShop(){
         doReturn(hairShopVo).when(hairShopMapper).select(any(Long.class));
         HairShopVo foundShop = hairShopService.findHairShop(1L);
 
@@ -67,5 +72,34 @@ public class HairShopServiceTest {
         assertThatThrownBy(()->hairShopService.findHairShop(1L))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("존재하지");
+    }
+
+    @Test
+    @DisplayName("게시물 추가")
+    void register(){
+        doNothing().when(hairShopMapper).insert(any(HairShopDto.class));
+        hairShopService.register(hairShopDto);
+        verify(hairShopMapper, times(1)).insert(hairShopDto);
+    }
+
+    @Test
+    @DisplayName("게시물 삭제")
+    void remove(){
+        // 파일 처리 구문 추가시 오류 발생
+        doNothing().when(hairShopMapper).delete(any(Long.class));
+        hairShopService.remove(1L);
+        verify(hairShopMapper, times(1)).delete(1L);
+    }
+
+    @Test
+    @DisplayName("게시물 수정")
+    void modify(){
+        hairShopDto.setHairShopName("수정된 헤어샵 이름");
+        hairShopDto.setHairShopAddress("경기도 어딘가");
+        hairShopDto.setHairShopContent("수정된 헤어샵 소개");
+
+        doNothing().when(hairShopMapper).update(any(HairShopDto.class));
+        hairShopService.modify(hairShopDto);
+        verify(hairShopMapper, times(1)).update(hairShopDto);
     }
 }
