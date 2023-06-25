@@ -308,8 +308,50 @@ input {
   height: 400px;
 }
 
-.err-text {
+.id-err-text {
   margin-left: 130px;
   font-size: 15px;
   color: red;
+  display: none;
+}
+.id-err-text2 {
+  margin-left: 130px;
+  font-size: 15px;
+  color: green;
+  display: none;
+}
+
+.pw-err-text{
+  margin-left: 130px;
+  font-size: 15px;
+  color: red;
+  display: none;
+}
+
+.pw-err-text1{
+  margin-left: 130px;
+  font-size: 15px;
+  color: red;
+  display: none;
+}
+
+.pw-err-text2{
+  margin-left: 130px;
+  font-size: 15px;
+  color: green;
+  display: none;
+}
+
+.nickName-err-text{
+  margin-left: 130px;
+  font-size: 15px;
+  color: red;
+  display: none;
+}
+
+.nickName-err-text2{
+  margin-left: 130px;
+  font-size: 15px;
+  color: green;
+  display: none;
 }

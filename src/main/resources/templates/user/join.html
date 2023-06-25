@@ -22,64 +22,73 @@
             <h2 class="information-text"></h2>
             <div class="star-text"></div>
           </div>
+          <form class="signup-form" th:action="@{/user/join}" method="post">
           <div class="input-box">
             <div class="input-id">
               <div class="id">아이디</div>
               <input
                 type="text"
                 class="id-box"
+                name="userId"
                 placeholder="영문 또는 영문 및 숫자 4자리 이상"
+                required
               />
               <button type="button" class="double-check">중복확인</button>
             </div>
-            <span class="err-text">아이디를 입력해주세요.</span>
+            <span class="id-err-text">중복된 아이디 입니다.</span>
+            <span class="id-err-text2">사용 가능한 아이디 입니다.</span>
             <div class="input-password">
               <div class="password">비밀번호</div>
               <input
-                type="text"
+                type="password"
                 class="password-box"
+                name="userPassword"
                 placeholder="영문 대소문자 및 숫자 중 2개 이상 조합, 8자리 이상"
+                required
               />
             </div>
-            <span class="err-text"
+            <span class="pw-err-text"
               >영문 대소문자 및 숫자 중 2개 이상 조합, 8자리 이상
               작성해주세요.</span
             >
             <div class="input-repassword">
               <div class="repassword">비밀번호 확인</div>
-              <input type="text" class="repassword-box" />
+              <input type="password" class="repassword-box" required/>
             </div>
-            <span class="err-text">일치하지 않는 비밀번호 입니다.</span>
+            <span class="pw-err-text1">일치하지 않는 비밀번호 입니다.</span>
+            <span class="pw-err-text2">일치하는 비밀번호 입니다.</span>
             <div class="input-name">
               <div class="name">이름</div>
-              <input type="text" class="name-box" />
+              <input type="text" class="name-box" name="userName" required/>
             </div>
             <div class="input-nickname">
               <div class="nickname">닉네임</div>
-              <input type="text" class="nickname-box" />
+              <input type="text" class="nickname-box" name="userNickname" required/>
             </div>
-            <span class="err-text">중복된 닉네임 입니다.</span>
+            <span class="nickName-err-text">중복된 닉네임 입니다.</span>
+            <span class="nickName-err-text2">사용 가능한 닉네임 입니다.</span>
             <div class="input-gender">
               <div class="gender">성별</div>
               <label for="gender-f">
-                <div type="button" class="female-box">여성</div>
+                <div type="button" class="female-box" >여성</div>
               </label>
               <label for="gender-m">
                 <div type="button" class="male-box check-background">남성</div>
               </label>
-              <input type="radio" name="gender" id="gender-f" value="F" />
-              <input type="radio" name="gender" id="gender-m" value="M" />
+              <input type="radio" name="userGender" id="gender-f"  value="F" />
+              <input type="radio" name="userGender" id="gender-m" value="M" />
             </div>
             <div class="input-phone">
               <div class="phone">휴대전화 번호</div>
-              <input type="text" class="phone-box" />
+              <input type="text" class="phone-box" name="userPhoneNumber" required/>
             </div>
             <div class="input-email">
               <div class="email">이메일</div>
-              <input type="text" class="email-box" />
+              <input type="hidden" name="userEmail" class="realEmail" value="">
+              <input type="text" class="email-box" required/>
 
               <div class="dropdown">
-                <button class="dropdown-btn">
+                <button class="dropdown-btn" type="button">
                   직접입력
                   <span class="material-symbols-rounded">
                     expand_more
@@ -104,6 +113,7 @@
                 id="sample6_postcode"
                 placeholder="우편번호"
                 readonly
+                required
               />
               <button type="button" class="search-address" onclick="sample6_execDaumPostcode()">
                 우편변호 검색
@@ -113,12 +123,14 @@
               type="text"
               id="sample6_address"
               placeholder="주소"
+              name="userAddress"
               readonly
             />
-            <input type="text" placeholder="상세주소" id="sample6_detailAddress" />
+            <input type="text" placeholder="상세주소" name="userAddressDetail" id="sample6_detailAddress" />
             <input type="text" placeholder="참고항목" id="sample6_extraAddress" readonly />
-            <button class="ok-btn">회원가입</button>
+            <button type="submit" class="ok-btn">회원가입</button>
           </div>
+          </form>
         </div>
       </div>
     </div>
