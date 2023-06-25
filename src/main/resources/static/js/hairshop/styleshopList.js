@@ -12,3 +12,8 @@ $(document).ready(function () {
     }
   });
 });
+
+// 등록하기 버튼 누르면 페이지 이동
+$('.add-post').on('click', function (){
+  window.location.href = '/hairshop/write';
+})

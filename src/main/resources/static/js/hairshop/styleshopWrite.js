@@ -74,3 +74,8 @@ $fileInput.on('change', function() {
 	});
 
 });
+
+// 취소하기 버튼 누르면 페이지 이동
+$('.cancel-post').on('click', function (){
+	window.location.href = '/hairshop/list';
+})

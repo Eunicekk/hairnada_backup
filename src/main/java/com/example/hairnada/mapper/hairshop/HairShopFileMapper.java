@@ -12,4 +12,7 @@ public interface HairShopFileMapper {
 
     // 파일 삽입
     public void insert(HairShopFileDto hairShopFileDto);
+
+    // 파일 삭제
+    public void delete(Long hairShopNumber);
 }

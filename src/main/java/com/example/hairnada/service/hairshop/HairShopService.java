@@ -1,13 +1,15 @@
 package com.example.hairnada.service.hairshop;
 
+import com.example.hairnada.dto.hairshop.HairShopDto;
 import com.example.hairnada.mapper.hairshop.HairShopMapper;
 import com.example.hairnada.vo.hairshop.HairShopVo;
 import com.example.hairnada.vo.page.Criteria03;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +18,7 @@ import java.util.Optional;
 @Transactional
 public class HairShopService {
     private final HairShopMapper hairShopMapper;
+    private final HairShopFileService hairShopFileService;
 
     //  전제 조회
     @Transactional(readOnly = true)
@@ -37,5 +40,40 @@ public class HairShopService {
         }
         return Optional.ofNullable(hairShopMapper.select(hairShopNumber))
                 .orElseThrow(()->{throw new IllegalArgumentException("헤어샵 번호가 존재하지 않습니다.");});
+    }
+
+    // 게시물 추가
+    public void register(HairShopDto hairShopDto){
+        if(hairShopDto == null){
+            throw new IllegalArgumentException("헤어샵 정보가 없습니다.");
+        }
+        hairShopMapper.insert(hairShopDto);
+    }
+
+    // 게시물 삭제
+    public void remove(Long hairShopNumber){
+        if(hairShopNumber == null){
+            throw new IllegalArgumentException("헤어샵이 존재하지 않습니다.");
+        }
+        hairShopMapper.delete(hairShopNumber);
+        hairShopFileService.remove(hairShopNumber);
+    }
+
+    // 게시물 수정
+    public void modify(HairShopDto hairShopDto){
+        if(hairShopDto == null){
+            throw new IllegalArgumentException("헤어샵 수정 정보가 없습니다.");
+        }
+        hairShopMapper.update(hairShopDto);
+    }
+
+    // 게시물 수정 (파일 처리 포함)
+    public void modify(HairShopDto hairShopDto, List<MultipartFile> files) throws IOException {
+        if(hairShopDto == null || files == null){
+            throw new IllegalArgumentException("헤어샵 수정 매개변수의 null 체크가 필요합니다.");
+        }
+        hairShopFileService.remove(hairShopDto.getHairShopNumber());
+        hairShopFileService.registerAndSaveFiles(files, hairShopDto.getHairShopNumber());
+        hairShopMapper.update(hairShopDto);
     }
 }
