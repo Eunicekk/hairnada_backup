@@ -6,9 +6,12 @@
         <selectKey keyProperty="boardNumber" order="BEFORE" resultType="long">
             SELECT SEQ_BOARD.NEXTVAL FROM DUAL
         </selectKey>
-            INSERT INTO TBL_BOARD(BOARD_NUMBER, BOARD_TITLE, BOARD_CONTENT,BOARD_VIEW_CNT ,USER_NUMBER)
-            VALUES (#{boardNumber}, #{boardTitle}, #{boardContent, jdbcType=CLOB}, 0,#{userNumber})
+        INSERT INTO TBL_BOARD (BOARD_NUMBER, BOARD_TITLE, BOARD_CONTENT, BOARD_VIEW_CNT, USER_NUMBER, BOARD_CATEGORY_NUMBER)
+        VALUES (#{boardNumber}, #{boardTitle}, #{boardContent, jdbcType=CLOB}, 0, #{userNumber}, #{boardCategoryNumber, jdbcType=INTEGER})
     </insert>
+
+
+
 
     <delete id="delete">
         DELETE FROM TBL_BOARD
@@ -31,38 +34,89 @@
 
     <select id="selectAll" resultType="boardVo">
         SELECT BOARD_NUMBER, BOARD_TITLE, BOARD_VIEW_CNT, BOARD_CONTENT,
-        USER_NUMBER, USER_NICKNAME,
-        BOARD_FILE_UPLOAD_PATH, BOARD_FILE_UUID, BOARD_FILE_NAME
+               USER_NUMBER, USER_NICKNAME,
+               BOARD_FILE_UPLOAD_PATH, BOARD_FILE_UUID, BOARD_FILE_NAME,
+               USER_FILE_UPLOAD_PATH, USER_FILE_UUID, USER_FILE_NAME,
+               BOARD_CATEGORY_NUMBER
         FROM(
-        SELECT ROWNUM AS RNUM, BOARD_NUMBER, BOARD_TITLE, BOARD_VIEW_CNT, BOARD_CONTENT,
-        USER_NUMBER, USER_NICKNAME,
-        BOARD_FILE_UPLOAD_PATH, BOARD_FILE_UUID, BOARD_FILE_NAME
-        FROM(
-        SELECT B.BOARD_NUMBER, BOARD_TITLE, BOARD_VIEW_CNT, BOARD_CONTENT,
-        B.USER_NUMBER, USER_NICKNAME,
-        J.BOARD_FILE_UPLOAD_PATH, J.BOARD_FILE_UUID, J.BOARD_FILE_NAME
-        FROM TBL_USER U JOIN TBL_BOARD B
-        ON U.USER_NUMBER = B.USER_NUMBER
-        LEFT JOIN (
-        SELECT BOARD_FILE_NUMBER, BOARD_FILE_UPLOAD_PATH, BOARD_FILE_UUID, BOARD_FILE_NAME, BOARD_NUMBER
-        FROM(
-        SELECT BOARD_FILE_NUMBER, BOARD_FILE_UPLOAD_PATH, BOARD_FILE_UUID, BOARD_FILE_NAME, BOARD_NUMBER,
-        RANK() OVER(PARTITION BY BOARD_NUMBER ORDER BY BOARD_FILE_NUMBER) RK
-        FROM TBL_BOARD_FILE
-        )
-        WHERE RK = 1
-        ) J ON B.BOARD_NUMBER = J.BOARD_NUMBER
-        ORDER BY B.BOARD_NUMBER DESC
-        ) S1
-        <![CDATA[
-        WHERE ROWNUM <= #{page} * #{amount}
-        ]]>
-        ) S2
+                SELECT ROWNUM AS RNUM, BOARD_NUMBER, BOARD_TITLE, BOARD_VIEW_CNT, BOARD_CONTENT,
+                       USER_NUMBER, USER_NICKNAME,
+                       BOARD_FILE_UPLOAD_PATH, BOARD_FILE_UUID, BOARD_FILE_NAME,
+                       USER_FILE_UPLOAD_PATH, USER_FILE_UUID, USER_FILE_NAME,
+                       BOARD_CATEGORY_NUMBER
+                FROM(
+                        SELECT B.BOARD_NUMBER, BOARD_TITLE, BOARD_VIEW_CNT, BOARD_CONTENT,
+                               B.USER_NUMBER, USER_NICKNAME,
+                               J.BOARD_FILE_UPLOAD_PATH, J.BOARD_FILE_UUID, J.BOARD_FILE_NAME,
+                               UF.USER_FILE_UPLOAD_PATH, UF.USER_FILE_UUID, UF.USER_FILE_NAME,
+                               B.BOARD_CATEGORY_NUMBER
+                        FROM TBL_USER U JOIN TBL_BOARD B
+                                             ON U.USER_NUMBER = B.USER_NUMBER
+                                        LEFT JOIN (
+                            SELECT BOARD_FILE_NUMBER, BOARD_FILE_UPLOAD_PATH, BOARD_FILE_UUID, BOARD_FILE_NAME, BOARD_NUMBER
+                            FROM(
+                                    SELECT BOARD_FILE_NUMBER, BOARD_FILE_UPLOAD_PATH, BOARD_FILE_UUID, BOARD_FILE_NAME, BOARD_NUMBER,
+                                           RANK() OVER(PARTITION BY BOARD_NUMBER ORDER BY BOARD_FILE_NUMBER) RK
+                                    FROM TBL_BOARD_FILE
+                                )
+                            WHERE RK = 1
+                        ) J ON B.BOARD_NUMBER = J.BOARD_NUMBER
+                                        LEFT JOIN TBL_USER_FILE UF ON U.USER_NUMBER = UF.USER_NUMBER
+                        ORDER BY B.BOARD_NUMBER DESC
+                    ) S1
+<![CDATA[
+                WHERE ROWNUM <= #{page} * #{amount}
+]]>
+) S2
         WHERE RNUM > (#{page} - 1) * #{amount}
+
     </select>
 
     <select id="selectTotal" resultType="_int">
         SELECT COUNT(BOARD_NUMBER) FROM TBL_BOARD
     </select>
+
+    <select id="searchByTitleAndContent" resultType="boardVo">
+        SELECT BOARD_NUMBER, BOARD_TITLE, BOARD_VIEW_CNT, BOARD_CONTENT,
+        USER_NUMBER, USER_NICKNAME,
+        BOARD_FILE_UPLOAD_PATH, BOARD_FILE_UUID, BOARD_FILE_NAME,
+        USER_FILE_UPLOAD_PATH, USER_FILE_UUID, USER_FILE_NAME,
+        BOARD_CATEGORY_NUMBER
+        FROM (
+        SELECT ROWNUM AS RNUM, BOARD_NUMBER, BOARD_TITLE, BOARD_VIEW_CNT, BOARD_CONTENT,
+        USER_NUMBER, USER_NICKNAME,
+        BOARD_FILE_UPLOAD_PATH, BOARD_FILE_UUID, BOARD_FILE_NAME,
+        USER_FILE_UPLOAD_PATH, USER_FILE_UUID, USER_FILE_NAME,
+        BOARD_CATEGORY_NUMBER
+        FROM (
+        SELECT B.BOARD_NUMBER, BOARD_TITLE, BOARD_VIEW_CNT, BOARD_CONTENT,
+        B.USER_NUMBER, USER_NICKNAME,
+        J.BOARD_FILE_UPLOAD_PATH, J.BOARD_FILE_UUID, J.BOARD_FILE_NAME,
+        UF.USER_FILE_UPLOAD_PATH, UF.USER_FILE_UUID, UF.USER_FILE_NAME,
+        B.BOARD_CATEGORY_NUMBER
+        FROM TBL_USER U
+        JOIN TBL_BOARD B ON U.USER_NUMBER = B.USER_NUMBER
+        LEFT JOIN (
+        SELECT BOARD_FILE_NUMBER, BOARD_FILE_UPLOAD_PATH, BOARD_FILE_UUID, BOARD_FILE_NAME, BOARD_NUMBER
+        FROM (
+        SELECT BOARD_FILE_NUMBER, BOARD_FILE_UPLOAD_PATH, BOARD_FILE_UUID, BOARD_FILE_NAME, BOARD_NUMBER,
+        RANK() OVER (PARTITION BY BOARD_NUMBER ORDER BY BOARD_FILE_NUMBER) RK
+        FROM TBL_BOARD_FILE
+        )
+        WHERE RK = 1
+        ) J ON B.BOARD_NUMBER = J.BOARD_NUMBER
+        LEFT JOIN TBL_USER_FILE UF ON U.USER_NUMBER = UF.USER_NUMBER
+        WHERE (B.BOARD_TITLE LIKE '%' || #{Keyword} || '%' AND #{search} 'titleKeyword')
+        OR (B.BOARD_CONTENT LIKE '%' || #{Keyword} || '%' AND #{search} 'contentKeyword')
+        ORDER BY B.BOARD_NUMBER DESC
+        ) S1
+       <![CDATA[
+        WHERE ROWNUM <= #{page} * #{amount}
+]]>
+) S2
+        WHERE RNUM > (#{page} - 1) * #{amount}
+
+    </select>
+
 
 </mapper>
