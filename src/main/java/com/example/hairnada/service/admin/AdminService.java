@@ -1,5 +1,6 @@
 package com.example.hairnada.service.admin;
 
+import com.example.hairnada.dto.hair.HairDto;
 import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.mapper.admin.AdminMapper;
@@ -56,5 +57,39 @@ public class AdminService {
         }
         return Optional.ofNullable(adminMapper.selectStoreListByCategory(storeCategoryNumber))
                 .orElseThrow(()-> {throw new IllegalArgumentException("존재하는 게시글이 없습니다");});
+    }
+
+    // 이름으로 상품 조회
+    public List<StoreDto> findStoreListByTitle(String storeTitle){
+        if (storeTitle == null) {
+            throw new IllegalArgumentException("상품 제목을 입력해주세요");
+        }
+        return Optional.ofNullable(adminMapper.selectStoreListByTitle(storeTitle))
+                .orElseThrow(()->{throw new IllegalArgumentException("일치하는 상품이 없습니다.");});
+    }
+
+    // 헤어 스타일 조회
+    public List<HairDto> findHairList(){
+        return adminMapper.selectHairList();
+    }
+
+    // 카테고리별 헤어스타일 조회
+    public List<HairDto> findHairListByCategory(Long lengthNumber, Long shapeNumber, String hairGender){
+        if (hairGender == null || lengthNumber == null || shapeNumber == null) {
+            throw new IllegalArgumentException("카테고리 선택 누락!!");
+        }
+
+        return Optional.ofNullable(adminMapper.selectHairListByCategory( lengthNumber, shapeNumber, hairGender))
+                .orElseThrow(()-> {throw new IllegalArgumentException("일치하는 게시글이 없습니다!!"); });
+    }
+
+    // 이름으로 헤어스타일 조회
+    public List<HairDto> findHairListByName(String hairName){
+        if (hairName == null) {
+            throw new IllegalArgumentException("검색어를 제대로 입력해주세요");
+        }
+
+        return Optional.ofNullable(adminMapper.selectHairListByName(hairName))
+                .orElseThrow(()-> {throw new IllegalArgumentException("일치하는 게시글이 없습니다 !!");});
     }
 }

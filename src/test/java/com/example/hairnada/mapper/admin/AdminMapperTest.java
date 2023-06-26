@@ -1,5 +1,6 @@
 package com.example.hairnada.mapper.admin;
 
+import com.example.hairnada.dto.hair.HairDto;
 import com.example.hairnada.vo.level.LevelVo;
 import lombok.extern.slf4j.Slf4j;
 import static org.assertj.core.api.Assertions.*;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @SpringBootTest
 @Transactional
 @Slf4j
@@ -18,10 +21,12 @@ class AdminMapperTest {
     @Autowired
     private AdminMapper adminMapper;
     private LevelVo levelVo;
+    private HairDto hairDto;
 
     @BeforeEach
     void setUp(){
         levelVo = new LevelVo();
+
     }
 
 
@@ -75,5 +80,24 @@ class AdminMapperTest {
         assertThat(categoryNumber).isEqualTo(3);
     }
 
+    @Test
+    @DisplayName("헤어 스타일 조회")
+    void selectHairList(){
+        assertThat(adminMapper.selectHairList()).size().isEqualTo(8);
+    }
+
+    @Test
+    @DisplayName("카테고리로 헤어스타일 조회")
+    void selectHairListByCategory(){
+        List<HairDto> hairList = adminMapper.selectHairListByCategory(1L, 1L, "F");
+        log.info(hairList.toString());
+    }
+
+    @Test
+    @DisplayName("제목으로 헤어스타일 조회")
+    void selectHairListByName(){
+        List<HairDto> hairList = adminMapper.selectHairListByName("테슬");
+        assertThat(hairList.get(0).getHairName()).isEqualTo("테슬컷");
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.example.hairnada.service.admin;
 
+import com.example.hairnada.dto.hair.HairDto;
 import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.mapper.admin.AdminMapper;
@@ -18,8 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @ExtendWith(MockitoExtension.class)
 @Transactional
 class AdminServiceTest {
@@ -33,12 +32,14 @@ class AdminServiceTest {
     private UserDto userDto;
     private LevelVo levelVo;
     private StoreDto storeDto;
+    private HairDto hairDto;
 
     @BeforeEach
     void setUp(){
         userDto = new UserDto();
         levelVo = new LevelVo();
         storeDto = new StoreDto();
+        hairDto = new HairDto();
     }
 
 
@@ -103,4 +104,46 @@ class AdminServiceTest {
         assertThat(foundStoreListByCategory).size().isEqualTo(1);
 
     }
+
+    @Test
+    @DisplayName("제목으로 상품 조회")
+    void findStoreListByTitle(){
+        doReturn(List.of(storeDto)).when(adminMapper).selectStoreListByTitle(any(String.class));
+
+        List<StoreDto> foundStoreListByTitle = adminService.findStoreListByTitle("미쟝센");
+
+        assertThat(foundStoreListByTitle).size().isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("헤어리스트 조회")
+    void findHairList(){
+        doReturn(List.of(hairDto)).when(adminMapper).selectHairList();
+
+        List<HairDto> foundHairList = adminService.findHairList();
+
+        assertThat(foundHairList).size().isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("카테고리로 헤어스타일 조회")
+    void findHairListByCategory(){
+        doReturn(List.of(hairDto)).when(adminMapper).selectHairListByCategory( any(Long.class), any(Long.class),any(String.class));
+
+        List<HairDto> foundHairListByCategory = adminService.findHairListByCategory( 1L, 1L,"F");
+
+        assertThat(foundHairListByCategory).size().isEqualTo(1);
+
+    }
+
+    @Test
+    @DisplayName("제목으로 헤어 조회")
+    void findHairListByName(){
+        doReturn(List.of(hairDto)).when(adminMapper).selectHairListByName(any(String.class));
+
+        List<HairDto> foundHairListByName = adminService.findHairListByName("테슬");
+
+        assertThat(foundHairListByName).size().isEqualTo(1);
+    }
+
 }

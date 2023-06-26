@@ -60,4 +60,20 @@
   WHERE ts.STORE_TITLE LIKE '%'||#{storeTitle}||'%'
  </select>
 
+<!-- 헤어리스트 조회 -->
+ <select id="selectHairList" resultType="hairDto">
+  SELECT HAIR_NAME FROM TBL_HAIR th
+ </select>
+
+<!-- 카테고리 선택으로 헤어리스트 조회 -->
+ <select id="selectHairListByCategory" resultType="hairDto">
+  SELECT HAIR_NAME FROM TBL_HAIR th
+  WHERE LENGTH_NUMBER = #{lengthNumber} AND SHAPE_NUMBER = #{shapeNumber} AND HAIR_GENDER = #{hairGender}
+ </select>
+
+<!-- 제목으로 헤어리스트 조회 -->
+ <select id="selectHairListByName" resultType="hairDto">
+  SELECT HAIR_NAME FROM TBL_HAIR
+  WHERE HAIR_NAME LIKE '%'||#{hairName}||'%'
+ </select>
 </mapper>

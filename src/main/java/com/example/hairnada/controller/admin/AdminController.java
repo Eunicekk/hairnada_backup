@@ -1,20 +1,17 @@
 package com.example.hairnada.controller.admin;
 
+import com.example.hairnada.dto.hair.HairDto;
 import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.service.admin.AdminService;
 import com.example.hairnada.vo.level.LevelVo;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
-import java.util.logging.Level;
 
 @Controller
 @RequestMapping("/admin/*")
@@ -39,11 +36,16 @@ public class AdminController {
 
     // 헤어 리스트
     @GetMapping("/hairList")
-    public void hairList(){}
+    public void hairList(Model model){
+        List<HairDto> hairList = adminService.findHairList();
+        model.addAttribute("hairList", hairList);
+    }
 
     // 헤어 게시글 읽기
     @GetMapping("/hairRead")
-    public void hairRead(){}
+    public void hairRead(){
+
+    }
 
     // 헤어 게시글 수정
     @GetMapping("/hairModify")

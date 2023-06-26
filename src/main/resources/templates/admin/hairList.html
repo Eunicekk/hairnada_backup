@@ -47,15 +47,15 @@
             <div class="filter">
               <select name="gender" class="gender">
                 <option value="">성별</option>
-                <option value="female">여성</option>
-                <option value="male">남성</option>
+                <option value="F">여성</option>
+                <option value="M">남성</option>
               </select>
 
               <select name="hair-length" class="hair-length">
                 <option value="">기장</option>
-                <option value="short">숏</option>
-                <option value="middle">미디엄</option>
-                <option value="long">롱</option>
+                <option value="1">숏</option>
+                <option value="2">미디엄</option>
+                <option value="3">롱</option>
               </select>
               <select name="face-shape" class="face-shape">
                 <option value="">얼굴형</option>
@@ -74,14 +74,14 @@
                 class="select-title"
                 placeholder="제목으로 검색"
               />
-              <button type="button" class="search">검색</button>
+              <button type="button" class="search title">검색</button>
             </div>
           </div>
 
           <div class="hair-list-container">
             <article class="holder">
               <div class="hl">
-                <ul class="list-ul">
+                <ul class="list-ul"  th:each="hairList : ${hairList}">
                   <!-- 첫번째 -->
                   <li class="list-li">
                     <a href="">
@@ -90,23 +90,11 @@
                       </div>
                     </a>
                     <div class="hair-title-box">
-                      <p class="hair-title">머리스타일이름이여유</p>
+                      <p class="hair-title" th:text="${hairList.hairName}"></p>
                     </div>
                   </li>
                 </ul>
-                <ul class="list-ul">
-                  <!-- 첫번째 -->
-                  <li class="list-li">
-                    <a href="">
-                      <div class="img-list">
-                        <img src="https://img1.daumcdn.net/thumb/C360x360/?fname=https://mud-kage.kakao.com/dn/tiTz0/btsjboVScnc/36eDc0R0JCIeBLE6uPouDk/img_1080.jpg&scode=purple" alt="">
-                      </div>
-                    </a>
-                    <div class="hair-title-box">
-                      <p class="hair-title">머리스타일이름이여유</p>
-                    </div>
-                  </li>
-                </ul>
+
               </div>
             </article>
           </div>
