@@ -38,6 +38,4 @@
         WHERE USER_ID = #{userId} AND USER_PASSWORD = #{userPassword}
     </select>
 
-<!--    <select id="myBoard" resultType=""-->
-
 </mapper>
