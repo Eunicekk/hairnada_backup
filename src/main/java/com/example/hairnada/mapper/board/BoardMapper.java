@@ -26,4 +26,7 @@ public interface BoardMapper {
 
 //    전제 게시글 조회
     public int selectTotal();
+
+//    제목과 내용으로 검색
+    public List<BoardVo> searchByTitleAndContent(Criteria03 criteria03);
 }

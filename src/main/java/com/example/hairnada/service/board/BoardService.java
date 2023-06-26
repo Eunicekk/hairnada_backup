@@ -23,7 +23,7 @@ public class BoardService {
         if(boardDto == null){
             throw new IllegalArgumentException("게시물 정보가 없습니다.");
         }
-        boardDto.setUserNumber(1L);
+        System.out.println(boardDto.getBoardCategoryNumber());
         boardMapper.insert(boardDto);
     }
 
@@ -62,6 +62,12 @@ public class BoardService {
     @Transactional(readOnly = true)
     public int getTotal(){
         return boardMapper.selectTotal();
+    }
+
+//    검색
+    @Transactional(readOnly = true)
+    public List<BoardVo> searchByTitleAndContent(Criteria03 criteria03) {
+        return boardMapper.searchByTitleAndContent(criteria03);
     }
 
 }

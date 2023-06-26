@@ -72,7 +72,7 @@
       </div>
 
         <!-- 서머노트 -->
-        <div id="editor" name="boardContent" th:text="${board.boardContent}"></div>
+        <textarea id="editor" name="boardContent" th:utext="${board.boardContent}"></textarea>
         
         <!-- 완료 및 취소 버튼 -->
         <div class="buttons">

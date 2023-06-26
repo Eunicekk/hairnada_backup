@@ -279,3 +279,7 @@ hr {
   border-radius: 5px;
   resize: none;
 }
+
+.communityRead p{
+  font-size: 25px;
+}
