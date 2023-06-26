@@ -15,4 +15,5 @@ public class StoreDto {
     private String storeContent;
     private Long storePrice;
     private Long storeCategoryNumber;
+    private String storeCategoryName;
 }

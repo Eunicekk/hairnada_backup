@@ -3,6 +3,8 @@ package com.example.hairnada.controller.admin;
 import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.service.admin.AdminService;
 import com.example.hairnada.vo.level.LevelVo;
+import com.example.hairnada.vo.page.CriteriaAdmin;
+import com.example.hairnada.vo.page.PageAdminVo;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
@@ -23,10 +25,13 @@ public class AdminController {
 
     // 유저 리스트
     @GetMapping("/userList")
-    public void memberList(Model model){
-        List<UserDto> userList = adminService.findUserList();
+    public void memberList(CriteriaAdmin criteriaAdmin, Model model){
+        List<UserDto> userList = adminService.findUserList(criteriaAdmin);
         model.addAttribute("userList", userList);
+        model.addAttribute("pageInfo", new PageAdminVo(criteriaAdmin, adminService.getUserTotal()));
     }
+
+
 
     // 로그인
     @GetMapping("/adminLogin")
@@ -54,9 +59,10 @@ public class AdminController {
 
     // 등업 신청 목록
     @GetMapping("/membership")
-    public void membership(Model model){
-        List<LevelVo> levelList = adminService.findLevelList();
+    public void membership(CriteriaAdmin criteriaAdmin, Model model){
+        List<LevelVo> levelList = adminService.findLevelList(criteriaAdmin);
         model.addAttribute("levelList", levelList);
+        model.addAttribute("pageInfo", new PageAdminVo(criteriaAdmin, adminService.getLevelTotal()));
     }
 
     // 등업 신청 게시글 읽기
