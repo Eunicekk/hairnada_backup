@@ -5,6 +5,7 @@ import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.mapper.admin.AdminMapper;
 import com.example.hairnada.vo.level.LevelVo;
+import com.example.hairnada.vo.page.CriteriaAdmin;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,15 +19,28 @@ import java.util.Optional;
 public class AdminService {
     private final AdminMapper adminMapper;
 
+
     // 회원 전체 조회
     @Transactional(readOnly = true)
-    public List<UserDto> findUserList(){
-        return adminMapper.selectUserList();
+    public List<UserDto> findUserList(CriteriaAdmin criteriaAdmin){
+        return adminMapper.selectUserList(criteriaAdmin);
+    }
+
+    // 회원 수 조회
+    @Transactional(readOnly = true)
+    public int getUserTotal(){
+        return adminMapper.userTotal();
     }
 
     // 등업 게시글 목록 조회
     @Transactional(readOnly = true)
-    public List<LevelVo> findLevelList() {return adminMapper.selectLevelList();}
+    public List<LevelVo> findLevelList(CriteriaAdmin criteriaAdmin) {return adminMapper.selectLevelList(criteriaAdmin);}
+
+    // 등업 게시글 수
+    @Transactional(readOnly = true)
+    public int getLevelTotal(){
+        return adminMapper.levelTotal();
+    }
 
     // 등업 게시글 읽기
     @Transactional(readOnly = true)
@@ -38,7 +52,7 @@ public class AdminService {
         return Optional.ofNullable(adminMapper.levelBoardRead(levelNumber))
                 .orElseThrow(()-> {throw new IllegalArgumentException("존재하지 않는 게시글 번호입니다.");});
     }
-    
+
     // 등업 요청 수락
     public void acceptQuest(Long userNumber, Long membershipNumber){
         if (membershipNumber == null || userNumber == null) {
@@ -46,6 +60,8 @@ public class AdminService {
         }
         adminMapper.updateMembershipNumber(userNumber, membershipNumber);
     }
+
+
 
     // 상품 목록 조회
     public List<StoreDto> findStoreList(){ return adminMapper.selectStoreList(); }
