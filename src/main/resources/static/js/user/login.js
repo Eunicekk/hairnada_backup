@@ -1,4 +1,4 @@
-
+// Kakao.init("286502551dc04dfa252e2363dc526b97"); //발급받은 키 중 javascript키를 사용해준다.
 console.log(Kakao.isInitialized()); // sdk초기화여부판단
 //카카오로그인
 function kakaoLogin() {
@@ -84,13 +84,30 @@ function naverLogout() {
   }, 1000);
 }
 
-// 로그인 안됨 처리
-// console.log(window.location.search)
-//
-// let queryString = location.search;
-// let urlParams = new URLSearchParams(queryString);
-// let login = urlParams.get('login');
-//
-// if(login == 'fail'){
-//   $('.id-pw-no').css("display","inline-block");
-// }
+// 로그인 실패 alert로 했음 css실행은 왜 안될까..?
+$(document).ready(function(){
+$('.login-button').click(function (){
+  var userId = $(".login-box").val();
+  var userPassword = $(".password-box").val();
+
+  $.ajax({
+    url : "/users/loginFail",
+    type: "GET",
+    data: {
+      userId : userId,
+      userPassword : userPassword
+    },
+    success : function(result){
+      if(result == 0){
+        alert("로그인 또는 비밀번호가 일치하지 않습니다");
+        // $('id-pw-no').css("display", "inline-block");
+      }
+    },
+    error: function(){
+      console.log("로그인 오류!!");
+    }
+  });
+});
+});
+
+

@@ -24,24 +24,32 @@
     <div class="communityList cL">
       <ul class="ListUl">
         <!-- 첫번째 -->
-        <li class="ListLi">
+        <li class="ListLi" th:each="board : ${myList}">
           <div class="profile">
             <a href="#">
               <div class="profiles profile-img"></div>
-              <p class="profiles profile-nick">닉네임</p>
+              <p class="profiles profile-nick" th:text="${board.UserNickName}"></p>
             </a>
             <div class="buttons">
               <!-- <button id="basketButton" type="button" class="basket">구매</button> -->
               <button type="button" class="like">하트</button>
             </div>
           </div>
-          <a href="">
+          <a th:href="@{/board/communityRead(boardNumber=${board.boardNumber})}">
             <div class="img-list">
-              <div class="main-img"></div>
+
+              <div  class="main-img">
+                <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800" alt="썸네일">
+              </div>
+<!--th:if="${board.boardFileName == null}"
+<div th:if="${board.boardFileName == null}" class="main-img">-->
+<!--                <img th:src="@{'/upload/' + ${board.boardFileUploadPath} + '/th_' + ${board.boardFileUuid} + '_' + ${board.boardFileName}}" alt="썸네일">-->
+<!--              </div>-->
+
             </div>
           </a>
           <div class="titleAndCnt">
-            <p class="community-title">제목이여유</p>
+            <p class="community-title" th:text="${board.boardTitle}"></p>
             <div class="count">
                   <span class="reply"
                   >댓글 <span class="replyCnt">3</span></span
@@ -53,116 +61,29 @@
           </div>
         </li>
 
-        <!-- 두번째 -->
-        <li class="ListLi">
-          <div class="profile">
-            <a href="#">
-              <div class="profiles profile-img"></div>
-              <p class="profiles profile-nick">닉네임</p>
-            </a>
-            <div class="buttons">
-              <!-- <button id="basketButton" type="button" class="basket">구매</button> -->
-              <button id="likeButton" type="button" class="like">
-                하트
-              </button>
-            </div>
-          </div>
-          <a href="">
-            <div class="img-list">
-              <div class="main-img"></div>
-            </div>
-          </a>
-          <div class="titleAndCnt">
-            <p class="community-title">제목이여유</p>
-            <div class="count">
-                  <span class="reply"
-                  >댓글 <span class="replyCnt">3</span></span
-                  >
-              <span class="view"
-              >조회수 <span class="viewCnt">5</span></span
-              >
-            </div>
-          </div>
-        </li>
-
-        <!-- 세번째 -->
-        <li class="ListLi">
-          <div class="profile">
-            <a href="#">
-              <div class="profiles profile-img"></div>
-              <p class="profiles profile-nick">닉네임</p>
-            </a>
-            <div class="buttons">
-              <!-- <button id="basketButton" type="button" class="basket">구매</button> -->
-              <button id="likeButton" type="button" class="like">
-                하트
-              </button>
-            </div>
-          </div>
-          <a href="">
-            <div class="img-list">
-              <div class="main-img"></div>
-            </div>
-          </a>
-          <div class="titleAndCnt">
-            <p class="community-title">제목이여유</p>
-            <div class="count">
-                  <span class="reply"
-                  >댓글 <span class="replyCnt">3</span></span
-                  >
-              <span class="view"
-              >조회수 <span class="viewCnt">5</span></span
-              >
-            </div>
-          </div>
-        </li>
-
-        <!-- 네번째 -->
-        <li class="ListLi">
-          <div class="profile">
-            <a href="#">
-              <div class="profiles profile-img"></div>
-              <p class="profiles profile-nick">닉네임</p>
-            </a>
-            <div class="buttons">
-              <!-- <button id="basketButton" type="button" class="basket">구매</button> -->
-              <button id="likeButton" type="button" class="like">
-                하트
-              </button>
-            </div>
-          </div>
-          <a href="">
-            <div class="img-list">
-              <div class="main-img"></div>
-            </div>
-          </a>
-          <div class="titleAndCnt">
-            <p class="community-title">제목이여유</p>
-            <div class="count">
-                  <span class="reply"
-                  >댓글 <span class="replyCnt">3</span></span
-                  >
-              <span class="view"
-              >조회수 <span class="viewCnt">5</span></span
-              >
-            </div>
-          </div>
-        </li>
       </ul>
     </div>
 
     <!-- 페이징 처리 -->
     <div class="pagination">
       <ul>
-        <li><a href="#" class="prev">&laquo;</a></li>
-        <li><a href="#" class="active">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#" class="next">&raquo;</a></li>
+        <a th:href="@{/user/myboard(page=${pageInfo.startPage - 1})}" class="prev" th:if="${pageInfo.prev}">
+          <li>&laquo;</li>
+        </a>
+
+        <th:block th:each="i : ${#numbers.sequence(pageInfo.startPage, pageInfo.endPage)}">
+          <a th:href="@{/user/myboard(page=${i})}" >
+            <li class="active" th:text="${i}" th:if="${i == pageInfo.criteria.page}"></li>
+            <li th:text="${i}" th:unless="${i == pageInfo.criteria.page}"></li>
+          </a>
+        </th:block>
+
+        <a th:href="@{/user/myboard(page=${pageInfo.endPage + 1})}" class="next" th:if="${pageInfo.next}">
+          <li>&raquo;</li>
+        </a>
       </ul>
     </div>
+
   </article>
 </div>
 <footer class="footer" th:replace="fragment/footer :: footer"></footer>
@@ -171,7 +92,7 @@
         integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
         crossorigin="anonymous"
 ></script>
-<script th:src="@{/js/myboard.js}"></script>
+<script th:src="@{/js/user/myboard.js}"></script>
 <script th:src="@{/js/index/header.js}"></script>
 </body>
 </html>
