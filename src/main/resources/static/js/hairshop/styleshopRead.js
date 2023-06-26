@@ -1,3 +1,45 @@
+// 이미지 리스트
+imgAjax();
+
+function imgAjax(){
+    let hairShopNumber = $('.hair-shop-num').val();
+
+    $.ajax({
+        url : '/hairshopFile/imgList',
+        type : 'get',
+        data : {hairShopNumber : hairShopNumber},
+        async : false,
+        success : function(files) {
+            let maintext = '';
+            let subtext = '';
+
+            files.forEach(file => {
+               let hairShopFileName = file.hairShopFileUploadPath + '/' + file.hairShopFileUuid + '_' + file.hairShopFileName;
+
+               maintext += `
+                <li>
+                    <img src="/hairshopFile/display?hairShopFileName=${hairShopFileName}" data-number="${file.hairShopFileNumber}" data-name="${hairShopFileName}" alt="메인">
+                </li>
+               `
+
+               subtext += `
+                <li>
+                    <img src="/hairshopFile/display?hairShopFileName=${hairShopFileName}" data-number="${file.hairShopFileNumber}" data-name="${hairShopFileName}" alt="서브">
+                </li>
+               `
+            });
+            $('.img-main-box').html(maintext);
+            $('.img-sub-box').html(subtext);
+        },
+        error: function(xhr, status, error) {
+            console.log('Ajax 오류 발생');
+            console.log('상태 코드:', xhr.status);
+            console.log('오류:', error);
+        }
+    });
+}
+
+
 // 이미지 넘기기
 let box = $('.img-main-box');
 let img = $('.img-main-box li');
@@ -6,22 +48,25 @@ let imgWidth = 1200;
 let imgCnt = $('.img-sub li').length;
 
 checkEnd();
+imageControl();
 
-$('.img-box .right').on('click', function(){
-    console.log("next!!");
-    currentIdx++;
-    box.css('transition', '0.5s ease');
-    box.css("left", -(currentIdx * imgWidth) + 'px');
-    checkEnd();
-});
+function imageControl(){
+    $('.img-box .right').on('click', function(){
+        console.log("next!!");
+        currentIdx++;
+        box.css('transition', '0.5s ease');
+        box.css("left", -(currentIdx * imgWidth) + 'px');
+        checkEnd();
+    });
 
-$('.img-box .left').on('click', function(){
-    console.log("prev!!");
-    currentIdx--;
-    box.css("left", -(currentIdx * imgWidth));
-    box.css('transition', '0.5s ease');
-    checkEnd();
-})
+    $('.img-box .left').on('click', function(){
+        console.log("prev!!");
+        currentIdx--;
+        box.css("left", -(currentIdx * imgWidth));
+        box.css('transition', '0.5s ease');
+        checkEnd();
+    })
+}
 
 function checkEnd(){
     if(currentIdx <= 0){
@@ -85,4 +130,16 @@ geocoder.addressSearch($('.address').text(), function(result, status) {
         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
         map.setCenter(coords);
     } 
-});    
+});
+
+
+// 수정, 삭제 버튼 실행
+$('.btn-modify').on('click', function(){
+    let hairShopNumber = $('.hair-shop-num').val();
+    window.location.href = '/hairshop/modify?hairShopNumber=' + hairShopNumber;
+})
+
+$('.btn-delete').on('click', function(){
+    let hairShopNumber = $('.hair-shop-num').val();
+    window.location.href = '/hairshop/remove?hairShopNumber=' + hairShopNumber;
+})
