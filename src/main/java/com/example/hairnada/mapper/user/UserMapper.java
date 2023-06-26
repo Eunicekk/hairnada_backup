@@ -24,4 +24,8 @@ public interface UserMapper {
 
 //    닉네임 중복확인
     public int checkNickname(String userNickname);
+
+//    로그인 실패
+    public int loginFail(@Param("userId") String userId, @Param("userPassword") String userPassword);
+
 }

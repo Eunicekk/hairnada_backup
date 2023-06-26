@@ -192,8 +192,13 @@ $('.dropdown-menu li').on('click', function () {
             $('.realEmail').val(emailReal);
         }
 
-
     console.log($('.realEmail').val());
     });
 
 
+// 회원가입 실패처리
+
+
+// $(document).ready(function(){
+//
+// });
