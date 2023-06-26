@@ -35,14 +35,12 @@
         <!-- 리스트 -->
         <div class="style-content">
             <ul class="style-box">
-            <!-- 리스트 각각의 값, 게시물 클릭했을 떄 링크 처리 필요 -->
             <li class="ListLi" th:each="hairShop : ${hairShopList}">
                 <a th:href="@{read(hairShopNumber=${hairShop.hairShopNumber})}">
                     <div class="img-list">
                         <div class="main-img">
-<!--                            <img src="https://3.bp.blogspot.com/-ZKBbW7TmQD4/U6P_DTbE2MI/AAAAAAAADjg/wdhBRyLv5e8/s1600/noimg.gif" alt="임시 썸네일">-->
-                            <img th:if="${hairshop == null || hairshop.hairShopFileName == null}" src="https://3.bp.blogspot.com/-ZKBbW7TmQD4/U6P_DTbE2MI/AAAAAAAADjg/wdhBRyLv5e8/s1600/noimg.gif" alt="임시 썸네일">
-                            <img th:unless="${hairshop == null || hairshop.hairShopFileName == null}" th:src="@{/upload/${hairshop.hairShopFileUploadPath}/th_${hairshop.hairShopFileUuid}_${hairshop.hairShopFileName}}" alt="진짜 썸네일">
+                            <img th:if="${hairShop.hairShopFileName == null}" src="https://3.bp.blogspot.com/-ZKBbW7TmQD4/U6P_DTbE2MI/AAAAAAAADjg/wdhBRyLv5e8/s1600/noimg.gif" alt="임시 썸네일">
+                            <img th:unless="${hairShop.hairShopFileName == null}" th:src="@{'/upload/' + ${hairShop.hairShopFileUploadPath} + '/th_' + ${hairShop.hairShopFileUuid} + '_' + ${hairShop.hairShopFileName}}" alt="이미지">
                         </div>
                     </div>
                 </a>

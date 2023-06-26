@@ -26,10 +26,9 @@
             </span>
             <div class="img-main">
                 <ul class="img-main-box">
-                    <li><img src="https://weare.lush.co.kr/images/shop/seoul/gangnam.jpg" alt="메인01"></li>
-                    <li><img src="https://weare.lush.co.kr/images/shop/seoul/gyeonglidan_spa.JPG" alt="메인02"></li>
-                    <li><img src="https://weare.lush.co.kr/images/shop/seoul/daehaglo.jpg" alt="메인03"></li>
-                    <li><img src="https://weare.lush.co.kr/images/shop/seoul/lotte_mia.JPG" alt="메인04"></li>
+                    <li>
+                        <img>
+                    </li>
                 </ul>
             </div>
             <span class="material-symbols-rounded right">
@@ -37,12 +36,7 @@
             </span>
         </div>
         <div class="img-sub">
-            <ul>
-                <li><img src="https://weare.lush.co.kr/images/shop/seoul/gangnam.jpg" alt="서브01"></li>
-                <li><img src="https://weare.lush.co.kr/images/shop/seoul/gyeonglidan_spa.JPG" alt="서브02"></li>
-                <li><img src="https://weare.lush.co.kr/images/shop/seoul/daehaglo.jpg" alt="서브03"></li>
-                <li><img src="https://weare.lush.co.kr/images/shop/seoul/lotte_mia.JPG" alt="서브04"></li>
-            </ul>
+            <ul class="img-sub-box"></ul>
         </div>
 
         <!-- 장소 정보 -->
@@ -79,13 +73,14 @@
             <div class="buttons">
                 <th:block th:if="${session.userNumber == hairShop.userNumber}">
                     <div class="button-on">
-                        <button type="button">수정</button>
-                        <button type="button">삭제</button>
+                        <button type="button" class="btn-modify">수정</button>
+                        <button type="button" class="btn-delete">삭제</button>
                     </div>
                 </th:block>
                 <a th:href="@{/hairshop/list}">목록</a>
             </div>
         </div>
+        <input type="hidden" class="hair-shop-num" th:value="${hairShop.hairShopNumber}">
 
     </div>
     <footer class="footer" th:replace="fragment/footer :: footer"></footer>

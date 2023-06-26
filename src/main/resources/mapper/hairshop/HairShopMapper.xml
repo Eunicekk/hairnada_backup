@@ -58,7 +58,7 @@
         INSERT INTO TBL_HAIR_SHOP(HAIR_SHOP_NUMBER, HAIR_SHOP_ADDRESS, HAIR_SHOP_PHONE_NUMBER, HAIR_SHOP_OPEN_TIME,
         HAIR_SHOP_NAME, HAIR_SHOP_LINK, HAIR_SHOP_CONTENT, USER_NUMBER)
         VALUES(#{hairShopNumber}, #{hairShopAddress}, #{hairShopPhoneNumber}, #{hairShopOpenTime},
-        #{hairShopName}, #{hairShopLink}, #{hairShopContent}, #{userNumber})
+        #{hairShopName}, #{hairShopLink}, #{hairShopContent, jdbcType=CLOB}, #{userNumber})
     </insert>
 
     <!-- 헤어샵 삭제 -->

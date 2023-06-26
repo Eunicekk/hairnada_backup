@@ -31,14 +31,10 @@ public class HairShopController {
 
     // list 페이지 띄우기 및 전체 게시물 조회하기
     @GetMapping("/list")
-    public String hairshopList(Criteria03 criteria03, Model model, HttpSession session){
+    public String hairshopList(Criteria03 criteria03, Model model, HttpServletRequest req){
         List<HairShopVo> hairShopList = hairShopService.findAll(criteria03);
         model.addAttribute("hairShopList", hairShopList);
         model.addAttribute("pageInfo", new Page03Vo(criteria03, hairShopService.getTotal()));
-
-        // 임시 세션 처리 (지워야함)
-        session.setAttribute("userNumber", 2L);
-        session.setAttribute("membershipNumber", 2L);
 
         return "hairshop/styleshopList";
     }
@@ -46,13 +42,9 @@ public class HairShopController {
 
     // read 페에지 띄우기
     @GetMapping("/read")
-    public String hairshopRead(Long hairShopNumber, Model model, HttpSession session){
+    public String hairshopRead(Long hairShopNumber, Model model, HttpServletRequest req){
         HairShopVo hairShopVo = hairShopService.findHairShop(hairShopNumber);
         model.addAttribute("hairShop", hairShopVo);
-
-        // 임시 세션 처리 (지워야함)
-        session.setAttribute("userNumber", 2L);
-        session.setAttribute("membershipNumber", 2L);
 
         return "hairshop/styleshopRead";
     }
@@ -93,14 +85,14 @@ public class HairShopController {
 
 
     @PostMapping("/modify")
-    public RedirectView hairShopModify(HairShopDto hairShopDto, RedirectAttributes redirectAttributes, @RequestParam("hairShopFile") List<MultipartFile> files){
-        try {
-            hairShopService.modify(hairShopDto, files);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        redirectAttributes.addFlashAttribute("hairShopNumber", hairShopDto.getHairShopNumber());
-        return new RedirectView("/hairshop/read");
+        public RedirectView hairShopModify(HairShopDto hairShopDto, RedirectAttributes redirectAttributes, @RequestParam("hairShopFile") List<MultipartFile> files){
+            try {
+                hairShopService.modify(hairShopDto, files);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            redirectAttributes.addFlashAttribute("hairShopNumber", hairShopDto.getHairShopNumber());
+            return new RedirectView("/hairshop/read");
     }
 
 
