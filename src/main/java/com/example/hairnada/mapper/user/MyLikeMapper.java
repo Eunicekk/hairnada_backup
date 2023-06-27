@@ -17,4 +17,7 @@ public interface MyLikeMapper {
 //    커뮤니티 좋아요 페이징
     public int getTotal(Long userNumber);
 
+//    헤어스타일 좋아요
+    public List<>
+
 }

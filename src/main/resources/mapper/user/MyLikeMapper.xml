@@ -44,6 +44,14 @@
         WHERE USER_NUMBER = #{userNumber}
     </select>
 
+    <select id="likeHair">
+        SELECT TH.HAIR_NUMBER, TH.HAIR_NAME, TH.HAIR_CONTENT,
+               THF.HAIR_FILE_UPLOAD_PATH, THF.HAIR_FILE_UUID, THL.USER_NUMBER
+        FROM TBL_HAIR TH
+                 LEFT JOIN TBL_HAIR_FILE THF ON TH.HAIR_NUMBER = THF.HAIR_NUMBER
+                 LEFT JOIN TBL_HAIR_LIKE THL ON TH.HAIR_NUMBER = THL.HAIR_NUMBER
+        WHERE THL.USER_NUMBER = #{userNumber}
+    </select>
 
 
 </mapper>
