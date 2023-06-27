@@ -3,8 +3,10 @@ package com.example.hairnada.mapper.admin;
 import com.example.hairnada.dto.hair.HairDto;
 import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.dto.user.UserDto;
+import com.example.hairnada.vo.hair.HairVo;
 import com.example.hairnada.vo.level.LevelVo;
 import com.example.hairnada.vo.page.CriteriaAdmin;
+import com.example.hairnada.vo.page.CriteriaAdminList;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -30,7 +32,10 @@ public interface AdminMapper {
     // 등업 요청 수락
     public void updateMembershipNumber(@Param("userNumber")Long userNumber, @Param("membershipNumber")Long membershipNumber);
     // 상품 리스트 목록
-    public List<StoreDto> selectStoreList();
+    public List<StoreDto> selectStoreList(CriteriaAdminList criteriaAdminList);
+
+    // 상품 게시글 수
+    public int storeTotal();
 
     // 상품 카테고리로 검색
     public List<StoreDto> selectStoreListByCategory(Long storeCategoryNumber);
@@ -39,7 +44,13 @@ public interface AdminMapper {
     public List<StoreDto> selectStoreListByTitle(String storeTitle);
 
     // 헤어 리스트 목록
-    public List<HairDto> selectHairList();
+    public List<HairVo> selectHairList(CriteriaAdminList criteriaAdminList);
+
+    // 헤어리스트 수
+    public int hairTotal();
+
+    // 헤어 업로드
+    public void insertHair(HairDto hairDto);
 
     // 헤어 카테고리로 검색
     public List<HairDto> selectHairListByCategory(

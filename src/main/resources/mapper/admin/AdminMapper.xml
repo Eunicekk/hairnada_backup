@@ -137,9 +137,22 @@
 
 <!-- 상품 게시글 목록 조회 -->
  <select id="selectStoreList" resultType="storeDto">
-  SELECT STORE_NUMBER , STORE_TITLE , STORE_PRICE , ts.STORE_CATEGORY_NUMBER, tsc.STORE_CATEGORY_NAME  FROM TBL_STORE ts
-  JOIN TBL_STORE_CATEGORY tsc
-  ON tsc.STORE_CATEGORY_NUMBER  = ts.STORE_CATEGORY_NUMBER
+    SELECT RNUM, STORE_NUMBER , STORE_TITLE , STORE_PRICE , STORE_CATEGORY_NUMBER, STORE_CATEGORY_NAME  FROM(
+    SELECT ROWNUM AS RNUM, STORE_NUMBER , STORE_TITLE , STORE_PRICE , STORE_CATEGORY_NUMBER, STORE_CATEGORY_NAME  FROM(
+    SELECT STORE_NUMBER , STORE_TITLE , STORE_PRICE , ts.STORE_CATEGORY_NUMBER, tsc.STORE_CATEGORY_NAME  FROM TBL_STORE ts
+    JOIN TBL_STORE_CATEGORY tsc
+    ON tsc.STORE_CATEGORY_NUMBER  = ts.STORE_CATEGORY_NUMBER)
+    <![CDATA[
+    WHERE
+    ROWNUM <= #{page} * #{amount}
+     ]]>)
+    WHERE
+    RNUM > (#{page} - 1 ) * #{amount}
+ </select>
+
+<!-- 스토어 게시글 수 -->
+ <select id="storeTotal" resultType="_int">
+  SELECT COUNT(STORE_NUMBER) FROM TBL_STORE
  </select>
 
 <!-- 카테고리에 따른 스토어 게시글 목록 조회 -->
@@ -159,8 +172,69 @@
  </select>
 
 <!-- 헤어리스트 조회 -->
- <select id="selectHairList" resultType="hairDto">
-  SELECT HAIR_NAME FROM TBL_HAIR th
+ <select id="selectHairList" resultType="hairVo">
+  SELECT
+   HAIR_NUMBER,
+   HAIR_NAME,
+   HAIR_FILE_NAME,
+   HAIR_FILE_UUID,
+   HAIR_FILE_UPLOAD_PATH
+  FROM
+   (
+    SELECT
+     ROWNUM AS RNUM ,
+     HAIR_NUMBER,
+     HAIR_NAME,
+     HAIR_FILE_NAME,
+     HAIR_FILE_UUID,
+     HAIR_FILE_UPLOAD_PATH
+    FROM
+     (
+      SELECT
+       th.HAIR_NUMBER,
+       HAIR_NAME,
+       thf.HAIR_FILE_NAME,
+       thf.HAIR_FILE_UUID,
+       thf.HAIR_FILE_UPLOAD_PATH
+      FROM
+       TBL_HAIR th
+        LEFT JOIN
+       (
+        SELECT
+         HAIR_FILE_NUMBER ,
+         HAIR_FILE_NAME ,
+         HAIR_FILE_UPLOAD_PATH ,
+         HAIR_FILE_UUID ,
+         HAIR_NUMBER
+        FROM
+         (
+          SELECT
+           HAIR_FILE_NUMBER ,
+           HAIR_FILE_NAME ,
+           HAIR_FILE_UPLOAD_PATH ,
+           HAIR_FILE_UUID ,
+           HAIR_NUMBER,
+           RANK() OVER(PARTITION BY HAIR_NUMBER ORDER BY HAIR_FILE_NUMBER) RK
+          FROM
+           TBL_HAIR_FILE)
+        WHERE
+         RK = 1) thf
+       ON
+        th.HAIR_NUMBER = thf.HAIR_NUMBER
+      ORDER BY
+       HAIR_NUMBER DESC)
+<![CDATA[
+    WHERE
+     ROWNUM <= #{page} * #{amount}
+             ]]>
+        )
+  WHERE
+   RNUM > (#{page} - 1 ) * #{amount}
+ </select>
+
+<!-- 헤어 게시글 수 -->
+ <select id="hairTotal" resultType="_int">
+  SELECT COUNT(HAIR_NUMBER) FROM TBL_HAIR
  </select>
 
 <!-- 카테고리 선택으로 헤어리스트 조회 -->
@@ -174,4 +248,14 @@
   SELECT HAIR_NAME FROM TBL_HAIR
   WHERE HAIR_NAME LIKE '%'||#{hairName}||'%'
  </select>
+
+<!-- 헤어 게시글 작성 -->
+ <insert id="insertHair">
+  <selectKey keyProperty="hairNumber" order="BEFORE" resultType="long">
+   SELECT SEQ_HAIR.NEXTVAL FROM DUAL
+  </selectKey>
+  INSERT INTO TBL_HAIR (HAIR_NUMBER, HAIR_NAME, HAIR_CONTENT, HAIR_GENDER, SHAPE_NUMBER, LENGTH_NUMBER)
+  VALUES (#{hairNumber}, #{hairName}, #{hairContent}, #{hairGender}, #{shapeNumber}, #{lengthNumber})
+ </insert>
+
 </mapper>

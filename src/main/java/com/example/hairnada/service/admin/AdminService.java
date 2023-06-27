@@ -4,8 +4,10 @@ import com.example.hairnada.dto.hair.HairDto;
 import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.mapper.admin.AdminMapper;
+import com.example.hairnada.vo.hair.HairVo;
 import com.example.hairnada.vo.level.LevelVo;
 import com.example.hairnada.vo.page.CriteriaAdmin;
+import com.example.hairnada.vo.page.CriteriaAdminList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,7 +66,15 @@ public class AdminService {
 
 
     // 상품 목록 조회
-    public List<StoreDto> findStoreList(){ return adminMapper.selectStoreList(); }
+    public List<StoreDto> findStoreList(CriteriaAdminList criteriaAdminList){
+        return adminMapper.selectStoreList(criteriaAdminList);
+    }
+
+    // 상품 게시글 수
+    @Transactional(readOnly = true)
+    public int getStoreTotal(){
+        return adminMapper.storeTotal();
+    }
 
     // 카테고리로 상품 조회
     public List<StoreDto> findStoreListByCategory(Long storeCategoryNumber){
@@ -85,8 +95,22 @@ public class AdminService {
     }
 
     // 헤어 스타일 조회
-    public List<HairDto> findHairList(){
-        return adminMapper.selectHairList();
+    public List<HairVo> findHairList(CriteriaAdminList criteriaAdminList){
+        return adminMapper.selectHairList(criteriaAdminList);
+    }
+
+    // 헤어 게시글 수
+    @Transactional(readOnly = true)
+    public int getHairTotal(){
+        return adminMapper.hairTotal();
+    }
+
+    // 헤어스 스타일 업로드
+    public void registerHair(HairDto hairDto){
+        if (hairDto == null) {
+            throw new IllegalArgumentException("헤어스타일 정보를 제대로 기입해주세요.");
+        }
+        adminMapper.insertHair(hairDto);
     }
 
     // 카테고리별 헤어스타일 조회
