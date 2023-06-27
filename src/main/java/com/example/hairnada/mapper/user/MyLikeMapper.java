@@ -14,4 +14,7 @@ public interface MyLikeMapper {
 //    커뮤니티 좋아요
     public List<BoardVo> likeCommunity(@Param("userNumber")Long userNumber, @Param("criteria") Criteria11 criteria11);
 
+//    커뮤니티 좋아요 페이징
+    public int getTotal(Long userNumber);
+
 }

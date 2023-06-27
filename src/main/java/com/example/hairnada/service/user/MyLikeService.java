@@ -30,6 +30,8 @@ public class MyLikeService {
         });
     }
 
+//    커뮤니티 좋아요 페이징
+    public int getTotal(Long userNumber){return myLikeMapper.getTotal(userNumber);}
 
 
 }

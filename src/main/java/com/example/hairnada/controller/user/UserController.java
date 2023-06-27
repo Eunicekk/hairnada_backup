@@ -34,9 +34,14 @@ public class UserController {
     @PostMapping("/login")
     public RedirectView login(String userId, String userPassword, HttpServletRequest req){
         try {
-            Long userNumber = userService.findUserNumber(userId, userPassword);
+            Long userNumber = userService.findUserNumber(userId, userPassword).getUserNumber();
+            Long memberShip = userService.findUserNumber(userId, userPassword).getMembershipNumber();
             // 로그인 성공시 세션에 담기
             req.getSession().setAttribute("userNumber" , userNumber);
+            req.getSession().setAttribute("memberShip", memberShip);
+
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!"+memberShip);
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!"+userNumber);
 
         } catch (IllegalArgumentException e) {
             e.printStackTrace();

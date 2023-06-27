@@ -29,7 +29,7 @@
         WHERE RK = 1
         ) J ON B.BOARD_NUMBER = J.BOARD_NUMBER
         LEFT JOIN TBL_USER_FILE UF ON U.USER_NUMBER = UF.USER_NUMBER
-        JOIN TBL_BOARD_LIKE BL ON B.BOARD_NUMBER = BL.BOARD_NUMBER
+        JOIN TBL_BOARD_LIKE BL ON BL.USER_NUMBER = #{userNumber} AND B.BOARD_NUMBER = BL.BOARD_NUMBER
         ORDER BY B.BOARD_NUMBER DESC
         ) S1
         <![CDATA[
@@ -37,7 +37,13 @@
         ]]>
         ) S2
         WHERE RNUM > (#{criteria.page} - 1) * #{criteria.amount}
-          AND USER_NUMBER = #{userNumber}
     </select>
+
+    <select id="getTotal" resultType="_int">
+        SELECT COUNT(BOARD_NUMBER) FROM TBL_BOARD_LIKE
+        WHERE USER_NUMBER = #{userNumber}
+    </select>
+
+
 
 </mapper>
