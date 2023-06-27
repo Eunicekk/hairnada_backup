@@ -3,6 +3,13 @@ $(document).ready(function () {
   $("#my-hairshop-text").children().first().removeClass("selected");
   $("#my-product-text").children().first().removeClass("selected");
   $("#my-style-text").children().first().removeClass("selected");
+
+  $('.pagination').on('click', '.li__like', function (e){
+    e.preventDefault();
+
+    let number = $(this).text();
+    communityPage(number);
+  })
 });
 
 function LikeImg() {
@@ -23,14 +30,49 @@ function LikeImg() {
 }
 
 // 커뮤니티 좋아요 모음
-function communityPage() {
-  $(".communityList").html(getCommunity);
-  LikeImg();
+function communityPage(page) {
+  if(!page){
+    page = 1;
+  }
+
+  let tagList = '';
+  $.ajax({
+    url: `/users/likeCommunity/${page}`,
+    type: "GET",
+    success: function(result){
+      tagList = getCommunity(result.likeboard);
+      $(".communityList").html(tagList);
+      LikeImg();
+
+      let pageNum = '';
+      let pageinfo = result.pageinfo;
+
+      if(pageinfo.prev){
+        pageNum += `<li class="li__like"><a href="#" class="prev">&laquo;</a></li>`;
+      }
+
+      for(let i= pageinfo.startPage; i<=pageinfo.endPage; i++){
+        if(pageinfo.criteria.page == i){
+          pageNum += `<li class="li__like"><a href="#" class="active">${i}</a></li>`;
+        }else{
+          pageNum += `<li class="li__like"><a href="#" >${i}</a></li>`;
+        }
+      }
+
+      if(pageinfo.next){
+        pageNum += `<li class="li__like"><a href="#" class="next">&raquo;</a></li>`;
+      }
+
+      $('.pagination ul').html(pageNum);
+    }
+  });
 }
 
 communityPage();
 
-$("#my-community-text").on("click", communityPage);
+$("#my-community-text").on("click", function(){
+  communityPage();
+});
 
 // 미용실 좋아요 모음
 $("#my-hairshop-text").on("click", function () {
@@ -68,181 +110,52 @@ $("#my-style-text").on("click", function () {
 //   console.log("click!!!!!!!");
 // });
 
-function getCommunity() {
-  return `
-  <ul class="ListUl">
-  <!-- 첫번째 -->
-  <li class="ListLi">
-    <div class="profile">
-      <a href="#">
-        <div class="profiles profile-img"></div>
-        <p class="profiles profile-nick">닉네임</p>
-      </a>
-      <div class="buttons">
-        <!-- <button id="basketButton" type="button" class="basket">구매</button> -->
-        <button type="button" class="like">하트</button>
-      </div>
-    </div>
-    <a href="">
-      <div class="img-list">
-        <div class="main-img"></div>
-      </div>
-    </a>
-    <div class="titleAndCnt">
-      <p class="community-title">제목이여유</p>
-      <div class="count">
-        <span class="reply"
-          >댓글 <span class="replyCnt">3</span></span
-        >
-        <span class="view"
-          >조회수 <span class="viewCnt">5</span></span
-        >
-      </div>
-    </div>
-  </li>
 
-  <!-- 두번째 -->
-  <li class="ListLi">
-    <div class="profile">
-      <a href="#">
-        <div class="profiles profile-img"></div>
-        <p class="profiles profile-nick">닉네임</p>
-      </a>
-      <div class="buttons">
-        <!-- <button id="basketButton" type="button" class="basket">구매</button> -->
-        <button id="likeButton" type="button" class="like">
-          하트
-        </button>
-      </div>
-    </div>
-    <a href="">
-      <div class="img-list">
-        <div class="main-img"></div>
-      </div>
-    </a>
-    <div class="titleAndCnt">
-      <p class="community-title">제목이여유</p>
-      <div class="count">
-        <span class="reply"
-          >댓글 <span class="replyCnt">3</span></span
-        >
-        <span class="view"
-          >조회수 <span class="viewCnt">5</span></span
-        >
-      </div>
-    </div>
-  </li>
 
-  <!-- 테스트 -->
-  <li class="ListLi">
-    <div class="profile">
-      <a href="#">
-        <div class="profiles profile-img"></div>
-        <p class="profiles profile-nick">닉네임</p>
-      </a>
-      <div class="buttons">
-        <!-- <button id="basketButton" type="button" class="basket">구매</button> -->
-        <button id="likeButton" type="button" class="like">
-          하트
-        </button>
-      </div>
-    </div>
-    <a href="">
-      <div class="img-list">
-        <div class="main-img"></div>
-      </div>
-    </a>
-    <div class="titleAndCnt">
-      <p class="community-title">제목이여유</p>
-      <div class="count">
-        <span class="reply"
-          >댓글 <span class="replyCnt">3</span></span
-        >
-        <span class="view"
-          >조회수 <span class="viewCnt">5</span></span
-        >
-      </div>
-    </div>
-  </li>
 
-  <!-- 세번째 -->
-  <li class="ListLi">
-    <div class="profile">
-      <a href="#">
-        <div class="profiles profile-img"></div>
-        <p class="profiles profile-nick">닉네임</p>
-      </a>
-      <div class="buttons">
-        <!-- <button id="basketButton" type="button" class="basket">구매</button> -->
-        <button id="likeButton" type="button" class="like">
-          하트
-        </button>
-      </div>
-    </div>
-    <a href="">
-      <div class="img-list">
-        <div class="main-img"></div>
-      </div>
-    </a>
-    <div class="titleAndCnt">
-      <p class="community-title">제목이여유</p>
-      <div class="count">
-        <span class="reply"
-          >댓글 <span class="replyCnt">3</span></span
-        >
-        <span class="view"
-          >조회수 <span class="viewCnt">5</span></span
-        >
-      </div>
-    </div>
-  </li>
 
-  <!-- 네번째 -->
-  <li class="ListLi">
-    <div class="profile">
-      <a href="#">
-        <div class="profiles profile-img"></div>
-        <p class="profiles profile-nick">닉네임</p>
-      </a>
-      <div class="buttons">
-        <!-- <button id="basketButton" type="button" class="basket">구매</button> -->
-        <button id="likeButton" type="button" class="like">
-          하트
-        </button>
-      </div>
-    </div>
-    <a href="">
-      <div class="img-list">
-        <div class="main-img"></div>
-      </div>
-    </a>
-    <div class="titleAndCnt">
-      <p class="community-title">제목이여유</p>
-      <div class="count">
-        <span class="reply"
-          >댓글 <span class="replyCnt">3</span></span
-        >
-        <span class="view"
-          >조회수 <span class="viewCnt">5</span></span
-        >
-      </div>
-    </div>
-  </li>
-</ul>
-</div>
+function getCommunity(obj) {
+  console.log(obj)
+  let text = '';
 
-<!-- 페이징 처리 -->
-<div class="pagination">
-<ul>
-  <li><a href="#" class="prev">&laquo;</a></li>
-  <li><a href="#" class="active">1</a></li>
-  <li><a href="#">2</a></li>
-  <li><a href="#">3</a></li>
-  <li><a href="#">4</a></li>
-  <li><a href="#">5</a></li>
-  <li><a href="#" class="next">&raquo;</a></li>
-</ul>
-  `;
+  text += `<ul class="ListUl">`;
+
+  for(let i=0; i<obj.length; i++){
+    text += `
+      <!-- 첫번째 -->
+      <li class="ListLi">
+        <div class="profile">
+          <a href="#">
+            <div class="profiles profile-img"></div>
+            <p class="profiles profile-nick">${obj[i].userNickName}</p>
+          </a>
+          <div class="buttons">
+            <!-- <button id="basketButton" type="button" class="basket">구매</button> -->
+            <button type="button" class="like">하트</button>
+          </div>
+        </div>
+        <a href="">
+          <div class="img-list">
+            <div class="main-img"></div>
+          </div>
+        </a>
+        <div class="titleAndCnt">
+          <p class="community-title">${obj[i].boardTitle}</p>
+          <div class="count">
+            <span class="reply"
+              >댓글 <span class="replyCnt">3</span></span
+            >
+            <span class="view"
+              >조회수 <span class="viewCnt">5</span></span
+            >
+          </div>
+        </div>
+      </li>
+      `;
+  }
+  text+= `</ul>`;
+
+  return text;
 }
 
 function getHairShop() {

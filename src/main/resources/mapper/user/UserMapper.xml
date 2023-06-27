@@ -12,8 +12,8 @@
                  #{userNickname}, #{userGender}, #{userName}, #{userEmail})
     </insert>
 <!-- 로그인용-->
-    <select id="selectUserNumber" resultType="long">
-        SELECT USER_NUMBER FROM TBL_USER
+    <select id="selectUserNumber" resultType="UserDto">
+        SELECT USER_NUMBER, MEMBERSHIP_NUMBER FROM TBL_USER
         WHERE USER_ID = #{userId} AND USER_PASSWORD = #{userPassword}
     </select>
 <!--계정찾기 -->
