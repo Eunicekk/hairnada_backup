@@ -36,7 +36,7 @@
   margin-bottom: 2px;
 }
 
-.product-category-box > button {
+.select {
   width: 70px;
   height: 28px;
   font-size: 18px;
@@ -152,14 +152,14 @@
 
 .product-title {
   margin: 0;
-  font-size: 20px;
+  font-size: 15px;
   color: #222;
   font-weight: 700;
 }
 
 .product-information {
   margin-top: 10px;
-  height: 65px;
+  height: 90px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

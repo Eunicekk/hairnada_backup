@@ -16,4 +16,5 @@ public class HairDto {
     private Long shapeNumber;
     private Long hairShopNumber;
     private Long hairFileNumber;
+    private Long lengthNumber;
 }

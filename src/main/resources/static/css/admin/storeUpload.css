@@ -137,8 +137,8 @@
 .file-wrap > li:first-child {
   position: relative;
   cursor: pointer;
-  background: url(../LogoImg/upload_FILL0_wght400_GRAD0_opsz48.png) no-repeat
-    50%;
+  background: url(/img/upload_FILL0_wght400_GRAD0_opsz48.png) no-repeat
+  50%;
   background-color: #f2f2f2;
   width: 600px;
   height: 600px;

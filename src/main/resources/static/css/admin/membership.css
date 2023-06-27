@@ -96,6 +96,7 @@ a > .quest-board-title:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 200px;
 }
 
 .page-num {
