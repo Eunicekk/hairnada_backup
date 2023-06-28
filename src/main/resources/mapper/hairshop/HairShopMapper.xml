@@ -76,4 +76,64 @@
         WHERE HAIR_SHOP_NUMBER = #{hairShopNumber}
     </update>
 
+    <!-- 헤어샵 검색 -->
+    <select id="search" resultType="hairShopVo">
+        SELECT HAIR_SHOP_NUMBER, HAIR_SHOP_NAME, HAIR_SHOP_ADDRESS,
+        HAIR_SHOP_FILE_UPLOAD_PATH, HAIR_SHOP_FILE_UUID, HAIR_SHOP_FILE_NAME,
+        USER_NUMBER, MEMBERSHIP_NUMBER
+        FROM (
+        SELECT ROWNUM AS RNUM, HAIR_SHOP_NUMBER, HAIR_SHOP_NAME,
+        HAIR_SHOP_ADDRESS, HAIR_SHOP_FILE_UPLOAD_PATH, HAIR_SHOP_FILE_UUID,
+        HAIR_SHOP_FILE_NAME, USER_NUMBER, MEMBERSHIP_NUMBER
+        FROM (
+        SELECT H.HAIR_SHOP_NUMBER, HAIR_SHOP_NAME, HAIR_SHOP_ADDRESS,
+        HAIR_SHOP_FILE_UPLOAD_PATH, HAIR_SHOP_FILE_UUID, HAIR_SHOP_FILE_NAME,
+        U.USER_NUMBER, MEMBERSHIP_NUMBER
+        FROM TBL_USER U
+        JOIN TBL_HAIR_SHOP H ON U.USER_NUMBER = H.USER_NUMBER
+        LEFT JOIN (
+        SELECT HAIR_SHOP_FILE_NUMBER, HAIR_SHOP_FILE_UPLOAD_PATH,
+        HAIR_SHOP_FILE_UUID, HAIR_SHOP_FILE_NAME, HAIR_SHOP_NUMBER
+        FROM (
+        SELECT HAIR_SHOP_FILE_NUMBER, HAIR_SHOP_FILE_UPLOAD_PATH,
+        HAIR_SHOP_FILE_UUID, HAIR_SHOP_FILE_NAME, HAIR_SHOP_NUMBER,
+        RANK() OVER (PARTITION BY HAIR_SHOP_NUMBER ORDER BY HAIR_SHOP_FILE_NUMBER) RK
+        FROM TBL_HAIR_SHOP_FILE
+        )
+        WHERE RK = 1
+        ) J ON H.HAIR_SHOP_NUMBER = J.HAIR_SHOP_NUMBER
+        WHERE
+        <choose>
+            <when test="'title'.equals(search.searchType)">
+                HAIR_SHOP_NAME LIKE '%' || #{search.keyword} || '%'
+            </when>
+            <when test="'address'.equals(search.searchType)">
+                HAIR_SHOP_ADDRESS LIKE '%' || #{search.keyword} || '%'
+            </when>
+            <otherwise></otherwise>
+        </choose>
+        ORDER BY H.HAIR_SHOP_NUMBER DESC
+        ) T1
+        <![CDATA[
+    WHERE ROWNUM <= #{criteria.page} * #{criteria.amount}
+    ]]>
+        ) T2
+        WHERE RNUM > (#{criteria.page} - 1) * #{criteria.amount}
+    </select>
+
+    <!-- 헤어샵 검색 개수 -->
+    <select id="searchTotal" resultType="_int">
+        SELECT COUNT(HAIR_SHOP_NUMBER)
+        FROM TBL_HAIR_SHOP
+        WHERE
+        <choose>
+            <when test="'title'.equals(search.searchType)">
+                HAIR_SHOP_NAME LIKE '%' || #{search.keyword} || '%'
+            </when>
+            <when test="'address'.equals(search.searchType)">
+                HAIR_SHOP_ADDRESS LIKE '%' || #{search.keyword} || '%'
+            </when>
+            <otherwise></otherwise>
+        </choose>
+    </select>
 </mapper>

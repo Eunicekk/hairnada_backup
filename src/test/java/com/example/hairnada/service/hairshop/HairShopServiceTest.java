@@ -2,6 +2,7 @@ package com.example.hairnada.service.hairshop;
 
 import com.example.hairnada.dto.hairshop.HairShopDto;
 import com.example.hairnada.mapper.hairshop.HairShopMapper;
+import com.example.hairnada.vo.page.SearchVo;
 import com.example.hairnada.vo.hairshop.HairShopVo;
 import com.example.hairnada.vo.page.Criteria03;
 import lombok.extern.slf4j.Slf4j;
@@ -12,8 +13,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -32,6 +31,7 @@ public class HairShopServiceTest {
     private HairShopVo hairShopVo;
     private Criteria03 criteria03;
     private HairShopDto hairShopDto;
+    private SearchVo searchVo;
 
     @BeforeEach
     void setUp(){
@@ -42,6 +42,10 @@ public class HairShopServiceTest {
         hairShopDto.setHairShopName("헤어샵 이름이다");
         hairShopDto.setHairShopAddress("서울시 어딘가에 있다");
         hairShopDto.setHairShopContent("우리 헤어샵 소개다");
+
+        searchVo = new SearchVo();
+        searchVo.setSearchType("title");
+        searchVo.setKeyword("강남");
     }
 
     @Test
@@ -102,4 +106,13 @@ public class HairShopServiceTest {
         hairShopService.modify(hairShopDto);
         verify(hairShopMapper, times(1)).update(hairShopDto);
     }
+
+    @Test
+    @DisplayName("게시물 검색")
+    void search(){
+        doReturn(List.of(hairShopVo)).when(hairShopMapper).search(any(Criteria03.class), any(SearchVo.class));
+        List<HairShopVo> hairShopList = hairShopService.search(criteria03, searchVo);
+        assertThat(hairShopList).contains(hairShopVo);
+    }
+
 }
