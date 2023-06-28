@@ -40,14 +40,11 @@ public class BoardController {
     }
 
     @GetMapping("/communityWrite")
-    public void communityWrite(){
-    }
-
-
     public String communityWrite(HttpServletRequest req){
         Long userNumber = (Long)req.getSession().getAttribute("userNumber");
         return userNumber == null ? "/user/login" : "board/communityWrite";
     }
+
 
     @PostMapping("/communityWrite")
     public RedirectView communityWrite(BoardDto boardDto, HttpServletRequest request,
@@ -117,11 +114,14 @@ public class BoardController {
 // 검색기능
     @GetMapping("/communitySearch")
     public String communitySearch(Criteria03 criteria03, Model model, @RequestParam("keyword") String keyWord) {
-        List<BoardVo> boardList = boardService.searchByTitleAndContent(criteria03);
+        List<BoardVo> boardList = boardService.searchByTitleAndContent(criteria03, keyWord);
         model.addAttribute("boardList", boardList);
-        model.addAttribute("pageInfo", new Page03Vo(criteria03, boardService.getTotal()));
 
-        System.out.println(keyWord);
+        Page03Vo pageInfo = new Page03Vo(criteria03, boardService.searchGetTotal());
+        model.addAttribute("pageInfo", pageInfo);
+        model.addAttribute("keyword", keyWord);
+
+        System.out.println("keyWord = " + keyWord);
 
         return "board/communityList";
     }

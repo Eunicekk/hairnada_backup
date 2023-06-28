@@ -78,25 +78,28 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // 검색기능
-$(document).ready(function() {
-  // 검색 폼 제출 이벤트 처리
-  $('#searchForm').submit(function(event) {
-    event.preventDefault(); // 기본 제출 동작 방지
+$('#searchForm').submit(function(event) {
+  event.preventDefault(); // 폼 제출 동작 중단
 
-    var formData = $(this).serialize(); // 폼 데이터 직렬화
+  // 입력한 검색어와 검색 타입 가져오기
+  var keyword = $('#text').val();
+  var searchType = $('input[name="search"]:checked').val();
 
-    // Ajax를 사용하여 서버에 검색 요청
-    $.ajax({
-      type: 'GET',
-      url: '/board/communitySearch',
-      data: formData,
-      success: function(data) {
-        // 검색 결과를 받아와서 화면 업데이트
-        $('#boardList').html(data);
-      },
-      error: function() {
-        alert('검색에 실패했습니다. 다시 시도해주세요.');
-      }
-    });
+  // AJAX를 사용하여 서버로 검색 요청 보내기
+  $.ajax({
+    url: '/board/communitySearch',
+    method: 'GET',
+    data: {
+      keyword: keyword,
+      search: searchType
+    },
+    success: function(data) {
+      console.log(data);
+      // 검색 결과를 받아서 처리하는 코드 작성
+      $('#boardList').html(data);
+    },
+    error: function(error) {
+      console.log(error);
+    }
   });
 });
