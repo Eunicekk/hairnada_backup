@@ -3,6 +3,7 @@ package com.example.hairnada.controller.hairshop;
 import com.example.hairnada.dto.hairshop.HairShopDto;
 import com.example.hairnada.service.hairshop.HairShopFileService;
 import com.example.hairnada.service.hairshop.HairShopService;
+import com.example.hairnada.vo.page.SearchVo;
 import com.example.hairnada.vo.hairshop.HairShopVo;
 import com.example.hairnada.vo.page.Criteria03;
 import com.example.hairnada.vo.page.Page03Vo;
@@ -18,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -79,7 +79,10 @@ public class HairShopController {
 
     // modify 페이지 띄우기
     @GetMapping("/modify")
-    public String hairShopModify(){
+    public String hairShopModify(Long hairShopNumber, Model model){
+        HairShopVo hairShopVo = hairShopService.findHairShop(hairShopNumber);
+        model.addAttribute("hairShop", hairShopVo);
+
         return "hairshop/styleshopModify";
     }
 
@@ -101,5 +104,17 @@ public class HairShopController {
     public RedirectView hairShopRemove(Long hairShopNumber){
         hairShopService.remove(hairShopNumber);
         return new RedirectView("/hairshop/list");
+    }
+
+
+    // search 실행하기
+    @GetMapping("/search")
+    public String search(Criteria03 criteria03, SearchVo searchVo, Model model, HttpServletRequest req){
+        List<HairShopVo> hairShopList = hairShopService.search(criteria03, searchVo);
+        model.addAttribute("hairShopList", hairShopList);
+        model.addAttribute("search", searchVo);
+        model.addAttribute("pageInfo", new Page03Vo(criteria03, hairShopService.searchTotal(searchVo)));
+
+        return "/hairshop/styleshopList";
     }
 }

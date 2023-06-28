@@ -44,6 +44,7 @@
         <typeAlias type="com.example.hairnada.vo.level.LevelVo" alias="levelVo"/>
 
         <typeAlias type="com.example.hairnada.vo.page.Criteria03" alias="criteria03" />
+        <typeAlias type="com.example.hairnada.vo.page.SearchVo" alias="searchVo" />
 
     </typeAliases>
 </configuration>

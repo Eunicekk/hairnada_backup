@@ -1,6 +1,7 @@
 package com.example.hairnada.mapper.hairshop;
 
 import com.example.hairnada.dto.hairshop.HairShopDto;
+import com.example.hairnada.vo.page.SearchVo;
 import com.example.hairnada.vo.hairshop.HairShopVo;
 import com.example.hairnada.vo.page.Criteria03;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +24,6 @@ public class HairShopMapperTest {
     @Autowired
     private Criteria03 criteria03;
     private HairShopDto hairShopDto;
-    private HairShopVo hairShopVo;
 
     @BeforeEach
     void setUp(){
@@ -70,5 +70,23 @@ public class HairShopMapperTest {
         hairShopMapper.update(hairShopDto);
         assertThat(hairShopMapper.select(hairShopDto.getHairShopNumber()).getHairShopName())
                 .isEqualTo(hairShopDto.getHairShopName());
+    }
+
+    @Test
+    void search(){
+        SearchVo result = new SearchVo();
+        result.setSearchType("title");
+        result.setKeyword("강남");
+        assertThat(hairShopMapper.search(criteria03, result)).isNotNull();
+        assertThat(hairShopMapper.search(criteria03, result)).hasSizeGreaterThan(0);
+    }
+
+    @Test
+    void searchTotal(){
+        SearchVo result = new SearchVo();
+        result.setSearchType("title");
+        result.setKeyword("송계옥");
+        int size = hairShopMapper.searchTotal(result);
+        assertThat(size).isEqualTo(3);
     }
 }
