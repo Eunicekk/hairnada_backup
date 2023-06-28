@@ -28,12 +28,18 @@ public class BoardService {
     }
 
 //    삭제
-    public void remove(Long boardNumber){
-        if(boardNumber == null){
-            throw new IllegalArgumentException("존재하지 않는 게시물");
-        }
-        boardMapper.delete(boardNumber);
+public void remove(Long boardNumber){
+    if(boardNumber == null){
+        throw new IllegalArgumentException("게시물 번호가 없습니다.");
     }
+
+    BoardVo existingBoard = boardMapper.select(boardNumber);
+    if (existingBoard == null) {
+        throw new IllegalArgumentException("존재하지 않는 게시물");
+    }
+
+    boardMapper.delete(boardNumber);
+}
 
 //    수정
     public void modify(BoardDto boardDto){
@@ -66,8 +72,14 @@ public class BoardService {
 
 //    검색
     @Transactional(readOnly = true)
-    public List<BoardVo> searchByTitleAndContent(Criteria03 criteria03) {
-        return boardMapper.searchByTitleAndContent(criteria03);
+    public List<BoardVo> searchByTitleAndContent(Criteria03 criteria03, String keyword) {
+        return boardMapper.searchByTitleAndContent(criteria03, keyword);
+    }
+
+//    검색된 게시글 전체 조회
+    @Transactional(readOnly = true)
+    public int searchGetTotal(){
+        return boardMapper.searchTotal();
     }
 
 }
