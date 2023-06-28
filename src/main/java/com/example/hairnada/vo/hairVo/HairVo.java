@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Data
 @NoArgsConstructor
-public class hairVo {
+public class HairVo {
     private Long hairNumber;
     private String hairName;
     private Long hairLikeCnt;

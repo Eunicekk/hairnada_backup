@@ -10,6 +10,13 @@ $(document).ready(function () {
     let number = $(this).text();
     communityPage(number);
   })
+
+  $('.pagination').on('click', '.li__hair', function (e){
+    e.preventDefault();
+
+    let number = $(this).text();
+    hairPage(number);
+  })
 });
 
 function LikeImg() {
@@ -92,25 +99,55 @@ $("#my-product-text").on("click", function () {
 });
 
 // 헤어스타일 좋아요 모음
-$("#my-style-text").on("click", function () {
-  $(".communityList").html(getStyle);
-  LikeImg();
+function hairPage(page){
+  let tagList = '';
+  $.ajax({
+    url: `/users/likeHair/${page}`,
+    type: "GET",
+    success: function(result){
+      tagList = getStyle(result.likeStyle);
+      $(".communityList").html(tagList);
+      LikeImg();
 
-  $(document).ready(function () {
-    $("#likeButton").click(function () {
-      console.log("버튼이 클릭되었습니다.");
-      // 추가적인 로직을 이곳에 작성할 수 있습니다.
-    });
+      let pageNum = '';
+      let pageinfo = result.pageinfo;
+
+      if(pageinfo.prev){
+        pageNum += `<li class="li__hair"><a href="#" class="prev">&laquo;</a></li>`;
+      }
+
+      for(let i= pageinfo.startPage; i<=pageinfo.endPage; i++){
+        if(pageinfo.criteria.page == i){
+          pageNum += `<li class="li__hair"><a href="#" class="active">${i}</a></li>`;
+        }else{
+          pageNum += `<li class="li__hair"><a href="#" >${i}</a></li>`;
+        }
+      }
+
+      if(pageinfo.next){
+        pageNum += `<li class="li__hair"><a href="#" class="next">&raquo;</a></li>`;
+      }
+
+      $('.pagination ul').html(pageNum);
+    }
   });
 
-  // 모달 테스트
+  // $(document).ready(function () {
+  //   $("#likeButton").click(function () {
+  //     console.log("버튼이 클릭되었습니다.");
+  //     // 추가적인 로직을 이곳에 작성할 수 있습니다.
+  //   });
+  // });
+}
+$("#my-style-text").on("click", function () {
+  // $(".communityList").html(getStyle);
+  hairPage(1);
 });
 
-// $(".main-join").on("click", ".ok-btn", function () {
-//   console.log("click!!!!!!!");
-// });
-
-
+let urlParam = "/user/login";
+$.ajax({
+ url : urlParam
+})
 
 
 
@@ -136,7 +173,9 @@ function getCommunity(obj) {
         </div>
         <a href="">
           <div class="img-list">
-            <div class="main-img"></div>
+            <div class="main-img">
+                <img src="/upload/${obj[i].boardFileUploadPath}/th_${obj[i].boardFileUuid}_${obj[i].boardFileName}"/>
+            </div>
           </div>
         </a>
         <div class="titleAndCnt">
@@ -411,15 +450,17 @@ function getProduct() {
       </article>
     </div>
   `;
+
 }
 
-function getStyle() {
-  return `
-<div class="container">
-      <!-- 리스트 -->
-      <article class="holder">
-        <div class="communityList cL">
-          <ul class="ListUl">
+function getStyle(obj) {
+  console.log(obj)
+  let text = '';
+
+  text += `<ul class="ListUl">`;
+
+  for(let i=0; i<obj.length; i++) {
+    text += `
             <!-- 첫번째 -->
             <li class="ListLi">
               <a href="">
@@ -430,100 +471,18 @@ function getStyle() {
                 </div>
               </a>
               <div class="hairTitle">
-                <p class="product-title">머리스타일이름이여유</p>
+                <p class="product-title">${obj[i].hairName}</p>
                 <div class="buttons">
                   <button type="button" class="like">하트</button>
                 </div>
               </div>
             </li>
 
-            <!-- 두번째 -->
-            <li class="ListLi">
-              <a href="">
-                <div class="img-list">
-                  <div class="main-img">
-                    <img src="https://img1.daumcdn.net/thumb/C360x360/?fname=https://mud-kage.kakao.com/dn/tiTz0/btsjboVScnc/36eDc0R0JCIeBLE6uPouDk/img_1080.jpg&scode=purple" alt="헤어스타일">
-                  </div>
-                </div>
-              </a>
-              <div class="hairTitle">
-                <p class="product-title">머리스타일이름이여유</p>
-                <div class="buttons">
-                  <button type="button" class="like">하트</button>
-                </div>
-              </div>
-            </li>
-
-            <!-- 테스트용 -->
-            <li class="ListLi">
-              <a href="">
-                <div class="img-list">
-                  <div class="main-img">
-                    <img src="https://img1.daumcdn.net/thumb/C360x360/?fname=https://mud-kage.kakao.com/dn/tiTz0/btsjboVScnc/36eDc0R0JCIeBLE6uPouDk/img_1080.jpg&scode=purple" alt="헤어스타일">
-                  </div>
-                </div>
-              </a>
-              <div class="hairTitle">
-                <p class="product-title">머리스타일이름이여유</p>
-                <div class="buttons">
-                  <button type="button" class="like">하트</button>
-                </div>
-              </div>
-            </li>
-
-            <!-- 세번째 -->
-            <li class="ListLi">
-              <a href="">
-                <div class="img-list">
-                  <div class="main-img">
-                    <img src="https://img1.daumcdn.net/thumb/C360x360/?fname=https://mud-kage.kakao.com/dn/tiTz0/btsjboVScnc/36eDc0R0JCIeBLE6uPouDk/img_1080.jpg&scode=purple" alt="헤어스타일">
-                  </div>
-                </div>
-              </a>
-              <div class="hairTitle">
-                <p class="product-title">머리스타일이름이여유</p>
-                <div class="buttons">
-                  <button type="button" class="like">하트</button>
-                </div>
-              </div>
-            </li>
-
-            <!-- 네번째 -->
-            <li class="ListLi">
-              <a href="">
-                <div class="img-list">
-                  <div class="main-img">
-                    <img src="https://img1.daumcdn.net/thumb/C360x360/?fname=https://mud-kage.kakao.com/dn/tiTz0/btsjboVScnc/36eDc0R0JCIeBLE6uPouDk/img_1080.jpg&scode=purple" alt="헤어스타일">
-                  </div>
-                </div>
-              </a>
-              <div class="hairTitle">
-                <p class="product-title">머리스타일이름이여유</p>
-                <div class="buttons">
-                  <button type="button" class="like">하트</button>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-
-        
-
-            <!-- 페이징 처리 -->
-            <div class="pagination">
-              <ul>
-                <li><a href="#" class="prev">&laquo;</a></li>
-                <li><a href="#" class="active">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#" class="next">&raquo;</a></li>
-            </div>
-          </ul>
-      </article>
-    </div>
   `;
+  }
+  text+= `</ul>`;
+
+  return text;
 }
 
 let hairBtn = document.getElementById("my-hairshop-text");
@@ -558,3 +517,4 @@ communityBtn.addEventListener("click", function () {
   styleBtn.querySelector(".active-banner").classList.remove("selected");
   hairBtn.querySelector(".active-banner").classList.remove("selected");
 });
+

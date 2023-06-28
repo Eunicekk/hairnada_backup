@@ -1,17 +1,13 @@
-package com.example.hairnada.service.user;
+package com.example.hairnada.mapper.user;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MyLikeServiceTest {
-
-    @Test
-    void likeCommunity() {
-
-    }
+class MyLikeMapperTest {
 
     @Test
     void likeHair() {
+
     }
 }

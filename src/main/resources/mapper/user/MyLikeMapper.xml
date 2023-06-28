@@ -45,13 +45,50 @@
     </select>
 
     <select id="likeHair">
-        SELECT TH.HAIR_NUMBER, TH.HAIR_NAME, TH.HAIR_CONTENT,
-               THF.HAIR_FILE_UPLOAD_PATH, THF.HAIR_FILE_UUID, THL.USER_NUMBER
+        SELECT HAIR_NUMBER, HAIR_NAME, HAIR_CONTENT,
+        HAIR_FILE_UPLOAD_PATH, HAIR_FILE_UUID, USER_NUMBER
+        FROM (
+        SELECT ROWNUM AS RNUM,
+        HAIR_NUMBER,
+        HAIR_NAME,
+        HAIR_CONTENT,
+        HAIR_FILE_UPLOAD_PATH,
+        HAIR_FILE_UUID,
+        USER_NUMBER
+        FROM (
+        SELECT TH.HAIR_NUMBER,
+        TH.HAIR_NAME,
+        TH.HAIR_CONTENT,
+        THF.HAIR_FILE_UPLOAD_PATH,
+        THF.HAIR_FILE_UUID,
+        THL.USER_NUMBER
         FROM TBL_HAIR TH
-                 LEFT JOIN TBL_HAIR_FILE THF ON TH.HAIR_NUMBER = THF.HAIR_NUMBER
-                 LEFT JOIN TBL_HAIR_LIKE THL ON TH.HAIR_NUMBER = THL.HAIR_NUMBER
-        WHERE THL.USER_NUMBER = #{userNumber}
+        JOIN TBL_HAIR_LIKE THL
+        ON THL.USER_NUMBER = #{userNumber} AND TH.HAIR_NUMBER = THL.HAIR_NUMBER
+        LEFT JOIN (
+        SELECT HAIR_FILE_NUMBER, HAIR_FILE_NAME, HAIR_FILE_UPLOAD_PATH, HAIR_FILE_UUID, HAIR_NUMBER
+        FROM (
+        SELECT HAIR_FILE_NUMBER,
+        HAIR_FILE_NAME,
+        HAIR_FILE_UPLOAD_PATH,
+        HAIR_FILE_UUID,
+        HAIR_NUMBER,
+        RANK() OVER(PARTITION BY HAIR_NUMBER ORDER BY HAIR_FILE_NUMBER) RK
+        FROM TBL_HAIR_FILE
+        )
+        WHERE RK = 1
+        ) THF ON TH.HAIR_NUMBER = THF.HAIR_NUMBER
+        ) S1
+        <![CDATA[
+        WHERE ROWNUM <= #{criteria.page} * #{criteria.amount}
+        ]]>
+        ) S2
+        WHERE RNUM > (#{criteria.page} - 1) * #{criteria.amount}
     </select>
 
+    <select id="getTotal2" resultType="int">
+        SELECT COUNT(HAIR_NUMBER) FROM TBL_HAIR_LIKE
+        WHERE USER_NUMBER = #{userNumber}
+    </select>
 
 </mapper>

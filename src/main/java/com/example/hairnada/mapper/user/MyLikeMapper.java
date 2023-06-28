@@ -1,6 +1,7 @@
 package com.example.hairnada.mapper.user;
 
 import com.example.hairnada.vo.board.BoardVo;
+import com.example.hairnada.vo.hairVo.HairVo;
 import com.example.hairnada.vo.page.Criteria03;
 import com.example.hairnada.vo.page.Criteria11;
 import org.apache.ibatis.annotations.Mapper;
@@ -18,6 +19,8 @@ public interface MyLikeMapper {
     public int getTotal(Long userNumber);
 
 //    헤어스타일 좋아요
-    public List<>
+    public List<HairVo> likeHair(@Param("userNumber")Long userNumber, @Param("criteria") Criteria11 criteria11 );
 
+//    헤어스타일 좋아요 페이징
+    public int getTotal2(Long userNumber);
 }
