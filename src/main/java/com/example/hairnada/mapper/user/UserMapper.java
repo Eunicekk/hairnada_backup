@@ -13,7 +13,7 @@ public interface UserMapper {
     public void join(UserDto userDto);
 
 //    로그인
-    public Long selectUserNumber(@Param("userId") String userId, @Param("userPassword") String userPassword);
+    public UserDto selectUserNumber(@Param("userId") String userId, @Param("userPassword") String userPassword);
 
 //    계정찾기 smtp-> api 사용하기
 //    등급신청 할 때 맴버십 넘버 보내주기

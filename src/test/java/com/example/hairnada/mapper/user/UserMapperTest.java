@@ -2,6 +2,7 @@ package com.example.hairnada.mapper.user;
 
 import com.example.hairnada.dto.user.UserDto;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -39,7 +40,8 @@ class UserMapperTest {
     void join() {
         userMapper.join(userDto);
 
-        Long num = userMapper.selectUserNumber(userDto.getUserId(), userDto.getUserPassword());
+        UserDto num = userMapper.selectUserNumber(userDto.getUserId(), userDto.getUserPassword());
+        UserDto memberShip = userMapper.selectUserNumber(userDto.getUserId(), userDto.getUserPassword());
 
         assertThat(userDto.getUserNumber()).isEqualTo(num);
     }
@@ -50,6 +52,7 @@ class UserMapperTest {
         userMapper.join(userDto);
 
         UserDto user = userMapper.findUserIdPassword(userDto.getUserName(), userDto.getUserEmail());
+
 
         assertThat(userDto.getUserId()).isEqualTo(user.getUserId());
     }
