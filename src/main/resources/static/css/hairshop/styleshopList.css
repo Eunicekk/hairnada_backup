@@ -39,6 +39,10 @@ input[type="text"]{
     cursor: pointer;
 }
 
+.add-text{
+    margin: 50px auto;
+}
+
 /* 콘텐츠 */
 .style-content{
     margin: 120px 0;
@@ -84,7 +88,8 @@ input[type="text"]{
 }
 
 .main-img img{
-    min-width: 100%; min-height: 100%;
+    min-width: 416.95px; min-height: 250px;
+    max-width: 416.95px; min-height: 250px;
 }
   
 .titleAndBtn{

@@ -21,145 +21,65 @@
 
         <!-- 필터 및 검색 -->
         <div class="search">
-            <form action="#">
-                    <input type="radio" id="title" name="search" checked> <label for="title">매장명</label>
-                    <input type="radio" id="address" name="search"> <label for="address">주소</label>
-                    <input type="text" id="text" placeholder="검색 단어를 입력해 주세요.">
-                    <button type="submit">검색</button>
-                    <button type="button">등록하기</button>
+            <form id="search" method="get" th:action="@{/careshop/search}">
+                <input type="radio" id="title" name="searchType" value="title" checked> <label for="title">매장명</label>
+                <input type="radio" id="address" name="searchType" value="address"> <label for="address">주소</label>
+                <input type="text" id="text" name="keyword" placeholder="검색 단어를 입력해 주세요.">
+                <button type="submit">검색</button>
+                <th:block th:if="${session.membershipNumber == 3}">
+                    <button type="button" class="add-post">등록하기</button>
+                </th:block>
             </form>
         </div>
 
         <!-- 리스트 -->
         <div class="style-content">
             <ul class="style-box">
-            <!-- 첫번째 -->
-            <li class="ListLi">
-                <a href="#">
-                    <div class="img-list">
-                        <div class="main-img">
-                            <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800" alt="썸네일">
-                          </div>
-                    </div>
-                </a>
-                <div class="titleAndBtn">
-                    <p class="shop-title">매장명입니다</p>
-                    <div class="buttons">
-                        <button type="button" class="like">하트</button>
-                    </div>
-                </div>
-                <div class="address-box">
-                    <span class="address">상세 주소 어쩌구 저쩌구</span>
-                </div>
-            </li>
-            <!-- 두번째 -->
-            <li class="ListLi">
-                <a href="#">
-                    <div class="img-list">
-                        <div class="main-img">
-                            <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800" alt="썸네일">
-                          </div>
-                    </div>
-                </a>
-                <div class="titleAndBtn">
-                    <p class="shop-title">매장명입니다</p>
-                    <div class="buttons">
-                        <button type="button" class="like">하트</button>
-                    </div>
-                </div>
-                <div class="address-box">
-                    <span class="address">상세 주소 어쩌구 저쩌구</span>
-                </div>
-            </li>
-            <!-- 세번째 -->
-            <li class="ListLi">
-                <a href="#">
-                    <div class="img-list">
-                        <div class="main-img">
-                            <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800" alt="썸네일">
-                          </div>
-                    </div>
-                </a>
-                <div class="titleAndBtn">
-                    <p class="shop-title">매장명입니다</p>
-                    <div class="buttons">
-                        <button type="button" class="like">하트</button>
-                    </div>
-                </div>
-                <div class="address-box">
-                    <span class="address">상세 주소 어쩌구 저쩌구</span>
-                </div>
-            </li>
-            <!-- 네번째 -->
-            <li class="ListLi">
-                <a href="#">
-                    <div class="img-list">
-                        <div class="main-img">
-                            <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800" alt="썸네일">
-                          </div>
-                    </div>
-                </a>
-                <div class="titleAndBtn">
-                    <p class="shop-title">매장명입니다</p>
-                    <div class="buttons">
-                        <button type="button" class="like">하트</button>
-                    </div>
-                </div>
-                <div class="address-box">
-                    <span class="address">상세 주소 어쩌구 저쩌구</span>
-                </div>
-            </li>
-            <!-- 다섯번째 -->
-            <li class="ListLi">
-                <a href="#">
-                    <div class="img-list">
-                        <div class="main-img">
-                            <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800" alt="썸네일">
-                          </div>
-                    </div>
-                </a>
-                <div class="titleAndBtn">
-                    <p class="shop-title">매장명입니다</p>
-                    <div class="buttons">
-                        <button type="button" class="like">하트</button>
-                    </div>
-                </div>
-                <div class="address-box">
-                    <span class="address">상세 주소 어쩌구 저쩌구</span>
-                </div>
-            </li>
-            <!-- 여섯번째 -->
-            <li class="ListLi">
-                <a href="#">
-                    <div class="img-list">
-                        <div class="main-img">
-                            <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800" alt="썸네일">
-                          </div>
-                    </div>
-                </a>
-                <div class="titleAndBtn">
-                    <p class="shop-title">매장명입니다</p>
-                    <div class="buttons">
-                        <button type="button" class="like">하트</button>
-                    </div>
-                </div>
-                <div class="address-box">
-                    <span class="address">상세 주소 어쩌구 저쩌구</span>
-                </div>
-            </li>
+                <th:block th:if="${not #lists.isEmpty(careShopList)}">
+                    <li class="ListLi" th:each="careShop : ${careShopList}">
+                        <a th:href="@{read(careShopNumber=${careShop.careShopNumber})}">
+                            <div class="img-list">
+                                <div class="main-img">
+                                    <img th:if="${careShop.careShopFileName == null}" src="https://3.bp.blogspot.com/-ZKBbW7TmQD4/U6P_DTbE2MI/AAAAAAAADjg/wdhBRyLv5e8/s1600/noimg.gif" alt="임시 썸네일">
+                                    <img th:unless="${careShop.careShopFileName == null}" th:src="@{'/upload/' + ${careShop.careShopFileUploadPath} + '/th_' + ${careShop.careShopFileUuid} + '_' + ${careShop.careShopFileName}}" alt="이미지">
+                                </div>
+                            </div>
+                        </a>
+                        <div class="titleAndBtn">
+                            <p class="shop-title" th:text="${careShop.careShopName}"></p>
+                            <div class="buttons">
+                                <button type="button" class="like">하트</button>
+                            </div>
+                        </div>
+                        <div class="address-box">
+                            <span class="address" th:text="${careShop.careShopAddress}"></span>
+                        </div>
+                    </li>
+                </th:block>
+                <th:block th:unless="${not #lists.isEmpty(careShopList)}">
+                    <p class="add-text">케어샵이 존재하지 않습니다.</p>
+                </th:block>
             </ul>
         </div>
 
         <!-- 페이징 처리 -->
         <div class="pagination">
             <ul>
-              <li><a href="#" class="prev">&laquo;</a></li>
-              <li><a href="#" class="active">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
-              <li><a href="#" class="next">&raquo;</a></li>
+                <th:block th:if="${not #lists.isEmpty(careShopList)}">
+                    <a th:href="@{/careshop/search(page=${pageInfo.startPage - 1}, searchType=${search.searchType}, keyword=${search.keyword})}" class="prev" th:if="${pageInfo.prev}">
+                        <li>&laquo;</li>
+                    </a>
+                    <th:block th:each="i : ${#numbers.sequence(pageInfo.startPage, pageInfo.endPage)}">
+                        <a th:href="@{/careshop/search(page=${i}, searchType=${search.searchType}, keyword=${search.keyword})}">
+                            <li class="active" th:text="${i}" th:if="${i == pageInfo.criteria.page}"></li>
+                            <li th:text="${i}" th:unless="${i == pageInfo.criteria.page}"></li>
+                        </a>
+                    </th:block>
+                    <a th:href="@{/careshop/search(page=${pageInfo.endPage + 1}, searchType=${search.searchType}, keyword=${search.keyword})}" class="next" th:if="${pageInfo.next}">
+                        <li>&raquo;</li>
+                    </a>
+                </th:block>
+                <th:block th:unless="${not #lists.isEmpty(careShopList)}"></th:block>
             </ul>
         </div>
 

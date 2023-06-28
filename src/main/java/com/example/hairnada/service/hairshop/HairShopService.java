@@ -2,6 +2,7 @@ package com.example.hairnada.service.hairshop;
 
 import com.example.hairnada.dto.hairshop.HairShopDto;
 import com.example.hairnada.mapper.hairshop.HairShopMapper;
+import com.example.hairnada.vo.page.SearchVo;
 import com.example.hairnada.vo.hairshop.HairShopVo;
 import com.example.hairnada.vo.page.Criteria03;
 import lombok.RequiredArgsConstructor;
@@ -75,5 +76,19 @@ public class HairShopService {
         hairShopFileService.remove(hairShopDto.getHairShopNumber());
         hairShopFileService.registerAndSaveFiles(files, hairShopDto.getHairShopNumber());
         hairShopMapper.update(hairShopDto);
+    }
+
+    // 게시물 검색
+    public List<HairShopVo> search(Criteria03 criteria03, SearchVo searchVo){
+        if(searchVo == null){
+            throw new IllegalArgumentException("입력한 헤어샵 키워드가 없습니다.");
+        }
+        return hairShopMapper.search(criteria03, searchVo);
+    }
+
+    // 게시물 검색 개수
+    @Transactional(readOnly = true)
+    public int searchTotal(SearchVo searchVo){
+        return hairShopMapper.searchTotal(searchVo);
     }
 }

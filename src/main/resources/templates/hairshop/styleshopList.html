@@ -21,12 +21,12 @@
 
         <!-- 필터 및 검색 -->
         <div class="search">
-            <form action="#">
-                <input type="radio" id="title" name="search" checked> <label for="title">매장명</label>
-                <input type="radio" id="address" name="search"> <label for="address">주소</label>
-                <input type="text" id="text" placeholder="검색 단어를 입력해 주세요.">
+            <form id="search" method="get" th:action="@{/hairshop/search}">
+                <input type="radio" id="title" name="searchType" value="title" checked> <label for="title">매장명</label>
+                <input type="radio" id="address" name="searchType" value="address"> <label for="address">주소</label>
+                <input type="text" id="text" name="keyword" placeholder="검색 단어를 입력해 주세요.">
                 <button type="submit">검색</button>
-                <th:block th:if="${session.membershipNumber != null and session.membershipNumber == 2}">
+                <th:block th:if="${session.membershipNumber == 2}">
                     <button type="button" class="add-post">등록하기</button>
                 </th:block>
             </form>
@@ -35,43 +35,51 @@
         <!-- 리스트 -->
         <div class="style-content">
             <ul class="style-box">
-            <li class="ListLi" th:each="hairShop : ${hairShopList}">
-                <a th:href="@{read(hairShopNumber=${hairShop.hairShopNumber})}">
-                    <div class="img-list">
-                        <div class="main-img">
-                            <img th:if="${hairShop.hairShopFileName == null}" src="https://3.bp.blogspot.com/-ZKBbW7TmQD4/U6P_DTbE2MI/AAAAAAAADjg/wdhBRyLv5e8/s1600/noimg.gif" alt="임시 썸네일">
-                            <img th:unless="${hairShop.hairShopFileName == null}" th:src="@{'/upload/' + ${hairShop.hairShopFileUploadPath} + '/th_' + ${hairShop.hairShopFileUuid} + '_' + ${hairShop.hairShopFileName}}" alt="이미지">
+                <th:block th:if="${not #lists.isEmpty(hairShopList)}">
+                    <li class="ListLi" th:each="hairShop : ${hairShopList}">
+                        <a th:href="@{read(hairShopNumber=${hairShop.hairShopNumber})}">
+                            <div class="img-list">
+                                <div class="main-img">
+                                    <img th:if="${hairShop.hairShopFileName == null}" src="https://3.bp.blogspot.com/-ZKBbW7TmQD4/U6P_DTbE2MI/AAAAAAAADjg/wdhBRyLv5e8/s1600/noimg.gif" alt="임시 썸네일">
+                                    <img th:unless="${hairShop.hairShopFileName == null}" th:src="@{'/upload/' + ${hairShop.hairShopFileUploadPath} + '/th_' + ${hairShop.hairShopFileUuid} + '_' + ${hairShop.hairShopFileName}}" alt="이미지">
+                                </div>
+                            </div>
+                        </a>
+                        <div class="titleAndBtn">
+                            <p class="shop-title" th:text="${hairShop.hairShopName}"></p>
+                            <div class="buttons">
+                                <button type="button" class="like">하트</button>
+                            </div>
                         </div>
-                    </div>
-                </a>
-                <div class="titleAndBtn">
-                    <p class="shop-title" th:text="${hairShop.hairShopName}"></p>
-                    <div class="buttons">
-                        <button type="button" class="like">하트</button>
-                    </div>
-                </div>
-                <div class="address-box">
-                    <span class="address" th:text="${hairShop.hairShopAddress}"></span>
-                </div>
-            </li>
+                        <div class="address-box">
+                            <span class="address" th:text="${hairShop.hairShopAddress}"></span>
+                        </div>
+                    </li>
+                </th:block>
+                <th:block th:unless="${not #lists.isEmpty(hairShopList)}">
+                    <p class="add-text">헤어샵이 존재하지 않습니다.</p>
+                </th:block>
             </ul>
         </div>
 
         <!-- 페이징 처리 -->
         <div class="pagination">
             <ul>
-                <a th:href="@{/hairshop/list(page=${pageInfo.startPage - 1})}" class="prev" th:if="${pageInfo.prev}">
-                    <li>&laquo;</li>
-                </a>
-                <th:block th:each="i : ${#numbers.sequence(pageInfo.startPage, pageInfo.endPage)}">
-                    <a th:href="@{/hairshop/list(page=${i})}">
-                        <li class="active" th:text="${i}" th:if="${i == pageInfo.criteria.page}"></li>
-                        <li th:text="${i}" th:unless="${i == pageInfo.criteria.page}"></li>
+                <th:block th:if="${not #lists.isEmpty(hairShopList)}">
+                    <a th:href="@{/hairshop/search(page=${pageInfo.startPage - 1}, searchType=${search.searchType}, keyword=${search.keyword})}" class="prev" th:if="${pageInfo.prev}">
+                        <li>&laquo;</li>
+                    </a>
+                    <th:block th:each="i : ${#numbers.sequence(pageInfo.startPage, pageInfo.endPage)}">
+                        <a th:href="@{/hairshop/search(page=${i}, searchType=${search.searchType}, keyword=${search.keyword})}">
+                            <li class="active" th:text="${i}" th:if="${i == pageInfo.criteria.page}"></li>
+                            <li th:text="${i}" th:unless="${i == pageInfo.criteria.page}"></li>
+                        </a>
+                    </th:block>
+                    <a th:href="@{/hairshop/search(page=${pageInfo.endPage + 1}, searchType=${search.searchType}, keyword=${search.keyword})}" class="next" th:if="${pageInfo.next}">
+                        <li>&raquo;</li>
                     </a>
                 </th:block>
-                <a th:href="@{/hairshop/list(page=${pageInfo.endPage + 1})}" class="next" th:if="${pageInfo.next}">
-                    <li>&raquo;</li>
-                </a>
+                <th:block th:unless="${not #lists.isEmpty(hairShopList)}"></th:block>
             </ul>
         </div>
 
