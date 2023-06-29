@@ -2,11 +2,32 @@
 $(document).ready(function () {
   $(".buttons").click(function () {
     var buttonImg = $(this).find(".like");
+    var hairShopNumber = $(this).find(".like").val();
 
     if (buttonImg.hasClass("active")) {
+      $.ajax({
+        url: "/hairshopLike/subtract",
+        type: "DELETE",
+        contentType: "application/json",
+        data: JSON.stringify({ hairShopNumber: hairShopNumber }),
+        success: function(){
+          console.log("빼기 성공");
+        }
+      });
+
       buttonImg.removeClass("active");
       buttonImg.css("background-image", "url('/img/heart1.png')");
     } else {
+      $.ajax({
+        url: "/hairshopLike/add",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({ hairShopNumber: hairShopNumber }),
+        success: function(){
+          console.log("더하기 성공");
+        }
+      });
+
       buttonImg.addClass("active");
       buttonImg.css("background-image", "url('/img/heart2.png')");
     }

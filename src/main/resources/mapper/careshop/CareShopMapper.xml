@@ -2,4 +2,141 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.hairnada.mapper.careshop.CareShopMapper">
 
+    <!-- 케어샵 리스트 -->
+    <select id="selectAll" resultType="careShopVo">
+        SELECT CARE_SHOP_NUMBER, CARE_SHOP_NAME, CARE_SHOP_ADDRESS,
+               CARE_SHOP_FILE_UPLOAD_PATH, CARE_SHOP_FILE_UUID, CARE_SHOP_FILE_NAME,
+               USER_NUMBER, MEMBERSHIP_NUMBER
+        FROM (
+                 SELECT ROWNUM AS RNUM, CARE_SHOP_NUMBER, CARE_SHOP_NAME,
+                        CARE_SHOP_ADDRESS, CARE_SHOP_FILE_UPLOAD_PATH, CARE_SHOP_FILE_UUID,
+                        CARE_SHOP_FILE_NAME, USER_NUMBER, MEMBERSHIP_NUMBER
+                 FROM (
+                          SELECT H.CARE_SHOP_NUMBER, CARE_SHOP_NAME, CARE_SHOP_ADDRESS,
+                                 CARE_SHOP_FILE_UPLOAD_PATH, CARE_SHOP_FILE_UUID, CARE_SHOP_FILE_NAME,
+                                 U.USER_NUMBER, MEMBERSHIP_NUMBER
+                          FROM TBL_USER U JOIN TBL_CARE_SHOP H
+                                               ON U.USER_NUMBER = H.USER_NUMBER
+                                          LEFT JOIN(
+                              SELECT CARE_SHOP_FILE_NUMBER, CARE_SHOP_FILE_UPLOAD_PATH,
+                                     CARE_SHOP_FILE_UUID, CARE_SHOP_FILE_NAME, CARE_SHOP_NUMBER
+                              FROM(
+                                      SELECT CARE_SHOP_FILE_NUMBER, CARE_SHOP_FILE_UPLOAD_PATH,
+                                             CARE_SHOP_FILE_UUID, CARE_SHOP_FILE_NAME, CARE_SHOP_NUMBER,
+                                             RANK() OVER(PARTITION BY CARE_SHOP_NUMBER ORDER BY CARE_SHOP_FILE_NUMBER) RK
+                                      FROM TBL_CARE_SHOP_FILE
+                                  )
+                              WHERE RK = 1
+                          ) J ON H.CARE_SHOP_NUMBER = J.CARE_SHOP_NUMBER
+                          ORDER BY H.CARE_SHOP_NUMBER DESC
+                      ) T1
+        <![CDATA[
+                 WHERE ROWNUM <= #{page} * #{amount}
+        ]]>
+        ) T2 WHERE RNUM > (#{page} - 1) * #{amount}
+    </select>
+
+    <!-- 케어샵 전체 개수 -->
+    <select id="selectTotal" resultType="_int">
+        SELECT COUNT(CARE_SHOP_NUMBER)
+        FROM TBL_CARE_SHOP
+    </select>
+
+    <!-- 케어샵 조회 -->
+    <select id="select" resultType="careShopVo">
+        SELECT CARE_SHOP_NUMBER, CARE_SHOP_ADDRESS, CARE_SHOP_PHONE_NUMBER, CARE_SHOP_OPEN_TIME,
+               CARE_SHOP_NAME, CARE_SHOP_LINK, CARE_SHOP_CONTENT, H.USER_NUMBER
+        FROM TBL_CARE_SHOP H JOIN TBL_USER U
+                                  ON H.CARE_SHOP_NUMBER = #{careShopNumber} AND H.USER_NUMBER = U.USER_NUMBER
+    </select>
+
+    <!-- 케어샵 추가 -->
+    <insert id="insert">
+        <selectKey keyProperty="careShopNumber" order="BEFORE" resultType="long">
+            SELECT SEQ_CARE_SHOP.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO TBL_CARE_SHOP(CARE_SHOP_NUMBER, CARE_SHOP_ADDRESS, CARE_SHOP_PHONE_NUMBER, CARE_SHOP_OPEN_TIME,
+        CARE_SHOP_NAME, CARE_SHOP_LINK, CARE_SHOP_CONTENT, USER_NUMBER)
+        VALUES(#{careShopNumber}, #{careShopAddress}, #{careShopPhoneNumber}, #{careShopOpenTime},
+        #{careShopName}, #{careShopLink}, #{careShopContent, jdbcType=CLOB}, #{userNumber})
+    </insert>
+
+    <!-- 케어샵 삭제 -->
+    <delete id="delete">
+        DELETE FROM TBL_CARE_SHOP
+        WHERE CARE_SHOP_NUMBER = #{careShopNumber}
+    </delete>
+
+    <!-- 케어샵 수정 -->
+    <update id="update">
+        UPDATE TBL_CARE_SHOP
+        SET CARE_SHOP_ADDRESS = #{careShopAddress}, CARE_SHOP_PHONE_NUMBER = #{careShopPhoneNumber},
+            CARE_SHOP_OPEN_TIME = #{careShopOpenTime}, CARE_SHOP_NAME = #{careShopName},
+            CARE_SHOP_LINK = #{careShopLink}, CARE_SHOP_CONTENT = #{careShopContent}
+        WHERE CARE_SHOP_NUMBER = #{careShopNumber}
+    </update>
+
+    <!-- 케어샵 검색 -->
+    <select id="search" resultType="careShopVo">
+        SELECT CARE_SHOP_NUMBER, CARE_SHOP_NAME, CARE_SHOP_ADDRESS,
+        CARE_SHOP_FILE_UPLOAD_PATH, CARE_SHOP_FILE_UUID, CARE_SHOP_FILE_NAME,
+        USER_NUMBER, MEMBERSHIP_NUMBER
+        FROM (
+        SELECT ROWNUM AS RNUM, CARE_SHOP_NUMBER, CARE_SHOP_NAME,
+        CARE_SHOP_ADDRESS, CARE_SHOP_FILE_UPLOAD_PATH, CARE_SHOP_FILE_UUID,
+        CARE_SHOP_FILE_NAME, USER_NUMBER, MEMBERSHIP_NUMBER
+        FROM (
+        SELECT H.CARE_SHOP_NUMBER, CARE_SHOP_NAME, CARE_SHOP_ADDRESS,
+        CARE_SHOP_FILE_UPLOAD_PATH, CARE_SHOP_FILE_UUID, CARE_SHOP_FILE_NAME,
+        U.USER_NUMBER, MEMBERSHIP_NUMBER
+        FROM TBL_USER U
+        JOIN TBL_CARE_SHOP H ON U.USER_NUMBER = H.USER_NUMBER
+        LEFT JOIN (
+        SELECT CARE_SHOP_FILE_NUMBER, CARE_SHOP_FILE_UPLOAD_PATH,
+        CARE_SHOP_FILE_UUID, CARE_SHOP_FILE_NAME, CARE_SHOP_NUMBER
+        FROM (
+        SELECT CARE_SHOP_FILE_NUMBER, CARE_SHOP_FILE_UPLOAD_PATH,
+        CARE_SHOP_FILE_UUID, CARE_SHOP_FILE_NAME, CARE_SHOP_NUMBER,
+        RANK() OVER (PARTITION BY CARE_SHOP_NUMBER ORDER BY CARE_SHOP_FILE_NUMBER) RK
+        FROM TBL_CARE_SHOP_FILE
+        )
+        WHERE RK = 1
+        ) J ON H.CARE_SHOP_NUMBER = J.CARE_SHOP_NUMBER
+        <where>
+        <choose>
+            <when test="'title'.equals(search.searchType)">
+                CARE_SHOP_NAME LIKE '%' || #{search.keyword} || '%'
+            </when>
+            <when test="'address'.equals(search.searchType)">
+                CARE_SHOP_ADDRESS LIKE '%' || #{search.keyword} || '%'
+            </when>
+            <otherwise></otherwise>
+        </choose>
+        </where>
+        ORDER BY H.CARE_SHOP_NUMBER DESC
+        ) T1
+        <![CDATA[
+    WHERE ROWNUM <= #{criteria.page} * #{criteria.amount}
+    ]]>
+        ) T2
+        WHERE RNUM > (#{criteria.page} - 1) * #{criteria.amount}
+    </select>
+
+    <!-- 케어샵 검색 개수 -->
+    <select id="searchTotal" resultType="_int">
+        SELECT COUNT(CARE_SHOP_NUMBER)
+        FROM TBL_CARE_SHOP
+        <where>
+        <choose>
+            <when test="'title'.equals(search.searchType)">
+                CARE_SHOP_NAME LIKE '%' || #{search.keyword} || '%'
+            </when>
+            <when test="'address'.equals(search.searchType)">
+                CARE_SHOP_ADDRESS LIKE '%' || #{search.keyword} || '%'
+            </when>
+            <otherwise></otherwise>
+        </choose>
+        </where>
+    </select>
+
 </mapper>

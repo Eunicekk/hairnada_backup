@@ -24,71 +24,71 @@
         </div>
 
         <!-- 이미지 등록 -->
-        <div class="content">
-            <div class="title">장소 이미지</div>
-            <div class="image-upload-wrap">
-                <input type="file" name="cafeFile" id="file" accept=".jpg, .jpeg, .png" multiple>
-                <div class="image-upload-box">
-                    <p>
+        <form th:action="@{/careshop/write}" method="post" enctype="multipart/form-data">
+            <div class="content">
+                <div class="title">장소 이미지</div>
+                <div class="image-upload-wrap">
+                    <input type="file" name="careShopFile" id="file" accept=".jpg, .jpeg, .png" multiple>
+                    <div class="image-upload-box">
+                        <p>
                         <span class="material-symbols-outlined">
                             upload
                         </span>
-                        이미지 업로드 (<span class="count">0</span>/4)
-                    </p>
-                    <p>최대 4개까지 업로드 가능</p>
-                    <p>파일 형식 : jpg, jpeg, png</p>
-                    <p>※이미지를 등록하면 즉시 반영됩니다.</p>
+                            이미지 업로드 (<span class="count">0</span>/4)
+                        </p>
+                        <p>최대 4개까지 업로드 가능</p>
+                        <p>파일 형식 : jpg, jpeg, png</p>
+                        <p>※이미지를 등록하면 즉시 반영됩니다.</p>
+                    </div>
+                </div>
+                <div class="img-controller-box">
+                    <ul class="file-list">
+
+                    </ul>
                 </div>
             </div>
-            <div class="img-controller-box">
-                <ul class="file-list">
 
-                </ul>
+            <!-- 장소 이름 등록 -->
+            <div class="content">
+                <div class="title">장소 이름</div>
+                <input type="text" name="careShopName" required placeholder="장소 이름을 입력하세요.">
             </div>
-        </div>
-        
-        <!-- 장소 이름 등록 -->
-        <div class="content">
-            <div class="title">장소 이름</div>
-            <input type="text" required placeholder="장소 이름을 입력하세요.">
-        </div>
-        
-        <!-- 주소 등록 -->
-        <div class="content">
-            <div class="title">주소</div>
-            <input type="text" required placeholder="주소를 입력하세요.">
-        </div>
-        
-        <!-- 전화번호 등록 -->
-        <div class="content">
-            <div class="title">전화번호</div>
-            <input type="text" required placeholder="전화번호를 입력하세요.">
-        </div>
-        
-        <!-- 예약 링크 등록 -->
-        <div class="content">
-            <div class="title">예약 링크</div>
-            <input type="text" required placeholder="예약 링크를 입력하세요.">
-        </div>
-        
-        <!-- 운영 시간 등록 -->
-        <div class="content">
-            <div class="title">운영 시간</div>
-            <textarea class="text" required placeholder="운영 시간을 입력하세요."></textarea>
-        </div>
 
-        <!-- 내용 등록 - 썸머노트 -->
-        <div class="content">
-            <div class="title">내용</div>
-            <div id="summernote"></div>
-        </div>
+            <!-- 주소 등록 -->
+            <div class="content">
+                <div class="title">주소</div>
+                <input type="text" name="careShopAddress" required placeholder="주소를 입력하세요.">
+            </div>
 
-        <!-- 완료 및 취소 버튼 -->
-        <div class="buttons">
-            <button type="button">작성 취소</button>
-            <button type="submit">작성 완료</button>
-        </div>
+            <!-- 전화번호 등록 -->
+            <div class="content">
+                <div class="title">전화번호</div>
+                <input type="text" name="careShopPhoneNumber" required placeholder="전화번호를 입력하세요.">
+            </div>
 
+            <!-- 예약 링크 등록 -->
+            <div class="content">
+                <div class="title">예약 링크</div>
+                <input type="text" name="careShopLink" required placeholder="예약 링크를 입력하세요.">
+            </div>
+
+            <!-- 운영 시간 등록 -->
+            <div class="content">
+                <div class="title">운영 시간</div>
+                <textarea class="text" name="careShopOpenTime" required placeholder="운영 시간을 입력하세요."></textarea>
+            </div>
+
+            <!-- 내용 등록 - 썸머노트 -->
+            <div class="content">
+                <div class="title">내용</div>
+                <textarea id="summernote" name="careShopContent"></textarea>
+            </div>
+
+            <!-- 완료 및 취소 버튼 -->
+            <div class="buttons">
+                <button type="button" class="cancel-post">작성 취소</button>
+                <button type="submit">작성 완료</button>
+            </div>
     </div>
     <footer class="footer" th:replace="fragment/footer :: footer"></footer>
 

@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/*")
 @RequiredArgsConstructor
 public class MainController {
+
     // 메인 띄우기
-    @GetMapping("/main")
+    @GetMapping("/")
     public String main(){
         return "index";
     }

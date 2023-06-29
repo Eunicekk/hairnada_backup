@@ -1,19 +1,19 @@
 // 썸머노트
 $('#summernote').summernote({
-    placeholder: '내용을 입력해주세요.',
-    tabsize: 2,
-    height: 450,
-    lang: "ko-KR",
-    toolbar: [
-      ['style', ['style']],
-      ['font', ['bold', 'underline', 'clear']],
-      ['color', ['color']],
-      ['para', ['ul', 'ol', 'paragraph']],
-      ['table', ['table']],
-      ['insert', ['link', 'picture', 'video']],
-      ['view', ['fullscreen', 'codeview', 'help']]
-    ]
-  });
+	placeholder: '내용을 입력해주세요.',
+	tabsize: 2,
+	height: 450,
+	lang: "ko-KR",
+	toolbar: [
+		['style', ['style']],
+		['font', ['bold', 'underline', 'clear']],
+		['color', ['color']],
+		['para', ['ul', 'ol', 'paragraph']],
+		['table', ['table']],
+		['insert', ['link', 'picture', 'video']],
+		['view', ['fullscreen', 'codeview', 'help']]
+	]
+});
 
 // 파일 첨부 처리
 let $fileInput = $('#file');
@@ -23,13 +23,12 @@ let $cnt = $('.count');
 console.log($fileInput);
 
 $fileInput.on('change', function() {
-	console.log('change!!!!!!!!!!')
 	let files = this.files;
 	console.log(files);
-	
+
 	// 파일을 변경하면 원래 선택된 미리보기를 제거한다.
 	$fileList.html('');
-	
+
 	// 4개를 넘기면 초기화 처리
 	if(files.length > 4){
 		let dt = new DataTransfer();
@@ -55,23 +54,28 @@ $fileInput.on('change', function() {
 		`);
 	}
 	$cnt.text(files.length);
-	
+
 	$('.img-cancel-btn').on('click', function() {
-    	console.log("클릭!");
+		console.log("클릭!");
 		// 버튼의 부모의 부모를 삭제한다.
 		$(this).parent().parent().remove();
 		/*console.log($fileInput[0].files);*/
-		
+
 		let fileName = $(this).data('name');
 		let dt = new DataTransfer();
-		
+
 		for(let i=0; i<$fileInput[0].files.length; i++){
 			if(files[i].name !== fileName){
 				dt.items.add($fileInput[0].files[i]);
-			}	
+			}
 		}
 		$fileInput[0].files = dt.files;
 		$cnt.text($fileInput[0].files.length);
 	});
 
 });
+
+// 취소하기 버튼 누르면 페이지 이동
+$('.cancel-post').on('click', function (){
+	window.location.href = '/careshop/list';
+})
