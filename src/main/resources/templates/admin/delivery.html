@@ -46,16 +46,12 @@
           <div class="delivery-nav">
             <div class="order-list-box">
               <sapn>미완료</sapn>
-              <div class="box"><span class="order-cnt event">1</span>건</div>
+              <div class="box"><span class="order-cnt event" th:text="${incompleteTotal}"></span>건</div>
             </div>
-            <!-- <div class="cancel-refund-box">
-              <span>취소/환불 요청</span>
-              <div class="box"><span class="cancel-cnt event">2</span>건</div>
-            </div> -->
             <div class="completed-orders-box">
               <span>완료 목록</span>
               <div class="box">
-                <span class="completed-cnt event">123</span>건
+                <span class="completed-cnt event" th:text="${completeTotal}"></span>건
               </div>
             </div>
           </div>
@@ -63,127 +59,29 @@
             <div class="nav-list">
               <ul class="nav">
                 <li class="nav-order-number">주문 번호</li>
-                <li class="nav-member-number">회원 번호</li>
+                <li class="nav-member-number">회원 이름</li>
                 <li class="nav-product-title">상품명</li>
                 <li class="nav-member-address">주소</li>
                 <li class="nav-member-quest">요청사항</li>
                 <li class="nav-delivery-status">배송상태</li>
               </ul>
             </div>
-            <div class="quest-list">
+            <div class="quest-list" >
               <!-- 첫 번째 ul -->
-              <ul class="order-list">
-                <li class="order-number">1</li>
-                <li class="member-number">1</li>
-                <li class="product-title">
-                  완전 완전 긴 이름을 넣으면 짤리게 수정했어요 냥냥냥냥냥
+              <ul class="order-list"th:each="incompleteList : ${incompleteList}">
+                <li class="order-number" th:text="${incompleteList.buyNumber}"></li>
+                <li class="member-number" th:text="${incompleteList.userName}"></li>
+                <li class="product-title" th:text="${incompleteList.storeTitle}">
+
                 </li>
-                <li class="member-address">
-                  경기도 용인시 처인구 포곡읍 포곡로 159, 103동 701호
-                </li>
-                <li class="member-quest">부재 시 경비실에 맡겨주세요</li>
+                <li class="member-address" th:text="${incompleteList.buyAddress}"></li>
+                <li class="member-quest" th:text="${incompleteList.buyMsg}"></li>
                 <li class="delivery-status">
                   <select name="delivery" class="delivery">
                     <option value="">배송 상태</option>
-                    <option value="preparing-product">상품 준비중</option>
-                    <option value="shipping">배송중</option>
-                    <option value="completed">배송 완료</option>
-                    <option value="cancel">취소/교환/반품</option>
-                  </select>
-                  <button type="submit" class="registration">등록</button>
-                </li>
-              </ul>
-              <ul class="order-list">
-                <li class="order-number">1</li>
-                <li class="member-number">1</li>
-                <li class="product-title">완전 완전 짱짱 좋은 헤어팩</li>
-                <li class="member-address">
-                  경기도 용인시 처인구 포곡읍 포곡로 159, 103동 701호
-                </li>
-                <li class="member-quest">부재 시 경비실에 맡겨주세요</li>
-                <li class="delivery-status">
-                  <select name="delivery" class="delivery">
-                    <option value="">배송 상태</option>
-                    <option value="preparing-product">상품 준비중</option>
-                    <option value="shipping">배송중</option>
-                    <option value="completed">배송 완료</option>
-                    <option value="cancel">취소/교환/반품</option>
-                  </select>
-                  <button type="submit" class="registration">등록</button>
-                </li>
-              </ul>
-              <ul class="order-list">
-                <li class="order-number">1</li>
-                <li class="member-number">1</li>
-                <li class="product-title">완전 완전 짱짱 좋은 헤어팩</li>
-                <li class="member-address">
-                  경기도 용인시 처인구 포곡읍 포곡로 159, 103동 701호
-                </li>
-                <li class="member-quest">부재 시 경비실에 맡겨주세요</li>
-                <li class="delivery-status">
-                  <select name="delivery" class="delivery">
-                    <option value="">배송 상태</option>
-                    <option value="preparing-product">상품 준비중</option>
-                    <option value="shipping">배송중</option>
-                    <option value="completed">배송 완료</option>
-                    <option value="cancel">취소/교환/반품</option>
-                  </select>
-                  <button type="submit" class="registration">등록</button>
-                </li>
-              </ul>
-              <ul class="order-list">
-                <li class="order-number">1</li>
-                <li class="member-number">1</li>
-                <li class="product-title">완전 완전 짱짱 좋은 헤어팩</li>
-                <li class="member-address">
-                  경기도 용인시 처인구 포곡읍 포곡로 159, 103동 701호
-                </li>
-                <li class="member-quest">부재 시 경비실에 맡겨주세요</li>
-                <li class="delivery-status">
-                  <select name="delivery" class="delivery">
-                    <option value="">배송 상태</option>
-                    <option value="preparing-product">상품 준비중</option>
-                    <option value="shipping">배송중</option>
-                    <option value="completed">배송 완료</option>
-                    <option value="cancel">취소/교환/반품</option>
-                  </select>
-                  <button type="submit" class="registration">등록</button>
-                </li>
-              </ul>
-              <ul class="order-list">
-                <li class="order-number">1</li>
-                <li class="member-number">1</li>
-                <li class="product-title">완전 완전 짱짱 좋은 헤어팩</li>
-                <li class="member-address">
-                  경기도 용인시 처인구 포곡읍 포곡로 159, 103동 701호
-                </li>
-                <li class="member-quest">부재 시 경비실에 맡겨주세요</li>
-                <li class="delivery-status">
-                  <select name="delivery" class="delivery">
-                    <option value="">배송 상태</option>
-                    <option value="preparing-product">상품 준비중</option>
-                    <option value="shipping">배송중</option>
-                    <option value="completed">배송 완료</option>
-                    <option value="cancel">취소/교환/반품</option>
-                  </select>
-                  <button type="submit" class="registration">등록</button>
-                </li>
-              </ul>
-              <ul class="order-list">
-                <li class="order-number">1</li>
-                <li class="member-number">1</li>
-                <li class="product-title">완전 완전 짱짱 좋은 헤어팩</li>
-                <li class="member-address">
-                  경기도 용인시 처인구 포곡읍 포곡로 159, 103동 701호
-                </li>
-                <li class="member-quest">부재 시 경비실에 맡겨주세요</li>
-                <li class="delivery-status">
-                  <select name="delivery" class="delivery">
-                    <option value="">배송 상태</option>
-                    <option value="preparing-product">상품 준비중</option>
-                    <option value="shipping">배송중</option>
-                    <option value="completed">배송 완료</option>
-                    <option value="cancel">취소/교환/반품</option>
+                    <option value="1" th:selected="${incompleteList.deliveryNumber == 1}">상품 준비중</option>
+                    <option value="2" th:selected="${incompleteList.deliveryNumber == 2}">배송중</option>
+                    <option value="3" th:selected="${incompleteList.deliveryNumber == 3}">배송 완료</option>
                   </select>
                   <button type="submit" class="registration">등록</button>
                 </li>
@@ -193,19 +91,18 @@
 
           <div class="page-container">
             <ul class="page-box">
-              <a href="#" class="page-a">
+              <a th:href="@{/admin/delivery(page=${pageInfo.startPage - 1})}"  class="page-a"  th:if="${pageInfo.prev}">
                 <li class="page-num prev">&lt</li>
               </a>
 
-              <a href="#" class="page-a">
-                <li class="page-num active">1</li>
-                <li class="page-num">2</li>
-                <li class="page-num">3</li>
-                <li class="page-num">4</li>
-                <li class="page-num">5</li>
-              </a>
+              <th:block th:each="i : ${#numbers.sequence(pageInfo.startPage, pageInfo.endPage)}">
+                <a th:href="@{/admin/delivery(page=${i})}" class="page-a">
+                  <li class="page-num active" th:text="${i}" th:if="${i == pageInfo.criteria.page}"></li>
+                  <li class="page-num" th:text="${i}" th:unless="${i == pageInfo.criteria.page}"></li>
+                </a>
+              </th:block>
 
-              <a href="#" class="page-a">
+              <a th:href="@{/admin/delivery(page=${pageInfo.endPage + 1})}" class="page-a" th:if="${pageInfo.next}">
                 <li class="page-num next">&gt</li>
               </a>
             </ul>

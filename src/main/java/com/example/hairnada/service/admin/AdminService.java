@@ -1,11 +1,14 @@
 package com.example.hairnada.service.admin;
 
+import com.example.hairnada.dto.buy.AdminBuyDto;
 import com.example.hairnada.dto.hair.HairDto;
 import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.mapper.admin.AdminMapper;
+import com.example.hairnada.vo.hair.HairVo;
 import com.example.hairnada.vo.level.LevelVo;
 import com.example.hairnada.vo.page.CriteriaAdmin;
+import com.example.hairnada.vo.page.CriteriaAdminList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,7 +67,15 @@ public class AdminService {
 
 
     // 상품 목록 조회
-    public List<StoreDto> findStoreList(){ return adminMapper.selectStoreList(); }
+    public List<StoreDto> findStoreList(CriteriaAdminList criteriaAdminList){
+        return adminMapper.selectStoreList(criteriaAdminList);
+    }
+
+    // 상품 게시글 수
+    @Transactional(readOnly = true)
+    public int getStoreTotal(){
+        return adminMapper.storeTotal();
+    }
 
     // 카테고리로 상품 조회
     public List<StoreDto> findStoreListByCategory(Long storeCategoryNumber){
@@ -85,8 +96,22 @@ public class AdminService {
     }
 
     // 헤어 스타일 조회
-    public List<HairDto> findHairList(){
-        return adminMapper.selectHairList();
+    public List<HairVo> findHairList(CriteriaAdminList criteriaAdminList){
+        return adminMapper.selectHairList(criteriaAdminList);
+    }
+
+    // 헤어 게시글 수
+    @Transactional(readOnly = true)
+    public int getHairTotal(){
+        return adminMapper.hairTotal();
+    }
+
+    // 헤어스 스타일 업로드
+    public void registerHair(HairDto hairDto){
+        if (hairDto == null) {
+            throw new IllegalArgumentException("헤어스타일 정보를 제대로 기입해주세요.");
+        }
+        adminMapper.insertHair(hairDto);
     }
 
     // 카테고리별 헤어스타일 조회
@@ -107,5 +132,35 @@ public class AdminService {
 
         return Optional.ofNullable(adminMapper.selectHairListByName(hairName))
                 .orElseThrow(()-> {throw new IllegalArgumentException("일치하는 게시글이 없습니다 !!");});
+    }
+
+    // 미완료 배송 목록 조회
+    public List<AdminBuyDto> findIncompleteList(CriteriaAdmin criteriaAdmin){
+        return adminMapper.selectIncompleteRequest(criteriaAdmin);
+    }
+
+    // 미완료 건 수
+    @Transactional(readOnly = true)
+    public int getIncompleteTotal(){
+        return adminMapper.incompleteTotal();
+    }
+
+    // 배송 완료 목록 조회
+    public List<AdminBuyDto> findCompleteList(CriteriaAdmin criteriaAdmin){
+        return adminMapper.selectCompleteList(criteriaAdmin);
+    }
+
+    // 완료 건 수
+    @Transactional(readOnly = true)
+    public int getCompleteTotal(){
+        return adminMapper.completeTotal();
+    }
+
+    // 배송 상태 변경
+    public void modifyDeliveryStatus(Long deliveryNumber, Long buyNumber){
+        if (deliveryNumber == null || buyNumber == null) {
+            throw new IllegalArgumentException("배송 변경 정보 누락");
+        }
+        adminMapper.updateDelivery(deliveryNumber, buyNumber);
     }
 }
