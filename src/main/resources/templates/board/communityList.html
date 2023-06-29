@@ -21,9 +21,9 @@
 
       <!-- 검색 기능 -->
         <div class="search">
-          <form id="searchForm" th:action="@{/board/communitySearch}" method="get">
-            <input type="radio" id="title" name="search" value="titleKeyword" checked> <label for="title">제목</label>
-            <input type="radio" id="content" name="search" value="contentKeyword"> <label for="content">내용</label>
+          <form id="search" th:action="@{/board/search}" method="get">
+            <input type="radio" id="title" name="searchType" value="title" checked> <label for="title">제목</label>
+            <input type="radio" id="content" name="searchType" value="content"> <label for="content">내용</label>
             <input type="text" id="text" name="keyword" placeholder="검색 단어를 입력해 주세요.">
                   <button type="submit">검색</button>
           </form>
@@ -32,35 +32,36 @@
       </div>
 
         <!-- 카테고리 -->
-        <table class="category">
-          <tr>
-            <td>
-              <button id="button0" class="categoryBtn">
-                전체&nbsp;(<span>1</span>)
-              </button>
-            </td>
-            <td>
-              <button id="button1" class="categoryBtn">
-                자유&nbsp;(<span>1</span>)
-              </button>
-            </td>
-            <td>
-              <button id="button2" class="categoryBtn">
-                꿀팁&nbsp;(<span>1</span>)
-              </button>
-            </td>
-            <td>
-              <button id="button3" class="categoryBtn">
-                질문&nbsp;(<span>1</span>)
-              </button>
-            </td>
-            <td>
-              <button id="button4" class="categoryBtn">
-                후기&nbsp;(<span>1</span>)
-              </button>
-            </td>
-          </tr>
-        </table>
+      <table class="category">
+        <tr>
+          <td>
+            <button id="button0" class="categoryBtn selected">
+              전체&nbsp;(<span>1</span>)
+            </button>
+          </td>
+          <td>
+            <button id="button1" class="categoryBtn" data-board-category-number="1">
+              자유&nbsp;(<span>1</span>)
+            </button>
+          </td>
+          <td>
+            <button id="button2" class="categoryBtn" data-board-category-number="2">
+              꿀팁&nbsp;(<span>1</span>)
+            </button>
+          </td>
+          <td>
+            <button id="button3" class="categoryBtn" data-board-category-number="3">
+              질문&nbsp;(<span>1</span>)
+            </button>
+          </td>
+          <td>
+            <button id="button4" class="categoryBtn" data-board-category-number="4">
+              후기&nbsp;(<span>1</span>)
+            </button>
+          </td>
+        </tr>
+      </table>
+
       </article>
 
       <!-- 리스트 -->
@@ -111,18 +112,18 @@
         <!-- 페이징 처리 -->
         <div class="pagination">
           <ul>
-            <a th:href="@{/board/communityList(page=${pageInfo.startPage - 1})}" class="prev" th:if="${pageInfo.prev}">
+            <a th:href="@{/board/search(page=${pageInfo.startPage - 1}, searchType=${search.searchType}, keyword=${search.keyword})}" class="prev" th:if="${pageInfo.prev}">
             <li>&laquo;</li>
             </a>
 
             <th:block th:each="i : ${#numbers.sequence(pageInfo.startPage, pageInfo.endPage)}">
-              <a th:href="@{/board/communityList(page=${i})}" >
+              <a th:href="@{/board/search(page=${i}, searchType=${search.searchType}, keyword=${search.keyword})}" >
               <li class="active" th:text="${i}" th:if="${i == pageInfo.criteria.page}"></li>
               <li th:text="${i}" th:unless="${i == pageInfo.criteria.page}"></li>
               </a>
             </th:block>
 
-            <a th:href="@{/board/communityList(page=${pageInfo.endPage + 1})}" class="next" th:if="${pageInfo.next}">
+            <a th:href="@{/board/search(page=${pageInfo.endPage + 1}, searchType=${search.searchType}, keyword=${search.keyword})}" class="next" th:if="${pageInfo.next}">
             <li>&raquo;</li>
             </a>
           </ul>

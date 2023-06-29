@@ -79,8 +79,8 @@
           />
           <div class="replyBox">
             <textarea
-              id="replyContent"
-              name="replyContent"
+              id="boardReplyContent"
+              name="boardReplyContent"
               required
               placeholder="댓글을 작성하세요."
             ></textarea>
@@ -91,33 +91,36 @@
 
       <div class="comment-list">
         <!-- 댓글 리스트 예시 -->
-        <ul id="comment-list">
-          <li>
-            <div class="comment-wrap">
-              <div class="comment-info">
-                <span class="writer">메시</span>
-                <span class="date">2222-22-22</span>
-              </div>
-              <div class="comment-btn-group">
-                <button type="button" class="comment-modify-ready">수정</button>
-                <button type="button" class="comment-delete">삭제</button>
-              </div>
-              <div class="comment-btn-group none">
-                <button type="button" class="comment-modify">수정 완료</button>
-              </div>
-            </div>
-            <div class="comment-content">
-              <p>안녕하세요</p>
-            </div>
-          </li>
-        </ul>
+<!--        <ul id="comment-list">-->
+<!--          <li>-->
+<!--            <div class="comment-wrap">-->
+<!--              <div class="comment-info">-->
+<!--                <span class="writer" id="boardReplyNick">메시</span>-->
+<!--                <span class="date">2222-22-22</span>-->
+<!--              </div>-->
+<!--              <div class="comment-btn-group">-->
+<!--                <button type="button" class="comment-modify-ready">수정</button>-->
+<!--                <button type="button" class="comment-delete">삭제</button>-->
+<!--              </div>-->
+<!--              <div class="comment-btn-group none">-->
+<!--                <button type="button" class="comment-modify">수정 완료</button>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="comment-content">-->
+<!--              안녕하세요-->
+<!--            </div>-->
+<!--          </li>-->
+<!--        </ul>-->
         <!-- 댓글 리스트 예시 -->
       </div>
     </div>
   <footer class="footer" th:replace="fragment/footer :: footer"></footer>
 
     <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-  <script th:src="@{/js/index/header.js}"></script>
-    <script src="/js/community/communityRead.js"></script>
+    <script th:inline="javascript">
+      let loginNumber = [[${session.userNumber}]];
+    </script>
+    <script th:src="@{/js/index/header.js}"></script>
+    <script type="module" th:src="@{/js/community/communityRead.js}"></script>
   </body>
 </html>
