@@ -94,19 +94,18 @@
 
           <div class="page-container">
             <ul class="page-box">
-              <a href="#" class="page-a">
+              <a th:href="@{/admin/storeList(page=${pageInfo.startPage - 1})}"  class="page-a"  th:if="${pageInfo.prev}">
                 <li class="page-num prev">&lt</li>
               </a>
 
-              <a href="#" class="page-a">
-                <li class="page-num active">1</li>
-                <li class="page-num">2</li>
-                <li class="page-num">3</li>
-                <li class="page-num">4</li>
-                <li class="page-num">5</li>
-              </a>
+              <th:block th:each="i : ${#numbers.sequence(pageInfo.startPage, pageInfo.endPage)}">
+                <a th:href="@{/admin/storeList(page=${i})}" class="page-a">
+                  <li class="page-num active" th:text="${i}" th:if="${i == pageInfo.criteria.page}"></li>
+                  <li class="page-num" th:text="${i}" th:unless="${i == pageInfo.criteria.page}"></li>
+                </a>
+              </th:block>
 
-              <a href="#" class="page-a">
+              <a th:href="@{/admin/storeList(page=${pageInfo.endPage + 1})}" class="page-a" th:if="${pageInfo.next}">
                 <li class="page-num next">&gt</li>
               </a>
             </ul>

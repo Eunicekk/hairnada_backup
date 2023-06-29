@@ -135,12 +135,12 @@
 .img-list {
   position: relative;
   overflow: hidden;
-  width: 240px; height: 240px;
+  width: 240px;
   overflow: hidden;
 }
 
 .img-list img{
-  width: 100%; min-height: 240px;
+  width: 100%; min-height: 240px;height: 350px;
 }
 
 /* 페이징 */

@@ -42,6 +42,7 @@
           </nav>
         </div>
         <div class="main-box">
+          <form class="new-post-form" th:action="@{/admin/hairUpload}" method="post" enctype="multipart/form-data">
           <div class="board-write-box">
             <div class="hair-img-box">
               <!-- 대표 이미지 업로드 -->
@@ -52,7 +53,7 @@
                     <input
                       type="file"
                       id="post-image"
-                      name="boardFile"
+                      name="hairFile"
                       accept="image/*"
                       multiple
                     />
@@ -68,18 +69,18 @@
               <div class="select-box">
                 <div class="gender-box">
                   <span>성별</span>
-                  <input type="radio" class="female" name="gender" />여성
-                  <input type="radio" class="male" name="gender" />남성
+                  <input type="radio" class="female" name="hairGender" value="F"/>여성
+                  <input type="radio" class="male" name="hairGender" value="M"/>남성
                 </div>
                 <div class="hair-length-box">
                   <span>기장</span>
-                  <input type="radio" class="short" name="lenght" />숏
-                  <input type="radio" class="middle" name="lenght" />미디엄
-                  <input type="radio" class="long" name="lenght" />롱
+                  <input type="radio" class="short" name="lengthNumber" value="1"/>숏
+                  <input type="radio" class="middle" name="lengthNumber" value="2"/>미디엄
+                  <input type="radio" class="long" name="lengthNumber" value="3"/>롱
                 </div>
                 <div class="face-shape-box">
                   <span>얼굴형</span>
-                  <select name="face-shape" class="face-shape">
+                  <select name="shapeNumber" class="face-shape">
                     <option value="">얼굴형 선택</option>
                     <option value="1">계란형</option>
                     <option value="2">긴 얼굴형</option>
@@ -94,16 +95,19 @@
                 type="text"
                 class="board-title"
                 placeholder="제목 입력..."
+                name="hairName"
               />
               <textarea
                 class="board-content"
                 placeholder="콘텐츠 입력..."
+                name="hairContent"
               ></textarea>
               <div class="btn-box">
                 <button type="submit">작성 완료</button>
               </div>
             </div>
           </div>
+          </form>
         </div>
       </div>
     </div>

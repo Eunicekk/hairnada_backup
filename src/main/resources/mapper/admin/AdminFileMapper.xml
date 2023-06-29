@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hairnada.mapper.admin.AdminFileMapper">
+    <insert id="insertHairFile">
+        <selectKey keyProperty="hairFileNumber" resultType="long" order="BEFORE">
+            SELECT SEQ_HAIR_FILE.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO TBL_HAIR_FILE(HAIR_FILE_NUMBER, HAIR_FILE_NAME, HAIR_FILE_UPLOAD_PATH, HAIR_FILE_UUID, HAIR_NUMBER)
+        VALUES(#{hairFileNumber}, #{hairFileName},#{hairFileUploadPath}, #{hairFileUuid}, #{hairNumber})
+    </insert>
+
+    <select id="selectHairList" resultType="hairFileDto">
+        SELECT HAIR_FILE_NUMBER , HAIR_FILE_NAME , HAIR_FILE_UUID , HAIR_FILE_UPLOAD_PATH , HAIR_NUMBER  FROM TBL_HAIR_FILE thf
+        WHERE HAIR_NUMBER = #{hairNumber}
+    </select>
+
+
+
+</mapper>

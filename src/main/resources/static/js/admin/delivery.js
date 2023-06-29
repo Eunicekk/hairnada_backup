@@ -14,34 +14,89 @@ $(".order-cnt").on("click", function () {
   $(".completed-orders-box").css("background-color", "#FFFFFF");
 });
 
-// 일단 테스트 용으로 한거임~~~ 나중에 처리 다시해야돼용 ~~
-$(".order-cnt").on("click", function () {
-  $(".delivery-status").html("");
-  $(".delivery-status").append(`<select name="delivery" class="delivery">
-  <option value="">배송 상태</option>
-  <option value="preparing-product">상품 준비중</option>
-  <option value="shipping">배송중</option>
-  <option value="completed">배송 완료</option>
-  <option value="cancel">취소/교환/반품</option>
-</select>
-<button type="submit" class="registration">등록</button>`);
-});
 
+
+
+
+// 배송 미완료 목록
 $(".completed-cnt").on("click", function () {
-  let text = "배송 완료";
-  $(".delivery-status").html("");
-  $(".delivery-status").append(text);
+  $.ajax({
+    url : "/adminR/complete",
+    type : 'get',
+    success: function(result){
+      $('.quest-list').html('');
+      for (let i = 0; i < result.completeList.length; i++) {
+        $('.quest-list').append(`
+       <ul class="order-list">
+                <li class="order-number">${result.completeList[i].buyNumber}</li>
+                <li class="member-number">${result.completeList[i].userName}</li>
+                <li class="product-title">${result.completeList[i].storeTitle}</li>
+                <li class="member-address">
+                 ${result.completeList[i].buyAddress}
+                </li>
+                <li class="member-quest">${result.completeList[i].buyMsg}</li>
+                <li class="delivery-status">배송 완료</li>
+              </ul>
+  `);
+      }
+    }
+  });
 });
 
-// select option 값 뽑아오기
-
-let test; // select 안에 들어있는 option value 담을 변수 선언
-
-$(".delivery").on("change", function () {
-  test = $(this).val(); // select option value 뽑아서 변수에 값 넣어주기
-  // 담은 값으로 백 작업 하면 됩니당~~~
+$('.order-cnt').on('click', function (){
+  $.ajax({
+    url : "/adminR/incomplete",
+    type : 'get',
+    success: function(result){
+      $('.quest-list').html('');
+      for (let i = 0; i < result.incompleteList.length; i++) {
+        $('.quest-list').append(`
+       <ul class="order-list">
+                <li class="order-number">${result.incompleteList[i].buyNumber}</li>
+                <li class="member-number">${result.incompleteList[i].userName}</li>
+                <li class="product-title">${result.incompleteList[i].storeTitle}</li>
+                <li class="member-address">${result.incompleteList[i].buyAddress}</li>
+                <li class="member-quest">${result.incompleteList[i].buyMsg}</li>
+                <li class="delivery-status"> 
+                 <select name="delivery" class="delivery">
+                    <option value="">배송 상태</option>
+                    <option value="1" ${result.incompleteList[i].deliveryNumber == 1 ? 'selected' : ''}>상품 준비중</option>
+                    <option value="2" ${result.incompleteList[i].deliveryNumber == 2 ? 'selected' : ''}>배송중</option>
+                    <option value="3" ${result.incompleteList[i].deliveryNumber == 3 ? 'selected' : ''}>배송 완료</option>
+                 </select>
+                  <button type="submit" class="registration">등록</button></li>
+              </ul>
+  `);
+      }
+    }
+  });
 });
 
-$(".registration").on("click", function () {
-  console.log(test); // 테스트로 해봤어요 ~
+
+let deliveryNum;
+let buyNum;
+
+$('.delivery').on('change', function (){
+  deliveryNum = $(this).val();
+  buyNum = $(this).closest('.order-list').find('.order-number').text();
+})
+
+$('.registration').on('click', function (){
+  let deliveryNumber = deliveryNum;
+  let buyNumber = buyNum;
+
+  $.ajax({
+    url : "/adminR/delivery",
+    type: 'get',
+    data : {
+      deliveryNumber : deliveryNumber,
+      buyNumber : buyNumber
+    },
+    success : function (){
+      window.alert("배송 상태가 변경 되었습니다!");
+      if(deliveryNumber == 3) {
+        window.location.href = '/admin/delivery';
+      }
+    }
+  });
 });

@@ -32,6 +32,7 @@
         <typeAlias type="com.example.hairnada.dto.hair.HairFileDto" alias="hairFileDto" />
         <typeAlias type="com.example.hairnada.dto.hair.HairLikeDto" alias="hairLikeDto" />
         <typeAlias type="com.example.hairnada.dto.hair.FaceShapeDto" alias="faceShapeDto" />
+        <typeAlias type="com.example.hairnada.vo.hair.HairVo" alias="hairVo"/>
 
         <typeAlias type="com.example.hairnada.dto.hairshop.HairShopDto" alias="hairShopDto" />
         <typeAlias type="com.example.hairnada.vo.hairshop.HairShopVo" alias="hairShopVo" />
@@ -48,6 +49,8 @@
 
         <typeAlias type="com.example.hairnada.vo.page.Criteria03" alias="criteria03" />
         <typeAlias type="com.example.hairnada.vo.page.SearchVo" alias="searchVo" />
+
+        <typeAlias type="com.example.hairnada.dto.buy.AdminBuyDto" alias="adminBuyDto"/>
 
     </typeAliases>
 </configuration>
