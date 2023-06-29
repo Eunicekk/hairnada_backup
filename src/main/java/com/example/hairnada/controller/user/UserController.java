@@ -54,7 +54,12 @@ public class UserController {
     @GetMapping("/find-id")
     public void find(){}
 
-
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest req){
+        // 세션 초기화
+        req.getSession().invalidate();
+        return "/";
+    }
 
 
 }
