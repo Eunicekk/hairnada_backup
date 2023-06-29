@@ -27,7 +27,7 @@
 }
 
 .header-logo{
-    margin-right: 42px;
+    margin-right: 48px;
 }
 
 .header-menu li{
@@ -35,7 +35,7 @@
 }
 
 .header-menu li>a{
-    margin-right: 24px;
+    margin-right: 36px;
 }
 
 .header-menu li>a:hover{
@@ -52,7 +52,6 @@
     width: 16px; height: 16px;
     font-size: 8px;
     font-weight: 300;
-    /* background-color: #222; */
     background-color: #9c7eff;
     color: white;
     border-radius: 50%;

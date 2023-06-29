@@ -1,9 +1,10 @@
 package com.example.hairnada.mapper.hairshop;
 
 import com.example.hairnada.dto.hairshop.HairShopDto;
-import com.example.hairnada.vo.page.SearchVo;
+import com.example.hairnada.mapper.hairshop.HairShopMapper;
 import com.example.hairnada.vo.hairshop.HairShopVo;
 import com.example.hairnada.vo.page.Criteria03;
+import com.example.hairnada.vo.page.SearchVo;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Slf4j
@@ -29,12 +30,12 @@ public class HairShopMapperTest {
     void setUp(){
         hairShopDto = new HairShopDto();
         hairShopDto.setHairShopAddress("서울 어딘가");
-        hairShopDto.setHairShopName("헤어샵");
+        hairShopDto.setHairShopName("케어샵");
         hairShopDto.setHairShopOpenTime("오진 9시");
         hairShopDto.setHairShopPhoneNumber("01012341234");
         hairShopDto.setHairShopLink("www.aaa.co.kr");
-        hairShopDto.setHairShopContent("헤어샵 소개글");
-        hairShopDto.setUserNumber(2L);
+        hairShopDto.setHairShopContent("케어샵 내용");
+        hairShopDto.setUserNumber(3L);
         hairShopMapper.insert(hairShopDto);
     }
 
@@ -65,7 +66,7 @@ public class HairShopMapperTest {
 
     @Test
     void upadate(){
-        hairShopDto.setHairShopName("변경된 헤어샵 이름");
+        hairShopDto.setHairShopName("변경된 케어샵 이름");
         hairShopDto.setHairShopAddress("경기도 어딘가");
         hairShopMapper.update(hairShopDto);
         assertThat(hairShopMapper.select(hairShopDto.getHairShopNumber()).getHairShopName())
@@ -76,7 +77,7 @@ public class HairShopMapperTest {
     void search(){
         SearchVo result = new SearchVo();
         result.setSearchType("title");
-        result.setKeyword("강남");
+        result.setKeyword("케어");
         assertThat(hairShopMapper.search(criteria03, result)).isNotNull();
         assertThat(hairShopMapper.search(criteria03, result)).hasSizeGreaterThan(0);
     }
@@ -85,8 +86,8 @@ public class HairShopMapperTest {
     void searchTotal(){
         SearchVo result = new SearchVo();
         result.setSearchType("title");
-        result.setKeyword("송계옥");
+        result.setKeyword("케어");
         int size = hairShopMapper.searchTotal(result);
-        assertThat(size).isEqualTo(3);
+        assertThat(size).isEqualTo(1);
     }
 }

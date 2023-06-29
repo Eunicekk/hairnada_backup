@@ -102,7 +102,7 @@
         )
         WHERE RK = 1
         ) J ON H.HAIR_SHOP_NUMBER = J.HAIR_SHOP_NUMBER
-        WHERE
+        <where>
         <choose>
             <when test="'title'.equals(search.searchType)">
                 HAIR_SHOP_NAME LIKE '%' || #{search.keyword} || '%'
@@ -112,6 +112,7 @@
             </when>
             <otherwise></otherwise>
         </choose>
+        </where>
         ORDER BY H.HAIR_SHOP_NUMBER DESC
         ) T1
         <![CDATA[
@@ -125,7 +126,7 @@
     <select id="searchTotal" resultType="_int">
         SELECT COUNT(HAIR_SHOP_NUMBER)
         FROM TBL_HAIR_SHOP
-        WHERE
+        <where>
         <choose>
             <when test="'title'.equals(search.searchType)">
                 HAIR_SHOP_NAME LIKE '%' || #{search.keyword} || '%'
@@ -135,5 +136,7 @@
             </when>
             <otherwise></otherwise>
         </choose>
+        </where>
     </select>
+
 </mapper>

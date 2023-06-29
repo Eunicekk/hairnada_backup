@@ -15,19 +15,21 @@
     <title>HairNada</title>
 </head>
 <body>
-    <header class="header" th:replace="fragment/header :: header"></header>
-    <div class="main">
+<header class="header" th:replace="fragment/header :: header"></header>
+<div class="main">
 
-        <!-- 배너 -->
-        <div class="banner">
-            <img src="/img/tab-banner-02+.png" alt="배너">
-        </div>
+    <!-- 배너 -->
+    <div class="banner">
+        <img src="/img/tab-banner-02+.png" alt="배너">
+    </div>
 
-        <!-- 이미지 등록 -->
+    <!-- 이미지 등록 -->
+    <form th:action="@{/careshop/modify}" method="post" enctype="multipart/form-data">
+        <input type="hidden" class="care-shop-num" th:value="${careShop.careShopNumber}">
         <div class="content">
             <div class="title">장소 이미지</div>
             <div class="image-upload-wrap">
-                <input type="file" name="cafeFile" id="file" accept=".jpg, .jpeg, .png" multiple>
+                <input type="file" name="careShopFile" id="file" accept=".jpg, .jpeg, .png" multiple>
                 <div class="image-upload-box">
                     <p>
                         <span class="material-symbols-outlined">
@@ -46,53 +48,55 @@
                 </ul>
             </div>
         </div>
-        
+
         <!-- 장소 이름 등록 -->
         <div class="content">
             <div class="title">장소 이름</div>
-            <input type="text" required placeholder="장소 이름을 입력하세요.">
+            <input type="text" name="careShopName" required th:value="${careShop.careShopName}">
         </div>
-        
+
         <!-- 주소 등록 -->
         <div class="content">
             <div class="title">주소</div>
-            <input type="text" required placeholder="주소를 입력하세요.">
+            <input type="text" name="careShopAddress" required th:value="${careShop.careShopAddress}">
         </div>
-        
+
         <!-- 전화번호 등록 -->
         <div class="content">
             <div class="title">전화번호</div>
-            <input type="text" required placeholder="전화번호를 입력하세요.">
+            <input type="text" name="careShopPhoneNumber" required th:value="${careShop.careShopPhoneNumber}">
         </div>
-        
+
         <!-- 예약 링크 등록 -->
         <div class="content">
             <div class="title">예약 링크</div>
-            <input type="text" required placeholder="예약 링크를 입력하세요.">
+            <input type="text" name="careShopLink" required th:value="${careShop.careShopLink}">
         </div>
-        
+
         <!-- 운영 시간 등록 -->
         <div class="content">
             <div class="title">운영 시간</div>
-            <textarea class="text" required placeholder="운영 시간을 입력하세요."></textarea>
+            <textarea class="text" name="careShopOpenTime" required th:text="${careShop.careShopOpenTime}"></textarea>
         </div>
 
         <!-- 내용 등록 - 썸머노트 -->
         <div class="content">
             <div class="title">내용</div>
-            <div id="summernote"></div>
+            <textarea id="summernote" name="careShopContent" th:utext="${careShop.careShopContent}"></textarea>
         </div>
 
         <!-- 완료 및 취소 버튼 -->
         <div class="buttons">
-            <button type="button">작성 취소</button>
-            <button type="submit">작성 완료</button>
+            <button type="button" class="cancel-post">수정 취소</button>
+            <button type="submit">수정 완료</button>
         </div>
+        
+    </form>
 
-    </div>
-    <footer class="footer" th:replace="fragment/footer :: footer"></footer>
+</div>
+<footer class="footer" th:replace="fragment/footer :: footer"></footer>
 
-    <script th:src="@{/js/careshop/careshopWrite.js}"></script>
-    <script th:src="@{/js/index/header.js}"></script>
+<script th:src="@{/js/careshop/careshopWrite.js}"></script>
+<script th:src="@{/js/index/header.js}"></script>
 </body>
 </html>
