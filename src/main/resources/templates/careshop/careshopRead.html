@@ -26,10 +26,9 @@
             </span>
             <div class="img-main">
                 <ul class="img-main-box">
-                    <li><img src="https://weare.lush.co.kr/images/shop/seoul/gangnam.jpg" alt="메인01"></li>
-                    <li><img src="https://weare.lush.co.kr/images/shop/seoul/gyeonglidan_spa.JPG" alt="메인02"></li>
-                    <li><img src="https://weare.lush.co.kr/images/shop/seoul/daehaglo.jpg" alt="메인03"></li>
-                    <li><img src="https://weare.lush.co.kr/images/shop/seoul/lotte_mia.JPG" alt="메인04"></li>
+                    <li>
+                        <img>
+                    </li>
                 </ul>
             </div>
             <span class="material-symbols-rounded right">
@@ -37,31 +36,23 @@
             </span>
         </div>
         <div class="img-sub">
-            <ul>
-                <li><img src="https://weare.lush.co.kr/images/shop/seoul/gangnam.jpg" alt="서브01"></li>
-                <li><img src="https://weare.lush.co.kr/images/shop/seoul/gyeonglidan_spa.JPG" alt="서브02"></li>
-                <li><img src="https://weare.lush.co.kr/images/shop/seoul/daehaglo.jpg" alt="서브03"></li>
-                <li><img src="https://weare.lush.co.kr/images/shop/seoul/lotte_mia.JPG" alt="서브04"></li>
-            </ul>
+            <ul class="img-sub-box"></ul>
         </div>
 
         <!-- 장소 정보 -->
         <div class="place-info">
-            <div class="place-name">케어샵 이름입니다만 케어샵 이름이 길어지면 어떡해?</div>
+            <div class="place-name" th:text="${careShop.careShopName}"></div>
             <div class="place-text">
                 <div class="title">운영시간</div>
-                <div class="content">
-                    월요일 ~ 목요일: 10:30 ~ 20:00<br>
-                    금요일 ~ 일요일: 10:30 ~ 20:30
-                </div>
+                <div class="content" th:text="${careShop.careShopOpenTime}"></div>
             </div>
             <div class="place-text">
                 <div class="title">전화번호</div>
-                <div class="content">02-123-4567</div>
+                <div class="content" th:text="${careShop.careShopPhoneNumber}"></div>
             </div>
             <div class="place-text">
                 <div class="title">주소</div>
-                <div class="content address">서울특별시 강북구 도봉로 62 롯데백화점 1층</div>
+                <div class="content address" th:text="${careShop.careShopAddress}"></div>
                 <div class="box">
                     <div id="map" style="width:600px; height:400px;"></div>
                 </div>
@@ -69,25 +60,27 @@
             <div class="place-text">
                 <div class="title">예약</div>
                 <div class="content">
-                    <a href="https://hairshop.kakao.com/shops/15312">https://hairshop.kakao.com/shops/15312</a>
+                    <a th:href="${careShop.careShopLink}" th:text="${careShop.careShopLink}"></a>
                 </div>
             </div>
             <div class="place-text">
                 <div class="title">소개</div>
-                <div class="content">저희 케어샵 많이 찾아와 주세요!</div>
+                <div class="content" th:utext="${careShop.careShopContent}"></div>
             </div>
         </div>
 
-        <!-- 버튼 및 뒤로 가기 -->
         <div class="back">
             <div class="buttons">
-                <div class="button-on">
-                    <button type="button">수정</button>
-                    <button type="button">삭제</button>
-                </div>
-                <a href="#">목록</a>
+                <th:block th:if="${session.userNumber == careShop.userNumber}">
+                    <div class="button-on">
+                        <button type="button" class="btn-modify">수정</button>
+                        <button type="button" class="btn-delete">삭제</button>
+                    </div>
+                </th:block>
+                <a th:href="@{/careshop/list}">목록</a>
             </div>
         </div>
+        <input type="hidden" class="care-shop-num" th:value="${careShop.careShopNumber}">
 
     </div>
     <footer class="footer" th:replace="fragment/footer :: footer"></footer>

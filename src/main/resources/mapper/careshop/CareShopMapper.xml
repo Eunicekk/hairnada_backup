@@ -2,33 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.hairnada.mapper.careshop.CareShopMapper">
 
-    <!-- 헤어샵 리스트 -->
+    <!-- 케어샵 리스트 -->
     <select id="selectAll" resultType="careShopVo">
         SELECT CARE_SHOP_NUMBER, CARE_SHOP_NAME, CARE_SHOP_ADDRESS,
-               HAIR_SHOP_FILE_UPLOAD_PATH, HAIR_SHOP_FILE_UUID, HAIR_SHOP_FILE_NAME,
+               CARE_SHOP_FILE_UPLOAD_PATH, CARE_SHOP_FILE_UUID, CARE_SHOP_FILE_NAME,
                USER_NUMBER, MEMBERSHIP_NUMBER
         FROM (
-                 SELECT ROWNUM AS RNUM, HAIR_SHOP_NUMBER, HAIR_SHOP_NAME,
-                        HAIR_SHOP_ADDRESS, HAIR_SHOP_FILE_UPLOAD_PATH, HAIR_SHOP_FILE_UUID,
-                        HAIR_SHOP_FILE_NAME, USER_NUMBER, MEMBERSHIP_NUMBER
+                 SELECT ROWNUM AS RNUM, CARE_SHOP_NUMBER, CARE_SHOP_NAME,
+                        CARE_SHOP_ADDRESS, CARE_SHOP_FILE_UPLOAD_PATH, CARE_SHOP_FILE_UUID,
+                        CARE_SHOP_FILE_NAME, USER_NUMBER, MEMBERSHIP_NUMBER
                  FROM (
-                          SELECT H.HAIR_SHOP_NUMBER, HAIR_SHOP_NAME, HAIR_SHOP_ADDRESS,
-                                 HAIR_SHOP_FILE_UPLOAD_PATH, HAIR_SHOP_FILE_UUID, HAIR_SHOP_FILE_NAME,
+                          SELECT H.CARE_SHOP_NUMBER, CARE_SHOP_NAME, CARE_SHOP_ADDRESS,
+                                 CARE_SHOP_FILE_UPLOAD_PATH, CARE_SHOP_FILE_UUID, CARE_SHOP_FILE_NAME,
                                  U.USER_NUMBER, MEMBERSHIP_NUMBER
-                          FROM TBL_USER U JOIN TBL_HAIR_SHOP H
+                          FROM TBL_USER U JOIN TBL_CARE_SHOP H
                                                ON U.USER_NUMBER = H.USER_NUMBER
                                           LEFT JOIN(
-                              SELECT HAIR_SHOP_FILE_NUMBER, HAIR_SHOP_FILE_UPLOAD_PATH,
-                                     HAIR_SHOP_FILE_UUID, HAIR_SHOP_FILE_NAME, HAIR_SHOP_NUMBER
+                              SELECT CARE_SHOP_FILE_NUMBER, CARE_SHOP_FILE_UPLOAD_PATH,
+                                     CARE_SHOP_FILE_UUID, CARE_SHOP_FILE_NAME, CARE_SHOP_NUMBER
                               FROM(
-                                      SELECT HAIR_SHOP_FILE_NUMBER, HAIR_SHOP_FILE_UPLOAD_PATH,
-                                             HAIR_SHOP_FILE_UUID, HAIR_SHOP_FILE_NAME, HAIR_SHOP_NUMBER,
-                                             RANK() OVER(PARTITION BY HAIR_SHOP_NUMBER ORDER BY HAIR_SHOP_FILE_NUMBER) RK
-                                      FROM TBL_HAIR_SHOP_FILE
+                                      SELECT CARE_SHOP_FILE_NUMBER, CARE_SHOP_FILE_UPLOAD_PATH,
+                                             CARE_SHOP_FILE_UUID, CARE_SHOP_FILE_NAME, CARE_SHOP_NUMBER,
+                                             RANK() OVER(PARTITION BY CARE_SHOP_NUMBER ORDER BY CARE_SHOP_FILE_NUMBER) RK
+                                      FROM TBL_CARE_SHOP_FILE
                                   )
                               WHERE RK = 1
-                          ) J ON H.HAIR_SHOP_NUMBER = J.HAIR_SHOP_NUMBER
-                          ORDER BY H.HAIR_SHOP_NUMBER DESC
+                          ) J ON H.CARE_SHOP_NUMBER = J.CARE_SHOP_NUMBER
+                          ORDER BY H.CARE_SHOP_NUMBER DESC
                       ) T1
         <![CDATA[
                  WHERE ROWNUM <= #{page} * #{amount}
@@ -36,83 +36,84 @@
         ) T2 WHERE RNUM > (#{page} - 1) * #{amount}
     </select>
 
-    <!-- 헤어샵 전체 개수 -->
+    <!-- 케어샵 전체 개수 -->
     <select id="selectTotal" resultType="_int">
-        SELECT COUNT(HAIR_SHOP_NUMBER)
-        FROM TBL_HAIR_SHOP
+        SELECT COUNT(CARE_SHOP_NUMBER)
+        FROM TBL_CARE_SHOP
     </select>
 
-    <!-- 헤어샵 조회 -->
-    <select id="select" resultType="hairShopVo">
-        SELECT HAIR_SHOP_NUMBER, HAIR_SHOP_ADDRESS, HAIR_SHOP_PHONE_NUMBER, HAIR_SHOP_OPEN_TIME,
-               HAIR_SHOP_NAME, HAIR_SHOP_LINK, HAIR_SHOP_CONTENT, H.USER_NUMBER
-        FROM TBL_HAIR_SHOP H JOIN TBL_USER U
-                                  ON H.HAIR_SHOP_NUMBER = #{hairShopNumber} AND H.USER_NUMBER = U.USER_NUMBER
+    <!-- 케어샵 조회 -->
+    <select id="select" resultType="careShopVo">
+        SELECT CARE_SHOP_NUMBER, CARE_SHOP_ADDRESS, CARE_SHOP_PHONE_NUMBER, CARE_SHOP_OPEN_TIME,
+               CARE_SHOP_NAME, CARE_SHOP_LINK, CARE_SHOP_CONTENT, H.USER_NUMBER
+        FROM TBL_CARE_SHOP H JOIN TBL_USER U
+                                  ON H.CARE_SHOP_NUMBER = #{careShopNumber} AND H.USER_NUMBER = U.USER_NUMBER
     </select>
 
-    <!-- 헤어샵 추가 -->
+    <!-- 케어샵 추가 -->
     <insert id="insert">
-        <selectKey keyProperty="hairShopNumber" order="BEFORE" resultType="long">
-            SELECT SEQ_HAIR_SHOP.NEXTVAL FROM DUAL
+        <selectKey keyProperty="careShopNumber" order="BEFORE" resultType="long">
+            SELECT SEQ_CARE_SHOP.NEXTVAL FROM DUAL
         </selectKey>
-        INSERT INTO TBL_HAIR_SHOP(HAIR_SHOP_NUMBER, HAIR_SHOP_ADDRESS, HAIR_SHOP_PHONE_NUMBER, HAIR_SHOP_OPEN_TIME,
-        HAIR_SHOP_NAME, HAIR_SHOP_LINK, HAIR_SHOP_CONTENT, USER_NUMBER)
-        VALUES(#{hairShopNumber}, #{hairShopAddress}, #{hairShopPhoneNumber}, #{hairShopOpenTime},
-        #{hairShopName}, #{hairShopLink}, #{hairShopContent, jdbcType=CLOB}, #{userNumber})
+        INSERT INTO TBL_CARE_SHOP(CARE_SHOP_NUMBER, CARE_SHOP_ADDRESS, CARE_SHOP_PHONE_NUMBER, CARE_SHOP_OPEN_TIME,
+        CARE_SHOP_NAME, CARE_SHOP_LINK, CARE_SHOP_CONTENT, USER_NUMBER)
+        VALUES(#{careShopNumber}, #{careShopAddress}, #{careShopPhoneNumber}, #{careShopOpenTime},
+        #{careShopName}, #{careShopLink}, #{careShopContent, jdbcType=CLOB}, #{userNumber})
     </insert>
 
-    <!-- 헤어샵 삭제 -->
+    <!-- 케어샵 삭제 -->
     <delete id="delete">
-        DELETE FROM TBL_HAIR_SHOP
-        WHERE HAIR_SHOP_NUMBER = #{hairShopNumber}
+        DELETE FROM TBL_CARE_SHOP
+        WHERE CARE_SHOP_NUMBER = #{careShopNumber}
     </delete>
 
-    <!-- 헤어샵 수정 -->
+    <!-- 케어샵 수정 -->
     <update id="update">
-        UPDATE TBL_HAIR_SHOP
-        SET HAIR_SHOP_ADDRESS = #{hairShopAddress}, HAIR_SHOP_PHONE_NUMBER = #{hairShopPhoneNumber},
-            HAIR_SHOP_OPEN_TIME = #{hairShopOpenTime}, HAIR_SHOP_NAME = #{hairShopName},
-            HAIR_SHOP_LINK = #{hairShopLink}, HAIR_SHOP_CONTENT = #{hairShopContent}
-        WHERE HAIR_SHOP_NUMBER = #{hairShopNumber}
+        UPDATE TBL_CARE_SHOP
+        SET CARE_SHOP_ADDRESS = #{careShopAddress}, CARE_SHOP_PHONE_NUMBER = #{careShopPhoneNumber},
+            CARE_SHOP_OPEN_TIME = #{careShopOpenTime}, CARE_SHOP_NAME = #{careShopName},
+            CARE_SHOP_LINK = #{careShopLink}, CARE_SHOP_CONTENT = #{careShopContent}
+        WHERE CARE_SHOP_NUMBER = #{careShopNumber}
     </update>
 
-    <!-- 헤어샵 검색 -->
-    <select id="search" resultType="hairShopVo">
-        SELECT HAIR_SHOP_NUMBER, HAIR_SHOP_NAME, HAIR_SHOP_ADDRESS,
-        HAIR_SHOP_FILE_UPLOAD_PATH, HAIR_SHOP_FILE_UUID, HAIR_SHOP_FILE_NAME,
+    <!-- 케어샵 검색 -->
+    <select id="search" resultType="careShopVo">
+        SELECT CARE_SHOP_NUMBER, CARE_SHOP_NAME, CARE_SHOP_ADDRESS,
+        CARE_SHOP_FILE_UPLOAD_PATH, CARE_SHOP_FILE_UUID, CARE_SHOP_FILE_NAME,
         USER_NUMBER, MEMBERSHIP_NUMBER
         FROM (
-        SELECT ROWNUM AS RNUM, HAIR_SHOP_NUMBER, HAIR_SHOP_NAME,
-        HAIR_SHOP_ADDRESS, HAIR_SHOP_FILE_UPLOAD_PATH, HAIR_SHOP_FILE_UUID,
-        HAIR_SHOP_FILE_NAME, USER_NUMBER, MEMBERSHIP_NUMBER
+        SELECT ROWNUM AS RNUM, CARE_SHOP_NUMBER, CARE_SHOP_NAME,
+        CARE_SHOP_ADDRESS, CARE_SHOP_FILE_UPLOAD_PATH, CARE_SHOP_FILE_UUID,
+        CARE_SHOP_FILE_NAME, USER_NUMBER, MEMBERSHIP_NUMBER
         FROM (
-        SELECT H.HAIR_SHOP_NUMBER, HAIR_SHOP_NAME, HAIR_SHOP_ADDRESS,
-        HAIR_SHOP_FILE_UPLOAD_PATH, HAIR_SHOP_FILE_UUID, HAIR_SHOP_FILE_NAME,
+        SELECT H.CARE_SHOP_NUMBER, CARE_SHOP_NAME, CARE_SHOP_ADDRESS,
+        CARE_SHOP_FILE_UPLOAD_PATH, CARE_SHOP_FILE_UUID, CARE_SHOP_FILE_NAME,
         U.USER_NUMBER, MEMBERSHIP_NUMBER
         FROM TBL_USER U
-        JOIN TBL_HAIR_SHOP H ON U.USER_NUMBER = H.USER_NUMBER
+        JOIN TBL_CARE_SHOP H ON U.USER_NUMBER = H.USER_NUMBER
         LEFT JOIN (
-        SELECT HAIR_SHOP_FILE_NUMBER, HAIR_SHOP_FILE_UPLOAD_PATH,
-        HAIR_SHOP_FILE_UUID, HAIR_SHOP_FILE_NAME, HAIR_SHOP_NUMBER
+        SELECT CARE_SHOP_FILE_NUMBER, CARE_SHOP_FILE_UPLOAD_PATH,
+        CARE_SHOP_FILE_UUID, CARE_SHOP_FILE_NAME, CARE_SHOP_NUMBER
         FROM (
-        SELECT HAIR_SHOP_FILE_NUMBER, HAIR_SHOP_FILE_UPLOAD_PATH,
-        HAIR_SHOP_FILE_UUID, HAIR_SHOP_FILE_NAME, HAIR_SHOP_NUMBER,
-        RANK() OVER (PARTITION BY HAIR_SHOP_NUMBER ORDER BY HAIR_SHOP_FILE_NUMBER) RK
-        FROM TBL_HAIR_SHOP_FILE
+        SELECT CARE_SHOP_FILE_NUMBER, CARE_SHOP_FILE_UPLOAD_PATH,
+        CARE_SHOP_FILE_UUID, CARE_SHOP_FILE_NAME, CARE_SHOP_NUMBER,
+        RANK() OVER (PARTITION BY CARE_SHOP_NUMBER ORDER BY CARE_SHOP_FILE_NUMBER) RK
+        FROM TBL_CARE_SHOP_FILE
         )
         WHERE RK = 1
-        ) J ON H.HAIR_SHOP_NUMBER = J.HAIR_SHOP_NUMBER
-        WHERE
+        ) J ON H.CARE_SHOP_NUMBER = J.CARE_SHOP_NUMBER
+        <where>
         <choose>
             <when test="'title'.equals(search.searchType)">
-                HAIR_SHOP_NAME LIKE '%' || #{search.keyword} || '%'
+                CARE_SHOP_NAME LIKE '%' || #{search.keyword} || '%'
             </when>
             <when test="'address'.equals(search.searchType)">
-                HAIR_SHOP_ADDRESS LIKE '%' || #{search.keyword} || '%'
+                CARE_SHOP_ADDRESS LIKE '%' || #{search.keyword} || '%'
             </when>
             <otherwise></otherwise>
         </choose>
-        ORDER BY H.HAIR_SHOP_NUMBER DESC
+        </where>
+        ORDER BY H.CARE_SHOP_NUMBER DESC
         ) T1
         <![CDATA[
     WHERE ROWNUM <= #{criteria.page} * #{criteria.amount}
@@ -121,19 +122,21 @@
         WHERE RNUM > (#{criteria.page} - 1) * #{criteria.amount}
     </select>
 
-    <!-- 헤어샵 검색 개수 -->
+    <!-- 케어샵 검색 개수 -->
     <select id="searchTotal" resultType="_int">
-        SELECT COUNT(HAIR_SHOP_NUMBER)
-        FROM TBL_HAIR_SHOP
-        WHERE
+        SELECT COUNT(CARE_SHOP_NUMBER)
+        FROM TBL_CARE_SHOP
+        <where>
         <choose>
             <when test="'title'.equals(search.searchType)">
-                HAIR_SHOP_NAME LIKE '%' || #{search.keyword} || '%'
+                CARE_SHOP_NAME LIKE '%' || #{search.keyword} || '%'
             </when>
             <when test="'address'.equals(search.searchType)">
-                HAIR_SHOP_ADDRESS LIKE '%' || #{search.keyword} || '%'
+                CARE_SHOP_ADDRESS LIKE '%' || #{search.keyword} || '%'
             </when>
             <otherwise></otherwise>
         </choose>
+        </where>
     </select>
+
 </mapper>

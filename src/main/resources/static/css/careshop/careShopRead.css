@@ -16,7 +16,7 @@
 
 .img-box .material-symbols-rounded{
     background-color: rgba(255, 255, 255, 0.76);
-    box-shadow: 0 0 0 1px transparent, 0 0 0 4px transparent, 0 2px 4px rgba(0 0 0 / 18%);
+    box-shadow: 0 0 0 1px transparent, 0 0 0 4px transparent, 0 2px 4px rgba(0, 0, 0, 0.18);
     border-radius: 50%;
     color: #222;
     font-size: 32px;
@@ -42,9 +42,16 @@
     overflow: hidden;
 }
 
-.img-main img{
-    min-width: 1200px; min-height: 800px;
+.img-main li{
+    width: 1200px; height: 800px;
     text-align: center;
+}
+
+.img-main img{
+    background-color: #efefef;
+    min-width: 1200px; min-height: 800px;
+    max-width: 1200px; max-height: 800px;
+    object-fit: contain;
 }
 
 .img-main-box{
@@ -59,15 +66,21 @@
     width: 1200px;
 }
 
-.img-sub ul{
+.img-sub-box{
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     gap: calc(40px / 3);
-    margin: calc(40px / 3);
+    margin: calc(40px / 3) 0;
+}
+
+.img-sub li{
+    width: 290px;
+    height: 163.13px;
+    overflow: hidden;
 }
 
 .img-sub img{
-    width: 290px;
+    width: 290px; min-height: 163.13px;
 }
 
 /* 장소 정보 */

@@ -31,9 +31,10 @@ public class HairShopController {
 
     // list 페이지 띄우기 및 전체 게시물 조회하기
     @GetMapping("/list")
-    public String hairshopList(Criteria03 criteria03, Model model, HttpServletRequest req){
+    public String hairshopList(Criteria03 criteria03, Model model, HttpServletRequest req, SearchVo searchVo){
         List<HairShopVo> hairShopList = hairShopService.findAll(criteria03);
         model.addAttribute("hairShopList", hairShopList);
+        model.addAttribute("search", searchVo);
         model.addAttribute("pageInfo", new Page03Vo(criteria03, hairShopService.getTotal()));
 
         return "hairshop/styleshopList";
