@@ -1,5 +1,6 @@
 package com.example.hairnada.service.admin;
 
+import com.example.hairnada.dto.buy.AdminBuyDto;
 import com.example.hairnada.dto.hair.HairDto;
 import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.dto.user.UserDto;
@@ -131,5 +132,35 @@ public class AdminService {
 
         return Optional.ofNullable(adminMapper.selectHairListByName(hairName))
                 .orElseThrow(()-> {throw new IllegalArgumentException("일치하는 게시글이 없습니다 !!");});
+    }
+
+    // 미완료 배송 목록 조회
+    public List<AdminBuyDto> findIncompleteList(CriteriaAdmin criteriaAdmin){
+        return adminMapper.selectIncompleteRequest(criteriaAdmin);
+    }
+
+    // 미완료 건 수
+    @Transactional(readOnly = true)
+    public int getIncompleteTotal(){
+        return adminMapper.incompleteTotal();
+    }
+
+    // 배송 완료 목록 조회
+    public List<AdminBuyDto> findCompleteList(CriteriaAdmin criteriaAdmin){
+        return adminMapper.selectCompleteList(criteriaAdmin);
+    }
+
+    // 완료 건 수
+    @Transactional(readOnly = true)
+    public int getCompleteTotal(){
+        return adminMapper.completeTotal();
+    }
+
+    // 배송 상태 변경
+    public void modifyDeliveryStatus(Long deliveryNumber, Long buyNumber){
+        if (deliveryNumber == null || buyNumber == null) {
+            throw new IllegalArgumentException("배송 변경 정보 누락");
+        }
+        adminMapper.updateDelivery(deliveryNumber, buyNumber);
     }
 }

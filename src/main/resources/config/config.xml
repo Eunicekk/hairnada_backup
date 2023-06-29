@@ -46,5 +46,7 @@
 
         <typeAlias type="com.example.hairnada.vo.page.Criteria03" alias="criteria03" />
 
+        <typeAlias type="com.example.hairnada.dto.buy.AdminBuyDto" alias="adminBuyDto"/>
+
     </typeAliases>
 </configuration>

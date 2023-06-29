@@ -137,17 +137,73 @@
 
 <!-- 상품 게시글 목록 조회 -->
  <select id="selectStoreList" resultType="storeDto">
-    SELECT RNUM, STORE_NUMBER , STORE_TITLE , STORE_PRICE , STORE_CATEGORY_NUMBER, STORE_CATEGORY_NAME  FROM(
-    SELECT ROWNUM AS RNUM, STORE_NUMBER , STORE_TITLE , STORE_PRICE , STORE_CATEGORY_NUMBER, STORE_CATEGORY_NAME  FROM(
-    SELECT STORE_NUMBER , STORE_TITLE , STORE_PRICE , ts.STORE_CATEGORY_NUMBER, tsc.STORE_CATEGORY_NAME  FROM TBL_STORE ts
-    JOIN TBL_STORE_CATEGORY tsc
-    ON tsc.STORE_CATEGORY_NUMBER  = ts.STORE_CATEGORY_NUMBER)
-    <![CDATA[
+  SELECT
+   STORE_NUMBER ,
+   STORE_TITLE ,
+   STORE_PRICE ,
+   STORE_CATEGORY_NAME,
+   STORE_FILE_NAME,
+   STORE_FILE_UPLOAD_PATH,
+   STORE_FILE_UUID
+  FROM
+   (
+    SELECT
+     ROWNUM AS RNUM ,
+     STORE_NUMBER ,
+     STORE_TITLE ,
+     STORE_PRICE ,
+     STORE_CATEGORY_NAME,
+     STORE_FILE_NAME,
+     STORE_FILE_UPLOAD_PATH,
+     STORE_FILE_UUID
+    FROM
+     (
+      SELECT
+       ts.STORE_NUMBER ,
+       ts.STORE_TITLE ,
+       ts.STORE_PRICE ,
+       ts.STORE_CATEGORY_NUMBER,
+       tsf.STORE_FILE_NAME,
+       STORE_FILE_UPLOAD_PATH,
+       STORE_FILE_UUID,
+       tsc.STORE_CATEGORY_NAME
+      FROM
+       TBL_STORE ts
+        JOIN TBL_STORE_CATEGORY tsc
+             ON
+              ts.STORE_CATEGORY_NUMBER = tsc.STORE_CATEGORY_NUMBER
+        LEFT JOIN
+       (
+        SELECT
+         STORE_FILE_NUMBER ,
+         STORE_FILE_NAME ,
+         STORE_FILE_UPLOAD_PATH ,
+         STORE_FILE_UUID ,
+         STORE_NUMBER
+        FROM
+         (
+          SELECT
+           STORE_FILE_NUMBER ,
+           STORE_FILE_NAME ,
+           STORE_FILE_UPLOAD_PATH ,
+           STORE_FILE_UUID ,
+           STORE_NUMBER ,
+           RANK() OVER(PARTITION BY STORE_NUMBER ORDER BY STORE_FILE_NUMBER) RK
+          FROM
+           TBL_STORE_FILE)
+        WHERE
+         RK = 1) tsf
+       ON
+        ts.STORE_NUMBER = tsf.STORE_NUMBER
+      ORDER BY
+       ts.STORE_NUMBER DESC)
+<![CDATA[
     WHERE
-    ROWNUM <= #{page} * #{amount}
-     ]]>)
-    WHERE
-    RNUM > (#{page} - 1 ) * #{amount}
+     ROWNUM <= #{page} * #{amount}
+             ]]>
+        )
+  WHERE
+   RNUM > (#{page} - 1 ) * #{amount}
  </select>
 
 <!-- 스토어 게시글 수 -->
@@ -257,5 +313,122 @@
   INSERT INTO TBL_HAIR (HAIR_NUMBER, HAIR_NAME, HAIR_CONTENT, HAIR_GENDER, SHAPE_NUMBER, LENGTH_NUMBER)
   VALUES (#{hairNumber}, #{hairName}, #{hairContent}, #{hairGender}, #{shapeNumber}, #{lengthNumber})
  </insert>
+
+<!-- 배송 미완료 건 조회 -->
+ <select id="selectIncompleteRequest" resultType="adminBuyDto">
+  SELECT
+   BUY_NUMBER ,
+   USER_NAME ,
+   BUY_ADDRESS ,
+   BUY_MSG ,
+   STORE_TITLE ,
+   DELIVERY_NUMBER
+  FROM
+   (
+    SELECT
+     ROWNUM AS RNUM,
+     BUY_NUMBER ,
+     USER_NAME,
+     BUY_ADDRESS ,
+     BUY_MSG ,
+     DELIVERY_NUMBER,
+     STORE_TITLE
+    FROM
+     (
+      SELECT
+       BUY_NUMBER,
+       tu.USER_NAME ,
+       BUY_ADDRESS || ' ' || BUY_ADDRESS_DETAIL AS BUY_ADDRESS ,
+       BUY_MSG ,
+       DELIVERY_NUMBER ,
+       ts.STORE_TITLE
+      FROM
+       TBL_BUY tb
+        JOIN TBL_STORE ts
+             ON
+              tb.STORE_NUMBER = ts.STORE_NUMBER
+        JOIN TBL_USER tu
+             ON
+              tb.USER_NUMBER = tu.USER_NUMBER
+      WHERE
+       DELIVERY_NUMBER != 3
+      ORDER BY
+       BUY_NUMBER DESC)
+	<![CDATA[
+    WHERE
+     ROWNUM <= #{page} * #{amount}
+             ]]>
+        )
+  WHERE
+   RNUM > (#{page} - 1 ) * #{amount}
+ </select>
+
+<!-- 미완료 배송 목록 수 -->
+ <select id="incompleteTotal" resultType="_int">
+  SELECT COUNT(BUY_NUMBER) FROM TBL_BUY tb
+  WHERE DELIVERY_NUMBER != 3
+ </select>
+
+<!-- 배송 완료 목록 -->
+ <select id="selectCompleteList" resultType="adminBuyDto">
+  SELECT
+   BUY_NUMBER ,
+   USER_NAME ,
+   BUY_ADDRESS ,
+   BUY_MSG ,
+   STORE_TITLE ,
+   DELIVERY_NUMBER
+  FROM
+   (
+    SELECT
+     ROWNUM AS RNUM,
+     BUY_NUMBER ,
+     USER_NAME,
+     BUY_ADDRESS ,
+     BUY_MSG ,
+     DELIVERY_NUMBER,
+     STORE_TITLE
+    FROM
+     (
+      SELECT
+       BUY_NUMBER,
+       tu.USER_NAME ,
+       BUY_ADDRESS || ' ' || BUY_ADDRESS_DETAIL AS BUY_ADDRESS ,
+       BUY_MSG ,
+       DELIVERY_NUMBER ,
+       ts.STORE_TITLE
+      FROM
+       TBL_BUY tb
+        JOIN TBL_STORE ts
+             ON
+              tb.STORE_NUMBER = ts.STORE_NUMBER
+        JOIN TBL_USER tu
+             ON
+              tb.USER_NUMBER = tu.USER_NUMBER
+      WHERE
+       DELIVERY_NUMBER = 3
+      ORDER BY
+       BUY_NUMBER DESC)
+	<![CDATA[
+    WHERE
+     ROWNUM <= #{page} * #{amount}
+             ]]>
+        )
+  WHERE
+   RNUM > (#{page} - 1 ) * #{amount}
+ </select>
+
+<!-- 배송 완료 전체 수 -->
+ <select id="completeTotal" resultType="_int">
+  SELECT COUNT(BUY_NUMBER) FROM TBL_BUY tb
+  WHERE DELIVERY_NUMBER = 3
+ </select>
+
+<!-- 배송 상태 변경 -->
+ <update id="updateDelivery">
+  UPDATE TBL_BUY
+  SET DELIVERY_NUMBER = #{deliveryNumber}
+  WHERE BUY_NUMBER = #{buyNumber}
+ </update>
 
 </mapper>

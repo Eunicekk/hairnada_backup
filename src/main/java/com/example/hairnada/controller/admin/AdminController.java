@@ -1,5 +1,6 @@
 package com.example.hairnada.controller.admin;
 
+import com.example.hairnada.dto.buy.AdminBuyDto;
 import com.example.hairnada.dto.hair.HairDto;
 import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.dto.user.UserDto;
@@ -12,8 +13,6 @@ import com.example.hairnada.vo.page.CriteriaAdminList;
 import com.example.hairnada.vo.page.PageAdminListVo;
 import com.example.hairnada.vo.page.PageAdminVo;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +26,6 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
 
 @Controller
 @RequestMapping("/admin/*")
@@ -52,7 +50,14 @@ public class AdminController {
 
     // 배송 관리
     @GetMapping("/delivery")
-    public void delivery(){}
+    public void delivery(CriteriaAdmin criteriaAdmin, Model model){
+        List<AdminBuyDto> incompleteList = adminService.findIncompleteList(criteriaAdmin);
+        model.addAttribute("incompleteList", incompleteList);
+        model.addAttribute("pageInfo", new PageAdminVo(criteriaAdmin, adminService.getIncompleteTotal()));
+        model.addAttribute("incompleteTotal", adminService.getIncompleteTotal());
+        model.addAttribute("completeTotal", adminService.getCompleteTotal());
+    }
+
 
     // 헤어 리스트
     @GetMapping("/hairList")

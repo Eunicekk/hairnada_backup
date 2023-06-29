@@ -114,4 +114,6 @@ class AdminMapperTest {
         assertThat(hairList.get(0).getHairName()).isEqualTo("테슬컷");
     }
 
+
+
 }

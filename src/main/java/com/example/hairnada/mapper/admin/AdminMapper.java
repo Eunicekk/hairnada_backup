@@ -1,5 +1,6 @@
 package com.example.hairnada.mapper.admin;
 
+import com.example.hairnada.dto.buy.AdminBuyDto;
 import com.example.hairnada.dto.hair.HairDto;
 import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.dto.user.UserDto;
@@ -60,5 +61,21 @@ public interface AdminMapper {
 
     // 제목으로 헤어 검색
     public List<HairDto> selectHairListByName(@Param("hairName")String hairName);
+
+    // 배송 미완료 목록 조회
+    public List<AdminBuyDto> selectIncompleteRequest(CriteriaAdmin criteriaAdmin);
+
+    // 배송 미완료 목록 수
+    public int incompleteTotal();
+
+    // 배송 완료 목록 조회
+    public List<AdminBuyDto> selectCompleteList(CriteriaAdmin criteriaAdmin);
+
+    // 배송 완료 목록 수
+    public int completeTotal();
+
+    // 배송 상태 변경
+    public void updateDelivery(@Param("deliveryNumber")Long deliveryNumber, @Param("buyNumber")Long buyNumber);
+
 
 }
