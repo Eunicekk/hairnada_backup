@@ -47,7 +47,7 @@ public class UserController {
             e.printStackTrace();
             return new RedirectView("/user/login");
         }
-        return new RedirectView("/main");
+        return new RedirectView("/");
     }
 
 

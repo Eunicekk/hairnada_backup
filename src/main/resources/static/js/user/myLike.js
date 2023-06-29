@@ -9,14 +9,30 @@ $(document).ready(function () {
 
     let number = $(this).text();
     communityPage(number);
-  })
+  });
 
   $('.pagination').on('click', '.li__hair', function (e){
     e.preventDefault();
 
     let number = $(this).text();
     hairPage(number);
-  })
+  });
+
+  $('.pagination').on('click', '.li__hair_shop', function (e){
+    e.preventDefault();
+
+    let number = $(this).text();
+    hairShopPage(number);
+  });
+
+  $('.pagination').on('click', '.li_store', function (e){
+    e.preventDefault();
+
+    let number = $(this).text();
+    storePage(number);
+  });
+
+
 });
 
 function LikeImg() {
@@ -83,22 +99,22 @@ $("#my-community-text").on("click", function(){
 
 // 미용실 좋아요 모음
 $("#my-hairshop-text").on("click", function () {
-  $(".communityList").html(getHairShop);
-  LikeImg();
+  hairShopPage(1);
 });
 
 // 제품 좋아요 모음
 $("#my-product-text").on("click", function () {
-  $(".communityList").html(getProduct);
-  LikeImg();
+  storePage(1);
 
-  // 장바구니 클릭시 나타나는 문구
-  $(".basket").click(function () {
-    alert("장바구니에 추가하였습니다!");
-  });
 });
 
-// 헤어스타일 좋아요 모음
+// 헤어스타일 좋아요
+$("#my-style-text").on("click", function () {
+  // $(".communityList").html(getStyle);
+  hairPage(1);
+});
+
+// 헤어스타일 좋아요 ajax
 function hairPage(page){
   let tagList = '';
   $.ajax({
@@ -139,18 +155,87 @@ function hairPage(page){
   //   });
   // });
 }
-$("#my-style-text").on("click", function () {
-  // $(".communityList").html(getStyle);
-  hairPage(1);
-});
 
-let urlParam = "/user/login";
-$.ajax({
- url : urlParam
-})
+// 제품 좋아요
+function storePage(page){
+  let tagList = '';
+  $.ajax({
+    url: `/users/likeStore/${page}`,
+    type: "GET",
+    success: function (result) {
+      tagList = getProduct(result.likeStore);
+      $(".communityList").html(tagList);
+      LikeImg();
+
+      // 장바구니 클릭시 나타나는 문구
+      $(".basket").click(function () {
+        alert("장바구니에 추가하였습니다!");
+      });
+
+
+      let pageNum = '';
+      let pageinfo = result.pageinfo;
+
+      if (pageinfo.prev) {
+        pageNum += `<li class="li_store"><a href="#" class="prev">&laquo;</a></li>`;
+      }
+
+      for (let i = pageinfo.startPage; i <= pageinfo.endPage; i++) {
+        if (pageinfo.criteria.page == i) {
+          pageNum += `<li class="li_store"><a href="#" class="active">${i}</a></li>`;
+        } else {
+          pageNum += `<li class="li_store"><a href="#" >${i}</a></li>`;
+        }
+      }
+
+      if (pageinfo.next) {
+        pageNum += `<li class="li_store"><a href="#" class="next">&raquo;</a></li>`;
+      }
+
+      $('.pagination ul').html(pageNum);
+    }
+  });
+}
 
 
 
+// 미용실 좋아요 모음
+function hairShopPage(page) {
+  let tagList = '';
+  $.ajax({
+    url: `/users/likeHairShop/${page}`,
+    type: "GET",
+    success: function (result) {
+      tagList = getHairShop(result.likeShop);
+      $(".communityList").html(tagList);
+      LikeImg();
+
+      let pageNum = '';
+      let pageinfo = result.pageinfo;
+
+      if (pageinfo.prev) {
+        pageNum += `<li class="li__hair_shop"><a href="#" class="prev">&laquo;</a></li>`;
+      }
+
+      for (let i = pageinfo.startPage; i <= pageinfo.endPage; i++) {
+        if (pageinfo.criteria.page == i) {
+          pageNum += `<li class="li__hair_shop"><a href="#" class="active">${i}</a></li>`;
+        } else {
+          pageNum += `<li class="li__hair_shop"><a href="#" >${i}</a></li>`;
+        }
+      }
+
+      if (pageinfo.next) {
+        pageNum += `<li class="li__hair_shop"><a href="#" class="next">&raquo;</a></li>`;
+      }
+
+      $('.pagination ul').html(pageNum);
+    }
+  });
+}
+
+
+// 커뮤니티 좋아요
 function getCommunity(obj) {
   console.log(obj)
   let text = '';
@@ -197,169 +282,64 @@ function getCommunity(obj) {
   return text;
 }
 
-function getHairShop() {
-  return `
-  <div class="main">
-  <!-- 리스트 -->
-  <div class="style-content">
-      <ul class="style-box">
-      <!-- 첫번째 -->
-      <li class="ListLi">
-          <a href="#">
-              <div class="img-list">
-                  <div class="main-img">
-                      <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800" alt="썸네일">
-                    </div>
-              </div>
-          </a>
-          <div class="titleAndBtn">
-              <p class="shop-title">매장명입니다</p>
-              <div class="buttons">
-                  <button type="button" class="like">하트</button>
-              </div>
-          </div>
-          <div class="address-box">
-              <span class="address">상세 주소 어쩌구 저쩌구</span>
-          </div>
-      </li>
-      <!-- 두번째 -->
-      <li class="ListLi">
-          <a href="#">
-              <div class="img-list">
-                  <div class="main-img">
-                      <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800" alt="썸네일">
-                    </div>
-              </div>
-          </a>
-          <div class="titleAndBtn">
-              <p class="shop-title">매장명입니다</p>
-              <div class="buttons">
-                  <button type="button" class="like">하트</button>
-              </div>
-          </div>
-          <div class="address-box">
-              <span class="address">상세 주소 어쩌구 저쩌구</span>
-          </div>
-      </li>
-      <!-- 세번째 -->
-      <li class="ListLi">
-          <a href="#">
-              <div class="img-list">
-                  <div class="main-img">
-                      <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800" alt="썸네일">
-                    </div>
-              </div>
-          </a>
-          <div class="titleAndBtn">
-              <p class="shop-title">매장명입니다</p>
-              <div class="buttons">
-                  <button type="button" class="like">하트</button>
-              </div>
-          </div>
-          <div class="address-box">
-              <span class="address">상세 주소 어쩌구 저쩌구</span>
-          </div>
-      </li>
-      <!-- 네번째 -->
-      <li class="ListLi">
-          <a href="#">
-              <div class="img-list">
-                  <div class="main-img">
-                      <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800" alt="썸네일">
-                    </div>
-              </div>
-          </a>
-          <div class="titleAndBtn">
-              <p class="shop-title">매장명입니다</p>
-              <div class="buttons">
-                  <button type="button" class="like">하트</button>
-              </div>
-          </div>
-          <div class="address-box">
-              <span class="address">상세 주소 어쩌구 저쩌구</span>
-          </div>
-      </li>
-      <!-- 다섯번째 -->
-      <li class="ListLi">
-          <a href="#">
-              <div class="img-list">
-                  <div class="main-img">
-                      <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800" alt="썸네일">
-                    </div>
-              </div>
-          </a>
-          <div class="titleAndBtn">
-              <p class="shop-title">매장명입니다</p>
-              <div class="buttons">
-                  <button type="button" class="like">하트</button>
-              </div>
-          </div>
-          <div class="address-box">
-              <span class="address">상세 주소 어쩌구 저쩌구</span>
-          </div>
-      </li>
-      <!-- 여섯번째 -->
-      <li class="ListLi">
-          <a href="#">
-              <div class="img-list">
-                  <div class="main-img">
-                      <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800" alt="썸네일">
-                    </div>
-              </div>
-          </a>
-          <div class="titleAndBtn">
-              <p class="shop-title">매장명입니다</p>
-              <div class="buttons">
-                  <button type="button" class="like">하트</button>
-              </div>
-          </div>
-          <div class="address-box">
-              <span class="address">상세 주소 어쩌구 저쩌구</span>
-          </div>
-      </li>
-      </ul>
-  </div>
+// 미용실 좋아요
+function getHairShop(obj) {
+  console.log(obj)
+  let text = '';
 
-  <!-- 페이징 처리 -->
-  <div class="pagination">
-      <ul>
-        <li><a href="#" class="prev">&laquo;</a></li>
-        <li><a href="#" class="active">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#" class="next">&raquo;</a></li>
-      </ul>
-    </div>
+  text += `<ul class="ListUl">`;
 
-</div>
+  for(let i=0; i<obj.length; i++) {
+    text += `
+      <li class="ListLi">
+          <a href="#">
+              <div class="img-list">
+                  <div class="main-img">
+                      <img src="/upload/${obj[i].hairShopFileUploadPath}/th_${obj[i].hairShopFileUuid}_${obj[i].hairShopFileName}" alt="썸네일">
+                    </div>
+              </div>
+          </a>
+          <div class="titleAndBtn">
+              <p class="shop-title">${obj[i].hairShopName}</p>
+              <div class="buttons">
+                  <button type="button" class="like">하트</button>
+              </div>
+          </div>
+          <div class="address-box">
+              <span class="address">${obj[i].hairShopAddress}</span>
+          </div>
+      </li>
   `;
+  }
+  text+= `</ul>`;
+
+  return text;
 }
 
-function getProduct() {
-  return `
-  <div class="container">
-      <!-- 배너 -->
-      
 
-      <article class="holder">
-        <div class="communityList cL">
-          <ul class="ListUl">
+
+function getProduct(obj) {
+  console.log(obj)
+  let text = '';
+
+  text += `<ul class="ListUl">`;
+
+  for(let i=0; i<obj.length; i++){
+    text += `
             <!-- 첫번째 -->
             <li class="ListLi">
               <a href="">
                 <div class="img-list">
                   <div class="main-img">
                     <img
-                      src="https://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0014/A00000014950306ko.jpg?l=ko"
+                      src="/upload/${obj[i].storeFileUploadPath}/th_${obj[i].storeFileUuid}_${obj[i].storeFileName}"
                       alt="제품 이미지"
                     />
                   </div>
                 </div>
               </a>
               <div class="titleAndBnt">
-                <p class="product-title">제품이름이여유</p>
+                <p class="product-title">${obj[i].storeTitle}</p>
                 <div class="profile">
                   <button id="basketButton" type="button" class="basket">
                     구매
@@ -370,87 +350,17 @@ function getProduct() {
                 </div>
               </div>
               <div class="productInformation">
-                <p class="productCate">트리트먼트/팩</p>
-                <p class="productPrice">₩ <span class="price">22000</span></p>
+                <p class="productCate">${obj[i].storeCategoryName}</p>
+                <p class="productPrice">₩ <span class="price">${obj[i].storePrice}</span></p>
               </div>
             </li>
 
-            <!-- 두번째 -->
-            <li class="ListLi">
-              <a href="">
-                <div class="img-list">
-                  <div class="main-img">
-                    <img
-                      src="https://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0014/A00000014950306ko.jpg?l=ko"
-                      alt="제품 이미지"
-                    />
-                  </div>
-                </div>
-              </a>
-              <div class="titleAndBnt">
-                <p class="product-title">제품이름이여유</p>
-                <div class="profile">
-                  <button id="basketButton" type="button" class="basket">
-                    구매
-                  </button>
-                  <div class="buttons">
-                    <button type="button" class="like">하트</button>
-                  </div>
-                </div>
-              </div>
-              <div class="productInformation">
-                <p class="productCate">트리트먼트/팩</p>
-                <p class="productPrice">₩ <span class="price">22000</span></p>
-              </div>
-            </li>
-
-            <!-- 세번째 -->
-            <li class="ListLi">
-              <a href="">
-                <div class="img-list">
-                  <div class="main-img">
-                    <img
-                      src="https://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0014/A00000014950306ko.jpg?l=ko"
-                      alt="제품 이미지"
-                    />
-                  </div>
-                </div>
-              </a>
-              <div class="titleAndBnt">
-                <p class="product-title">제품이름이여유</p>
-                <div class="profile">
-                  <button id="basketButton" type="button" class="basket">
-                    구매
-                  </button>
-                  <div class="buttons">
-                    <button type="button" class="like">하트</button>
-                  </div>
-                </div>
-              </div>
-              <div class="productInformation">
-                <p class="productCate">트리트먼트/팩</p>
-                <p class="productPrice">₩ <span class="price">22000</span></p>
-              </div>
-            </li>
-          </ul>
-        </div>
-
-        <!-- 페이징 처리 -->
-        <div class="pagination">
-          <ul>
-            <li><a href="#" class="prev">&laquo;</a></li>
-            <li><a href="#" class="active">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#" class="next">&raquo;</a></li>
-          </ul>
-        </div>
-      </article>
-    </div>
+            
   `;
+  }
+  text+= `</ul>`;
 
+  return text;
 }
 
 function getStyle(obj) {
@@ -466,7 +376,7 @@ function getStyle(obj) {
               <a href="">
                 <div class="img-list">
                   <div class="main-img">
-                    <img src="https://img1.daumcdn.net/thumb/C360x360/?fname=https://mud-kage.kakao.com/dn/tiTz0/btsjboVScnc/36eDc0R0JCIeBLE6uPouDk/img_1080.jpg&scode=purple" alt="헤어스타일">
+                    <img src="/upload/${obj[i].hairFileUploadPath}/th_${obj[i].hairFileUuid}_${obj[i].hairFileName}" alt="헤어스타일">
                   </div>
                 </div>
               </a>
