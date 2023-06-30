@@ -39,7 +39,7 @@ public interface MyLikeMapper {
     public int getTotal4(Long userNumber);
 
 //    케어샵 좋아요
-    public List<CareShopVo> likeCareShop(@Param("userNumber")Long userNumber, @Param("criteria")Criteria11 criteria11);
+    public List<CareShopVo> likeCare(@Param("userNumber")Long userNumber, @Param("criteria")Criteria11 criteria11);
 
 //    케어샵 페이징
     public int getTotal5(Long userNumber);

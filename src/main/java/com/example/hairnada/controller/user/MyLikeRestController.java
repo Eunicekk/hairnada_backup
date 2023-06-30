@@ -100,17 +100,15 @@ public class MyLikeRestController {
 //    케어샵
     @GetMapping("/likeCareShop/{page}")
     public Map<String, Object> likeCareShop(HttpServletRequest req, @PathVariable("page")int page){
-        System.out.println("들어왔따~~~~~~~~~~~~~~~~~~~~~~~~~~~~1");
         Criteria11 criteria11 = new Criteria11();
         criteria11.setPage(page);
         Long userNumber = (Long)req.getSession().getAttribute("userNumber");
-        System.out.println("들어왔따~~~~~~~~~~~~~~~~~~~~~~~~~~~~2");
+
         List<CareShopVo> likeCare = myLikeService.likeCareShop(userNumber, criteria11);
         Page11Vo pageinfo = new Page11Vo(criteria11, myLikeService.getTotal5(userNumber));
-        System.out.println("들어왔따~~~~~~~~~~~~~~~~~~~~~~~~~~~~3");
+
         Map<String, Object> data = new HashMap<>();
         data.put("likeCare", likeCare);
-        System.out.println("들어왔따~~~~~~~~~~~~~~~~~~~~~~~~~~~~4");
         data.put("pageinfo", pageinfo);
 
         return data;

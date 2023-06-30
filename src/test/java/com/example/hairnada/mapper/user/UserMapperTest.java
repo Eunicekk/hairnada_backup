@@ -65,4 +65,14 @@ class UserMapperTest {
 
         assertThat(cnt).isEqualTo(1L);
     }
+
+    @Test
+    void userUpdate() {
+//        userMapper.join(userDto);
+//
+//        UserDto user = userMapper.userUpdate(userDto.getUserNumber());
+//
+//        assertThat(userDto.getUserPassword()).isEqualTo(user.getUserPassword());
+
+    }
 }

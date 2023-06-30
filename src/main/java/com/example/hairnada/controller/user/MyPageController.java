@@ -1,6 +1,8 @@
 package com.example.hairnada.controller.user;
 
+import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.service.user.MyPageService;
+import com.example.hairnada.service.user.UserService;
 import com.example.hairnada.vo.board.BoardVo;
 import com.example.hairnada.vo.page.Criteria03;
 import com.example.hairnada.vo.page.Page03Vo;
@@ -26,6 +28,7 @@ import java.util.List;
 public class MyPageController {
 
     private final MyPageService myPageService;
+    private final UserService userService;
 
     @GetMapping("/myPageMain")
     public void myPageMain(){
@@ -35,6 +38,17 @@ public class MyPageController {
     @GetMapping("/myPage")
     public void myPage(){
 
+    }
+
+    @PostMapping("/myPage")
+    public RedirectView userUpdate(HttpServletRequest req, UserDto userDto) {
+//        Long userNumber = (Long)req.getSession().getAttribute("userNumber");
+//
+//        req.setAttribute("userNumber", userNumber);
+        req.getSession().getAttribute("userNumber");
+        userService.userUpdate(userDto);
+
+        return new RedirectView("/user/myPage");
     }
 
     @GetMapping("/myBasket")

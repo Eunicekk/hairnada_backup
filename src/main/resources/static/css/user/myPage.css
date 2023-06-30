@@ -194,20 +194,35 @@ textarea {
 
 .female-box {
   margin-left: 90px;
-  width: 424px;
+  width: 425px;
   height: 45px;
   cursor: pointer;
   background-color: white;
   border: 1px solid #868585;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .male-box {
   margin-left: 12px;
-  width: 424px;
+  width: 425px;
   height: 45px;
   cursor: pointer;
   background-color: white;
   border: 1px solid #868585;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+/*
+.check-background {
+  background-color: #e0e0e0;
+} */
+
+#gender-f,
+#gender-m {
+  display: none;
 }
 
 .search-address:hover,
@@ -505,10 +520,25 @@ textarea:focus {
   margin: 40px auto;
 }
 
-.err-text {
+.pw-err-text{
   margin-left: 130px;
   font-size: 15px;
   color: red;
+  display: none;
+}
+
+.pw-err-text1{
+  margin-left: 130px;
+  font-size: 15px;
+  color: red;
+  display: none;
+}
+
+.pw-err-text2{
+  margin-left: 130px;
+  font-size: 15px;
+  color: green;
+  display: none;
 }
 
 .profile-img {

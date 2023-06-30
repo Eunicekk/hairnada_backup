@@ -87,7 +87,7 @@ public class MyLikeService {
             throw new IllegalArgumentException("회원정보 누락");
         }
 
-        return Optional.ofNullable(myLikeMapper.likeCareShop(userNumber, criteria11)).orElseThrow(()->{
+        return Optional.ofNullable(myLikeMapper.likeCare(userNumber, criteria11)).orElseThrow(()->{
             throw new IllegalArgumentException("좋아요한 게시글이 없습니다.");
         });
     }
