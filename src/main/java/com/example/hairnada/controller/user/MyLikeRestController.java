@@ -2,18 +2,17 @@ package com.example.hairnada.controller.user;
 
 import com.example.hairnada.service.user.MyLikeService;
 import com.example.hairnada.vo.board.BoardVo;
+import com.example.hairnada.vo.careshop.CareShopVo;
 import com.example.hairnada.vo.hairVo.HairVo;
 import com.example.hairnada.vo.hairVo.StoreVo;
 import com.example.hairnada.vo.hairshop.HairShopVo;
 import com.example.hairnada.vo.page.Criteria11;
-import com.example.hairnada.vo.page.Page03Vo;
 import com.example.hairnada.vo.page.Page11Vo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,6 +92,25 @@ public class MyLikeRestController {
 
         Map<String, Object> data = new HashMap<>();
         data.put("likeStore", likeStore);
+        data.put("pageinfo", pageinfo);
+
+        return data;
+    }
+
+//    케어샵
+    @GetMapping("/likeCareShop/{page}")
+    public Map<String, Object> likeCareShop(HttpServletRequest req, @PathVariable("page")int page){
+        System.out.println("들어왔따~~~~~~~~~~~~~~~~~~~~~~~~~~~~1");
+        Criteria11 criteria11 = new Criteria11();
+        criteria11.setPage(page);
+        Long userNumber = (Long)req.getSession().getAttribute("userNumber");
+        System.out.println("들어왔따~~~~~~~~~~~~~~~~~~~~~~~~~~~~2");
+        List<CareShopVo> likeCare = myLikeService.likeCareShop(userNumber, criteria11);
+        Page11Vo pageinfo = new Page11Vo(criteria11, myLikeService.getTotal5(userNumber));
+        System.out.println("들어왔따~~~~~~~~~~~~~~~~~~~~~~~~~~~~3");
+        Map<String, Object> data = new HashMap<>();
+        data.put("likeCare", likeCare);
+        System.out.println("들어왔따~~~~~~~~~~~~~~~~~~~~~~~~~~~~4");
         data.put("pageinfo", pageinfo);
 
         return data;

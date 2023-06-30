@@ -1,12 +1,11 @@
 package com.example.hairnada.service.user;
 
 import com.example.hairnada.mapper.user.MyLikeMapper;
-import com.example.hairnada.mapper.user.MyPageMapper;
 import com.example.hairnada.vo.board.BoardVo;
+import com.example.hairnada.vo.careshop.CareShopVo;
 import com.example.hairnada.vo.hairVo.HairVo;
 import com.example.hairnada.vo.hairVo.StoreVo;
 import com.example.hairnada.vo.hairshop.HairShopVo;
-import com.example.hairnada.vo.page.Criteria03;
 import com.example.hairnada.vo.page.Criteria11;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -81,5 +80,19 @@ public class MyLikeService {
 //    제품 좋아요 페이징
     public int getTotal4(Long userNumber){return myLikeMapper.getTotal4(userNumber);}
 
+
+//    케어샵 좋아요
+    public List<CareShopVo> likeCareShop(Long userNumber, Criteria11 criteria11){
+        if(userNumber == null){
+            throw new IllegalArgumentException("회원정보 누락");
+        }
+
+        return Optional.ofNullable(myLikeMapper.likeCareShop(userNumber, criteria11)).orElseThrow(()->{
+            throw new IllegalArgumentException("좋아요한 게시글이 없습니다.");
+        });
+    }
+
+//    케어샵 좋아요 페이징
+    public int getTotal5(Long userNumber){return myLikeMapper.getTotal5(userNumber);}
 
 }
