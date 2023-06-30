@@ -20,4 +20,7 @@ public class HairVo {
     private String hairFileUploadPath;
     private String hairFileUuid;
     private Long userNumber;
+    private String hairFileName;
+    private String lengthName;
+    private String shapeName;
 }

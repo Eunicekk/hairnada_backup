@@ -6,7 +6,7 @@ import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.service.admin.AdminFileService;
 import com.example.hairnada.service.admin.AdminService;
-import com.example.hairnada.vo.hair.HairVo;
+import com.example.hairnada.vo.hairVo.HairVo;
 import com.example.hairnada.vo.level.LevelVo;
 import com.example.hairnada.vo.page.CriteriaAdmin;
 import com.example.hairnada.vo.page.CriteriaAdminList;
@@ -66,23 +66,33 @@ public class AdminController {
 
         model.addAttribute("hairList", hairList);
         model.addAttribute("pageInfo", new PageAdminListVo(criteriaAdminList, adminService.getHairTotal()));
-
-        System.out.println(hairList.toString());
     }
 
 
     // 헤어 게시글 읽기
     @GetMapping("/hairRead")
-    public void hairRead(){}
+    public void hairRead(Long hairNumber, Model model){
+        HairVo hairRead = adminService.lookUpHair(hairNumber);
+        model.addAttribute("hair", hairRead);
+    }
 
     // 헤어 게시글 수정
     @GetMapping("/hairModify")
-    public void hairModify(){}
+    public void hairModify(Long hairNumber, Model model){
+        HairDto hairInfo = adminService.findHairInfo(hairNumber);
+        model.addAttribute("hairInfo", hairInfo);
+    }
 
     // 헤어 게시글 업로드
     @GetMapping("/hairUpload")
     public void hairUpload(){
 
+    }
+    // 헤어 게시글 삭제
+    @GetMapping("/hairRemove")
+    public RedirectView hairRemove(Long hairNumber){
+        adminService.removeHair(hairNumber);
+        return new RedirectView("/admin/hairList");
     }
 
     @PostMapping("/hairUpload")
