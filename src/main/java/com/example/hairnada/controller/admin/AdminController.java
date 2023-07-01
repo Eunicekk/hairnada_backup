@@ -2,6 +2,7 @@ package com.example.hairnada.controller.admin;
 
 import com.example.hairnada.dto.buy.AdminBuyDto;
 import com.example.hairnada.dto.hair.HairDto;
+import com.example.hairnada.dto.hair.HairFileDto;
 import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.service.admin.AdminFileService;
@@ -80,8 +81,12 @@ public class AdminController {
     @GetMapping("/hairModify")
     public void hairModify(Long hairNumber, Model model){
         HairDto hairInfo = adminService.findHairInfo(hairNumber);
+        List<HairFileDto> hairFileList = adminFileService.findList(hairNumber);
+        System.out.println(hairFileList);
         model.addAttribute("hairInfo", hairInfo);
+        model.addAttribute("hairFile", hairFileList);
     }
+
 
     // 헤어 게시글 업로드
     @GetMapping("/hairUpload")

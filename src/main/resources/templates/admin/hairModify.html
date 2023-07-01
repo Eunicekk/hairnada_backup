@@ -48,10 +48,13 @@
               <div class="hair-img-box">
                 <!-- 대표 이미지 업로드 -->
                 <div class="form-group">
-                  <ul class="file-wrap">
+                  <ul class="file-wrap" >
                     <!-- 썸네일 처리 해야함 -->
-                    <li class="img-list">
-                      <input
+
+                      <th:block  th:each="hairFile, stat : ${hairFile}">
+                        <li class="img-list" th:if="${stat.index == 0}" th:style="'background: url(' + '/upload/' + ${hairFile.hairFileUploadPath} + '/th_' + ${hairFile.hairFileUuid} + '_' + ${hairFile.hairFileName} + ');  background-size: cover;'">
+                          <!-- 내용 -->
+                        <input
                               type="file"
                               id="post-image"
                               name="hairFile"
@@ -59,10 +62,10 @@
                               multiple
                       />
                     </li>
-                    <li><img class="img-list" /></li>
-                    <li><img class="img-list" /></li>
-                    <li><img class="img-list" /></li>
-                    <li><img class="img-list" /></li>
+
+                    <li th:unless="${stat.index == 0}">
+                      <img class="img-list" th:src="${'/upload/' + hairFile.hairFileUploadPath + '/th_' +hairFile.hairFileUuid + '_' + hairFile.hairFileName }" alt=""/></li>
+                    </th:block>
                   </ul>
                 </div>
               </div>
