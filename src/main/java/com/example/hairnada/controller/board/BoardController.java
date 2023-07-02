@@ -6,14 +6,12 @@ import com.example.hairnada.service.board.BoardService;
 import com.example.hairnada.vo.board.BoardVo;
 import com.example.hairnada.vo.page.Criteria03;
 import com.example.hairnada.vo.page.Page03Vo;
+import com.example.hairnada.vo.page.SearchVo;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.apache.bcel.generic.LocalVariableGen;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -31,10 +29,11 @@ public class BoardController {
 
 
     @GetMapping("/communityList")
-    public String communityList(Criteria03 criteria03, Model model){
+    public String communityList(Criteria03 criteria03, Model model, SearchVo searchVo){
        List<BoardVo> boardList = boardService.findAll(criteria03);
        model.addAttribute("boardList",boardList);
        model.addAttribute("pageInfo",new Page03Vo(criteria03, boardService.getTotal()));
+       model.addAttribute("search", searchVo);
 
        return "board/communityList";
     }
@@ -112,19 +111,14 @@ public class BoardController {
     }
 
 // 검색기능
-    @GetMapping("/communitySearch")
-    public String communitySearch(Criteria03 criteria03, Model model, @RequestParam("keyword") String keyWord) {
-        List<BoardVo> boardList = boardService.searchByTitleAndContent(criteria03, keyWord);
-        model.addAttribute("boardList", boardList);
+@GetMapping("/search")
+public String search(Criteria03 criteria03, Model model, SearchVo searchVo, HttpServletRequest req) {
+    List<BoardVo> boardList = boardService.search(criteria03, searchVo);
+    model.addAttribute("boardList", boardList);
+    model.addAttribute("search", searchVo);
+    model.addAttribute("pageInfo", new Page03Vo(criteria03, boardService.searchTotal(searchVo)));
 
-        Page03Vo pageInfo = new Page03Vo(criteria03, boardService.searchGetTotal());
-        model.addAttribute("pageInfo", pageInfo);
-        model.addAttribute("keyword", keyWord);
-
-        System.out.println("keyWord = " + keyWord);
-
-        return "board/communityList";
-    }
-
+    return "board/communityList";
+}
 
 }

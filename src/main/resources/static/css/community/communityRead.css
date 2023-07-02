@@ -271,14 +271,32 @@ hr {
   display: none;
 }
 
-.comment-list textarea {
-  width: 900px;
+.modify-box textarea {
+  width: 1105px;
   height: 20px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   resize: none;
+  overflow: hidden;
+  margin-top: 15px;
 }
+
+.modify-content{
+  height: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+/*.modify-content textarea{*/
+/*  width: 1105px;*/
+/*  height: 20px;*/
+/*  padding: 10px;*/
+/*  border: 1px solid #ccc;*/
+/*  border-radius: 5px;*/
+/*  resize: none;*/
+/*  overflow: hidden;*/
+/*}*/
 
 .communityRead p{
   font-size: 25px;
