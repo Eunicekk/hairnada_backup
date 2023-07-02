@@ -14,4 +14,5 @@ public class BoardReplyDto {
     private String boardReplyUpdateDate;
     private Long userNumber;
     private Long boardNumber;
+    private String userNickName;
 }
