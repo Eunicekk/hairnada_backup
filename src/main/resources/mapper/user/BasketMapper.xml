@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hairnada.mapper.user.BasketMapper">
+
+    <!-- 장바구니에 담은 상품 조회하기 -->
+    <select id="selectAll" resultType="BasketVo">
+        SELECT BASKET_NUMBER, BASKET_CNT, B.STORE_NUMBER, U.USER_NUMBER,
+               STORE_TITLE, STORE_PRICE,(BASKET_CNT * STORE_PRICE) AS STORE_PRICE_ALL,
+               STORE_FILE_NUMBER, STORE_FILE_UPLOAD_PATH, STORE_FILE_UUID, STORE_FILE_NAME
+        FROM TBL_USER U
+                 JOIN TBL_BASKET B ON U.USER_NUMBER = B.USER_NUMBER
+                 LEFT JOIN (
+            SELECT STORE_TITLE, STORE_PRICE, STORE_FILE_NUMBER, S.STORE_NUMBER,
+                   STORE_FILE_UPLOAD_PATH, STORE_FILE_UUID, STORE_FILE_NAME
+            FROM TBL_STORE S
+                     LEFT JOIN (
+                SELECT STORE_FILE_NUMBER, STORE_FILE_UPLOAD_PATH,
+                       STORE_FILE_UUID, STORE_FILE_NAME, STORE_NUMBER,
+                       RANK() OVER (PARTITION BY STORE_NUMBER ORDER BY STORE_FILE_NUMBER) AS RK
+                FROM TBL_STORE_FILE
+            ) F ON S.STORE_NUMBER = F.STORE_NUMBER AND F.RK = 1
+        ) J ON B.STORE_NUMBER = J.STORE_NUMBER
+        ORDER BY BASKET_NUMBER DESC
+    </select>
+
+    <!-- 장바구니에 상품 추가하기 -->
+    <insert id="insert">
+        <selectKey keyProperty="basketNumber" order="BEFORE" resultType="long">
+            SELECT SEQ_BASKET.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO TBL_BASKET(BASKET_NUMBER, BASKET_CNT, STORE_NUMBER, USER_NUMBER)
+        VALUES(#{basketNumber}, #{basketCnt}, #{storeNumber}, #{userNumber})
+    </insert>
+
+    <!-- 장바구니에 담은 상품 삭제하기 -->
+    <delete id="delete">
+        DELETE FROM TBL_BASKET
+        WHERE BASKET_NUMBER = #{basketNumber}
+    </delete>
+
+</mapper>

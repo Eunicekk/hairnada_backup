@@ -1,5 +1,4 @@
 // 체크박스
-
 function checkBoxBtn(){
   $("#check-label").click(function () {
     var chk = $(this).is(":checked");
@@ -18,120 +17,97 @@ $(".product-list").on("change", ".check-img-input", function (e) {
     $("#check-label").prop("checked", false);
   }
 });
-// 체크박스
+// 체크박스 끝
 
+mainBasket1();
 
-function mainBasket() {
-  $(".big-box").html(getBigBox);
-  checkBoxBtn();
+function mainBasket1() {
+  let basket = '';
+  $.ajax({
+    url: '/users/myBasket',
+    type: 'GET',
+    success: function(obj){
+      basket = getBigBox(obj);
+      $('.big_box').html(basket);
+      checkBoxBtn();
+      console.log("@@" + obj);
+    }
+  });
 }
 
-mainBasket();
-
-$("#my-basket-btn").on("click", mainBasket);
+$("#my-basket-btn").on("click", mainBasket1);
 
 $("#my-pay-btn").on("click", function () {
-  $(".big-box").html(getBigBox2);
+  $(".big-box").html(getBigBox2());
   createDatePicker();
 });
 
-$(".big-box").on("click", ".buy-btn, .cancel-btn", function () {
-  console.log("버튼 클릭이다잇~");
-});
 
-$(".big-box").on("click", ".cencel-btn", function () {
-  console.log("취소버튼이다!!!");
-});
+function getBigBox(obj) {
+  let text = '';
 
-function getBigBox() {
-  return `
-
-        <div class="product">제품</div>
-        <div class="product-list">
-          <div class="list-title">
-            <div class="check-img-box">
-              <input type="checkbox" id="check-label" class="check-img-input" />
-              <label for="check-label" class="check-img-label"> </label>
-            </div>
-            <div class="product-box">제품정보</div>
-            <div class="kg-box">수량</div>
-            <div class="pay-box">금액</div>
-            <div class="real-pay-box">합계금액</div>
-          </div>
-          <div class="list-detail">
-            <div class="check-img-box2">
-              <input
-                type="checkbox"
-                id="check-label2"
-                class="check-img-input"
-              />
-              <label for="check-label2" class="check-img-label"></label>
-            </div>
-            <div class="product-img-detail">
-              <img
-                src="https://www.p-city.com/upload_file/202208/1660035370743.jpg"
-                alt=""
-                class="product-img"
-              />
-              <div class="product-title">초코비</div>
-            </div>
-            <div class="product-quantity">
-              <div class="quantity-cnt-box">
-                <button id="minus-box">-</button>
-                <input id="number-box" type="text" value="0" readonly />
-                <button id="plus-box">+</button>
-              </div>
-            </div>
-            <div class="amount-box">
-              <div class="amount">7000</div>
-            </div>
-            <div class="real-amount-box">
-              <div class="real-amount">70000</div>
-            </div>
-          </div>
-          <div class="list-detail2">
-            <div class="check-img-box2">
-              <input
-                type="checkbox"
-                id="check-label3"
-                class="check-img-input"
-              />
-              <label for="check-label3" class="check-img-label"></label>
-            </div>
-            <div class="product-img-detail">
-              <img
-                src="https://www.p-city.com/upload_file/202208/1660035370743.jpg"
-                alt=""
-                class="product-img"
-              />
-              <div class="product-title">초코비</div>
-            </div>
-            <div class="product-quantity">
-            <div class="quantity-cnt-box">
-            <div id="minus-box">-</div>
-            <input id="number-box" type="text" value="0" readonly />
-            <div id="plus-box">+</div>
-          </div>
-            </div>
-            <div class="amount-box">
-              <div class="amount">7000</div>
-            </div>
-            <div class="real-amount-box">
-              <div class="real-amount">70000</div>
-            </div>
-          </div>
-        </div>
-        <div class="btn-box">
-          <button class="cancel-btn">삭제</button>
-          <button class="buy-btn">구매</button>
-        </div>
-        <div class="buy-text">
-          *장바구니 제품은 30일간 보관됩니다.<br /><br />
-          *더 오래 보관하려면 [좋아요]로 등록하세요.<br /><br />
-          *장바구니 제품은 품절되면 자동으로 목록에서 삭제됩니다.
-        </div>
-
+  text += `
+      <table class="product-tbl">
+          <thead>
+              <tr>
+                  <th class="check-img-box">
+                      <input type="checkbox" id="check-label" class="check-img-input" />
+                      <label for="check-label" class="check-img-label"> </label>
+                  </th>
+                  <th>상품정보</th>
+                  <th>수량</th>
+                  <th>가격</th>
+                  <th>총 상품 금액</th>
+                  <th>배송비</th>
+              </tr>
+          </thead>
+          <tbody>
   `;
+
+  for(let i=0; i<obj.length; i++){
+    text += `
+      <tr>
+        <td class="check-img-box2">
+            <input type="checkbox" id="check-label2" class="check-img-input"/>
+            <label for="check-label2" class="check-img-label"></label>
+        </td>
+        <td>
+            <img src="/upload/" + ${obj[i].storeFileUploadPath} + "/th_" + ${obj[i].storeFileUUID} + "_" + ${obj[i].storeFileName}" alt="상품">
+            <p class="test-product">${obj[i].storeTitle}</p>
+        </td>
+        <td class="test-count">
+            <div class="quantity-cnt-box">
+                <button class="minus-box">-</button>
+                <input class="number-box" type="text" value="${obj[i].basketCnt}" readonly />
+                <button class="plus-box">+</button>
+            </div>
+        </td>
+        <td class="test-price">${obj[i].storePrice}</td>
+        <td class="test-result">${obj[i].storePriceAll}</td>
+        <td class="delivery-charge">${obj[i].deliveryFee === 0 ? '무료배송' : obj[i].deliveryFee}</td>
+    </tr>
+    `;
+  }
+
+  text += `
+            </tbody>
+      </table>
+      <div class="btn-box">
+        <button class="cancel-btn">삭제하기</button>
+        <button class="buy-btn">구매하기</button>
+      </div>
+      <p class="buy-text">
+          *장바구니 제품은 30일간 보관됩니다.
+      </p>
+      <p class="buy-text">
+          *더 오래 보관하려면 [좋아요]로 등록하세요.
+      </p>
+      <p class="buy-text">
+          *장바구니 제품은 품절되면 자동으로 목록에서 삭제됩니다.
+      </p>
+  `;
+
+  return text;
 }
 
 function getBigBox2() {
@@ -143,48 +119,58 @@ function getBigBox2() {
           </div>
           <button class="check-btn" type="submit">조회</button>
         </div>
-        <div class="history-drop-down">
-          <select name="drop-down-select" id="drop-down-select">
-            <option value="전체">전체</option>
-            <option value="주문접수">주문접수</option>
-            <option value="결제완료">결제완료</option>
-            <option value="상품준비중">상품준비중</option>
-            <option value="배송중">배송중</option>
-            <option value="배송완료">배송완료</option>
-            <option value="취소/교환/반품">취소/교환/반품</option>
-          </select>
+        
+        <div class="dropdown-buy">
+          <button class="dropdown-btn">
+            전체
+            <span class="material-symbols-rounded">
+              expand_more
+            </span>
+          </button>
+          <ul class="dropdown-menu">
+            <li class="dropdown-item">전체</li>
+            <li class="dropdown-item">주문접수</li>
+            <li class="dropdown-item">결제완료</li>
+            <li class="dropdown-item">상품준비중</li>
+            <li class="dropdown-item">배송중</li>
+            <li class="dropdown-item">배송완료</li>
+            <li class="dropdown-item">취소/교환/반품</li>
+          </ul>
         </div>
-        <div class="purchase-history-box">
-          <div class="history-title">
-            <div class="history-date">주문일</div>
-            <div class="history-product">상품정보</div>
-            <div class="history-quantity">수량</div>
-            <div class="history-amount">상품금액</div>
-            <div class="history-progress">진행상황</div>
-          </div>
-          <div class="history-real">
-            <div class="real-date">01.21</div>
-            <div class="real-product">
-              <img
-                src="https://static-storychat.pstatic.net/2020/8/30/27/1149627_hlbna0be8nm00.png?type=rsc5"
-                alt=""
-                class="real-product-img"
-              />
-              <div class="real-product-name">붕어빵</div>
-            </div>
-            <div class="real-quantity">1박스 10개입</div>
-            <div class="real-amount">100,000,000</div>
-            <div class="real-progress">짱구가 붕어 잡는중~</div>
-          </div>     
-        </div>
+        <table class="buy-tbl">
+            <thead>
+                <tr>
+                    <th>주문날짜</th>
+                    <th>상품정보</th>
+                    <th>수량</th>
+                    <th>총 상품 금액</th>
+                    <th>배송비</th>
+                    <th>진행상황</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2023-06-29</td>
+                    <td>
+                        <img src="https://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0014/A00000014950114ko.jpg?l=ko" alt="상품">
+                        <p class="test-product">라보에이치 탈모증상완화 샴푸인데 일부러러러러러러러러러 글을 길게 써서 한번 넘겨보자자자자자자자자자자 울지마 바보야 난정말괜찮아아아아아아앙아아아아</p>
+                    </td>
+                    <td>2</td>
+                    <td>52000</td>
+                    <td>무료배송</td>
+                    <td>취소/교환/반품</td>
+                </tr>
+            </tbody>
+        </table>
         <div class="coopang-box">
-           <img src="../img/coopang.png" alt="" class="coopang-img" />
-          </div>
+           <img src="/img/coopang.png" alt="" class="coopang-img" />
+        </div>
   `;
+
 }
 
-let BasketBtn = document.getElementById("my-basket-btn");
-let payBtn = document.getElementById("my-pay-btn");
+let BasketBtn = document.getElementsByClassName("my-basket-btn");
+let payBtn = document.getElementsByClassName("my-pay-btn");
 
 BasketBtn.addEventListener("click", function () {
   BasketBtn.querySelector(".active-banner").classList.add("selected");
@@ -277,4 +263,27 @@ increaseButton.addEventListener("click", () => {
   let currentValue = parseInt(quantityInput.value);
   currentValue++;
   quantityInput.value = currentValue;
+});
+
+// 드롭다운
+$(document).ready(function() {
+  $(document).on("click", ".dropdown-buy", function() {
+    $(this).find('.dropdown-menu').toggle();
+  });
+
+  $(document).on("click", function(e) {
+    var target = e.target;
+    if (!$(target).is('.dropdown-buy') && !$(target).parents().is('.dropdown-buy')) {
+      $('.dropdown-menu').hide();
+    }
+  });
+});
+
+$(document).on("click", ".dropdown-menu li", function() {
+  var selectedItem = $(this).text();
+  $('.dropdown-btn').html(selectedItem + `
+        <span class="material-symbols-rounded">
+          expand_more
+        </span>
+     `);
 });
