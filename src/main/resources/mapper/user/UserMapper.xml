@@ -38,4 +38,17 @@
         WHERE USER_ID = #{userId} AND USER_PASSWORD = #{userPassword}
     </select>
 
+    <update id="userUpdate">
+        UPDATE TBL_USER
+        SET USER_PASSWORD = #{userPassword},
+            USER_NAME = #{userName},
+            USER_GENDER = #{userGender},
+            USER_EMAIL = #{userEmail},
+            USER_ADDRESS = #{userAddress},
+            USER_PHONE_NUMBER = #{userPhoneNumber},
+            USER_ADDRESS_DETAIL = #{userAddressDetail}
+        WHERE  USER_NUMBER = #{userNumber}
+    </update>
+
+
 </mapper>

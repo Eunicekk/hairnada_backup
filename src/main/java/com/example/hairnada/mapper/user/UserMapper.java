@@ -28,4 +28,7 @@ public interface UserMapper {
 //    로그인 실패
     public int loginFail(@Param("userId") String userId, @Param("userPassword") String userPassword);
 
+//    회원정보 수정
+    public void userUpdate(UserDto userDto);
+
 }
