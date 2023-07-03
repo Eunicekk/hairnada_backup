@@ -114,6 +114,11 @@ class AdminMapperTest {
         assertThat(hairList.get(0).getHairName()).isEqualTo("테슬컷");
     }
 
+    @Test
+    @DisplayName("헤어 게시글 읽기")
+    void hairRead(){
+        assertThat(adminMapper.hairRead(24L).getHairGender()).isEqualTo("M");
+    }
 
 
 }
