@@ -2,6 +2,7 @@ function mainPage() {
   $(".main-join").html(getMainJoin);
     dropDown();
     userModify();
+    box();
   //   userUpdate();
 }
 
@@ -400,3 +401,15 @@ $('.nickname-box').on('blur', function () {
         }
     });
 });
+
+function box(){
+$(".female-box").on("click", function () {
+    $(".female-box").css("background-color", "#e0e0e0");
+    $(".male-box").css("background-color", "#FFF");
+});
+
+$(".male-box").on("click", function () {
+    $(".male-box").css("background-color", "#e0e0e0");
+    $(".female-box").css("background-color", "#FFF");
+});
+}

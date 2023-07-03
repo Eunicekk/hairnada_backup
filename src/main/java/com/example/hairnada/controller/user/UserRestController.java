@@ -32,13 +32,19 @@ import java.util.Map;
 @Slf4j
 public class UserRestController {
    private final UserService userService;
+   @GetMapping("/checkId")
+   public int checkUserId(String userId){
+      return userService.checkUserId(userId);
+   }
 
-   @GetMapping("/userNickname")
-   public int userNickname(String userNickname){
-
+   @GetMapping("/checkNickname")
+   public int checkUserNickname(String userNickname){
       return userService.checkUserNickname(userNickname);
    }
 
-
+   @GetMapping("/loginFail")
+   public int loginFail(String userId, String userPassword){
+      return userService.loginFail(userId, userPassword);
+   }
 
 }

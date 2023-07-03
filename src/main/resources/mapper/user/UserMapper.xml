@@ -45,8 +45,10 @@
             USER_GENDER = #{userGender},
             USER_EMAIL = #{userEmail},
             USER_ADDRESS = #{userAddress},
+            USER_PHONE_NUMBER = #{userPhoneNumber},
             USER_ADDRESS_DETAIL = #{userAddressDetail}
         WHERE  USER_NUMBER = #{userNumber}
     </update>
+
 
 </mapper>
