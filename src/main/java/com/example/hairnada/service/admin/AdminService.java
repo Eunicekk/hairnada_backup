@@ -5,7 +5,7 @@ import com.example.hairnada.dto.hair.HairDto;
 import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.mapper.admin.AdminMapper;
-import com.example.hairnada.vo.hair.HairVo;
+import com.example.hairnada.vo.hairVo.HairVo;
 import com.example.hairnada.vo.level.LevelVo;
 import com.example.hairnada.vo.page.CriteriaAdmin;
 import com.example.hairnada.vo.page.CriteriaAdminList;
@@ -132,6 +132,31 @@ public class AdminService {
 
         return Optional.ofNullable(adminMapper.selectHairListByName(hairName))
                 .orElseThrow(()-> {throw new IllegalArgumentException("일치하는 게시글이 없습니다 !!");});
+    }
+
+    // 헤어 게시글 읽기
+    public HairVo lookUpHair(Long hairNumber){
+        if (hairNumber == null) {
+            throw new IllegalArgumentException("헤어스타일 게시글 번호 누락");
+        }
+        return Optional.ofNullable(adminMapper.hairRead(hairNumber))
+                .orElseThrow(()->{throw new IllegalArgumentException("일치하는 게시글이 없습니당");});
+    }
+    // 헤어 게시글 삭제
+    public void removeHair(Long hairNumber){
+        if (hairNumber == null) {
+            throw new IllegalArgumentException("헤어스타일 번호 누락");
+        }
+        adminMapper.deleteHair(hairNumber);
+    }
+
+    // 헤어 게시글 수정시 기본 정보
+    public HairDto findHairInfo(Long hairNumber){
+        if (hairNumber == null) {
+            throw new IllegalArgumentException("헤어게시글 번호 누락");
+        }
+        return Optional.ofNullable(adminMapper.hairInfo(hairNumber))
+                .orElseThrow(()->{throw new IllegalArgumentException("일치하는 게시글이 없습니다 !");});
     }
 
     // 미완료 배송 목록 조회

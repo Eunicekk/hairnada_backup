@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +21,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/adminFile/*")
 @RequiredArgsConstructor
 public class AdminFileController {
@@ -31,7 +32,10 @@ public class AdminFileController {
 
     @GetMapping("/hairImgList")
     public List<HairFileDto> hairImgList(Long hairNumber){
-        return adminFileService.findList(hairNumber);
+        List<HairFileDto> hairImgList = adminFileService.findList(hairNumber);
+
+        return hairImgList;
+
     }
 
     // 서버 컴퓨터에 저장된 파일을 복사하여 넘겨주는 핸들러

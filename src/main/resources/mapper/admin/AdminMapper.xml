@@ -314,6 +314,30 @@
   VALUES (#{hairNumber}, #{hairName}, #{hairContent}, #{hairGender}, #{shapeNumber}, #{lengthNumber})
  </insert>
 
+<!-- 헤어 게시글 읽기 -->
+ <select id="hairRead" resultType="hairVo">
+  SELECT th.HAIR_NUMBER , HAIR_NAME, HAIR_CONTENT , tl.LENGTH_NAME, HAIR_GENDER, th.SHAPE_NUMBER,
+         tfs.SHAPE_NAME
+  FROM TBL_HAIR th
+        JOIN TBL_LENGTH tl
+             ON th.LENGTH_NUMBER = tl.LENGTH_NUMBER
+        JOIN TBL_FACE_SHAPE tfs
+             ON th.SHAPE_NUMBER  = tfs.SHAPE_NUMBER
+  WHERE th.HAIR_NUMBER  = #{hairNumber}
+ </select>
+
+<!-- 헤어 게시글 수정시 불러올 게시글 정보 -->
+ <select id="hairInfo" resultType="hairDto">
+  SELECT HAIR_NUMBER , HAIR_NAME, HAIR_CONTENT , LENGTH_NUMBER , HAIR_GENDER, SHAPE_NUMBER
+  FROM TBL_HAIR
+  WHERE HAIR_NUMBER  = #{hairNumber}
+ </select>
+
+<!-- 헤어 게시글 삭제 -->
+ <delete id="deleteHair">
+  DELETE FROM TBL_HAIR th
+  WHERE HAIR_NUMBER = #{hairNumber}
+ </delete>
 <!-- 배송 미완료 건 조회 -->
  <select id="selectIncompleteRequest" resultType="adminBuyDto">
   SELECT

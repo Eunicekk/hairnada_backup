@@ -4,7 +4,7 @@ import com.example.hairnada.dto.buy.AdminBuyDto;
 import com.example.hairnada.dto.hair.HairDto;
 import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.dto.user.UserDto;
-import com.example.hairnada.vo.hair.HairVo;
+import com.example.hairnada.vo.hairVo.HairVo;
 import com.example.hairnada.vo.level.LevelVo;
 import com.example.hairnada.vo.page.CriteriaAdmin;
 import com.example.hairnada.vo.page.CriteriaAdminList;
@@ -61,6 +61,15 @@ public interface AdminMapper {
 
     // 제목으로 헤어 검색
     public List<HairDto> selectHairListByName(@Param("hairName")String hairName);
+
+    // 헤어 게시글 읽기
+    public HairVo hairRead(Long hairNumber);
+
+    // 헤어 게시글 삭제
+    public void deleteHair(Long hairNumber);
+
+    // 헤어 게시글 수정시 기본 정보
+    public HairDto hairInfo(Long hairNumber);
 
     // 배송 미완료 목록 조회
     public List<AdminBuyDto> selectIncompleteRequest(CriteriaAdmin criteriaAdmin);

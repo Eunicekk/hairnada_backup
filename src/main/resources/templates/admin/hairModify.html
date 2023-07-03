@@ -42,71 +42,80 @@
           </nav>
         </div>
         <div class="main-box">
-          <div class="board-write-box">
-            <div class="hair-img-box">
-              <!-- 대표 이미지 업로드 -->
-              <div class="form-group">
-                <ul class="file-wrap">
-                  <!-- 썸네일 처리 해야함 -->
-                  <li class="img-list">
-                    <input
-                      type="file"
-                      id="post-image"
-                      name="boardFile"
-                      accept="image/*"
-                      multiple
-                    />
-                  </li>
-                  <li><img class="img-list" /></li>
-                  <li><img class="img-list" /></li>
-                  <li><img class="img-list" /></li>
-                  <li><img class="img-list" /></li>
-                </ul>
+          <form class="new-post-form" th:action="@{/admin/hairUpload}" method="post" enctype="multipart/form-data">
+            <div class="board-write-box" th:each="hairInfo : ${hairInfo}">
+              <input type="hidden" th:value="${hairInfo.hairNumber}" class="hairNumber">
+              <div class="hair-img-box">
+                <!-- 대표 이미지 업로드 -->
+                <div class="form-group">
+                  <ul class="file-wrap" >
+                    <!-- 썸네일 처리 해야함 -->
+
+                      <th:block  th:each="hairFile, stat : ${hairFile}">
+                        <li class="img-list" th:if="${stat.index == 0}" th:style="'background: url(' + '/upload/' + ${hairFile.hairFileUploadPath} + '/th_' + ${hairFile.hairFileUuid} + '_' + ${hairFile.hairFileName} + ');  background-size: cover;'">
+                          <!-- 내용 -->
+                        <input
+                              type="file"
+                              id="post-image"
+                              name="hairFile"
+                              accept="image/*"
+                              multiple
+                      />
+                    </li>
+
+                    <li th:unless="${stat.index == 0}">
+                      <img class="img-list" th:src="${'/upload/' + hairFile.hairFileUploadPath + '/th_' +hairFile.hairFileUuid + '_' + hairFile.hairFileName }" alt=""/></li>
+                    </th:block>
+                  </ul>
+                </div>
+              </div>
+              <div class="board-information">
+                <div class="select-box">
+                  <div class="gender-box">
+                    <span>성별</span>
+                    <input type="radio" class="female" name="hairGender" value="F" th:checked="${hairInfo.hairGender eq 'F'}"/>여성
+                    <input type="radio" class="male" name="hairGender" value="M" th:checked="${hairInfo.hairGender eq 'M'}"/>남성
+                  </div>
+                  <div class="hair-length-box">
+                    <span>기장</span>
+                    <input type="radio" class="short" name="lengthNumber" value="1" th:checked="${hairInfo.lengthNumber == 1}"/>숏
+                    <input type="radio" class="middle" name="lengthNumber" value="2" th:checked="${hairInfo.lengthNumber == 2}"/>미디엄
+                    <input type="radio" class="long" name="lengthNumber" value="3" th:checked="${hairInfo.lengthNumber == 3}"/>롱
+                  </div>
+                  <div class="face-shape-box">
+                    <span>얼굴형</span>
+                    <select name="shapeNumber" class="face-shape">
+                      <option value="">얼굴형 선택</option>
+                      <option value="1" th:selected="${hairInfo.shapeNumber == 1}">계란형</option>
+                      <option value="2" th:selected="${hairInfo.shapeNumber == 2}">긴 얼굴형</option>
+                      <option value="3" th:selected="${hairInfo.shapeNumber == 3}">둥근형</option>
+                      <option value="4" th:selected="${hairInfo.shapeNumber == 4}">역삼각형</option>
+                      <option value="5" th:selected="${hairInfo.shapeNumber == 5}">육각형</option>
+                      <option value="6" th:selected="${hairInfo.shapeNumber == 6}">사각형</option>
+                    </select>
+                  </div>
+                </div>
+                <input
+                        type="text"
+                        class="board-title"
+                        placeholder="제목 입력..."
+                        name="hairName"
+                        th:value="${hairInfo.hairName}"
+                />
+                <textarea
+                        class="board-content"
+                        placeholder="콘텐츠 입력..."
+                        name="hairContent"
+                        th:text="${hairInfo.hairContent}"
+                ></textarea>
+                <div class="btn-box">
+                  <button type="button" class="back-to-list">
+                    목록으로 돌아가기
+                  </button>
+                  <button type="button" class="modify-btn">수정 완료</button>
               </div>
             </div>
-            <div class="board-information">
-              <div class="select-box">
-                <div class="gender-box">
-                  <span>성별</span>
-                  <input type="radio" class="female" name="gender" />여성
-                  <input type="radio" class="male" name="gender" />남성
-                </div>
-                <div class="hair-length-box">
-                  <span>기장</span>
-                  <input type="radio" class="short" name="lenght" />숏
-                  <input type="radio" class="middle" name="lenght" />미디엄
-                  <input type="radio" class="long" name="lenght" />롱
-                </div>
-                <div class="face-shape-box">
-                  <span>얼굴형</span>
-                  <select name="face-shape" class="face-shape">
-                    <option value="">얼굴형 선택</option>
-                    <option value="1">계란형</option>
-                    <option value="2">긴 얼굴형</option>
-                    <option value="3">둥근형</option>
-                    <option value="4">역삼각형</option>
-                    <option value="5">육각형</option>
-                    <option value="6">사각형</option>
-                  </select>
-                </div>
-              </div>
-              <input
-                type="text"
-                class="board-title"
-                placeholder="제목 입력..."
-              />
-              <textarea
-                class="board-content"
-                placeholder="콘텐츠 입력..."
-              ></textarea>
-              <div class="btn-box">
-                <button type="button" class="back-to-list">
-                  목록으로 돌아가기
-                </button>
-                <button type="button" class="modify-btn">수정 완료</button>
-              </div>
-            </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
@@ -116,6 +125,6 @@
       integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
       crossorigin="anonymous"
     ></script>
-    <script src="/js/admin/hairUpload.js"></script>
+    <script src="/js/admin/hairModify.js"></script>
   </body>
 </html>
