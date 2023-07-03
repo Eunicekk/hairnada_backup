@@ -87,7 +87,9 @@ public class UserService {
 //    회원정보 수정
     public void userUpdate(UserDto userDto){
         if(userDto.getUserNumber() == null){
-            throw new IllegalArgumentException("회원정보 누락!!!");
+            throw new IllegalArgumentException("회원번호 누락");
+        }else if(userDto == null){
+            throw new IllegalArgumentException("회원정보 누락");
         }
 
          userMapper.userUpdate(userDto);

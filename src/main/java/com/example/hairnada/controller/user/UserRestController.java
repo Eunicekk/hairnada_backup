@@ -33,14 +33,12 @@ import java.util.Map;
 public class UserRestController {
    private final UserService userService;
 
-////   회원정보 수정
-//    @GetMapping("/userUpdate")
-//    public RedirectView userUpdate(HttpServletRequest req, UserDto userDto){
-//        req.getSession().getAttribute("userNumber");
-//        userService.userUpdate(userDto);
-//
-//        return new RedirectView("/user/myPage");
-//    }
+   @GetMapping("/userNickname")
+   public int userNickname(String userNickname){
+
+      return userService.checkUserNickname(userNickname);
+   }
+
 
 
 }

@@ -270,11 +270,12 @@ textarea {
 .dropdown-menu {
   display: none;
   position: absolute;
-  left: 10px; top: 54px;
+  left: 10px;
+  top: 54px;
   background-color: #f9f9f9;
-  min-width: 150px;
+  min-width: 200px;
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+  padding: 8px;
   padding: 8px 0;
 }
 
@@ -605,4 +606,19 @@ textarea:focus {
 
 .tier__file-wrap {
   position: relative;
+}
+
+
+.nickName-err-text{
+  margin-left: 130px;
+  font-size: 15px;
+  color: red;
+  display: none;
+}
+
+.nickName-err-text2{
+  margin-left: 130px;
+  font-size: 15px;
+  color: green;
+  display: none;
 }

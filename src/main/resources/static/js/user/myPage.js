@@ -1,5 +1,7 @@
 function mainPage() {
   $(".main-join").html(getMainJoin);
+    dropDown();
+    userModify();
   //   userUpdate();
 }
 
@@ -127,7 +129,7 @@ function getMainJoin() {
                 readonly
                 required
               />
-              <button type="button" class="search-address" onclick="sample6_execDaumPostcode()">
+              <button type="button" class="search-address" onclick="sample6_execDaumPostcode();">
                 우편변호 검색
               </button>
             </div>
@@ -234,30 +236,31 @@ function appendImg(file) {
 
 
 // 드롭다운 박스
-$(document).ready(function() {
-  $('.dropdown').click(function() {
-    $(this).find('.dropdown-menu').toggle();
-  });
+function dropDown() {
+    $(document).ready(function() {
+        $('.dropdown').click(function() {
+            $(this).find('.dropdown-menu').toggle();
+        });
 
-  $(document).click(function(e) {
-    var target = e.target;
-    if (!$(target).is('.dropdown') && !$(target).parents().is('.dropdown')) {
-      $('.dropdown-menu').hide();
-    }
-  });
-});
+        $(document).click(function(e) {
+            var target = e.target;
+            if (!$(target).is('.dropdown') && !$(target).parents().is('.dropdown')) {
+                $('.dropdown-menu').hide();
+            }
+        });
+    });
 
-$('.dropdown-menu li').on('click', function(){
-  let $input = $('.dropdown-btn');
-  let text = $(this).text();
-  $input.html(text + `
-  <span class="material-symbols-rounded">
-  expand_more
-  </span>
-  `);
-})
+    $('.dropdown-menu li').on('click', function(){
+        let $input = $('.dropdown-btn');
+        let text = $(this).text();
+        $input.html(text + `
+    <span class="material-symbols-rounded">
+    expand_more
+    </span>
+    `);
+    })
 
-
+}
 // 주소 api
 function sample6_execDaumPostcode() {
 new daum.Postcode({
@@ -293,7 +296,7 @@ new daum.Postcode({
             }
             // 조합된 참고항목을 해당 필드에 넣는다.
             document.getElementById("sample6_extraAddress").value = extraAddr;
-        
+
         } else {
             document.getElementById("sample6_extraAddress").value = '';
         }
@@ -309,42 +312,91 @@ new daum.Postcode({
 
 
 
-// 회원정보 수정
-// function userUpdate(){
-//     let regex;
-//     $.ajax({
-//         url: "/users/userUpdate",
-//         type: "GET",
-//         success:function (result){
-//             getMainJoin();
-//
-//             // 비밀번호 정규식 (특수문자, 8글자 이상)
-//
-//
-//             $('.password-box').on('change', function(){
-//                 pw1 = $(this).val();
-//                 regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
-//                 console.log(pw1);
-//                 if(regex.test(pw1)){
-//                     $('.pw-err-text').css("display","none");
-//                 } else {
-//                     $('.pw-err-text').css("display","inline-block");
-//                 }
-//             });
-//
-//             $('.repassword-box').on('change', function(){
-//                 pw2 = $(this).val();
-//                 console.log(pw2);
-//                 if(pw1 == pw2){
-//                     $('.pw-err-text2').css("display","inline-block");
-//                     $('.pw-err-text1').css("display","none");
-//                 }else {
-//                     $('.pw-err-text1').css("display","inline-block");
-//                     $('.pw-err-text2').css("display","none");
-//                 }
-//             });
-//
-//
-//         }
-//     });
-// }
+function userModify() {
+// 비밀번호 일치
+    let pw1;
+    let pw2;
+
+// 비밀번호 정규식 (특수문자, 8글자 이상)
+    let regex;
+
+
+    $('.password-box').on('change', function () {
+        pw1 = $(this).val();
+        regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+        console.log(pw1);
+        if (regex.test(pw1)) {
+            $('.pw-err-text').css("display", "none");
+        } else {
+            $('.pw-err-text').css("display", "inline-block");
+        }
+    });
+
+    $('.repassword-box').on('change', function () {
+        pw2 = $(this).val();
+        console.log(pw2);
+        if (pw1 == pw2) {
+            $('.pw-err-text2').css("display", "inline-block");
+            $('.pw-err-text1').css("display", "none");
+        } else {
+            $('.pw-err-text1').css("display", "inline-block");
+            $('.pw-err-text2').css("display", "none");
+        }
+    });
+
+
+
+
+
+// 이메일 주소 연결
+    let emailReal;
+    let email2;
+    let result;
+
+    $('.email-box').on('change', function () {
+        let email = $(this).val();
+        console.log(email);
+
+        email2 = email;
+    });
+
+    $('.dropdown-menu li').on('click', function () {
+        let text = $(this).text();
+        if (text == '직접입력') {
+            $('.realEmail').val(email2);
+            console.log($('.realEmail').val());
+            return;
+        } else {
+            emailReal = email2 + text;
+            $('.realEmail').val(emailReal);
+        }
+
+        console.log($('.realEmail').val());
+    });
+}
+
+
+
+// 닉네임 중복검사
+$('.nickname-box').on('blur', function () {
+    var userNickname = $(".nickname-box").val();
+
+    $.ajax({
+        url: "/users/checkNickname",
+        type: "GET",
+        data: {userNickname: userNickname},
+        success: function (result) {
+            // 중복 여부에 따라 처리
+            if (result == 0) {
+                $('.nickName-err-text2').css("display", "inline-block");
+                $('.nickName-err-text').css("display", "none");
+            } else {
+                $('.nickName-err-text').css("display", "inline-block");
+                $('.nickName-err-text2').css("display", "none");
+            }
+        },
+        error: function () {
+            console.log("오류 발생");
+        }
+    });
+});
