@@ -1,7 +1,6 @@
 package com.example.hairnada.mapper.hairshop;
 
 import com.example.hairnada.dto.hairshop.HairShopDto;
-import com.example.hairnada.mapper.hairshop.HairShopMapper;
 import com.example.hairnada.vo.hairshop.HairShopVo;
 import com.example.hairnada.vo.page.Criteria03;
 import com.example.hairnada.vo.page.SearchVo;

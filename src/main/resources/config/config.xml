@@ -6,6 +6,7 @@
         <typeAlias type="com.example.hairnada.dto.user.UserDto" alias="userDto" />
         <typeAlias type="com.example.hairnada.dto.user.UserFileDto" alias="userFileDto" />
         <typeAlias type="com.example.hairnada.dto.user.BasketDto" alias="basketDto" />
+        <typeAlias type="com.example.hairnada.vo.user.BasketVo" alias="basketVo" />
         <typeAlias type="com.example.hairnada.dto.user.BuyDto" alias="buyDto" />
         <typeAlias type="com.example.hairnada.dto.user.DeliveryDto" alias="deliveryDto" />
         <typeAlias type="com.example.hairnada.dto.user.MembershipDto" alias="membershipDto" />
@@ -43,7 +44,6 @@
         <typeAlias type="com.example.hairnada.vo.careshop.CareShopVo" alias="careShopVo" />
         <typeAlias type="com.example.hairnada.dto.careshop.CareShopFileDto" alias="careShopFileDto" />
         <typeAlias type="com.example.hairnada.dto.careshop.CareShopLikeDto" alias="careShopLikeDto" />
-
 
         <typeAlias type="com.example.hairnada.vo.level.LevelVo" alias="levelVo"/>
 
