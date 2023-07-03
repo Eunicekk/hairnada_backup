@@ -84,7 +84,7 @@
                 <ul class="list-ul"  th:each="hairList : ${hairList}">
                   <!-- 첫번째 -->
                   <li class="list-li">
-                    <a href="">
+                    <a th:href="@{/admin/hairRead(hairNumber=${hairList.hairNumber})}">
                       <div class="img-list">
                         <img th:if="${hairList.hairFileName == null}" src="https://img1.daumcdn.net/thumb/C360x360/?fname=https://mud-kage.kakao.com/dn/tiTz0/btsjboVScnc/36eDc0R0JCIeBLE6uPouDk/img_1080.jpg&scode=purple" alt="">
                         <img class="main-img" th:unless="${hairList.hairFileName == null}" th:src="${'/upload/' + hairList.hairFileUploadPath + '/th_' +hairList.hairFileUuid + '_' + hairList.hairFileName }" alt="">
