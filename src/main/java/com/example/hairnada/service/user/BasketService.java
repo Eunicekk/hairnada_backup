@@ -41,4 +41,14 @@ public class BasketService {
         basketMapper.delete(basketNumber);
     }
 
+    // 30일이 지나면 자동 삭제
+    public void removeAfter30(){
+        basketMapper.deleteAfter30();
+    }
+
+    // 장바구니에 담간 상품 개수
+    @Transactional(readOnly = true)
+    public int count(Long userNumber){
+        return basketMapper.count(userNumber);
+    }
 }

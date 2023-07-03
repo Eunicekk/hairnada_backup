@@ -1,36 +1,52 @@
-// 체크박스
-function checkBoxBtn(){
-  $("#check-label").click(function () {
-    var chk = $(this).is(":checked");
+$(document).ready(function() {
+  mainBasket1();
+});
 
-    if (chk) {
-      $(".check-img-input").prop("checked", true);
-    } else {
-      $(".check-img-input").prop("checked", false);
+// 장바구니 리스트 실행
+function mainBasket1() {
+  let basket = '';
+  $.ajax({
+    url: '/myBasket/list',
+    type: 'GET',
+    success: function(obj){
+      basket = getBigBox(obj);
+      $('.big-box').html(basket);
+      checkBoxBtn();
+
+      // 삭제 버튼 실행
+      $('.cancel-btn').on('click', function(){
+        deleteProduct();
+      })
+
+      // 구매하기로 이동
+      $('.buy-btn').on('click', function (){
+        window.location.href = '/store/purchase';
+      })
     }
   });
 }
 
-$(".product-list").on("change", ".check-img-input", function (e) {
-  let target = e.target;
-  if (!$(target).is(":checked")) {
-    $("#check-label").prop("checked", false);
-  }
-});
-// 체크박스 끝
+// 장바구니에서 상품 삭제
+function deleteProduct(){
+  let allBasket = $('.check-label2');
+  let checkNumber = $('.check-label2:checked');
+  let basketNumbers = [];
+  checkNumber.each(function(){
+    basketNumbers.push($(this).val());
+  });
 
-mainBasket1();
-
-function mainBasket1() {
-  let basket = '';
   $.ajax({
-    url: '/users/myBasket',
-    type: 'GET',
-    success: function(obj){
-      basket = getBigBox(obj);
-      $('.big_box').html(basket);
-      checkBoxBtn();
-      console.log("@@" + obj);
+    url: '/myBasket/delete',
+    type: 'DELETE',
+    traditional : true,
+    contentType : "application/json",
+    data : JSON.stringify(basketNumbers),
+    success: function(){
+      console.log(basketNumbers);
+      checkNumber.each(function(){
+        $(this).closest('.basket-content').remove();
+      });
+      location.reload();
     }
   });
 }
@@ -58,21 +74,27 @@ function getBigBox(obj) {
                   <th>수량</th>
                   <th>가격</th>
                   <th>총 상품 금액</th>
-                  <th>배송비</th>
               </tr>
           </thead>
           <tbody>
   `;
 
-  for(let i=0; i<obj.length; i++){
+  if (obj.length === 0) {
     text += `
-      <tr>
+    <tr>
+      <td colspan="5">장바구니에 담은 상품이 없습니다.</td>
+    </tr>
+  `;
+  } else {
+    for (let i = 0; i < obj.length; i++) {
+      text += `
+      <tr class="basket-content">
         <td class="check-img-box2">
-            <input type="checkbox" id="check-label2" class="check-img-input"/>
-            <label for="check-label2" class="check-img-label"></label>
+            <input type="checkbox" id="check-label${i}" class="check-img-input check-label2" value="${obj[i].basketNumber}"/>
+            <label for="check-label${i}" class="check-img-label"></label>
         </td>
         <td>
-            <img src="/upload/" + ${obj[i].storeFileUploadPath} + "/th_" + ${obj[i].storeFileUUID} + "_" + ${obj[i].storeFileName}" alt="상품">
+            <img src="/upload/${obj[i].storeFileUploadPath}/th_${obj[i].storeFileUUID}_${obj[i].storeFileName}" alt="상품">
             <p class="test-product">${obj[i].storeTitle}</p>
         </td>
         <td class="test-count">
@@ -84,9 +106,9 @@ function getBigBox(obj) {
         </td>
         <td class="test-price">${obj[i].storePrice}</td>
         <td class="test-result">${obj[i].storePriceAll}</td>
-        <td class="delivery-charge">${obj[i].deliveryFee === 0 ? '무료배송' : obj[i].deliveryFee}</td>
     </tr>
     `;
+    }
   }
 
   text += `
@@ -104,6 +126,8 @@ function getBigBox(obj) {
       </p>
       <p class="buy-text">
           *장바구니 제품은 품절되면 자동으로 목록에서 삭제됩니다.
+      </p><p class="buy-text">
+          *5만원 이상 구매 시 배송비는 무료입니다.
       </p>
   `;
 
@@ -166,24 +190,9 @@ function getBigBox2() {
            <img src="/img/coopang.png" alt="" class="coopang-img" />
         </div>
   `;
-
 }
 
-let BasketBtn = document.getElementsByClassName("my-basket-btn");
-let payBtn = document.getElementsByClassName("my-pay-btn");
-
-BasketBtn.addEventListener("click", function () {
-  BasketBtn.querySelector(".active-banner").classList.add("selected");
-  payBtn.querySelector(".active-banner").classList.remove("selected");
-});
-
-payBtn.addEventListener("click", function () {
-  BasketBtn.querySelector(".active-banner").classList.remove("selected");
-  payBtn.querySelector(".active-banner").classList.add("selected");
-});
-
-// 드롭다운
-
+// 달력
 function createDatePicker() {
   //input을 datepicker로 선언
   $("#datepicker1, #datepicker2").datepicker({
@@ -244,28 +253,38 @@ function createDatePicker() {
   $("#datepicker").datepicker("setDate", "today"); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
 }
 
-// 수량 처리
-const decreaseButton = document.getElementById("minus-box");
-const increaseButton = document.getElementById("plus-box");
-const quantityInput = document.getElementById("number-box");
+// 장바구니, 주문완료 탭 변경
+$(document).on("click", "#my-basket-btn", function() {
+  $(this).find(".active-banner").addClass("selected");
+  $("#my-pay-btn").find(".active-banner").removeClass("selected");
+});
 
-decreaseButton.addEventListener("click", () => {
+$(document).on("click", "#my-pay-btn", function() {
+  $(this).find(".active-banner").addClass("selected");
+  $("#my-basket-btn").find(".active-banner").removeClass("selected");
+});
+
+// 수량 처리
+$(document).on("click", ".minus-box", function() {
   console.log("내려간다!!!!");
-  let currentValue = parseInt(quantityInput.value);
-  if (currentValue > 0) {
+  let quantityInput = $(this).siblings(".number-box");
+  let currentValue = parseInt(quantityInput.val());
+  if (currentValue > 1) {
     currentValue--;
-    quantityInput.value = currentValue;
+    quantityInput.val(currentValue);
   }
 });
 
-increaseButton.addEventListener("click", () => {
+$(document).on("click", ".plus-box", function() {
   console.log("올라간다!!!!");
-  let currentValue = parseInt(quantityInput.value);
+  let quantityInput = $(this).siblings(".number-box");
+  let currentValue = parseInt(quantityInput.val());
   currentValue++;
-  quantityInput.value = currentValue;
+  quantityInput.val(currentValue);
 });
 
-// 드롭다운
+
+// 드롭다운 박스
 $(document).ready(function() {
   $(document).on("click", ".dropdown-buy", function() {
     $(this).find('.dropdown-menu').toggle();
@@ -286,4 +305,24 @@ $(document).on("click", ".dropdown-menu li", function() {
           expand_more
         </span>
      `);
+});
+
+// 체크박스
+function checkBoxBtn(){
+  $("#check-label").click(function () {
+    var chk = $(this).is(":checked");
+
+    if (chk) {
+      $(".check-img-input").prop("checked", true);
+    } else {
+      $(".check-img-input").prop("checked", false);
+    }
+  });
+}
+
+$(".product-list").on("change", ".check-img-input", function (e) {
+  let target = e.target;
+  if (!$(target).is(":checked")) {
+    $("#check-label").prop("checked", false);
+  }
 });

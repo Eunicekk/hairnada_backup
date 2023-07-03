@@ -35,14 +35,24 @@
             </div>
 
             <div class="header-right">
-                <a th:href="@{/user/myBasket}" class="header-icon">
-                    <span class="material-symbols-rounded basket-btn" style="font-size:28px;">
-                        shopping_bag
-                        <span class="basket-count">
-                            0
+                <div class="mypages" th:if="${session.userNumber == null}">
+                    <a th:href="@{/user/login}" class="header-icon">
+                        <span class="material-symbols-rounded basket-btn" style="font-size:28px;">
+                            shopping_bag
+                            <span class="basket-count">
+                                0
+                            </span>
                         </span>
-                    </span>
-                </a>
+                    </a>
+                </div>
+                <div class="mypages" th:unless="${session.userNumber == null}">
+                    <a th:href="@{/user/myBasket}" class="header-icon">
+                        <span class="material-symbols-rounded basket-btn" style="font-size:28px;">
+                            shopping_bag
+                            <span class="basket-count"></span>
+                        </span>
+                    </a>
+                </div>
 
                 <div class="header-icon" th:if="${session.userNumber == null}">
                     <span class="material-symbols-rounded" style="font-size:28px;">

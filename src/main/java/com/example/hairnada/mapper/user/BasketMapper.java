@@ -16,4 +16,10 @@ public interface BasketMapper {
 
     // 장바구니에서 상품 삭제
     public void delete(Long basketNumber);
+
+    // 30일 지나면 자동 삭제
+    public void deleteAfter30();
+
+    // 장바구니에 담긴 상품 개수
+    public int count(Long userNumber);
 }
