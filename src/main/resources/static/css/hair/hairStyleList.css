@@ -58,6 +58,7 @@ input[type="text"]{
   display: flex;
   gap: calc(100px/3);
   position: relative;
+  flex-wrap: wrap;
   left: 0;
 }
 

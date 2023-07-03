@@ -1,11 +1,50 @@
 package com.example.hairnada.service.hair;
 
+import com.example.hairnada.dto.hair.HairDto;
+import com.example.hairnada.mapper.hair.HairMapper;
+import com.example.hairnada.vo.hairVo.HairVo;
+import com.example.hairnada.vo.page.CriteriaAdminList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class HairService {
+    private final HairMapper hairMapper;
+
+    // 헤어 스타일 조회
+    public List<HairVo> findHairList(CriteriaAdminList criteriaAdminList){
+        return hairMapper.selectHairList(criteriaAdminList);
+    }
+
+    // 헤어 게시글 수
+    @Transactional(readOnly = true)
+    public int getHairTotal(){
+        return hairMapper.hairTotal();
+    }
+
+    // 카테고리별 헤어스타일 조회
+    public List<HairDto> findHairListByCategory(Long lengthNumber, Long shapeNumber, String hairGender){
+        if (hairGender == null || lengthNumber == null || shapeNumber == null) {
+            throw new IllegalArgumentException("카테고리 선택 누락!!");
+        }
+
+        return Optional.ofNullable(hairMapper.selectHairListByCategory( lengthNumber, shapeNumber, hairGender))
+                .orElseThrow(()-> {throw new IllegalArgumentException("일치하는 게시글이 없습니다!!"); });
+    }
+
+    // 이름으로 헤어스타일 조회
+    public List<HairDto> findHairListByName(String hairName){
+        if (hairName == null) {
+            throw new IllegalArgumentException("검색어를 제대로 입력해주세요");
+        }
+
+        return Optional.ofNullable(hairMapper.selectHairListByName(hairName))
+                .orElseThrow(()-> {throw new IllegalArgumentException("일치하는 게시글이 없습니다 !!");});
+    }
 }

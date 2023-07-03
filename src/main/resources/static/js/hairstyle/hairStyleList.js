@@ -207,3 +207,42 @@ for (var i = 0; i < hairRadioButtons.length; i++) {
     }
   });
 }
+
+let selectName
+
+$('.select-name').on('click', function (){
+  selectName = $(this).val();
+})
+
+$('.search-btn').on('click', function (){
+  console.log("클릭했다.")
+  let hairStyleName = selectName;
+  $.ajax({
+    url : "/hairStyleR/hairStyleName",
+    type : 'get',
+    data : {hairName: hairStyleName},
+    success : function (styleName){
+      $('.ListUl').html('');
+      for (let i =0; i < styleName.length; i++){
+        console.log('Received styleName : ', styleName);
+        $('.ListUl').append(`
+            <li class="ListLi">
+              <a href="">
+                <div class="img-list">
+                  <div class="main-img">
+                    <img src="https://img1.daumcdn.net/thumb/C360x360/?fname=https://mud-kage.kakao.com/dn/tiTz0/btsjboVScnc/36eDc0R0JCIeBLE6uPouDk/img_1080.jpg&scode=purple" alt="헤어스타일">
+                  </div>
+                </div>
+              </a>
+              <div class="hairTitle">
+                <p class="product-title">${styleName[i].hairName}</p>
+                <div class="buttons">
+                  <button type="button" class="like">하트</button>
+                </div>
+              </div>
+            </li>
+        `);
+      }
+    }
+  })
+});

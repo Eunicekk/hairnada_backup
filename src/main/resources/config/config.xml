@@ -33,6 +33,7 @@
         <typeAlias type="com.example.hairnada.dto.hair.HairLikeDto" alias="hairLikeDto" />
         <typeAlias type="com.example.hairnada.dto.hair.FaceShapeDto" alias="faceShapeDto" />
         <typeAlias type="com.example.hairnada.vo.hairVo.HairVo" alias="hairVo"/>
+        <typeAlias type="com.example.hairnada.vo.hairVo.StoreVo" alias="StoreVo"/>
 
         <typeAlias type="com.example.hairnada.dto.hairshop.HairShopDto" alias="hairShopDto" />
         <typeAlias type="com.example.hairnada.vo.hairshop.HairShopVo" alias="hairShopVo" />
