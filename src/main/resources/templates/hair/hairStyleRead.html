@@ -36,12 +36,16 @@
 
 
 
-        <div class="style-content">
+        <div class="style-content" th:each="hair : ${hairList}">
+            <input type="hidden" th:value="${hair.hairNumber}" class="hairNumber"/>
           <div class="styleBox">
             <div class="style-category">
-              <span>여자</span> > <span>미디엄</span> > <span>계란형</span>
+                <span th:if="${hair.hairGender eq 'M'}">남자</span>
+                <span th:unless="${hair.hairGender eq 'M'}">여자</span> >
+                <span th:text="${hair.lengthName}" name="lengthName"></span> >
+                <span th:text="${hair.shapeName}" name="shapeName"></span>
             </div>
-            <div class="style-title">레이어드컷</div>
+            <div class="style-title" th:text="${hair.hairName}" name="hairName"></div>
             <div class="buttons">
               <button type="button" class="likeBtn">하트</button>
             </div>
@@ -52,34 +56,7 @@
           </div>
 
           <div class="contentBox">
-            <div class="content">
-              층과 층 사이가 겉에서 보기에 거의 느껴지지 않고 안쪽으로 층을 낸
-              스타일을 보통 레이어드컷이라고 얘기합니다. 🙄 질감을 살린다?
-              '질감(texture)을 살린다'는 표현은 머리숱과 층을 정리하는 방식에
-              따라 겉으로 보이는 느낌을 설명할 때 쓰는 말입니다. 층과 층 사이가
-              겉에서 보기에 거의 느껴지지 않고 안쪽으로 층을 낸 스타일을 보통
-              레이어드컷이라고 얘기합니다. 🙄 질감을 살린다? '질감(texture)을
-              살린다'는 표현은 머리숱과 층을 정리하는 방식에 따라 겉으로 보이는
-              느낌을 설명할 때 쓰는 말입니다. 층과 층 사이가 겉에서 보기에 거의
-              느껴지지 않고 안쪽으로 층을 낸 스타일을 보통 레이어드컷이라고
-              얘기합니다. 🙄 질감을 살린다? '질감(texture)을 살린다'는 표현은
-              머리숱과 층을 정리하는 방식에 따라 겉으로 보이는 느낌을 설명할 때
-              쓰는 말입니다. 층과 층 사이가 겉에서 보기에 거의 느껴지지 않고
-              안쪽으로 층을 낸 스타일을 보통 레이어드컷이라고 얘기합니다. 🙄
-              질감을 살린다? '질감(texture)을 살린다'는 표현은 머리숱과 층을
-              정리하는 방식에 따라 겉으로 보이는 느낌을 설명할 때 쓰는 말입니다.
-              겉으로 보이는 느낌을 설명할 때 쓰는 말입니다. 층과 층 사이가
-              겉에서 보기에 거의 느껴지지 않고 안쪽으로 층을 낸 스타일을 보통
-              레이어드컷이라고 얘기합니다. 🙄 질감을 살린다? '질감(texture)을
-              살린다'는 표현은 머리숱과 층을 정리하는 방식에 따라 겉으로 보이는
-              느낌을 설명할 때 쓰는 말입니다. 층과 층 사이가 겉에서 보기에 거의
-              느껴지지 않고 안쪽으로 층을 낸 스타일을 보통 레이어드컷이라고
-              얘기합니다. 🙄 질감을 살린다? '질감(texture)을 살린다'는 표현은
-              머리숱과 층을 정리하는 방식에 따라 겉으로 보이는 느낌을 설명할 때
-              쓰는 말입니다. 층과 층 사이가 겉에서 보기에 거의 느껴지지 않고
-              안쪽으로 층을 낸 스타일을 보통 레이어드컷이라고 얘기합니다. 🙄
-              질감을 살린다? '질감(texture)을 살린다'는 표현은 머리숱과 층을
-              정리하는 방식에 따라 겉으로 보이는 느낌을 설명할 때 쓰는 말입니다.
+            <div class="content" th:text="${hair.hairContent}" name="hairContent">
             </div>
           </div>
 

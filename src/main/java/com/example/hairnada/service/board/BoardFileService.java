@@ -37,6 +37,22 @@ public class BoardFileService {
         if (boardNumber == null){
             throw new IllegalArgumentException("게시물 번호 없음");
         }
+        List<BoardFileDto> fileList = findList(boardNumber);
+
+        for(BoardFileDto file : fileList){
+            File target = new File(fileDir, file.getBoardFileUploadPath() + "/" + file.getBoardFileUuid() + "_" + file.getBoardFileName());
+            File thumbnail = new File(fileDir, file.getBoardFileUploadPath() + "/th_" + file.getBoardFileUuid() + "_" + file.getBoardFileName());
+
+            if (target.exists()){
+                target.delete();
+            }
+
+            if (thumbnail.exists()){
+                thumbnail.delete();
+            }
+
+        }
+
         boardFileMapper.delete(boardNumber);
     }
 

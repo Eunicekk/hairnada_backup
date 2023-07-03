@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="profiles profile-img">
                   <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTgz/MDAxNjM5NTc2MDYxMjQw.jGbcfmGy9UjE1k3obpZy9piP41BQTf_PbLi0VdBRL9sg.vfIiwqDJVvwviW1J9I0QZwNCcfleCTAGemKH_INjJfwg.JPEG.se413496/c55c762ce418abefd071aa7e81c5a213.jpg?type=w800" alt="프로필 이미지">
                 </div>
-                <p class="profiles profile-nick">${board.UserNickName}</p>
+                <p class="profiles profile-nick">${board.userNickName}</p>
               </a>
               <div class="buttons">
                 <button type="button" class="like">하트</button>
