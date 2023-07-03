@@ -37,6 +37,7 @@ public class MyPageController {
 
     }
 
+    // 장바구니에 담긴 상품 조회하기
     @GetMapping("/myBasket")
     public void myBasket(){
 
