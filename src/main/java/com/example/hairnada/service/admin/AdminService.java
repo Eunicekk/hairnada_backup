@@ -12,7 +12,9 @@ import com.example.hairnada.vo.page.CriteriaAdminList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +23,7 @@ import java.util.Optional;
 @Transactional
 public class AdminService {
     private final AdminMapper adminMapper;
+    private final AdminFileService adminFileService;
 
 
     // 회원 전체 조회
@@ -33,6 +36,22 @@ public class AdminService {
     @Transactional(readOnly = true)
     public int getUserTotal(){
         return adminMapper.userTotal();
+    }
+
+    // 회원 정지
+    public void suspensionUser(Long userNumber){
+        if (userNumber == null) {
+            throw new IllegalArgumentException("회원 정보 누락 ");
+        }
+        adminMapper.stopUser(userNumber);
+    }
+
+    // 회원 복구
+    public void restoreUser(Long userNumber){
+        if (userNumber == null) {
+            throw new IllegalArgumentException("회원 정보 누락");
+        }
+        adminMapper.restoreUser(userNumber);
     }
 
     // 등업 게시글 목록 조회
@@ -114,23 +133,39 @@ public class AdminService {
         adminMapper.insertHair(hairDto);
     }
 
+    // 카테고리 헤어스타일 토탈
+    public int getCategoryHairTotal(Long lengthNumber, Long shapeNumber, String hairGender){
+        if (lengthNumber == null || shapeNumber == null || hairGender == null) {
+            throw new IllegalArgumentException("카테고리 선택 누락 !!");
+        }
+        return adminMapper.categoryHairTotal(lengthNumber, shapeNumber, hairGender);
+    }
+
+    // 제목 헤어스타일 토탈
+    public int getNameHairTotal(String hairName){
+        if (hairName == null) {
+            throw new IllegalArgumentException("제목 검색 누락!!");
+        }
+        return adminMapper.nameHairTotal(hairName);
+    }
+
     // 카테고리별 헤어스타일 조회
-    public List<HairDto> findHairListByCategory(Long lengthNumber, Long shapeNumber, String hairGender){
+    public List<HairVo> findHairListByCategory(Long lengthNumber, Long shapeNumber, String hairGender, CriteriaAdminList criteriaAdminList){
         if (hairGender == null || lengthNumber == null || shapeNumber == null) {
             throw new IllegalArgumentException("카테고리 선택 누락!!");
         }
 
-        return Optional.ofNullable(adminMapper.selectHairListByCategory( lengthNumber, shapeNumber, hairGender))
+        return Optional.ofNullable(adminMapper.selectHairListByCategory( lengthNumber, shapeNumber, hairGender, criteriaAdminList))
                 .orElseThrow(()-> {throw new IllegalArgumentException("일치하는 게시글이 없습니다!!"); });
     }
 
     // 이름으로 헤어스타일 조회
-    public List<HairDto> findHairListByName(String hairName){
+    public List<HairVo> findHairListByName(String hairName, CriteriaAdminList criteriaAdminList){
         if (hairName == null) {
             throw new IllegalArgumentException("검색어를 제대로 입력해주세요");
         }
 
-        return Optional.ofNullable(adminMapper.selectHairListByName(hairName))
+        return Optional.ofNullable(adminMapper.selectHairListByName(hairName, criteriaAdminList))
                 .orElseThrow(()-> {throw new IllegalArgumentException("일치하는 게시글이 없습니다 !!");});
     }
 
@@ -157,6 +192,17 @@ public class AdminService {
         }
         return Optional.ofNullable(adminMapper.hairInfo(hairNumber))
                 .orElseThrow(()->{throw new IllegalArgumentException("일치하는 게시글이 없습니다 !");});
+    }
+
+    // 헤어게시글 수정
+    public void modifyHair(HairDto hairDto, List<MultipartFile> files) throws IOException {
+        if (hairDto == null || files == null) {
+            throw new IllegalArgumentException("헤어 수정 정보 누락");
+        }
+        adminFileService.removeHairFile(hairDto.getHairNumber());
+        adminFileService.registerAndSaveFiles(files, hairDto.getHairNumber());
+        adminMapper.updateHair(hairDto);
+
     }
 
     // 미완료 배송 목록 조회

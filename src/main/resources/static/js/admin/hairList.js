@@ -45,26 +45,54 @@ $(".search").on("click", function () {
       lengthNumber : lengthNumber,
       shapeNumber : shapeNumber
     },
-    success : function (categoryHair){
+    success : function (result){
+      console.log(result);
       $('.hl').html('');
-      for (let i = 0; i < categoryHair.length; i++){
-        console.log('Received categoryHair:',categoryHair);
+      for (let i = 0; i < result.categoryHair.length; i++){
         $('.hl').append(`
          <ul class="list-ul">
                   <!-- 첫번째 -->
                   <li class="list-li">
-                    <a href="">
+                    <a href="/admin/hairRead?hairNumber=${result.categoryHair[i].hairNumber}">
                       <div class="img-list">
-                        <img src="https://img1.daumcdn.net/thumb/C360x360/?fname=https://mud-kage.kakao.com/dn/tiTz0/btsjboVScnc/36eDc0R0JCIeBLE6uPouDk/img_1080.jpg&scode=purple" alt="">
+                        <img src="${'/upload/' + result.categoryHair[i].hairFileUploadPath + '/th_' +result.categoryHair[i].hairFileUuid + '_' + result.categoryHair[i].hairFileName}" alt="">
                       </div>
                     </a>
                     <div class="hair-title-box">
-                      <p class="hair-title">${categoryHair[i].hairName}</p>
+                      <p class="hair-title">${result.categoryHair[i].hairName}</p>
                     </div>
                   </li>
                 </ul>
         `);
       }
+      let pageNum = '';
+      let pageInfo = result.pageInfo;
+
+      if (result.pageInfo.prev){
+        pageNum +=
+           `<a>
+              <li className="page-num prev">&lt</li>
+            </a>`;
+      }
+
+      for(let i= result.pageInfo.startPage; i<= result.pageInfo.endPage; i++){
+        if(result.pageInfo.criteria.page == i){
+          pageNum += `<a href="#"><li class="page-num active">${i}</li></a>`;
+        }else{
+          pageNum += `<a href="#"><li class="page-num">${i}</li></a>`;
+        }
+      }
+
+      if(result.pageInfo.next){
+        `
+        <a href="#" class="page-a">
+                <li class="page-num next">&gt</li>
+              </a>
+        `;
+      }
+
+      $('.page-box').html(pageNum);
+
     },
     error: function (xhr, status, error) {
       console.log('Error:', error);
@@ -72,39 +100,66 @@ $(".search").on("click", function () {
   });
 });
 
+// 제목 Input칸 저장
 let selectName;
 
 $('.select-title').on('change', function (){
   selectName = $(this).val();
 })
 
-
+// 제목으로 검색 AJax
 $('.title').on('click', function (){
   let hairName = selectName;
   $.ajax({
     url: "/adminR/hairName",
     type: 'get',
     data: {hairName : hairName},
-    success : function (nameHair){
+    success : function (result){
       $('.hl').html('');
-      for (let i = 0; i < nameHair.length; i++){
-        console.log('Received nameHair:',nameHair);
+      for (let i = 0; i < result.nameHair.length; i++){
         $('.hl').append(`
          <ul class="list-ul">
                   <!-- 첫번째 -->
                   <li class="list-li">
                     <a href="">
                       <div class="img-list">
-                        <img src="https://img1.daumcdn.net/thumb/C360x360/?fname=https://mud-kage.kakao.com/dn/tiTz0/btsjboVScnc/36eDc0R0JCIeBLE6uPouDk/img_1080.jpg&scode=purple" alt="">
+                      <img src="${'/upload/' + result.nameHair[i].hairFileUploadPath + '/th_' +result.nameHair[i].hairFileUuid + '_' + result.nameHair[i].hairFileName}" alt="">
                       </div>
                     </a>
                     <div class="hair-title-box">
-                      <p class="hair-title">${nameHair[i].hairName}</p>
+                      <p class="hair-title">${result.nameHair[i].hairName}</p>
                     </div>
                   </li>
                 </ul>
         `);
       }
+      let pageNum = '';
+      let pageInfo = result.pageInfo;
+
+      if (result.pageInfo.prev){
+        pageNum +=
+            `<a>
+              <li className="page-num prev">&lt</li>
+            </a>`;
+      }
+
+      for(let i= result.pageInfo.startPage; i<= result.pageInfo.endPage; i++){
+        if(result.pageInfo.criteria.page == i){
+          pageNum += `<a href="#"><li class="page-num active">${i}</li></a>`;
+        }else{
+          pageNum += `<a href="#"><li class="page-num">${i}</li></a>`;
+        }
+      }
+
+      if(result.pageInfo.next){
+        `
+        <a href="#" class="page-a">
+                <li class="page-num next">&gt</li>
+              </a>
+        `;
+      }
+
+      $('.page-box').html(pageNum);
 
     }
   });

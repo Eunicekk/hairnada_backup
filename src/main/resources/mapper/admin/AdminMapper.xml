@@ -63,6 +63,18 @@
   SELECT count(user_number) FROM tbl_user
  </select>
 
+<!-- 활동 정지 시키기-->
+ <update id="stopUser">
+  UPDATE TBL_USER
+  SET USER_STATUS = 0
+  WHERE USER_NUMBER = #{userNumber}
+ </update>
+ <!-- 활동 정지 시키기-->
+ <update id="restoreUser">
+  UPDATE TBL_USER
+  SET USER_STATUS = 1
+  WHERE USER_NUMBER = #{userNumber}
+ </update>
  <!-- 등업 신청 목록 조회 -->
  <select id="selectLevelList" resultType="levelVo">
   SELECT
@@ -293,16 +305,141 @@
   SELECT COUNT(HAIR_NUMBER) FROM TBL_HAIR
  </select>
 
-<!-- 카테고리 선택으로 헤어리스트 조회 -->
- <select id="selectHairListByCategory" resultType="hairDto">
-  SELECT HAIR_NAME FROM TBL_HAIR th
-  WHERE LENGTH_NUMBER = #{lengthNumber} AND SHAPE_NUMBER = #{shapeNumber} AND HAIR_GENDER = #{hairGender}
+<!-- 카테고리 선택 게시글 수 -->
+ <select id="categoryHairTotal" resultType="_int">
+  SELECT COUNT(HAIR_NUMBER)  FROM TBL_HAIR th
+  WHERE LENGTH_NUMBER = #{lengthNumber} AND HAIR_GENDER = #{hairGender} AND SHAPE_NUMBER = #{shapeNumber}
  </select>
 
-<!-- 제목으로 헤어리스트 조회 -->
- <select id="selectHairListByName" resultType="hairDto">
-  SELECT HAIR_NAME FROM TBL_HAIR
+<!-- 제목 검색 헤어게시글 수 -->
+ <select id="nameHairTotal" resultType="_int">
+  SELECT COUNT(HAIR_NUMBER) FROM TBL_HAIR th
   WHERE HAIR_NAME LIKE '%'||#{hairName}||'%'
+ </select>
+
+<!-- 카테고리 선택으로 헤어리스트 조회 -->
+ <select id="selectHairListByCategory" resultType="hairVo">
+  SELECT
+   HAIR_NUMBER,
+   HAIR_NAME,
+   HAIR_FILE_NAME,
+   HAIR_FILE_UUID,
+   HAIR_FILE_UPLOAD_PATH
+  FROM
+   (
+    SELECT
+     ROWNUM AS RNUM ,
+     HAIR_NUMBER,
+     HAIR_NAME,
+     HAIR_FILE_NAME,
+     HAIR_FILE_UUID,
+     HAIR_FILE_UPLOAD_PATH
+    FROM
+     (
+      SELECT
+       th.HAIR_NUMBER,
+       HAIR_NAME,
+       thf.HAIR_FILE_NAME,
+       thf.HAIR_FILE_UUID,
+       thf.HAIR_FILE_UPLOAD_PATH
+      FROM
+       TBL_HAIR th
+        LEFT JOIN
+       (
+        SELECT
+         HAIR_FILE_NUMBER ,
+         HAIR_FILE_NAME ,
+         HAIR_FILE_UPLOAD_PATH ,
+         HAIR_FILE_UUID ,
+         HAIR_NUMBER
+        FROM
+         (
+          SELECT
+           HAIR_FILE_NUMBER ,
+           HAIR_FILE_NAME ,
+           HAIR_FILE_UPLOAD_PATH ,
+           HAIR_FILE_UUID ,
+           HAIR_NUMBER,
+           RANK() OVER(PARTITION BY HAIR_NUMBER ORDER BY HAIR_FILE_NUMBER) RK
+          FROM
+           TBL_HAIR_FILE)
+        WHERE
+         RK = 1) thf
+       ON
+        th.HAIR_NUMBER = thf.HAIR_NUMBER
+      WHERE LENGTH_NUMBER = #{lengthNumber} AND SHAPE_NUMBER = #{shapeNumber} AND HAIR_GENDER = #{hairGender}
+      ORDER BY
+       HAIR_NUMBER DESC)
+    <![CDATA[
+    WHERE
+     ROWNUM <= #{criteria.page} * #{criteria.amount}
+             ]]>
+        )
+  WHERE
+   RNUM > (#{criteria.page} - 1 ) * #{criteria.amount}
+ </select>
+
+
+<!-- 제목으로 헤어리스트 조회 -->
+ <select id="selectHairListByName" resultType="hairVo">
+  SELECT
+   HAIR_NUMBER,
+   HAIR_NAME,
+   HAIR_FILE_NAME,
+   HAIR_FILE_UUID,
+   HAIR_FILE_UPLOAD_PATH
+  FROM
+   (
+    SELECT
+     ROWNUM AS RNUM ,
+     HAIR_NUMBER,
+     HAIR_NAME,
+     HAIR_FILE_NAME,
+     HAIR_FILE_UUID,
+     HAIR_FILE_UPLOAD_PATH
+    FROM
+     (
+      SELECT
+       th.HAIR_NUMBER,
+       HAIR_NAME,
+       thf.HAIR_FILE_NAME,
+       thf.HAIR_FILE_UUID,
+       thf.HAIR_FILE_UPLOAD_PATH
+      FROM
+       TBL_HAIR th
+        LEFT JOIN
+       (
+        SELECT
+         HAIR_FILE_NUMBER ,
+         HAIR_FILE_NAME ,
+         HAIR_FILE_UPLOAD_PATH ,
+         HAIR_FILE_UUID ,
+         HAIR_NUMBER
+        FROM
+         (
+          SELECT
+           HAIR_FILE_NUMBER ,
+           HAIR_FILE_NAME ,
+           HAIR_FILE_UPLOAD_PATH ,
+           HAIR_FILE_UUID ,
+           HAIR_NUMBER,
+           RANK() OVER(PARTITION BY HAIR_NUMBER ORDER BY HAIR_FILE_NUMBER) RK
+          FROM
+           TBL_HAIR_FILE)
+        WHERE
+         RK = 1) thf
+       ON
+        th.HAIR_NUMBER = thf.HAIR_NUMBER
+      WHERE HAIR_NAME LIKE '%'||#{hairName}||'%'
+      ORDER BY
+       HAIR_NUMBER DESC)
+    <![CDATA[
+    WHERE
+     ROWNUM <= #{criteria.page} * #{criteria.amount}
+             ]]>
+        )
+  WHERE
+   RNUM > (#{criteria.page} - 1 ) * #{criteria.amount}
  </select>
 
 <!-- 헤어 게시글 작성 -->
@@ -332,6 +469,17 @@
   FROM TBL_HAIR
   WHERE HAIR_NUMBER  = #{hairNumber}
  </select>
+
+<!-- 헤어게시글 수정 -->
+ <update id="updateHair">
+  UPDATE TBL_HAIR th
+  SET HAIR_NAME = #{hairName},
+      HAIR_CONTENT = #{hairContent},
+      HAIR_GENDER = #{hairGender},
+      LENGTH_NUMBER = #{lengthNumber},
+      SHAPE_NUMBER = #{shapeNumber}
+  WHERE HAIR_NUMBER  = #{hairNumber}
+ </update>
 
 <!-- 헤어 게시글 삭제 -->
  <delete id="deleteHair">

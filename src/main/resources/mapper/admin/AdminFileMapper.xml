@@ -14,6 +14,11 @@
         WHERE HAIR_NUMBER = #{hairNumber}
     </select>
 
+    <delete id="deleteHairFile">
+        DELETE FROM TBL_HAIR_FILE thf
+        WHERE HAIR_NUMBER = #{hairNumber}
+    </delete>
+
 
 
 
