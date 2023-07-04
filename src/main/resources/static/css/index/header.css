@@ -69,7 +69,7 @@
     align-items: flex-end;
 }
 
-.dropdown-content {
+.dropdown-content-header {
     display: none;
     position: absolute;
     top: 90px;
@@ -82,11 +82,11 @@
     font-size: 14px;
 }
   
-.dropdown-content li {
+.dropdown-content-header li {
     padding: 10px 12px;
 }
 
-.dropdown-content li:hover{
+.dropdown-content-header li:hover{
     background-color: #222;
     color: white;
 }

@@ -5,7 +5,7 @@
     <!-- 장바구니에 담은 상품 조회하기 -->
     <select id="selectAll" resultType="BasketVo">
         SELECT BASKET_NUMBER, BASKET_CNT, B.STORE_NUMBER, U.USER_NUMBER,
-               STORE_TITLE, STORE_PRICE, (BASKET_CNT * STORE_PRICE) AS STORE_PRICE_ALL,
+               STORE_TITLE, STORE_PRICE,
                STORE_FILE_NUMBER, STORE_FILE_UPLOAD_PATH, STORE_FILE_UUID, STORE_FILE_NAME
         FROM TBL_USER U
                  JOIN TBL_BASKET B ON U.USER_NUMBER = B.USER_NUMBER
@@ -50,5 +50,12 @@
         FROM TBL_BASKET
         WHERE USER_NUMBER = #{userNumber}
     </select>
+
+    <!-- 결제하기 직전 제품 개수 업데이트하기 -->
+    <update id="update">
+        UPDATE TBL_BASKET
+        SET BASKET_CNT = #{basketCnt}
+        WHERE BASKET_NUMBER = #{basketNumber}
+    </update>
 
 </mapper>

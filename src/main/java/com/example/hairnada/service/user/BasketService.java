@@ -51,4 +51,12 @@ public class BasketService {
     public int count(Long userNumber){
         return basketMapper.count(userNumber);
     }
+
+    // 결제 직전 상품 개수 업데이트하기
+    public void modify(BasketDto basketDto){
+        if(basketDto == null){
+            throw new IllegalArgumentException("장바구니에 상품이 없습니다.");
+        }
+        basketMapper.update(basketDto);
+    }
 }
