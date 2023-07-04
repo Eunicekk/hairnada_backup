@@ -21,6 +21,12 @@ public interface AdminMapper {
     // 회원수
     public int userTotal();
 
+    // 회원 정지
+    public void stopUser(Long userNumber);
+
+    // 회원 복구
+    public void restoreUser(Long userNumber);
+
     // 등업 게시글 목록 조회
     public List<LevelVo> selectLevelList(CriteriaAdmin criteriaAdmin);
 
@@ -50,17 +56,26 @@ public interface AdminMapper {
     // 헤어리스트 수
     public int hairTotal();
 
+    // 카테고리 헤어리스트 수
+    public int categoryHairTotal(@Param("lengthNumber") Long lengthNumber,
+                                 @Param("shapeNumber") Long shapeNumber,
+                                 @Param("hairGender") String hairGender);
+
+    // 제목 헤어리스트 수
+    public int nameHairTotal(@Param("hairName") String hairName);
+
     // 헤어 업로드
     public void insertHair(HairDto hairDto);
 
     // 헤어 카테고리로 검색
-    public List<HairDto> selectHairListByCategory(
+    public List<HairVo> selectHairListByCategory(
                                                   @Param("lengthNumber") Long lengthNumber,
                                                   @Param("shapeNumber") Long shapeNumber,
-                                                  @Param("hairGender") String hairGender);
+                                                  @Param("hairGender") String hairGender,
+                                                  @Param("criteria") CriteriaAdminList criteriaAdminList);
 
     // 제목으로 헤어 검색
-    public List<HairDto> selectHairListByName(@Param("hairName")String hairName);
+    public List<HairVo> selectHairListByName(@Param("hairName")String hairName, @Param("criteria")CriteriaAdminList criteriaAdminList);
 
     // 헤어 게시글 읽기
     public HairVo hairRead(Long hairNumber);
@@ -70,6 +85,9 @@ public interface AdminMapper {
 
     // 헤어 게시글 수정시 기본 정보
     public HairDto hairInfo(Long hairNumber);
+
+    // 헤어 게시글 수정
+    public void updateHair(HairDto hairDto);
 
     // 배송 미완료 목록 조회
     public List<AdminBuyDto> selectIncompleteRequest(CriteriaAdmin criteriaAdmin);

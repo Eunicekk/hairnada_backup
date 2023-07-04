@@ -12,4 +12,7 @@ public interface AdminFileMapper {
 
     // 헤어스타일 파일 조회
     public List<HairFileDto> selectHairList(Long hairNumber);
+
+    // 헤어스타일 파일 삭제
+    public void deleteHairFile(Long hairNumber);
 }
