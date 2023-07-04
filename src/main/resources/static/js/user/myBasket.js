@@ -20,7 +20,37 @@ function mainBasket1() {
 
       // 구매하기로 이동
       $('.buy-btn').on('click', function (){
-        window.location.href = '/store/purchase';
+        let checkedCount = $('.check-label2:checked').length;
+        let basketList = [];
+        let basketNumber = $('.check-label2:checked');
+        let basketCnt = $('.check-label2:checked').closest('.basket-content').find('.number-box').prop('value');
+
+        basketNumber.each(function(){
+          let basketVoTemp = {
+            basketNumber: basketNumber.val(),
+            basketCnt: basketCnt
+          };
+          basketList.push(basketVoTemp);
+        });
+        console.log(basketList);
+
+        if (checkedCount > 0) {
+          // 체크박스가 선택되었을 경우 구매 페이지로 이동
+          $.ajax({
+            url: '/myBasket/modify',
+            type: 'patch',
+            traditional : true,
+            data: JSON.stringify(basketList),
+            contentType: "application/json;charset=utf-8",
+            success: function(){
+              window.location.href = '/store/buy';
+              console.log(basketList);
+            }
+          });
+        } else {
+          // 체크박스가 선택되지 않았을 경우 알림 표시
+          alert('구매할 상품을 선택해주세요.');
+        }
       })
     }
   });
@@ -28,7 +58,6 @@ function mainBasket1() {
 
 // 장바구니에서 상품 삭제
 function deleteProduct(){
-  let allBasket = $('.check-label2');
   let checkNumber = $('.check-label2:checked');
   let basketNumbers = [];
   checkNumber.each(function(){
@@ -36,10 +65,10 @@ function deleteProduct(){
   });
 
   $.ajax({
-    url: '/myBasket/delete',
+    url: '/myBasket/remove',
     type: 'DELETE',
     traditional : true,
-    contentType : "application/json",
+    contentType : "application/json;charset=utf-8",
     data : JSON.stringify(basketNumbers),
     success: function(){
       console.log(basketNumbers);
@@ -87,6 +116,7 @@ function getBigBox(obj) {
   `;
   } else {
     for (let i = 0; i < obj.length; i++) {
+      let priceAll = obj[i].basketCnt * obj[i].storePrice;
       text += `
       <tr class="basket-content">
         <td class="check-img-box2">
@@ -105,7 +135,7 @@ function getBigBox(obj) {
             </div>
         </td>
         <td class="test-price">${obj[i].storePrice}</td>
-        <td class="test-result">${obj[i].storePriceAll}</td>
+        <td class="test-result">${priceAll}</td>
     </tr>
     `;
     }
@@ -272,6 +302,7 @@ $(document).on("click", ".minus-box", function() {
   if (currentValue > 1) {
     currentValue--;
     quantityInput.val(currentValue);
+    calculatePriceAll($(this));
   }
 });
 
@@ -281,8 +312,19 @@ $(document).on("click", ".plus-box", function() {
   let currentValue = parseInt(quantityInput.val());
   currentValue++;
   quantityInput.val(currentValue);
+  calculatePriceAll($(this));
 });
 
+function calculatePriceAll(element) {
+  let quantityInput = element.siblings(".number-box");
+  let priceElement = element.closest(".basket-content").find(".test-price");
+  let resultElement = element.closest(".basket-content").find(".test-result");
+
+  let basketCnt = parseInt(quantityInput.val());
+  let storePrice = parseFloat(priceElement.text());
+  let priceAll = basketCnt * storePrice;
+  resultElement.text(priceAll);
+}
 
 // 드롭다운 박스
 $(document).ready(function() {

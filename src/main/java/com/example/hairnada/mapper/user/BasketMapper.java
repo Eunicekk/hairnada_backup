@@ -22,4 +22,7 @@ public interface BasketMapper {
 
     // 장바구니에 담긴 상품 개수
     public int count(Long userNumber);
+
+    // 결제 직전 상품 개수 업데이트하기
+    public void update(BasketDto basketDto);
 }
