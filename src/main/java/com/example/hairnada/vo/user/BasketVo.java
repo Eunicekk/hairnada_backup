@@ -13,8 +13,6 @@ public class BasketVo {
     private Long storeNumber;
     private String StoreTitle;
     private Long storePrice;
-    private Long storePriceAll;
-    private Long deliveryFee;
     private Long userNumber;
     private Long storeFileNumber;
     private String storeFileName;

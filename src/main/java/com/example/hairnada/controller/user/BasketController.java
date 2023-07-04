@@ -1,5 +1,6 @@
 package com.example.hairnada.controller.user;
 
+import com.example.hairnada.dto.user.BasketDto;
 import com.example.hairnada.service.user.BasketService;
 import com.example.hairnada.vo.user.BasketVo;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class BasketController {
     // 장바구니에 상품 추가하기는 상품 페이지에서 컨트롤러 태우기
 
     // 장바구니에 담긴 상품 삭제하기
-    @DeleteMapping("/delete")
+    @DeleteMapping("/remove")
     public void remove(@RequestBody Long[] basketNumbers, HttpServletRequest req){
         Long userNumber = (Long)req.getSession().getAttribute("userNumber");
 
@@ -37,7 +38,7 @@ public class BasketController {
     }
 
     // 30일이 지나면 자동 삭제
-    @DeleteMapping("/deleteAfter30")
+    @DeleteMapping("/removeAfter30")
     public void checkRemove(){
         basketService.removeAfter30();
     }
@@ -47,5 +48,13 @@ public class BasketController {
     public int count(HttpServletRequest req){
         Long userNumber = (Long)req.getSession().getAttribute("userNumber");
         return basketService.count(userNumber);
+    }
+
+    // 결제 직전 상품 개수 업데이트하기
+    @PatchMapping("/modify")
+    public void modify(@RequestBody List<BasketDto> basketList){
+        for(BasketDto basketDto : basketList){
+            basketService.modify(basketDto);
+        }
     }
 }
