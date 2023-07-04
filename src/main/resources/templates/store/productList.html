@@ -66,11 +66,12 @@
       </div>
 
       <article class="holder">
-        <div class="communityList cL">
-          <ul class="ListUl">
+        <div class="communityList cL" id="productList">
+          <ul class="ListUl" >
             <!-- 첫번째 -->
-            <li class="ListLi">
-              <a href="">
+            <li class="ListLi" th:each="store : ${productList}">
+              <div class="store-category-number" th:text="${store.storeCategoryNumber}" style="display: none;"></div>
+              <a th:href="@{/store/productRead(storeNumber=${store.storeNumber})}">
                 <div class="img-list">
                   <div class="main-img">
                     <img src="https://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0014/A00000014950306ko.jpg?l=ko" alt="제품 이미지">
@@ -78,7 +79,7 @@
                 </div>
               </a>
               <div class="titleAndBnt">
-                <p class="product-title">제품이름이여유</p>
+                <p class="product-title" th:text="${store.storeTitle}"></p>
                 <div class="profile">
                   <button id="basketButton" type="button" class="basket">
                     구매
@@ -89,60 +90,8 @@
                 </div>
               </div>
               <div class="productInformation">
-                <p class="productCate">트리트먼트/팩</p>
-                <p class="productPrice">₩ <span class="price">22000</span></p>
-              </div>
-            </li>
-
-            <!-- 두번째 -->
-            <li class="ListLi">
-              <a href="">
-                <div class="img-list">
-                  <div class="main-img">
-                    <img src="https://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0014/A00000014950306ko.jpg?l=ko" alt="제품 이미지">
-                  </div>
-                </div>
-              </a>
-              <div class="titleAndBnt">
-                <p class="product-title">제품이름이여유</p>
-                <div class="profile">
-                  <button id="basketButton" type="button" class="basket">
-                    구매
-                  </button>
-                  <div class="buttons">
-                    <button type="button" class="like">하트</button>
-                  </div>
-                </div>
-              </div>
-              <div class="productInformation">
-                <p class="productCate">트리트먼트/팩</p>
-                <p class="productPrice">₩ <span class="price">22000</span></p>
-              </div>
-            </li>
-
-            <!-- 세번째 -->
-            <li class="ListLi">
-              <a href="">
-                <div class="img-list">
-                  <div class="main-img">
-                    <img src="https://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0014/A00000014950306ko.jpg?l=ko" alt="제품 이미지">
-                  </div>
-                </div>
-              </a>
-              <div class="titleAndBnt">
-                <p class="product-title">제품이름이여유</p>
-                <div class="profile">
-                  <button id="basketButton" type="button" class="basket">
-                    구매
-                  </button>
-                  <div class="buttons">
-                    <button type="button" class="like">하트</button>
-                  </div>
-                </div>
-              </div>
-              <div class="productInformation">
-                <p class="productCate">트리트먼트/팩</p>
-                <p class="productPrice">₩ <span class="price">22000</span></p>
+                <p class="productCate" th:text="${store.storeCategoryName}"></p>
+                <p class="productPrice">₩ <span class="price" th:text="${store.storePrice}"></span></p>
               </div>
             </li>
           </ul>
@@ -151,13 +100,20 @@
         <!-- 페이징 처리 -->
         <div class="pagination">
           <ul>
-            <li><a href="#" class="prev">&laquo;</a></li>
-            <li><a href="#" class="active">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#" class="next">&raquo;</a></li>
+            <a th:href="@{/store/storeList(page=${pageInfo.startPage - 1})}" class="prev" th:if="${pageInfo.prev}">
+              <li>&laquo;</li>
+            </a>
+
+            <th:block th:each="i : ${#numbers.sequence(pageInfo.startPage, pageInfo.endPage)}">
+              <a th:href="@{/store/storeList(page=${i})}" >
+                <li class="active" th:text="${i}" th:if="${i == pageInfo.criteria.page}"></li>
+                <li th:text="${i}" th:unless="${i == pageInfo.criteria.page}"></li>
+              </a>
+            </th:block>
+
+            <a th:href="@{/store/storeList(page=${pageInfo.endPage + 1})}" class="next" th:if="${pageInfo.next}">
+              <li>&raquo;</li>
+            </a>
           </ul>
         </div>
       </article>

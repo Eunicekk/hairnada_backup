@@ -134,7 +134,7 @@
             </div>
           </div>
 
-          <input type="text" id="text" placeholder="검색 단어를 입력해 주세요.">
+          <input type="text" class="select-name" placeholder="검색 단어를 입력해 주세요.">
           <button class="search-btn" type="button">검색</button>
           <!-- <button type="button">등록하기</button> -->
         </div>
@@ -142,10 +142,10 @@
 
       <!-- 리스트 -->
       <article class="holder">
-        <div class="communityList cL">
+        <div class="communityList cL" id="hairStyleList">
           <ul class="ListUl">
             <!-- 첫번째 -->
-            <li class="ListLi">
+            <li class="ListLi" th:each="hair : ${hairStyleList}">
               <a href="">
                 <div class="img-list">
                   <div class="main-img">
@@ -154,58 +154,7 @@
                 </div>
               </a>
               <div class="hairTitle">
-                <p class="product-title">머리스타일이름이여유</p>
-                <div class="buttons">
-                  <button type="button" class="like">하트</button>
-                </div>
-              </div>
-            </li>
-
-            <!-- 두번째 -->
-            <li class="ListLi">
-              <a href="">
-                <div class="img-list">
-                  <div class="main-img">
-                    <img src="https://img1.daumcdn.net/thumb/C360x360/?fname=https://mud-kage.kakao.com/dn/tiTz0/btsjboVScnc/36eDc0R0JCIeBLE6uPouDk/img_1080.jpg&scode=purple" alt="헤어스타일">
-                  </div>
-                </div>
-              </a>
-              <div class="hairTitle">
-                <p class="product-title">머리스타일이름이여유</p>
-                <div class="buttons">
-                  <button type="button" class="like">하트</button>
-                </div>
-              </div>
-            </li>
-
-            <!-- 세번째 -->
-            <li class="ListLi">
-              <a href="">
-                <div class="img-list">
-                  <div class="main-img">
-                    <img src="https://img1.daumcdn.net/thumb/C360x360/?fname=https://mud-kage.kakao.com/dn/tiTz0/btsjboVScnc/36eDc0R0JCIeBLE6uPouDk/img_1080.jpg&scode=purple" alt="헤어스타일">
-                  </div>
-                </div>
-              </a>
-              <div class="hairTitle">
-                <p class="product-title">머리스타일이름이여유</p>
-                <div class="buttons">
-                  <button type="button" class="like">하트</button>
-                </div>
-              </div>
-            </li>
-
-            <!-- 네번째 -->
-            <li class="ListLi">
-              <a href="">
-                <div class="img-list">
-                  <div class="main-img">
-                    <img src="https://img1.daumcdn.net/thumb/C360x360/?fname=https://mud-kage.kakao.com/dn/tiTz0/btsjboVScnc/36eDc0R0JCIeBLE6uPouDk/img_1080.jpg&scode=purple" alt="헤어스타일">
-                  </div>
-                </div>
-              </a>
-              <div class="hairTitle">
-                <p class="product-title">머리스타일이름이여유</p>
+                <p class="product-title" th:text="${hair.hairName}"></p>
                 <div class="buttons">
                   <button type="button" class="like">하트</button>
                 </div>
@@ -217,16 +166,24 @@
         
 
             <!-- 페이징 처리 -->
-            <div class="pagination">
-              <ul>
-                <li><a href="#" class="prev">&laquo;</a></li>
-                <li><a href="#" class="active">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#" class="next">&raquo;</a></li>
-            </div>
+        <div class="pagination">
+          <ul>
+            <a th:href="@{/hair/hairStyleList(page=${pageInfo.startPage - 1})}" class="prev" th:if="${pageInfo.prev}">
+              <li>&laquo;</li>
+            </a>
+
+            <th:block th:each="i : ${#numbers.sequence(pageInfo.startPage, pageInfo.endPage)}">
+              <a th:href="@{/hair/hairStyleList(page=${i})}" >
+                <li class="active" th:text="${i}" th:if="${i == pageInfo.criteria.page}"></li>
+                <li th:text="${i}" th:unless="${i == pageInfo.criteria.page}"></li>
+              </a>
+            </th:block>
+
+            <a th:href="@{/hair/hairStyleList(page=${pageInfo.endPage + 1})}" class="next" th:if="${pageInfo.next}">
+              <li>&raquo;</li>
+            </a>
+          </ul>
+        </div>
           </ul>
       </article>
     </div>

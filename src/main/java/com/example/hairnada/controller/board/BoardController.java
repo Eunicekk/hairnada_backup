@@ -8,6 +8,7 @@ import com.example.hairnada.vo.page.Criteria03;
 import com.example.hairnada.vo.page.Page03Vo;
 import com.example.hairnada.vo.page.SearchVo;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.annotations.Param;
 import org.aspectj.apache.bcel.generic.LocalVariableGen;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -98,8 +99,13 @@ public class BoardController {
     }
 
     @PostMapping("/communityModify")
-    public RedirectView communityModify(BoardDto boardDto, RedirectAttributes redirectAttributes){
-        boardService.modify(boardDto);
+    public RedirectView communityModify(BoardDto boardDto, RedirectAttributes redirectAttributes,
+                                        @RequestParam("communityFile")List<MultipartFile>files){
+        try {
+            boardService.modify(boardDto, files);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         redirectAttributes.addAttribute("boardNumber", boardDto.getBoardNumber());
         return new RedirectView("/board/communityRead");
     }

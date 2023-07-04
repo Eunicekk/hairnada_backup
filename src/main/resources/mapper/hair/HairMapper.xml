@@ -2,4 +2,82 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.hairnada.mapper.hair.HairMapper">
 
+    <!-- 헤어리스트 조회 -->
+    <select id="selectHairList" resultType="hairVo">
+        SELECT
+            HAIR_NUMBER,
+            HAIR_NAME,
+            HAIR_FILE_NAME,
+            HAIR_FILE_UUID
+            HAIR_FILE_UPLOAD_PATH
+        FROM
+            (
+                SELECT
+                    ROWNUM AS RNUM ,
+                    HAIR_NUMBER,
+                    HAIR_NAME,
+                    HAIR_FILE_NAME,
+                    HAIR_FILE_UUID,
+                    HAIR_FILE_UPLOAD_PATH
+                FROM
+                    (
+                        SELECT
+                            th.HAIR_NUMBER,
+                            HAIR_NAME,
+                            thf.HAIR_FILE_NAME,
+                            thf.HAIR_FILE_UUID,
+                            thf.HAIR_FILE_UPLOAD_PATH
+                        FROM
+                            TBL_HAIR th
+                                LEFT JOIN
+                            (
+                                SELECT
+                                    HAIR_FILE_NUMBER ,
+                                    HAIR_FILE_NAME ,
+                                    HAIR_FILE_UPLOAD_PATH ,
+                                    HAIR_FILE_UUID ,
+                                    HAIR_NUMBER
+                                FROM
+                                    (
+                                        SELECT
+                                            HAIR_FILE_NUMBER ,
+                                            HAIR_FILE_NAME ,
+                                            HAIR_FILE_UPLOAD_PATH ,
+                                            HAIR_FILE_UUID ,
+                                            HAIR_NUMBER,
+                                            RANK() OVER(PARTITION BY HAIR_NUMBER ORDER BY HAIR_FILE_NUMBER) RK
+                                        FROM
+                                            TBL_HAIR_FILE)
+                                WHERE
+                                    RK = 1) thf
+                            ON
+                                th.HAIR_NUMBER = thf.HAIR_NUMBER
+                        ORDER BY
+                            HAIR_NUMBER DESC)
+<![CDATA[
+                WHERE
+                    ROWNUM <= #{page} * #{amount}
+             ]]>
+        )
+        WHERE
+            RNUM > (#{page} - 1 ) * #{amount}
+    </select>
+
+    <!-- 헤어 게시글 수 -->
+    <select id="hairTotal" resultType="_int">
+        SELECT COUNT(HAIR_NUMBER) FROM TBL_HAIR
+    </select>
+
+    <!-- 카테고리 선택으로 헤어리스트 조회 -->
+    <select id="selectHairListByCategory" resultType="hairDto">
+        SELECT HAIR_NAME FROM TBL_HAIR th
+        WHERE LENGTH_NUMBER = #{lengthNumber} AND SHAPE_NUMBER = #{shapeNumber} AND HAIR_GENDER = #{hairGender}
+    </select>
+
+    <!-- 제목으로 헤어리스트 조회 -->
+    <select id="selectHairListByName" resultType="hairDto">
+        SELECT HAIR_NAME FROM TBL_HAIR
+        WHERE HAIR_NAME LIKE '%'||#{hairName}||'%'
+    </select>
+
 </mapper>
