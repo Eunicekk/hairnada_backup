@@ -6,6 +6,7 @@ import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.mapper.admin.AdminMapper;
 import com.example.hairnada.vo.hairVo.HairVo;
+import com.example.hairnada.vo.hairVo.StoreVo;
 import com.example.hairnada.vo.level.LevelVo;
 import com.example.hairnada.vo.page.CriteriaAdmin;
 import com.example.hairnada.vo.page.CriteriaAdminList;
@@ -86,7 +87,7 @@ public class AdminService {
 
 
     // 상품 목록 조회
-    public List<StoreDto> findStoreList(CriteriaAdminList criteriaAdminList){
+    public List<StoreVo> findStoreList(CriteriaAdminList criteriaAdminList){
         return adminMapper.selectStoreList(criteriaAdminList);
     }
 
@@ -96,8 +97,16 @@ public class AdminService {
         return adminMapper.storeTotal();
     }
 
+    // 상품 게시글 작성
+    public void registerStore(StoreDto storeDto){
+        if (storeDto == null) {
+            throw new IllegalArgumentException("상품 정보 누락!!");
+        }
+        adminMapper.insertStore(storeDto);
+    }
+
     // 카테고리로 상품 조회
-    public List<StoreDto> findStoreListByCategory(Long storeCategoryNumber){
+    public List<StoreVo> findStoreListByCategory(Long storeCategoryNumber){
         if (storeCategoryNumber == null) {
             throw new IllegalArgumentException("카테고리 선택 정보가 없습니다.");
         }
@@ -106,7 +115,7 @@ public class AdminService {
     }
 
     // 이름으로 상품 조회
-    public List<StoreDto> findStoreListByTitle(String storeTitle){
+    public List<StoreVo> findStoreListByTitle(String storeTitle){
         if (storeTitle == null) {
             throw new IllegalArgumentException("상품 제목을 입력해주세요");
         }
@@ -200,7 +209,7 @@ public class AdminService {
             throw new IllegalArgumentException("헤어 수정 정보 누락");
         }
         adminFileService.removeHairFile(hairDto.getHairNumber());
-        adminFileService.registerAndSaveFiles(files, hairDto.getHairNumber());
+        adminFileService.registerHairAndSaveFiles(files, hairDto.getHairNumber());
         adminMapper.updateHair(hairDto);
 
     }
