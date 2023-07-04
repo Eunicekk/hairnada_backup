@@ -44,7 +44,6 @@ public class AdminController {
     }
 
 
-
     // 로그인
     @GetMapping("/adminLogin")
     public void adminLogin(){}
@@ -77,15 +76,7 @@ public class AdminController {
         model.addAttribute("hair", hairRead);
     }
 
-    // 헤어 게시글 수정
-    @GetMapping("/hairModify")
-    public void hairModify(Long hairNumber, Model model){
-        HairDto hairInfo = adminService.findHairInfo(hairNumber);
-        List<HairFileDto> hairFileList = adminFileService.findList(hairNumber);
-        System.out.println(hairFileList);
-        model.addAttribute("hairInfo", hairInfo);
-        model.addAttribute("hairFile", hairFileList);
-    }
+
 
 
     // 헤어 게시글 업로드
@@ -93,13 +84,30 @@ public class AdminController {
     public void hairUpload(){
 
     }
-    // 헤어 게시글 삭제
-    @GetMapping("/hairRemove")
-    public RedirectView hairRemove(Long hairNumber){
-        adminService.removeHair(hairNumber);
-        return new RedirectView("/admin/hairList");
+
+    // 헤어 게시글 수정
+    @GetMapping("/hairModify")
+    public void hairModify(Long hairNumber, Model model){
+        HairDto hairInfo = adminService.findHairInfo(hairNumber);
+        List<HairFileDto> hairFileList = adminFileService.findList(hairNumber);
+        model.addAttribute("hairInfo", hairInfo);
+        model.addAttribute("hairFile", hairFileList);
     }
 
+    // 헤어 게시글 사진 수정
+    @PostMapping("/hairModify")
+    public RedirectView updateHairFile( HairDto hairDto, @RequestParam("hairFile") List<MultipartFile> files,  RedirectAttributes redirectAttributes) throws IOException {
+        try {
+            adminService.modifyHair(hairDto, files);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        redirectAttributes.addAttribute("hairNumber", hairDto.getHairNumber());
+        return new RedirectView("/admin/hairRead?hairNumber=" + hairDto.getHairNumber());
+    }
+
+    // 헤어 게시글 업로드
     @PostMapping("/hairUpload")
     public RedirectView hairUpload(HairDto hairDto, HttpServletRequest req, RedirectAttributes redirectAttributes
             , @RequestParam("hairFile") List<MultipartFile> files){
@@ -113,6 +121,13 @@ public class AdminController {
                 e.printStackTrace();
             }
         }
+        return new RedirectView("/admin/hairList");
+    }
+
+    // 헤어 게시글 삭제
+    @GetMapping("/hairRemove")
+    public RedirectView hairRemove(Long hairNumber){
+        adminService.removeHair(hairNumber);
         return new RedirectView("/admin/hairList");
     }
 

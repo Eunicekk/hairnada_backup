@@ -114,5 +114,29 @@ public class AdminFileService {
         return new SimpleDateFormat("yyyy/MM/dd").format(new Date());
     }
 
+    // 헤어 사진 삭제
+    public void removeHairFile(Long hairNumber){
+        if (hairNumber == null) {
+            throw new IllegalArgumentException("헤어스타일 번호 누락");
+        }
+
+        List<HairFileDto> fileList = findList(hairNumber);
+
+        for(HairFileDto file : fileList){
+            File target =  new File(fileDir, file.getHairFileUploadPath() + "/" + file.getHairFileUuid() + "_" + file.getHairFileName());
+            File thumbnail = new File(fileDir, file.getHairFileUploadPath() + "/th_" + file.getHairFileUuid() + "_" + file.getHairFileName());
+
+            if(target.exists()){
+                target.delete();
+            }
+
+            if(thumbnail.exists()){
+                thumbnail.delete();
+            }
+        }
+
+        adminFileMapper.deleteHairFile(hairNumber);
+    }
+
 
 }
