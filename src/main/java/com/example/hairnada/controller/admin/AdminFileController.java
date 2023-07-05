@@ -33,7 +33,7 @@ public class AdminFileController {
 
     @GetMapping("/hairImgList")
     public List<HairFileDto> hairImgList(Long hairNumber){
-        List<HairFileDto> hairImgList = adminFileService.findList(hairNumber);
+        List<HairFileDto> hairImgList = adminFileService.findHairList(hairNumber);
 
         return hairImgList;
 

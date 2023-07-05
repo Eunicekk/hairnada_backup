@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.hairnada.mapper.admin.AdminFileMapper">
+<!--    헤어 스타일 이미지 Insert -->
     <insert id="insertHairFile">
         <selectKey keyProperty="hairFileNumber" resultType="long" order="BEFORE">
             SELECT SEQ_HAIR_FILE.NEXTVAL FROM DUAL
@@ -9,17 +10,27 @@
         VALUES(#{hairFileNumber}, #{hairFileName},#{hairFileUploadPath}, #{hairFileUuid}, #{hairNumber})
     </insert>
 
+<!--    헤어 스타일 사진 리스트 조회 -->
     <select id="selectHairList" resultType="hairFileDto">
         SELECT HAIR_FILE_NUMBER , HAIR_FILE_NAME , HAIR_FILE_UUID , HAIR_FILE_UPLOAD_PATH , HAIR_NUMBER  FROM TBL_HAIR_FILE thf
         WHERE HAIR_NUMBER = #{hairNumber}
     </select>
 
+<!--    헤어스타일 사진 삭제 -->
     <delete id="deleteHairFile">
         DELETE FROM TBL_HAIR_FILE thf
         WHERE HAIR_NUMBER = #{hairNumber}
     </delete>
 
-
+<!--    스토어 사진 게시글 등록 -->
+    <insert id="insertStoreFile">
+        <selectKey keyProperty="storeFileNumber" order="BEFORE" resultType="long">
+            SELECT SEQ_STORE_FILE.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO TBL_STORE_FILE
+        (STORE_FILE_NUMBER, STORE_FILE_NAME, STORE_FILE_UPLOAD_PATH, STORE_FILE_UUID, STORE_NUMBER)
+        VALUES(#{storeFileNumber}, #{storeFileName}, #{storeFileUploadPath}, #{storeFileUuid}, #{storeNumber})
+    </insert>
 
 
 </mapper>
