@@ -76,7 +76,8 @@
                   <li class="list-li">
                     <a>
                       <div class="img-list">
-                        <img src="https://sitem.ssgcdn.com/69/72/95/item/1000197957269_i2_750.jpg" alt="">
+                        <img th:if="${store.storeFileName == null}" src="https://sitem.ssgcdn.com/69/72/95/item/1000197957269_i2_750.jpg" alt="">
+                        <img class="main-img" th:unless="${store.storeFileName == null}" th:src="${'/upload/' + store.storeFileUploadPath + '/th_' + store.storeFileUuid + '_' + store.storeFileName }" alt="">
                       </div>
                     </a>
 

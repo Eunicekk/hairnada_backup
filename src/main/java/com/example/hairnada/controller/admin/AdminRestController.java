@@ -6,6 +6,7 @@ import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.service.admin.AdminService;
 import com.example.hairnada.vo.hairVo.HairVo;
+import com.example.hairnada.vo.hairVo.StoreVo;
 import com.example.hairnada.vo.level.LevelVo;
 import com.example.hairnada.vo.page.CriteriaAdmin;
 import com.example.hairnada.vo.page.CriteriaAdminList;
@@ -48,15 +49,15 @@ public class AdminRestController {
 
     // 카테고리로 상품 조회
     @GetMapping("/storeList")
-    public List<StoreDto> findStoreList(Long storeCategoryNumber){
-        List<StoreDto> categoryStore =  adminService.findStoreListByCategory(storeCategoryNumber);
+    public List<StoreVo> findStoreList(Long storeCategoryNumber){
+        List<StoreVo> categoryStore =  adminService.findStoreListByCategory(storeCategoryNumber);
         return categoryStore;
     }
 
     // 이름으로 상품 조회
     @GetMapping("/storeTitle")
-    public List<StoreDto> findStoreListByTitle(String storeTitle){
-        List<StoreDto> titleStore = adminService.findStoreListByTitle(storeTitle);
+    public List<StoreVo> findStoreListByTitle(String storeTitle){
+        List<StoreVo> titleStore = adminService.findStoreListByTitle(storeTitle);
         return titleStore;
     }
 
