@@ -21,6 +21,7 @@
       <div class="main-container">
         <div class="left-bar">
           <nav class="nav-var">
+            <a class="goToMain" th:href="@{/}">Go to Hairnada</a>
             <ul class="admin-nav-list">
               <h3>회원</h3>
               <li><a class="page-move" th:href="@{/admin/userList}">회원 목록 조회 및 관리</a></li>
@@ -82,23 +83,25 @@
                 </ul>
               </div>
             </div>
-            <div class="product-information">
+            <div class="product-information"  th:each="store : ${storeRead}">
+              <input type="hidden" class="storeNumber" th:value="${store.storeNumber}">
               <div class="product-category-box">
-                <span class="product-category">헤어 팩</span>
+                <span class="product-category" th:text="${store.storeCategoryName}">헤어 팩</span>
               </div>
               <div class="product-name-box">
-                <span class="product-title">완전 짱짱 좋은 헤어팩</span>
-                <span class="product-content">제품 설명 ㅈ~~~~~~~~~</span>
+                <span class="product-title" th:text="${store.storeTitle}">완전 짱짱 좋은 헤어팩</span>
+                <span class="product-content" th:text="${store.storeContent}">제품 설명 ㅈ~~~~~~~~~</span>
                 <hr />
               </div>
               <div class="product-price-box">
                 <div class="price-box">
                   가격
-                  <span class="product-price">26000</span> 원
+                  <span class="product-price" th:text="${store.storePrice}">26000</span> 원
                 </div>
                 <div class="delivery-fee-box">
                   배송비
-                  <span class="margin">3000</span> 원
+                  <span class="delivery-price">3000원(50,000원 이상 구매시 무료배송)</span>
+                  <span class="delivery-msg">상세 내용은 제품 상세정보를 확인해주세요.</span>
                 </div>
               </div>
               <div class="btn-box">
@@ -107,12 +110,13 @@
               </div>
             </div>
           </div>
-          <div class="product-details-box">
+          <div class="product-details-box" th:each="mainContent : ${storeMainContent}">
             <div class="details">상세 정보</div>
-            <img
+            <img th:if="${mainContent == null}"
               class="details-img"
               src="https://www.zhangbayo.co.kr/data/zhangbayo/editor/202011/%EB%8C%95%EA%B8%B0%EB%A8%B8%EB%A6%AC_%EC%98%A4%EB%A6%AC%EC%97%94%ED%83%88_%ED%97%A4%EC%96%B4%ED%8C%A9.jpg"
             />
+            <span class="store-main-content" th:unless="${mainContent == null}" th:utext="${mainContent}"></span>
           </div>
         </div>
       </div>

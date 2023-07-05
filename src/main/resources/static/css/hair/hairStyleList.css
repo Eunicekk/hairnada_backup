@@ -58,6 +58,7 @@ input[type="text"]{
   display: flex;
   gap: calc(100px/3);
   position: relative;
+  flex-wrap: wrap;
   left: 0;
 }
 
@@ -234,6 +235,10 @@ input[type="text"]{
   height: 60px;
 }
 
+.label-container{
+  margin-top: 50px;
+}
+
 .label-container label {
   display: flex;
   align-items: center;
@@ -261,12 +266,16 @@ input[type="text"]{
   float: right;
   font-size: 28px;
   font-weight: bold;
-  padding: 32px 40px;
+  margin-top: 100px;
 }
 
 .close:hover,
 .close:focus {
   color: black;
   text-decoration: none;
+  cursor: pointer;
+}
+
+.search-btn{
   cursor: pointer;
 }

@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/product/purchase.css">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/store/purchase.css}">
+    <link rel="stylesheet" th:href="@{/css/index/header.css}">
+    <link rel="stylesheet" th:href="@{/css/index/footer.css}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>HairNada</title>
 </head>
 <body>
+<header class="header" th:replace="fragment/header :: header"></header>
     <div class="main">
 
-        <div class="main-title">
-            <h1>CHECKOUT</h1>
-            <p>주문하실 상품을 결제해주세요.</p>
-            <img src="" alt="">
+        <!-- 배너 -->
+        <div class="banner">
+            <img src="/img/tab-banner-07.png" alt="배너">
         </div>
 
         <div class="address-info">
@@ -22,22 +24,23 @@
             <div class="info-content">
                 <div class="title">배송지 선택</div>
                 <div class="content">
-                    <input name="address" id="basic" type="radio" checked>
+                    <input name="address" id="basic" type="radio" checked th:checked="${true}">
                     <label for="basic">기본주소</label>
-                    <input name="address" id="new" type="radio">
+                    <input name="address" id="new" type="radio" th:checked="${false}">
                     <label for="new">새로입력</label>
                 </div>
             </div>
+
             <div class="info-content">
                 <div class="title">받으시는 분</div>
                 <div class="content">
-                    <input type="text">
+                    <input id="userName" type="text" th:value="${true ? user.userName : ''}">
                 </div>
             </div>
             <div class="info-content">
                 <div class="title">휴대폰 번호</div>
                 <div class="content">
-                    <input type="text">
+                    <input id="userPhoneNumber" type="text" th:value="${true ? user.userPhoneNumber : ''}">
                 </div>
             </div>
             <div class="info-content">
@@ -45,11 +48,11 @@
                     배송 주소
                 </div>
                 <div class="content">
-                    <input type="text" id="sample6_postcode" placeholder="우편번호">
+                    <input type="text" id="sample6_postcode" placeholder="우편번호" th:value="${true ? user.userPostCode : ''}">
                     <button type="button" onclick="sample6_execDaumPostcode()">우편번호 찾기</button><br>
-                    <input type="text" id="sample6_address" placeholder="주소"><br>
-                    <input type="text" id="sample6_detailAddress" placeholder="상세주소">
-                    <input type="text" id="sample6_extraAddress" placeholder="참고항목">
+                    <input type="text" id="sample6_address" placeholder="주소" th:value="${true ? user.userAddress : ''}"><br>
+                    <input type="text" id="sample6_detailAddress" placeholder="상세주소" th:value="${true ? user.userAddressDetail : ''}">
+                    <input type="text" id="sample6_extraAddress" placeholder="참고항목" th:value="${true ? user.userReference : ''}">
                 </div>
             </div>
             <div class="info-content">
@@ -88,19 +91,17 @@
                         <th>수량</th>
                         <th>가격</th>
                         <th>총 상품 금액</th>
-                        <th>배송비</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>
                             <img src="https://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0014/A00000014950114ko.jpg?l=ko" alt="상품">
-                            라보에이치 탈모증상완화 샴푸
+                            <p class="test-product">라보에이치 탈모증상완화 샴푸인데 본문이 길 경우에 어떻게 나오는지 궁금해서 이름을 길게 해보겠습니다 꺄아아앙아아아ㅏㅏㅇ아아악</p>
                         </td>
                         <td class="test-count">1</td>
                         <td class="test-price">26000</td>
                         <td class="test-result">26000</td>
-                        <td class="delivery-charge">무료배송</td>
                     </tr>
                 </tbody>
             </table>
@@ -130,11 +131,45 @@
         <div class="purchase-btn">
             <a href="#">결제하기</a>
         </div>
-
     </div>
+<footer class="footer" th:replace="fragment/footer :: footer"></footer>
 
     <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-    <script src="/js/product/purchase.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var userName = /*[[${true ? user.userName : ''}]]*/ '';
+    var userPhoneNumber = /*[[${true ? user.userPhoneNumber : ''}]]*/ '';
+    var userPostCode = /*[[${true ? user.userPostCode : ''}]]*/ '';
+    var userAddress = /*[[${true ? user.userAddress : ''}]]*/ '';
+    var userAddressDetail = /*[[${true ? user.userAddressDetail : ''}]]*/ '';
+    var userReference = /*[[${true ? user.userReference : ''}]]*/ '';
+
+    // 라디오 버튼의 변경 이벤트 리스너 등록
+    $('input[type="radio"]').change(function() {
+        if ($(this).attr('id') === 'new') {
+            // 선택된 라디오 버튼이 두 번째 라디오 버튼인 경우 필드들의 값을 공백으로 설정
+            $('#userName').val('');
+            $('#userPhoneNumber').val('');
+            $('#sample6_postcode').val('');
+            $('#sample6_address').val('');
+            $('#sample6_detailAddress').val('');
+            $('#sample6_extraAddress').val('');
+            // 나머지 필드들에 대해서도 동일하게 처리 (필요한 경우 추가 작성)
+        } else {
+            // 선택된 라디오 버튼이 첫 번째 라디오 버튼인 경우 필드들의 값을 기존 값으로 설정
+            $('#userName').val(userName);
+            $('#userPhoneNumber').val(userPhoneNumber);
+            $('#sample6_postcode').val(userPostCode);
+            $('#sample6_address').val(userAddress);
+            $('#sample6_detailAddress').val(userAddressDetail);
+            $('#sample6_extraAddress').val(userReference);
+            // 나머지 필드들에 대해서도 동일하게 처리 (필요한 경우 추가 작성)
+        }
+    });
+    /*]]>*/
+</script>
+    <script th:src="@{/js/index/header.js}"></script>
+    <script th:src="@{/js/product/purchase.js}"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </body>
 </html>

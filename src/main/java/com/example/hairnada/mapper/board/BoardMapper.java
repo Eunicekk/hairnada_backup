@@ -36,5 +36,5 @@ public interface BoardMapper {
     public int searchTotal(@Param("search") SearchVo searchVo);
 
 //    카테고리 별로 조회
-public List<BoardVo> selectCategory(@Param("boardCategoryNumber")Long boardCategoryNumber,@Param("criteria")Criteria03 criteria03);
+    public List<BoardVo> selectCategory(@Param("boardCategoryNumber")Long boardCategoryNumber,@Param("criteria")Criteria03 criteria03);
 }

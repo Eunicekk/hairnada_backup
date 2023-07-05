@@ -6,6 +6,7 @@
         <typeAlias type="com.example.hairnada.dto.user.UserDto" alias="userDto" />
         <typeAlias type="com.example.hairnada.dto.user.UserFileDto" alias="userFileDto" />
         <typeAlias type="com.example.hairnada.dto.user.BasketDto" alias="basketDto" />
+        <typeAlias type="com.example.hairnada.vo.user.BasketVo" alias="basketVo" />
         <typeAlias type="com.example.hairnada.dto.user.BuyDto" alias="buyDto" />
         <typeAlias type="com.example.hairnada.dto.user.DeliveryDto" alias="deliveryDto" />
         <typeAlias type="com.example.hairnada.dto.user.MembershipDto" alias="membershipDto" />
@@ -34,6 +35,9 @@
         <typeAlias type="com.example.hairnada.dto.hair.FaceShapeDto" alias="faceShapeDto" />
         <typeAlias type="com.example.hairnada.vo.hairVo.HairVo" alias="hairVo"/>
 
+        <typeAlias type="com.example.hairnada.vo.hairVo.StoreVo" alias="StoreVo"/>
+        <typeAlias type="com.example.hairnada.vo.page.SearchHairVo" alias="searchHairVo"/>
+
         <typeAlias type="com.example.hairnada.dto.hairshop.HairShopDto" alias="hairShopDto" />
         <typeAlias type="com.example.hairnada.vo.hairshop.HairShopVo" alias="hairShopVo" />
         <typeAlias type="com.example.hairnada.dto.hairshop.HairShopFileDto" alias="hairShopFileDto" />
@@ -43,7 +47,6 @@
         <typeAlias type="com.example.hairnada.vo.careshop.CareShopVo" alias="careShopVo" />
         <typeAlias type="com.example.hairnada.dto.careshop.CareShopFileDto" alias="careShopFileDto" />
         <typeAlias type="com.example.hairnada.dto.careshop.CareShopLikeDto" alias="careShopLikeDto" />
-
 
         <typeAlias type="com.example.hairnada.vo.level.LevelVo" alias="levelVo"/>
 

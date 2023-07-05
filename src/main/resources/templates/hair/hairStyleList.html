@@ -54,12 +54,12 @@
                 <label>
                   <span class="radio-image" id="male-image"></span>
                   남성
-                  <input type="radio" name="gender" value="male" style="display: none;" />
+                  <input type="radio" name="gender" class="gender" value="M"  style="display: none;" />
                 </label>
                 <label>
                   <span class="radio-image" id="female-image"></span>
                   여성
-                  <input type="radio" name="gender" value="female" style="display: none;" />
+                  <input type="radio" name="gender" class="gender" value="F" style="display: none;" />
                 </label>
               </div>
             </div>
@@ -74,34 +74,34 @@
               </div>
               <div class="label-container">
                 <label>
-                  <span class="face-image face-image-egg"></span>
+                  <span class="face-image face-image-1"></span>
                   계란형
-                  <input type="radio" name="face" value="egg" style="display: none;" />
+                  <input type="radio" name="face" class="face" value="1" style="display: none;" />
                 </label>
                 <label>
-                  <span class="face-image face-image-long-face"></span>
+                  <span class="face-image face-image-2"></span>
                   긴 얼굴형
-                  <input type="radio" name="face" value="long-face" style="display: none;" />
+                  <input type="radio" name="face" class="face" value="2" style="display: none;" />
                 </label>
                 <label>
-                  <span class="face-image face-image-round"></span>
+                  <span class="face-image face-image-3"></span>
                   둥근형
-                  <input type="radio" name="face" value="round" style="display: none;" />
+                  <input type="radio" name="face" class="face" value="3" style="display: none;" />
                 </label>
                 <label>
-                  <span class="face-image face-image-inverted-triangle"></span>
+                  <span class="face-image face-image-4"></span>
                   역삼각형
-                  <input type="radio" name="face" value="inverted-triangle" style="display: none;" />
+                  <input type="radio" name="face" class="face" value="4" style="display: none;" />
                 </label>
                 <label>
-                  <span class="face-image face-image-hexagon"></span>
+                  <span class="face-image face-image-5"></span>
                   육각형
-                  <input type="radio" name="face" value="hexagon" style="display: none;" />
+                  <input type="radio" name="face" class="face" value="5" style="display: none;" />
                 </label>
                 <label>
-                  <span class="face-image face-image-quadrangle"></span>
+                  <span class="face-image face-image-6"></span>
                   사각형
-                  <input type="radio" name="face" value="quadrangle" style="display: none;" />
+                  <input type="radio" name="face" class="face" value="6" style="display: none;" />
                 </label>
               </div>
             </div>
@@ -116,25 +116,25 @@
               </div>
               <div class="label-container">
                 <label>
-                  <span class="hair-image hair-image-short"></span>
+                  <span class="hair-image hair-image-1"></span>
                   숏
-                  <input type="radio" name="hair" value="short" style="display: none;" />
+                  <input type="radio" name="hair" class="hair" value="1" style="display: none;" />
                 </label>
                 <label>
-                  <span class="hair-image hair-image-medium"></span>
+                  <span class="hair-image hair-image-2"></span>
                   미디엄
-                  <input type="radio" name="hair" value="medium" style="display: none;" />
+                  <input type="radio" name="hair" class="hair" value="2" style="display: none;" />
                 </label>
                 <label>
-                  <span class="hair-image hair-image-long"></span>
+                  <span class="hair-image hair-image-3"></span>
                   롱
-                  <input type="radio" name="hair" value="long" style="display: none;" />
+                  <input type="radio" name="hair" class="hair" value="3" style="display: none;" />
                 </label>
               </div>
             </div>
           </div>
 
-          <input type="text" id="text" placeholder="검색 단어를 입력해 주세요.">
+          <input type="text" class="select-name" placeholder="검색 단어를 입력해 주세요.">
           <button class="search-btn" type="button">검색</button>
           <!-- <button type="button">등록하기</button> -->
         </div>
@@ -142,11 +142,11 @@
 
       <!-- 리스트 -->
       <article class="holder">
-        <div class="communityList cL">
+        <div class="communityList cL" id="hairStyleList">
           <ul class="ListUl">
             <!-- 첫번째 -->
-            <li class="ListLi">
-              <a href="">
+            <li class="ListLi" th:each="hair : ${hairStyleList}">
+              <a th:href="@{/hair/hairStyleRead(hairNumber=${hair.hairNumber})}">
                 <div class="img-list">
                   <div class="main-img">
                     <img src="https://img1.daumcdn.net/thumb/C360x360/?fname=https://mud-kage.kakao.com/dn/tiTz0/btsjboVScnc/36eDc0R0JCIeBLE6uPouDk/img_1080.jpg&scode=purple" alt="헤어스타일">
@@ -154,58 +154,7 @@
                 </div>
               </a>
               <div class="hairTitle">
-                <p class="product-title">머리스타일이름이여유</p>
-                <div class="buttons">
-                  <button type="button" class="like">하트</button>
-                </div>
-              </div>
-            </li>
-
-            <!-- 두번째 -->
-            <li class="ListLi">
-              <a href="">
-                <div class="img-list">
-                  <div class="main-img">
-                    <img src="https://img1.daumcdn.net/thumb/C360x360/?fname=https://mud-kage.kakao.com/dn/tiTz0/btsjboVScnc/36eDc0R0JCIeBLE6uPouDk/img_1080.jpg&scode=purple" alt="헤어스타일">
-                  </div>
-                </div>
-              </a>
-              <div class="hairTitle">
-                <p class="product-title">머리스타일이름이여유</p>
-                <div class="buttons">
-                  <button type="button" class="like">하트</button>
-                </div>
-              </div>
-            </li>
-
-            <!-- 세번째 -->
-            <li class="ListLi">
-              <a href="">
-                <div class="img-list">
-                  <div class="main-img">
-                    <img src="https://img1.daumcdn.net/thumb/C360x360/?fname=https://mud-kage.kakao.com/dn/tiTz0/btsjboVScnc/36eDc0R0JCIeBLE6uPouDk/img_1080.jpg&scode=purple" alt="헤어스타일">
-                  </div>
-                </div>
-              </a>
-              <div class="hairTitle">
-                <p class="product-title">머리스타일이름이여유</p>
-                <div class="buttons">
-                  <button type="button" class="like">하트</button>
-                </div>
-              </div>
-            </li>
-
-            <!-- 네번째 -->
-            <li class="ListLi">
-              <a href="">
-                <div class="img-list">
-                  <div class="main-img">
-                    <img src="https://img1.daumcdn.net/thumb/C360x360/?fname=https://mud-kage.kakao.com/dn/tiTz0/btsjboVScnc/36eDc0R0JCIeBLE6uPouDk/img_1080.jpg&scode=purple" alt="헤어스타일">
-                  </div>
-                </div>
-              </a>
-              <div class="hairTitle">
-                <p class="product-title">머리스타일이름이여유</p>
+                <p class="product-title" th:text="${hair.hairName}"></p>
                 <div class="buttons">
                   <button type="button" class="like">하트</button>
                 </div>
@@ -217,16 +166,24 @@
         
 
             <!-- 페이징 처리 -->
-            <div class="pagination">
-              <ul>
-                <li><a href="#" class="prev">&laquo;</a></li>
-                <li><a href="#" class="active">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#" class="next">&raquo;</a></li>
-            </div>
+        <div class="pagination">
+          <ul>
+            <a th:href="@{/hair/hairStyleList(page=${pageInfo.startPage - 1})}" class="prev" th:if="${pageInfo.prev}">
+              <li>&laquo;</li>
+            </a>
+
+            <th:block th:each="i : ${#numbers.sequence(pageInfo.startPage, pageInfo.endPage)}">
+              <a th:href="@{/hair/hairStyleList(page=${i})}" >
+                <li class="active" th:text="${i}" th:if="${i == pageInfo.criteria.page}"></li>
+                <li th:text="${i}" th:unless="${i == pageInfo.criteria.page}"></li>
+              </a>
+            </th:block>
+
+            <a th:href="@{/hair/hairStyleList(page=${pageInfo.endPage + 1})}" class="next" th:if="${pageInfo.next}">
+              <li>&raquo;</li>
+            </a>
+          </ul>
+        </div>
           </ul>
       </article>
     </div>

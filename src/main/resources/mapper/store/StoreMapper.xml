@@ -2,6 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.hairnada.mapper.store.StoreMapper">
 
+    <select id="select" resultType="storeDto">
+        SELECT S.STORE_NUMBER, STORE_TITLE, STORE_CONTENT, STORE_PRICE, STORE_SCORE_AVG,STORE_FILE_NAME,
+               STORE_FILE_UPLOAD_PATH,STORE_FILE_UUID
+        FROM TBL_STORE S JOIN TBL_STORE_FILE SF
+        ON S.STORE_NUMBER = #{storeNumber} AND S.STORE_NUMBER = SF.STORE_NUMBER
+    </select>
+
+
 <!--  게시물 리스트  -->
     <select id="selectList" resultType="storeDto">
         SELECT
@@ -9,6 +17,7 @@
             STORE_TITLE ,
             STORE_PRICE ,
             STORE_CATEGORY_NAME,
+            STORE_CATEGORY_NUMBER,
             STORE_FILE_NAME,
             STORE_FILE_UPLOAD_PATH,
             STORE_FILE_UUID
@@ -20,6 +29,7 @@
                     STORE_TITLE ,
                     STORE_PRICE ,
                     STORE_CATEGORY_NAME,
+                    STORE_CATEGORY_NUMBER,
                     STORE_FILE_NAME,
                     STORE_FILE_UPLOAD_PATH,
                     STORE_FILE_UUID
@@ -84,6 +94,11 @@
         JOIN TBL_STORE_CATEGORY tsc
         ON tsc.STORE_CATEGORY_NUMBER  = ts.STORE_CATEGORY_NUMBER
         WHERE ts.STORE_CATEGORY_NUMBER = #{storeCategoryNumber}
+    </select>
+
+<!--  스토어 카테고리  -->
+    <select id="selectStoreSearch">
+
     </select>
 
 </mapper>

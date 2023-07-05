@@ -5,8 +5,12 @@ import com.example.hairnada.dto.hair.HairDto;
 import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.service.admin.AdminService;
+import com.example.hairnada.vo.hairVo.HairVo;
+import com.example.hairnada.vo.hairVo.StoreVo;
 import com.example.hairnada.vo.level.LevelVo;
 import com.example.hairnada.vo.page.CriteriaAdmin;
+import com.example.hairnada.vo.page.CriteriaAdminList;
+import com.example.hairnada.vo.page.PageAdminListVo;
 import com.example.hairnada.vo.page.PageAdminVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -24,6 +28,19 @@ import java.util.Map;
 public class AdminRestController {
     private final AdminService adminService;
 
+    // 회원 정지
+    @GetMapping("/suspension")
+    public void suspensionUser(Long userNumber){
+        adminService.suspensionUser(userNumber);
+    }
+
+    // 회원 복구
+    @GetMapping("/restore")
+    public void restoreUser(Long userNumber){
+        adminService.restoreUser(userNumber);
+    }
+
+
     // 등업 요청 수락
     @PostMapping("/membership")
     public void acceptQuest(Long userNumber, Long membershipNumber){
@@ -32,31 +49,37 @@ public class AdminRestController {
 
     // 카테고리로 상품 조회
     @GetMapping("/storeList")
-    public List<StoreDto> findStoreList(Long storeCategoryNumber){
-        List<StoreDto> categoryStore =  adminService.findStoreListByCategory(storeCategoryNumber);
+    public List<StoreVo> findStoreList(Long storeCategoryNumber){
+        List<StoreVo> categoryStore =  adminService.findStoreListByCategory(storeCategoryNumber);
         return categoryStore;
     }
 
     // 이름으로 상품 조회
     @GetMapping("/storeTitle")
-    public List<StoreDto> findStoreListByTitle(String storeTitle){
-        List<StoreDto> titleStore = adminService.findStoreListByTitle(storeTitle);
+    public List<StoreVo> findStoreListByTitle(String storeTitle){
+        List<StoreVo> titleStore = adminService.findStoreListByTitle(storeTitle);
         return titleStore;
     }
 
     // 카테고리로 헤어 조회
     @GetMapping("/hairList")
-    public List<HairDto> findHairList ( Long lengthNumber, Long shapeNumber, String hairGender){
-        List<HairDto> categoryHair = adminService.findHairListByCategory( lengthNumber, shapeNumber,hairGender);
-        System.out.println(categoryHair.toString());
-        return categoryHair;
+    public Map<String, Object> findHairList (Long lengthNumber, Long shapeNumber, String hairGender, CriteriaAdminList criteriaAdminList){
+        Map<String, Object> result = new HashMap<>();
+        List<HairVo> categoryHair = adminService.findHairListByCategory( lengthNumber, shapeNumber,hairGender, criteriaAdminList);
+
+        result.put("categoryHair", categoryHair);
+        result.put("pageInfo", new PageAdminListVo(criteriaAdminList, adminService.getCategoryHairTotal(lengthNumber, shapeNumber, hairGender)));
+        return result;
     }
 
     // 이름으로 헤어스타일 조회
     @GetMapping("/hairName")
-    public List<HairDto> findHairListByName(String hairName){
-        List<HairDto> nameHair = adminService.findHairListByName(hairName);
-        return nameHair;
+    public Map<String, Object> findHairListByName(String hairName, CriteriaAdminList criteriaAdminList){
+        Map<String, Object> result = new HashMap<>();
+         List<HairVo> nameHair = adminService.findHairListByName(hairName, criteriaAdminList);
+        result.put("nameHair", nameHair);
+        result.put("pageInfo", new PageAdminListVo(criteriaAdminList, adminService.getNameHairTotal(hairName)));
+        return result;
     }
 
     // 배송 완료 목록 조회
@@ -89,9 +112,8 @@ public class AdminRestController {
 
     // 배송 상태 변경
     @GetMapping("/delivery")
-    public RedirectView modifyDelivery(Long deliveryNumber, Long buyNumber){
+    public void modifyDelivery(Long deliveryNumber, Long buyNumber){
         adminService.modifyDeliveryStatus(deliveryNumber, buyNumber);
-        return new RedirectView("/admin/delivery");
     }
 
 }

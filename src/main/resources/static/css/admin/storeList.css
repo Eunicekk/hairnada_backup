@@ -2,7 +2,7 @@
   /* background-color: rgb(255, 233, 204);
   margin-top: 96px;
   margin-left: 280px; */
-  width: 1035px;
+  width: 1050px;
   height: 1000px;
 }
 
@@ -99,7 +99,7 @@
 
 .list-ul {
   display: flex;
-  gap: 25px;
+  /*gap: 25px;*/
   position: relative;
   left: 0;
 }
@@ -107,14 +107,14 @@
 .cl {
   display: flex;
   flex-wrap: wrap;
-  column-gap: calc(35px/3);
+  column-gap: calc(260px/4);
   row-gap: 30px;
 }
 
 .list-li {
   display: inline-block;
   position: relative;
-  width: 240px;
+  width: 200px;
 }
 
 .cl a {
@@ -133,17 +133,19 @@
 .img-list {
   position: relative;
   overflow: hidden;
-  width: 240px; height: 240px;
-  overflow: hidden;
+  width: 200px;
+  height: 300px;
+  /*overflow: hidden;*/
 }
 
 .img-list img{
-  width: 100%; min-height: 240px;
+  width: 100%;
+  min-height: 300px;
 }
 
 .main-img {
   width: 100%;
-  height: 350px;
+  height: 300px;
   background-image: url("https://sitem.ssgcdn.com/69/72/95/item/1000197957269_i2_750.jpg");
   background-position: center center;
   background-size: cover;

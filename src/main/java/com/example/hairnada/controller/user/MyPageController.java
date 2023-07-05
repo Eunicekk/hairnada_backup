@@ -41,6 +41,7 @@ public class MyPageController {
 
     }
 
+
     @PostMapping("/myPage")
     public RedirectView userUpdate(HttpServletRequest req, UserDto userDto) {
         HttpSession session = req.getSession();
@@ -53,6 +54,8 @@ public class MyPageController {
         return new RedirectView("/user/myPage");
     }
 
+
+    // 장바구니에 담긴 상품 조회하기
     @GetMapping("/myBasket")
     public void myBasket(){
 

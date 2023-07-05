@@ -3,6 +3,7 @@ package com.example.hairnada.service.admin;
 import com.example.hairnada.dto.hair.HairDto;
 import com.example.hairnada.dto.hair.HairFileDto;
 import com.example.hairnada.dto.store.StoreDto;
+import com.example.hairnada.dto.store.StoreFileDto;
 import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.mapper.admin.AdminFileMapper;
 import com.example.hairnada.mapper.admin.AdminMapper;
@@ -37,18 +38,18 @@ public class AdminFileService {
     private String fileDir;
 
     // 등록
-    public void register(HairFileDto hairFileDto){
+    public void registerHair(HairFileDto hairFileDto){
         if(hairFileDto == null) { throw new IllegalArgumentException("파일 정보 누락"); }
         adminFileMapper.insertHairFile(hairFileDto);
     }
 
     // 읽어오기
-    public List<HairFileDto> findList(Long hairNumber){
+    public List<HairFileDto> findHairList(Long hairNumber){
         return adminFileMapper.selectHairList(hairNumber);
     }
 
     //    파일 저장 처리
-    public HairFileDto saveFile(MultipartFile file) throws IOException {
+    public HairFileDto saveHairFile(MultipartFile file) throws IOException {
 //        사용자가 올린 파일 이름(확장자를 포함)
         String originName = file.getOriginalFilename();
         // 파일 이름에 공백이 들어오면 처리해준다.
@@ -101,17 +102,104 @@ public class AdminFileService {
      * @param hairNumber 파일이 속하는 게시글 번호
      * @throws IOException
      */
-    public void registerAndSaveFiles(List<MultipartFile> files, Long hairNumber) throws IOException{
+    public void registerHairAndSaveFiles(List<MultipartFile> files, Long hairNumber) throws IOException{
         for(MultipartFile file : files){
-            HairFileDto hairFileDto = saveFile(file);
+            HairFileDto hairFileDto = saveHairFile(file);
             hairFileDto.setHairNumber(hairNumber);
-            register(hairFileDto);
+            registerHair(hairFileDto);
         }
     }
 
     //    파일이 저장되는 하위 경로를 현재 날짜로 설정할 것이기 때문에 현재날짜를 구한다.
     private String getUploadPath(){
         return new SimpleDateFormat("yyyy/MM/dd").format(new Date());
+    }
+
+    // 헤어 사진 삭제
+    public void removeHairFile(Long hairNumber){
+        if (hairNumber == null) {
+            throw new IllegalArgumentException("헤어스타일 번호 누락");
+        }
+
+        List<HairFileDto> fileList = findHairList(hairNumber);
+
+        for(HairFileDto file : fileList){
+            File target =  new File(fileDir, file.getHairFileUploadPath() + "/" + file.getHairFileUuid() + "_" + file.getHairFileName());
+            File thumbnail = new File(fileDir, file.getHairFileUploadPath() + "/th_" + file.getHairFileUuid() + "_" + file.getHairFileName());
+
+            if(target.exists()){
+                target.delete();
+            }
+
+            if(thumbnail.exists()){
+                thumbnail.delete();
+            }
+        }
+
+        adminFileMapper.deleteHairFile(hairNumber);
+    }
+
+    // 스토어 사진 등록
+    public void registerStore(StoreFileDto storeFileDto){
+        if(storeFileDto == null) { throw new IllegalArgumentException("파일 정보 누락"); }
+        adminFileMapper.insertStoreFile(storeFileDto);
+    }
+
+    public StoreFileDto saveStoreFile(MultipartFile file) throws IOException {
+//        사용자가 올린 파일 이름(확장자를 포함)
+        String originName = file.getOriginalFilename();
+        // 파일 이름에 공백이 들어오면 처리해준다.
+        originName = originName.replaceAll("\\s+", "");
+
+        UUID uuid = UUID.randomUUID();
+
+        String sysName = uuid.toString() + "_" + originName;
+
+        File uploadPath = new File(fileDir, getUploadPath());
+
+        if(!uploadPath.exists()){
+            uploadPath.mkdirs();
+        }
+
+        File uploadFile = new File(uploadPath, sysName);
+
+        file.transferTo(uploadFile);
+
+//        썸네일 저장처리
+        if(Files.probeContentType(uploadFile.toPath()).startsWith("image")){
+            FileOutputStream out = new FileOutputStream(new File(uploadPath, "th_"+sysName));
+            Thumbnailator.createThumbnail(file.getInputStream(), out, 300, 200);
+            out.close();
+        }
+
+        StoreFileDto storeFileDto = new StoreFileDto();
+        storeFileDto.setStoreFileUuid(uuid.toString());
+        storeFileDto.setStoreFileName(originName);
+        storeFileDto.setStoreFileUploadPath(getUploadPath());
+
+        return storeFileDto;
+    }
+
+    /**
+     * 파일 리스트를 DB등록 및 저장 처리
+     *
+     * @param files 여러 파일을 담은 리스트
+     * @param storeNumber 파일이 속하는 게시글 번호
+     * @throws IOException
+     */
+    public void registerStoreAndSaveFiles(List<MultipartFile> files, Long storeNumber) throws IOException{
+        for(MultipartFile file : files){
+
+            StoreFileDto storeFileDto = saveStoreFile(file);
+            storeFileDto.setStoreNumber(storeNumber);
+            registerStore(storeFileDto);
+
+        }
+    }
+
+    // 상품 사진 읽어오기
+    public List<StoreFileDto> findStoreList(Long storeNumber){
+        return adminFileMapper.selectStoreList(storeNumber);
     }
 
 

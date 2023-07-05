@@ -27,6 +27,7 @@
       <div class="main-container">
         <div class="left-bar">
           <nav class="nav-var">
+            <a class="goToMain" th:href="@{/}">Go to Hairnada</a>
             <ul class="admin-nav-list">
               <h3>회원</h3>
               <li><a class="page-move" th:href="@{/admin/userList}">회원 목록 조회 및 관리</a></li>
@@ -49,6 +50,7 @@
           </nav>
         </div>
         <div class="main-box">
+          <form class="new-post-form" th:action="@{/admin/storeUpload}" method="post" enctype="multipart/form-data">
           <div class="board-write-box">
             <div class="product-img-box">
               <!-- 대표 이미지 업로드 -->
@@ -59,7 +61,7 @@
                     <input
                       type="file"
                       id="post-image"
-                      name="boardFile"
+                      name="storeFile"
                       accept="image/*"
                       multiple
                     />
@@ -73,14 +75,14 @@
             </div>
             <div class="product-information">
               <div class="product-category-box">
-                <select name="category" class="category">
+                <select name="storeCategoryNumber" class="category">
                   <option value="">카테고리 선택</option>
-                  <option value="treatment-pack">트리트먼트/팩</option>
-                  <option value="essence">에센스</option>
-                  <option value="hair-dye-perm">염색/펌</option>
-                  <option value="hair-device">헤어기기</option>
-                  <option value="styling">스타일링</option>
-                  <option value="shampoo-rinse">샴푸/린스</option>
+                  <option value="1">트리트먼트/팩</option>
+                  <option value="2">에센스</option>
+                  <option value="3">염색/펌</option>
+                  <option value="4">헤어기기</option>
+                  <option value="5">스타일링</option>
+                  <option value="6">샴푸/린스</option>
                 </select>
               </div>
               <div class="product-name-box">
@@ -88,11 +90,13 @@
                   type="text"
                   class="product-name"
                   placeholder="&nbsp;상품 제목 입력..."
+                  name="storeTitle"
                 />
                 <input
                   type="text"
                   class="product-content"
                   placeholder="&nbsp; 콘텐츠 입력..."
+                  name="storeContent"
                 />
                 <hr />
               </div>
@@ -103,6 +107,7 @@
                     type="text"
                     class="product-price"
                     placeholder="가격 입력"
+                    name="storePrice"
                   />
                 </div>
                 <div class="delivery-fee-box">
@@ -111,16 +116,18 @@
                     type="text"
                     class="delivery-fee"
                     placeholder="배송비 입력"
+
                   />
                 </div>
               </div>
             </div>
           </div>
           <!-- 서머노트 -->
-          <textarea name="content" id="summernote" value=""></textarea>
+          <textarea name="storeMainContent" id="summernote" value=""></textarea>
           <div class="btn-box">
-            <button type="button">작성 완료</button>
+            <button type="submit">작성 완료</button>
           </div>
+          </form>
         </div>
       </div>
     </div>
