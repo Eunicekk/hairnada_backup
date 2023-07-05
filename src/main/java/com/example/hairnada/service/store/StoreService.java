@@ -2,6 +2,7 @@ package com.example.hairnada.service.store;
 
 import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.mapper.store.StoreMapper;
+import com.example.hairnada.vo.hairVo.StoreVo;
 import com.example.hairnada.vo.page.CriteriaAdminList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,18 @@ import java.util.Optional;
 @Transactional
 public class StoreService {
     private final StoreMapper storeMapper;
+
+//    조회
+    @Transactional(readOnly = true)
+    public StoreDto findStore(Long storeNumber){
+        if (storeNumber == null){
+            throw new IllegalArgumentException("상품 번호가 없습니다.");
+        }
+        return Optional.ofNullable(storeMapper.select(storeNumber))
+                .orElseThrow(() -> {
+                    throw new IllegalArgumentException("존재하지 않는 상품 번호");
+                });
+    }
 
 //    상품 리스트
     public List<StoreDto> findStoreList(CriteriaAdminList criteriaAdminList){

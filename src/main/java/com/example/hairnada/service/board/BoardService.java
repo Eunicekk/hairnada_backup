@@ -9,7 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,14 +34,9 @@ public class BoardService {
     //    삭제
     public void remove(Long boardNumber) {
         if (boardNumber == null) {
-            throw new IllegalArgumentException("게시물 번호가 없습니다.");
-        }
-
-        BoardVo existingBoard = boardMapper.select(boardNumber);
-        if (existingBoard == null) {
             throw new IllegalArgumentException("존재하지 않는 게시물");
         }
-
+        boardFileService.remove(boardNumber);
         boardMapper.delete(boardNumber);
     }
 
@@ -48,6 +45,15 @@ public class BoardService {
         if (boardDto == null) {
             throw new IllegalArgumentException("게시물 수정 정보가 없습니다.");
         }
+        boardMapper.update(boardDto);
+    }
+
+    public void modify(BoardDto boardDto, List<MultipartFile> files) throws IOException{
+        if (boardDto == null || files == null){
+            throw new IllegalArgumentException("게시글 수정 매게변수 null 체크");
+        }
+        boardFileService.remove(boardDto.getBoardNumber());
+        boardFileService.registerAndSaveFiles(files, boardDto.getBoardNumber());
         boardMapper.update(boardDto);
     }
 
