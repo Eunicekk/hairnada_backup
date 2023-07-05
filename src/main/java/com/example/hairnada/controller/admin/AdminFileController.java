@@ -1,6 +1,7 @@
 package com.example.hairnada.controller.admin;
 
 import com.example.hairnada.dto.hair.HairFileDto;
+import com.example.hairnada.dto.store.StoreFileDto;
 import com.example.hairnada.service.admin.AdminFileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,12 +32,20 @@ public class AdminFileController {
     @Value("${file.dir}")
     private String fileDir;
 
+//    헤어 이미지 리스트
     @GetMapping("/hairImgList")
     public List<HairFileDto> hairImgList(Long hairNumber){
         List<HairFileDto> hairImgList = adminFileService.findHairList(hairNumber);
 
         return hairImgList;
 
+    }
+
+    // 스토어 이미지 리스트
+    @GetMapping("/storeImgList")
+    public List<StoreFileDto> storeImgList(Long storeNumber){
+        List<StoreFileDto> storeImgList = adminFileService.findStoreList(storeNumber);
+        return storeImgList;
     }
 
     // 서버 컴퓨터에 저장된 파일을 복사하여 넘겨주는 핸들러

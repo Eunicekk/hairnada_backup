@@ -19,4 +19,7 @@ public interface AdminFileMapper {
 
     // 스토어 파일 업로드
     public void insertStoreFile(StoreFileDto storeFileDto);
+
+    // 상품 사진 불러오기
+    public List<StoreFileDto> selectStoreList(Long storeNumber);
 }
