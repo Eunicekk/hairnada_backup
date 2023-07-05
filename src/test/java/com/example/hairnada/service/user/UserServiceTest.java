@@ -2,6 +2,7 @@ package com.example.hairnada.service.user;
 
 import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.mapper.user.UserMapper;
+import com.example.hairnada.vo.user.UserVo;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -39,6 +40,9 @@ class UserServiceTest {
         userDto.setUserEmail("asd1234@naver.vom");
         userDto.setUserAddress("강남구");
         userDto.setUserAddressDetail("103동 101호");
+        userDto.setUserFileNumber(1L);
+        userDto.setMembershipName("ㅋㅋ");
+        userDto.setUserStatus(1L);
     }
 
     @Test
@@ -101,4 +105,13 @@ class UserServiceTest {
         assertThat(result).isEqualTo(1);
     }
 
+    @Test
+    @DisplayName("회원정보 불러오기")
+    void updateSelect() {
+        doReturn(userDto).when(userMapper).updateSelect(any(Long.class));
+
+        UserVo result = userService.updateSelect(3L);
+
+        assertThat(result.getUserNumber()).isEqualTo(userDto.getUserNumber());
+    }
 }

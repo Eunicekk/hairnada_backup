@@ -2,10 +2,13 @@ package com.example.hairnada.service.user;
 
 import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.mapper.user.UserMapper;
+import com.example.hairnada.vo.user.UserVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Optional;
 
 @Service
@@ -14,6 +17,7 @@ import java.util.Optional;
 public class UserService {
 
     private final UserMapper userMapper;
+    private final UserFileService userFileService;
 
 //    회원등록
     public void register(UserDto userDto){
@@ -85,7 +89,7 @@ public class UserService {
     }
 
 //    회원정보 수정
-    public void userUpdate(UserDto userDto){
+    public void userUpdate(UserDto userDto, MultipartFile multipartFile){
         if(userDto.getUserNumber() == null){
             throw new IllegalArgumentException("회원번호 누락");
         }else if(userDto == null){
@@ -93,6 +97,22 @@ public class UserService {
         }
 
          userMapper.userUpdate(userDto);
+        userFileService.remove(userDto.getUserNumber());
+        try {
+            userFileService.registerAndSaveFiles(multipartFile, userDto.getUserNumber());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+//    회원정보 수정 확인
+    public UserVo updateSelect(Long userNumber){
+        if(userNumber == null){
+            throw new IllegalArgumentException("회원번호 누락");
+        }
+
+        return userMapper.updateSelect(userNumber);
     }
 
 

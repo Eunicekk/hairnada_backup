@@ -1,6 +1,7 @@
 package com.example.hairnada.mapper.user;
 
 import com.example.hairnada.dto.user.UserDto;
+import com.example.hairnada.vo.user.UserVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -30,5 +31,8 @@ public interface UserMapper {
 
 //    회원정보 수정
     public void userUpdate(UserDto userDto);
+
+//    회원정보 수정 확인
+    public UserVo updateSelect(Long userNumber);
 
 }

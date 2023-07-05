@@ -1,8 +1,20 @@
 function mainPage() {
-  $(".main-join").html(getMainJoin);
+
     dropDown();
     userModify();
+    checkNickname();
     box();
+    getUser();
+    // 성별 체크 css
+    $(".main-join").on("click",".female-box", function () {
+        $(".female-box").css("background-color", "#e0e0e0");
+        $(".male-box").css("background-color", "#FFF");
+    });
+
+    $(".main-join").on("click",".male-box", function () {
+        $(".male-box").css("background-color", "#e0e0e0");
+        $(".female-box").css("background-color", "#FFF");
+    });
   //   userUpdate();
 }
 
@@ -28,20 +40,46 @@ $(".main-join").on("click", ".ok-btn", function () {
 //   console.log(files[0]);
 // });
 
-function getMainJoin() {
+// let users = $('.user').val();
+//
+// console.log(users);
+//
+// var dtoArray = [];
+// USER_NUMBER, USER_NAME, USER_NICKNAME, USER_GENDER, USER_PHONE_NUMBER, USER_EMAIL, USER_ADDRESS, USER_ADDRESS_DETAIL
+// var dto = {}
+
+
+function getUser(){
+    $.ajax({
+       url:"/myPages/userInfo",
+       type: "GET",
+       dataType: "json",
+       success: function (result) {
+           console.log(result);
+           let infoModifyPage = getMainJoin(result);
+
+           $(".main-join").html(infoModifyPage);
+       }
+    });
+}
+
+
+
+
+function getMainJoin(users) {
   return `
-<form class="signup-form" action="/user/myPage" method="post">
+<form class="signup-form" action="/user/myPage" method="post" enctype="multipart/form-data">
   <div class="input-box">
             <div class="my-profile">
               <div class="profile">프로필</div>
               <div class="profile-file">
                <ul class="file-wrap">
                 <!-- 썸네일 처리 해야함 -->
-                <li class="img-list">
+                <li class="img-list" style="background-image: url('/userFile/display?fileName=${users.userFileUploadPath+'/th_'+users.userFileUuid + '_' + users.userFileName}')">
                   <input
                     type="file"
                     id="post-image"
-                    name="boardFile"
+                    name="userFile"
                     accept="image/*"
                   />
                 </li>
@@ -74,33 +112,33 @@ function getMainJoin() {
             <span class="pw-err-text2">일치하는 비밀번호 입니다.</span>
             <div class="input-name">
               <div class="name">이름</div>
-              <input type="text" class="name-box" name="userName" required autocomplete="off"/>
+              <input type="text" class="name-box" name="userName" value="${users.userName}" required autocomplete="off"/>
             </div>
             <div class="input-nickname">
               <div class="nickname">닉네임</div>
-              <input type="text" class="nickname-box" name="userNickname" required autocomplete="off"/>
+              <input type="text" class="nickname-box" name="userNickname" value="${users.userNickname}" required autocomplete="off"/>
             </div>
             <span class="nickName-err-text">중복된 닉네임 입니다.</span>
             <span class="nickName-err-text2">사용 가능한 닉네임 입니다.</span>
             <div class="input-gender">
               <div class="gender">성별</div>
               <label for="gender-f">
-                <div type="button" class="female-box" >여성</div>
+                <div type="button" class="female-box" ${users.userGender.trim() == 'F' ? 'style="background-color: #e0e0e0"' : ''}>여성</div>
               </label>
               <label for="gender-m">
-                <div type="button" class="male-box check-background">남성</div>
+                <div type="button" class="male-box check-background" ${users.userGender.trim() == 'M' ? 'style="background-color: #e0e0e0"' : ''}>남성</div>
               </label>
-              <input type="radio" name="userGender" id="gender-f"  value="F" />
-              <input type="radio" name="userGender" id="gender-m" value="M" />
+              <input type="radio" name="userGender" id="gender-f"  value="F" ${users.userGender.trim() == 'F' ? 'checked' : ''} />
+              <input type="radio" name="userGender" id="gender-m" value="M" ${users.userGender.trim() == 'M' ? 'checked' : ''}/>
             </div>
             <div class="input-phone">
               <div class="phone">휴대전화 번호</div>
-              <input type="text" class="phone-box" name="userPhoneNumber" required autocomplete="off"/>
+              <input type="text" class="phone-box" name="userPhoneNumber" value="${users.userPhoneNumber}" required autocomplete="off"/>
             </div>
             <div class="input-email">
               <div class="email">이메일</div>
-              <input type="hidden" name="userEmail" class="realEmail" value="">
-              <input type="text" class="email-box" required autocomplete="off"/>
+              <input type="hidden" name="userEmail" class="realEmail" value="${users.userEmail}">
+              <input type="text" class="email-box" value="${users.userEmail}" required autocomplete="off"/>
 
               <div class="dropdown">
                 <button class="dropdown-btn" type="button">
@@ -140,8 +178,9 @@ function getMainJoin() {
               placeholder="주소"
               name="userAddress"
               readonly
+              value="${users.userAddress}"
             />
-            <input type="text" placeholder="상세주소" name="userAddressDetail" autocomplete="off" id="sample6_detailAddress" />
+            <input type="text" placeholder="상세주소" value="${users.userAddressDetail}" name="userAddressDetail" autocomplete="off" id="sample6_detailAddress" />
             <input type="text" placeholder="참고항목" id="sample6_extraAddress" readonly />
             <button type="submit" class="ok-btn">회원가입</button>
           </div>
@@ -376,32 +415,6 @@ function userModify() {
     });
 }
 
-
-
-// 닉네임 중복검사
-$('.nickname-box').on('blur', function () {
-    var userNickname = $(".nickname-box").val();
-
-    $.ajax({
-        url: "/users/checkNickname",
-        type: "GET",
-        data: {userNickname: userNickname},
-        success: function (result) {
-            // 중복 여부에 따라 처리
-            if (result == 0) {
-                $('.nickName-err-text2').css("display", "inline-block");
-                $('.nickName-err-text').css("display", "none");
-            } else {
-                $('.nickName-err-text').css("display", "inline-block");
-                $('.nickName-err-text2').css("display", "none");
-            }
-        },
-        error: function () {
-            console.log("오류 발생");
-        }
-    });
-});
-
 function box(){
 $(".female-box").on("click", function () {
     $(".female-box").css("background-color", "#e0e0e0");
@@ -413,3 +426,32 @@ $(".male-box").on("click", function () {
     $(".female-box").css("background-color", "#FFF");
 });
 }
+
+// 닉네임 중복검사
+function checkNickname() {
+    $('.nickname-box').on('blur', function () {
+        var userNickname = $(".nickname-box").val();
+
+        $.ajax({
+            url: "/users/checkNickname",
+            type: "GET",
+            data: {userNickname: userNickname},
+            success: function (result) {
+                // 중복 여부에 따라 처리
+                if (result == 0) {
+                    $('.nickName-err-text2').css("display", "inline-block");
+                    $('.nickName-err-text').css("display", "none");
+                } else {
+                    $('.nickName-err-text').css("display", "inline-block");
+                    $('.nickName-err-text2').css("display", "none");
+                }
+            },
+            error: function () {
+                console.log("오류 발생");
+            }
+        });
+    });
+}
+
+
+
