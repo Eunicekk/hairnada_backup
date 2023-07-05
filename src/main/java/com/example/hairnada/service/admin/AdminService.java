@@ -106,21 +106,38 @@ public class AdminService {
     }
 
     // 카테고리로 상품 조회
-    public List<StoreVo> findStoreListByCategory(Long storeCategoryNumber){
+    public List<StoreVo> findStoreListByCategory(Long storeCategoryNumber, CriteriaAdminList criteriaAdminList){
         if (storeCategoryNumber == null) {
             throw new IllegalArgumentException("카테고리 선택 정보가 없습니다.");
         }
-        return Optional.ofNullable(adminMapper.selectStoreListByCategory(storeCategoryNumber))
+        return Optional.ofNullable(adminMapper.selectStoreListByCategory(storeCategoryNumber, criteriaAdminList))
                 .orElseThrow(()-> {throw new IllegalArgumentException("존재하는 게시글이 없습니다");});
     }
 
+    // 카테고리로 상품 조회 토탈
+    public int getCategoryStoreTotal(Long storeCategoryNumber){
+        if (storeCategoryNumber == null) {
+            throw new IllegalArgumentException("상품 카테고리 정보 누락");
+        }
+        return Optional.ofNullable(adminMapper.categoryStoreTotal(storeCategoryNumber))
+                .orElseThrow(()-> {throw new IllegalArgumentException("일치하는 게시글이 없습니다 !!");});
+    }
+
     // 이름으로 상품 조회
-    public List<StoreVo> findStoreListByTitle(String storeTitle){
+    public List<StoreVo> findStoreListByTitle(String storeTitle, CriteriaAdminList criteriaAdminList){
         if (storeTitle == null) {
             throw new IllegalArgumentException("상품 제목을 입력해주세요");
         }
-        return Optional.ofNullable(adminMapper.selectStoreListByTitle(storeTitle))
+        return Optional.ofNullable(adminMapper.selectStoreListByTitle(storeTitle, criteriaAdminList))
                 .orElseThrow(()->{throw new IllegalArgumentException("일치하는 상품이 없습니다.");});
+    }
+    // 제목으로 상품 조회 토탈
+    public int getTitleStoreTotal(String storeTitle){
+        if (storeTitle == null) {
+            throw new IllegalArgumentException("상품 정보를 제대로 입력해주세요");
+        }
+        return Optional.ofNullable(adminMapper.titleStoreTotal(storeTitle))
+                .orElseThrow(()->{throw new IllegalArgumentException("일치하는 게시글이 없스빈다.");});
     }
 
     // 상품 게시글 1개 읽기

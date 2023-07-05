@@ -49,10 +49,16 @@ public interface AdminMapper {
     public void insertStore(StoreDto storeDto);
 
     // 상품 카테고리로 검색
-    public List<StoreVo> selectStoreListByCategory(Long storeCategoryNumber);
+    public List<StoreVo> selectStoreListByCategory(Long storeCategoryNumber,  @Param("criteria")CriteriaAdminList criteriaAdminList);
+
+    // 상품 카테고리 검색 수
+    public int categoryStoreTotal(Long storeCategoryNumber);
 
     // 상품 제목으로 검색
-    public List<StoreVo> selectStoreListByTitle(String storeTitle);
+    public List<StoreVo> selectStoreListByTitle(String storeTitle, @Param("criteria")CriteriaAdminList criteriaAdminList);
+
+    // 상품 제목으로 검색 수
+    public int titleStoreTotal(String storeTitle);
 
     // 상품 게시글 읽기
     public StoreVo storeRead(Long storeNumber);
