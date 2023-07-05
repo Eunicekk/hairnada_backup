@@ -113,6 +113,7 @@ public class BoardController {
     @GetMapping("/communityRemove")
     public RedirectView communityRemove(Long boardNumber){
         boardService.remove(boardNumber);
+        boardFileService.remove(boardNumber);
         return new RedirectView("/board/communityList");
     }
 

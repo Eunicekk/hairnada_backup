@@ -96,4 +96,9 @@
         WHERE ts.STORE_CATEGORY_NUMBER = #{storeCategoryNumber}
     </select>
 
+<!--  스토어 카테고리  -->
+    <select id="selectStoreSearch">
+
+    </select>
+
 </mapper>

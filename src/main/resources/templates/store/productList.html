@@ -28,22 +28,22 @@
               <button>전체 <span>(521)</span></button>
             </td>
             <td>
-              <button>트리트먼트/팩 <span>(300)</span></button>
+              <button value="1">트리트먼트/팩 <span>(300)</span></button>
             </td>
             <td>
-              <button>헤어에센스 <span>(200)</span></button>
+              <button value="2">헤어에센스 <span>(200)</span></button>
             </td>
             <td>
-              <button>염색약/펌 <span>(1)</span></button>
+              <button value="3">염색약/펌 <span>(1)</span></button>
             </td>
             <td>
-              <button>헤어기기 <span>(15)</span></button>
+              <button value="4">헤어기기 <span>(15)</span></button>
             </td>
             <td>
-              <button>스타일링 <span>(3)</span></button>
+              <button value="5">스타일링 <span>(3)</span></button>
             </td>
             <td>
-              <button>샴푸/린스 <span>(2)</span></button>
+              <button value="6">샴푸/린스 <span>(2)</span></button>
             </td>
           </tr>
         </table>
@@ -100,18 +100,18 @@
         <!-- 페이징 처리 -->
         <div class="pagination">
           <ul>
-            <a th:href="@{/store/storeList(page=${pageInfo.startPage - 1})}" class="prev" th:if="${pageInfo.prev}">
+            <a th:href="@{/store/productList(page=${pageInfo.startPage - 1})}" class="prev" th:if="${pageInfo.prev}">
               <li>&laquo;</li>
             </a>
 
             <th:block th:each="i : ${#numbers.sequence(pageInfo.startPage, pageInfo.endPage)}">
-              <a th:href="@{/store/storeList(page=${i})}" >
+              <a th:href="@{/store/productList(page=${i})}" >
                 <li class="active" th:text="${i}" th:if="${i == pageInfo.criteria.page}"></li>
                 <li th:text="${i}" th:unless="${i == pageInfo.criteria.page}"></li>
               </a>
             </th:block>
-
-            <a th:href="@{/store/storeList(page=${pageInfo.endPage + 1})}" class="next" th:if="${pageInfo.next}">
+            
+            <a th:href="@{/store/productList(page=${pageInfo.endPage + 1})}" class="next" th:if="${pageInfo.next}">
               <li>&raquo;</li>
             </a>
           </ul>

@@ -22,13 +22,14 @@ public class HairController {
     @GetMapping("/hairStyleList")
     public void hairStyleList(CriteriaAdminList criteriaAdminList, Model model){
         List<HairVo> hairStyleList = hairService.findHairList(criteriaAdminList);
-
         model.addAttribute("hairStyleList", hairStyleList);
         model.addAttribute("pageInfo", new PageAdminListVo(criteriaAdminList, hairService.getHairTotal()));
     }
 
-//    @GetMapping("/hairStyleRead")
-//    public void hairStyleRead(Long hairNumber, Model model){
-//        HairVo hairStyleRead = hairService.
-//    }
+    @GetMapping("/hairStyleRead")
+    public String hairStyleRead(Long hairNumber, Model model){
+        HairVo hairVo = hairService.findHair(hairNumber);
+        model.addAttribute("hairList", hairVo);
+        return "hair/hairStyleRead";
+    }
 }

@@ -3,6 +3,7 @@ package com.example.hairnada.mapper.hair;
 import com.example.hairnada.dto.hair.HairDto;
 import com.example.hairnada.vo.hairVo.HairVo;
 import com.example.hairnada.vo.page.CriteriaAdminList;
+import com.example.hairnada.vo.page.SearchHairVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,6 +11,10 @@ import java.util.List;
 
 @Mapper
 public interface HairMapper {
+
+    // 조회
+    public HairVo select(Long hairNumber);
+
     // 헤어 리스트 목록
     public List<HairVo> selectHairList(CriteriaAdminList criteriaAdminList);
 
@@ -24,5 +29,10 @@ public interface HairMapper {
 
     // 제목으로 헤어 검색
     public List<HairDto> selectHairListByName(@Param("hairName")String hairName);
+
+
+    public List<HairVo> selectHairSearch(@Param("searchHairVo") SearchHairVo searchHairVo, @Param("criteria") CriteriaAdminList criteriaAdminList);
+
+    public int selectSearchTotal(SearchHairVo searchHairVo);
 
 }

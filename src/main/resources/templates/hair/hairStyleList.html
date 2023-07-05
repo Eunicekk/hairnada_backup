@@ -54,12 +54,12 @@
                 <label>
                   <span class="radio-image" id="male-image"></span>
                   남성
-                  <input type="radio" name="gender" value="male" style="display: none;" />
+                  <input type="radio" name="gender" class="gender" value="M"  style="display: none;" />
                 </label>
                 <label>
                   <span class="radio-image" id="female-image"></span>
                   여성
-                  <input type="radio" name="gender" value="female" style="display: none;" />
+                  <input type="radio" name="gender" class="gender" value="F" style="display: none;" />
                 </label>
               </div>
             </div>
@@ -74,34 +74,34 @@
               </div>
               <div class="label-container">
                 <label>
-                  <span class="face-image face-image-egg"></span>
+                  <span class="face-image face-image-1"></span>
                   계란형
-                  <input type="radio" name="face" value="egg" style="display: none;" />
+                  <input type="radio" name="face" class="face" value="1" style="display: none;" />
                 </label>
                 <label>
-                  <span class="face-image face-image-long-face"></span>
+                  <span class="face-image face-image-2"></span>
                   긴 얼굴형
-                  <input type="radio" name="face" value="long-face" style="display: none;" />
+                  <input type="radio" name="face" class="face" value="2" style="display: none;" />
                 </label>
                 <label>
-                  <span class="face-image face-image-round"></span>
+                  <span class="face-image face-image-3"></span>
                   둥근형
-                  <input type="radio" name="face" value="round" style="display: none;" />
+                  <input type="radio" name="face" class="face" value="3" style="display: none;" />
                 </label>
                 <label>
-                  <span class="face-image face-image-inverted-triangle"></span>
+                  <span class="face-image face-image-4"></span>
                   역삼각형
-                  <input type="radio" name="face" value="inverted-triangle" style="display: none;" />
+                  <input type="radio" name="face" class="face" value="4" style="display: none;" />
                 </label>
                 <label>
-                  <span class="face-image face-image-hexagon"></span>
+                  <span class="face-image face-image-5"></span>
                   육각형
-                  <input type="radio" name="face" value="hexagon" style="display: none;" />
+                  <input type="radio" name="face" class="face" value="5" style="display: none;" />
                 </label>
                 <label>
-                  <span class="face-image face-image-quadrangle"></span>
+                  <span class="face-image face-image-6"></span>
                   사각형
-                  <input type="radio" name="face" value="quadrangle" style="display: none;" />
+                  <input type="radio" name="face" class="face" value="6" style="display: none;" />
                 </label>
               </div>
             </div>
@@ -116,19 +116,19 @@
               </div>
               <div class="label-container">
                 <label>
-                  <span class="hair-image hair-image-short"></span>
+                  <span class="hair-image hair-image-1"></span>
                   숏
-                  <input type="radio" name="hair" value="short" style="display: none;" />
+                  <input type="radio" name="hair" class="hair" value="1" style="display: none;" />
                 </label>
                 <label>
-                  <span class="hair-image hair-image-medium"></span>
+                  <span class="hair-image hair-image-2"></span>
                   미디엄
-                  <input type="radio" name="hair" value="medium" style="display: none;" />
+                  <input type="radio" name="hair" class="hair" value="2" style="display: none;" />
                 </label>
                 <label>
-                  <span class="hair-image hair-image-long"></span>
+                  <span class="hair-image hair-image-3"></span>
                   롱
-                  <input type="radio" name="hair" value="long" style="display: none;" />
+                  <input type="radio" name="hair" class="hair" value="3" style="display: none;" />
                 </label>
               </div>
             </div>
@@ -146,7 +146,7 @@
           <ul class="ListUl">
             <!-- 첫번째 -->
             <li class="ListLi" th:each="hair : ${hairStyleList}">
-              <a href="">
+              <a th:href="@{/hair/hairStyleRead(hairNumber=${hair.hairNumber})}">
                 <div class="img-list">
                   <div class="main-img">
                     <img src="https://img1.daumcdn.net/thumb/C360x360/?fname=https://mud-kage.kakao.com/dn/tiTz0/btsjboVScnc/36eDc0R0JCIeBLE6uPouDk/img_1080.jpg&scode=purple" alt="헤어스타일">

@@ -7,6 +7,8 @@ import com.example.hairnada.service.admin.AdminService;
 import com.example.hairnada.service.hair.HairService;
 import com.example.hairnada.vo.page.CriteriaAdmin;
 import com.example.hairnada.vo.page.PageAdminVo;
+import com.example.hairnada.vo.hairVo.HairVo;
+import com.example.hairnada.vo.page.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
@@ -31,6 +33,16 @@ public class HairRestController {
         return searchHairName;
     }
 
+    @GetMapping("/hairSearchList/{page}")
+    public Map<String, Object> searchHair(SearchHairVo searchHairVo, @PathVariable("page") int page){
+        CriteriaAdminList criteriaAdminList = new CriteriaAdminList(page, 12);
+        int total = hairService.findSearchTotal(searchHairVo);
+        PageAdminListVo pageAdminListVo = new PageAdminListVo(criteriaAdminList, total);
+        Map<String, Object> map = new HashMap<>();
+        List<HairVo> list =  hairService.findHairList(searchHairVo, criteriaAdminList);
+        map.put("page", pageAdminListVo);
+        map.put("hairList", list);
 
-
+        return map;
+    }
 }

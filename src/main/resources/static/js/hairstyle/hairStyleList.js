@@ -7,7 +7,7 @@ $(document).ready(function () {
 
 // 버튼 클릭시
 $(document).ready(function () {
-  $(".buttons").click(function () {
+  $(".ListUl").on('click','.buttons',function () {
     var buttonImg = $(this).find(".like");
 
     if (buttonImg.hasClass("active")) {
@@ -77,7 +77,7 @@ for (var i = 0; i < genderRadioButtons.length; i++) {
     if (this.checked) {
       var selectedValue = this.value;
       var buttonName = genderModal.parentElement.querySelector(".gender-name");
-      buttonName.textContent = selectedValue === "male" ? "남성" : "여성";
+      buttonName.textContent = selectedValue === "M" ? "남성" : "여성";
       genderModal.style.display = "none";
     }
   });
@@ -115,24 +115,18 @@ for (var i = 0; i < hairRadioButtons.length; i++) {
 // 얼굴형 라디오 버튼에 따라 텍스트 반환
 function getFaceButtonText(value) {
   switch (value) {
-    case "egg":
+    case "1":
       return "계란형";
-    case "long-face":
+    case "2":
       return "긴 얼굴형";
-      case "round":
+      case "3":
         return "둥근형";
-    case "heart":
-      return "하트형";
-    case "angular":
-      return "각진형";
-    case "inverted-triangle":
+    case "4":
       return "역삼각형";
-    case "hexagon":
+    case "5":
       return "육각형";
-    case "quadrangle":
+    case "6":
       return "사각형";
-    case "egg-chin":
-      return "계란턱형";
     default:
       return "";
   }
@@ -141,11 +135,11 @@ function getFaceButtonText(value) {
 // 머리길이 라디오 버튼에 따라 텍스트 반환
 function getHairButtonText(value) {
   switch (value) {
-    case "short":
+    case "1":
       return "숏";
-    case "medium":
+    case "2":
       return "미디엄";
-    case "long":
+    case "3":
       return "롱";
     default:
       return "";
@@ -158,10 +152,10 @@ for (var i = 0; i < genderRadioButtons.length; i++) {
   genderRadioButtons[i].addEventListener("change", function () {
     var genderImageMale = document.getElementById("male-image");
     var genderImageFemale = document.getElementById("female-image");
-    if (this.value === "male") {
+    if (this.value === "M") {
       genderImageMale.style.display = "inline-block";
       genderImageFemale.style.display = "none";
-    } else if (this.value === "female") {
+    } else if (this.value === "F") {
       genderImageMale.style.display = "none";
       genderImageFemale.style.display = "inline-block";
     }
@@ -208,24 +202,61 @@ for (var i = 0; i < hairRadioButtons.length; i++) {
   });
 }
 
-let selectName
 
-$('.select-name').on('click', function (){
-  selectName = $(this).val();
-})
+let obj ={};
 
+// 검색 버튼 클릭 이벤트
 $('.search-btn').on('click', function (){
-  console.log("클릭했다.")
-  let hairStyleName = selectName;
+  obj = {
+    hairGender: $('.gender:checked').val(),
+    shapeNumber: $('.face:checked').val(),
+    lengthNumber: $('.hair:checked').val(),
+    keyword : $('.select-name').val()
+  };
+  searchModule(1, obj, showSearchResult, paging);
+});
+
+
+// 카테고리 체크박스 change이벤트
+$('input[type=radio]').on('change', function (){
+  obj = {
+    hairGender: $('.gender:checked').val(),
+    shapeNumber: $('.face:checked').val(),
+    lengthNumber: $('.hair:checked').val(),
+    keyword : $('.select-name').val()
+  };
+
+  searchModule(1, obj, showSearchResult, paging);
+});
+
+// 검색 모듈(비동기)
+function searchModule(page, obj, callback, paging){
   $.ajax({
-    url : "/hairStyleR/hairStyleName",
+    url : `/hairStyleR/hairSearchList/${page}`,
     type : 'get',
-    data : {hairName: hairStyleName},
-    success : function (styleName){
-      $('.ListUl').html('');
-      for (let i =0; i < styleName.length; i++){
-        console.log('Received styleName : ', styleName);
-        $('.ListUl').append(`
+    data : obj,
+    dataType : 'json',
+    success : function (result){
+      if(callback){
+        callback(result);
+        paging(result);
+      }
+    },
+    error : function (a,b,c){
+      console.error(c);
+    }
+  });
+}
+
+// 검색 결과 화면에 뿌리는 함수
+function showSearchResult(result){
+  console.log(result);
+
+  let hairList = result.hairList;
+
+  $('.ListUl').html('');
+  for (let i =0; i < hairList.length; i++){
+    $('.ListUl').append(`
             <li class="ListLi">
               <a href="">
                 <div class="img-list">
@@ -235,14 +266,45 @@ $('.search-btn').on('click', function (){
                 </div>
               </a>
               <div class="hairTitle">
-                <p class="product-title">${styleName[i].hairName}</p>
+                <p class="product-title">${hairList[i].hairName}</p>
                 <div class="buttons">
                   <button type="button" class="like">하트</button>
                 </div>
               </div>
             </li>
         `);
+  }
+}
+
+// 페이징 처리
+function paging(result){
+  let pageInfo = result.page;
+  let text = '';
+
+  text += `
+    ${pageInfo.prev ? 
+        '<a href="javascript:void(0)" class="prev" onclick="searchModule(' + (pageInfo.startPage-1) + ',obj,showSearchResult,paging)"><li>&laquo;</li></a>'
+      :''}
+  `;
+
+  for(let i=pageInfo.startPage; i<=pageInfo.endPage; i++){
+    text +=`
+      <a href="javascript:void(0)" onclick="searchModule(${i},obj,showSearchResult,paging)">
+      ${pageInfo.criteria.page == i ?
+        '<li class="active">' + i + '</li>'
+        :
+        '<li>' + i +'</li>'
       }
-    }
-  })
-});
+      </a>
+    `;
+  }
+
+  text += `
+    ${pageInfo.next ?
+      '<a href="javascript:void(0)" class="next" onclick="searchModule(' + (pageInfo.endPage+1) + ',obj,showSearchResult,paging)"><li>&raquo;</li></a>'
+      :''}
+  `;
+
+  $('.pagination > ul').html(text);
+}
+

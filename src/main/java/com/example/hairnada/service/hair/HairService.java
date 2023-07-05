@@ -4,6 +4,7 @@ import com.example.hairnada.dto.hair.HairDto;
 import com.example.hairnada.mapper.hair.HairMapper;
 import com.example.hairnada.vo.hairVo.HairVo;
 import com.example.hairnada.vo.page.CriteriaAdminList;
+import com.example.hairnada.vo.page.SearchHairVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,18 @@ import java.util.Optional;
 @Transactional
 public class HairService {
     private final HairMapper hairMapper;
+
+//    조회
+    @Transactional(readOnly = true)
+    public HairVo findHair(Long hairNumber){
+        if (hairNumber == null){
+            throw new IllegalArgumentException("뭐가 없습니다.");
+        }
+        return Optional.ofNullable(hairMapper.select(hairNumber))
+                .orElseThrow(() -> {
+                    throw new IllegalArgumentException("뭐가 없습니다.");
+                });
+    }
 
     // 헤어 스타일 조회
     public List<HairVo> findHairList(CriteriaAdminList criteriaAdminList){
@@ -46,5 +59,20 @@ public class HairService {
 
         return Optional.ofNullable(hairMapper.selectHairListByName(hairName))
                 .orElseThrow(()-> {throw new IllegalArgumentException("일치하는 게시글이 없습니다 !!");});
+    }
+
+//    카테고리,검색 조회
+    public List<HairVo> findHairList(SearchHairVo searchHairVo, CriteriaAdminList criteriaAdminList){
+        if (searchHairVo == null){
+            throw new IllegalArgumentException("뭐가 없습니다.");
+        }
+        return hairMapper.selectHairSearch(searchHairVo, criteriaAdminList);
+    }
+
+    public int findSearchTotal(SearchHairVo searchHairVo){
+        if (searchHairVo == null) {
+            throw new IllegalArgumentException("searchHairVo 누락!");
+        }
+        return hairMapper.selectSearchTotal(searchHairVo);
     }
 }
