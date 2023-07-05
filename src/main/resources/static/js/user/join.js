@@ -1,3 +1,4 @@
+// 성별 체크 css
 $(".female-box").on("click", function () {
   $(".female-box").css("background-color", "#e0e0e0");
   $(".male-box").css("background-color", "#FFF");

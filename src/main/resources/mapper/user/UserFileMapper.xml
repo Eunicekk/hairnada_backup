@@ -2,19 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.hairnada.mapper.user.UserFileMapper">
     <insert id="insertUserFile">
+        <selectKey keyProperty="userFileNumber" resultType="long" order="BEFORE">
+            SELECT SEQ_USER_FILE.NEXTVAL FROM DUAL
+        </selectKey>
         INSERT INTO TBL_USER_FILE (USER_FILE_NUMBER, USER_FILE_NAME, USER_FILE_UPLOAD_PATH, USER_FILE_UUID, USER_NUMBER)
-        VALUES (SEQ_USER_FILE.NEXTVAL, #{userFileName}, #{userFileUploadPath}, #{userFileUuid}, #{userNumber}    )
+        VALUES (#{userFileNumber}, #{userFileName}, #{userFileUploadPath}, #{userFileUuid}, #{userNumber}    )
     </insert>
-
-    <delete id="deleteUserFile">
-        DELETE FROM TBL_USER_FILE
-        WHERE USER_NUMBER = #{userNumber}
-    </delete>
 
     <select id="selectUserFile" resultType="UserFileDto">
         SELECT USER_FILE_NUMBER, USER_FILE_NAME, USER_FILE_UPLOAD_PATH, USER_FILE_UUID, USER_NUMBER
         FROM TBL_USER_FILE
         WHERE USER_NUMBER = ${userNumber}
     </select>
+
+    <delete id="deleteUserFile">
+        DELETE FROM TBL_USER_FILE
+        WHERE USER_NUMBER = #{userNumber}
+    </delete>
 
 </mapper>

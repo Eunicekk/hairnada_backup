@@ -46,9 +46,19 @@
             USER_EMAIL = #{userEmail},
             USER_ADDRESS = #{userAddress},
             USER_PHONE_NUMBER = #{userPhoneNumber},
+            USER_NICKNAME = #{userNickname},
             USER_ADDRESS_DETAIL = #{userAddressDetail}
         WHERE  USER_NUMBER = #{userNumber}
     </update>
+
+    <select id="updateSelect" resultType="userVo">
+        SELECT U.USER_NUMBER, USER_NAME, USER_NICKNAME, USER_GENDER, USER_PHONE_NUMBER, USER_EMAIL, USER_ADDRESS, USER_ADDRESS_DETAIL
+             , USER_FILE_NAME, USER_FILE_UPLOAD_PATH, USER_FILE_UUID
+        FROM TBL_USER U
+        LEFT JOIN TBL_USER_FILE F
+           ON U.USER_NUMBER = F.USER_NUMBER
+        WHERE U.USER_NUMBER = #{userNumber}
+    </select>
 
 
 </mapper>

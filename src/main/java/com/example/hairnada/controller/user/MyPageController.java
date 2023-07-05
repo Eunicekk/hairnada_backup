@@ -2,6 +2,7 @@ package com.example.hairnada.controller.user;
 
 import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.service.user.MyPageService;
+import com.example.hairnada.service.user.UserFileService;
 import com.example.hairnada.service.user.UserService;
 import com.example.hairnada.vo.board.BoardVo;
 import com.example.hairnada.vo.page.Criteria03;
@@ -21,7 +22,9 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user/*")
@@ -30,26 +33,35 @@ public class MyPageController {
 
     private final MyPageService myPageService;
     private final UserService userService;
+    private final UserFileService userFileService;
+
 
     @GetMapping("/myPageMain")
     public void myPageMain(){
 
     }
 
-    @GetMapping("/myPage")
-    public void myPage(){
+//    @GetMapping("/myPage")
+//    public UserDto myPage(HttpServletRequest req){
+//        Long userNumber = (Long)req.getSession().getAttribute("userNumber");
+//
+//        return userService.updateSelect(userNumber);
+//    }
 
+    @GetMapping("/myPage")
+    public void myPage() {
     }
 
 
     @PostMapping("/myPage")
-    public RedirectView userUpdate(HttpServletRequest req, UserDto userDto) {
+    public RedirectView userUpdate(HttpServletRequest req, UserDto userDto, @RequestParam("userFile") MultipartFile multipartFile) {
         HttpSession session = req.getSession();
         Long userNumber = (Long)session.getAttribute("userNumber");
+        System.out.println(multipartFile.getOriginalFilename());
 
         userDto.setUserNumber(userNumber);
 
-        userService.userUpdate(userDto);
+        userService.userUpdate(userDto, multipartFile);
 
         return new RedirectView("/user/myPage");
     }
