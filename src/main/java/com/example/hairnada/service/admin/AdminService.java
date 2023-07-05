@@ -123,6 +123,23 @@ public class AdminService {
                 .orElseThrow(()->{throw new IllegalArgumentException("일치하는 상품이 없습니다.");});
     }
 
+    // 상품 게시글 1개 읽기
+    public StoreVo lookUpStore(Long storeNumber){
+        if (storeNumber == null) {
+            throw new IllegalArgumentException("상품 번호 누락");
+        }
+        return Optional.ofNullable(adminMapper.storeRead(storeNumber))
+                .orElseThrow(() -> {throw new IllegalArgumentException("일치하지 않는 게시글 입니다 !!");});
+    }
+
+    // 상품 게시글 삭제
+    public void removeStore(Long storeNumber){
+        if (storeNumber == null) {
+            throw new IllegalArgumentException("상품 번호 누락");
+        }
+       adminMapper.deleteStore(storeNumber);
+    }
+
     // 헤어 스타일 조회
     public List<HairVo> findHairList(CriteriaAdminList criteriaAdminList){
         return adminMapper.selectHairList(criteriaAdminList);

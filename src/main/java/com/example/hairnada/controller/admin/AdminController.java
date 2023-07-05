@@ -4,6 +4,7 @@ import com.example.hairnada.dto.buy.AdminBuyDto;
 import com.example.hairnada.dto.hair.HairDto;
 import com.example.hairnada.dto.hair.HairFileDto;
 import com.example.hairnada.dto.store.StoreDto;
+import com.example.hairnada.dto.store.StoreFileDto;
 import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.service.admin.AdminFileService;
 import com.example.hairnada.service.admin.AdminService;
@@ -76,8 +77,6 @@ public class AdminController {
         HairVo hairRead = adminService.lookUpHair(hairNumber);
         model.addAttribute("hair", hairRead);
     }
-
-
 
 
     // 헤어 게시글 업로드
@@ -165,8 +164,11 @@ public class AdminController {
 
     // 상품 읽어오기
     @GetMapping("/storeRead")
-    public void storeRead(){
-
+    public void storeRead(Long storeNumber, Model model){
+        StoreVo storeRead = adminService.lookUpStore(storeNumber);
+        String storeMainContent = adminService.lookUpStore(storeNumber).getStoreMainContent();
+        model.addAttribute("storeRead", storeRead);
+        model.addAttribute("storeMainContent", storeMainContent);
     }
 
     // 상품 올리기
@@ -189,7 +191,12 @@ public class AdminController {
         return new RedirectView("/admin/storeList");
     }
 
-
+    // 상품 게시글 삭제
+    @GetMapping("/storeRemove")
+    public RedirectView removeStore(Long storeNumber){
+        adminService.removeStore(storeNumber);
+        return new RedirectView("/admin/storeList");
+    }
 
 
 
