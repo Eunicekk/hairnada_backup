@@ -110,7 +110,6 @@
                 <li th:text="${i}" th:unless="${i == pageInfo.criteria.page}"></li>
               </a>
             </th:block>
-            
             <a th:href="@{/store/productList(page=${pageInfo.endPage + 1})}" class="next" th:if="${pageInfo.next}">
               <li>&raquo;</li>
             </a>
