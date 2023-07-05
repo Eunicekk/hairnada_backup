@@ -21,4 +21,5 @@ public class StoreVo {
     private String storeFileUploadPath;
     private String storeFileUuid;
     private Long userNumber;
+    private String storeMainContent;
 }

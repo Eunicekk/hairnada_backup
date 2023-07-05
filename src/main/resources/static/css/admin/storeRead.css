@@ -71,8 +71,14 @@
   margin-left: 30px;
 }
 
-.margin {
+.delivery-price {
   margin-left: 12px;
+  font-size : 15px;
+}
+
+.delivery-msg{
+  margin-left: 72px;
+  font-size: 15px;
 }
 
 .product-name {
@@ -156,6 +162,11 @@
   margin-top: 50px;
   width: 100%;
   margin-bottom: 100px;
+}
+
+.store-main-content{
+  margin-top: 100px;
+  text-align: center;
 }
 
 /* 이미지 */

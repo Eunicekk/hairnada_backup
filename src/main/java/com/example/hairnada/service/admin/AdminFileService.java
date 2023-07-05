@@ -197,5 +197,10 @@ public class AdminFileService {
         }
     }
 
+    // 상품 사진 읽어오기
+    public List<StoreFileDto> findStoreList(Long storeNumber){
+        return adminFileMapper.selectStoreList(storeNumber);
+    }
+
 
 }

@@ -32,5 +32,11 @@
         VALUES(#{storeFileNumber}, #{storeFileName}, #{storeFileUploadPath}, #{storeFileUuid}, #{storeNumber})
     </insert>
 
+<!--    상품 사진 리스트 조회 -->
+    <select id="selectStoreList" resultType="storeFileDto">
+        SELECT STORE_FILE_NAME , STORE_FILE_UPLOAD_PATH ,STORE_FILE_UUID ,STORE_NUMBER  FROM TBL_STORE_FILE tsf
+        WHERE STORE_NUMBER = #{storeNumber}
+    </select>
+
 
 </mapper>

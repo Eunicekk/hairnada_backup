@@ -54,6 +54,12 @@ public interface AdminMapper {
     // 상품 제목으로 검색
     public List<StoreVo> selectStoreListByTitle(String storeTitle);
 
+    // 상품 게시글 읽기
+    public StoreVo storeRead(Long storeNumber);
+
+    // 상품 게시글 삭제
+    public void deleteStore(Long storeNumber);
+
     // 헤어 리스트 목록
     public List<HairVo> selectHairList(CriteriaAdminList criteriaAdminList);
 

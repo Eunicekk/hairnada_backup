@@ -227,6 +227,19 @@
   VALUES (#{storeNumber}, #{storeTitle}, #{storeContent}, #{storeCategoryNumber}, #{storePrice}, #{storeMainContent})
  </insert>
 
+<!-- 스토어 게시글 읽기 -->
+ <select id="storeRead" resultType="storeVo">
+  SELECT STORE_NUMBER, STORE_TITLE, STORE_CONTENT , STORE_PRICE, STORE_MAIN_CONTENT, TSC.STORE_CATEGORY_NAME  FROM TBL_STORE ts
+  JOIN TBL_STORE_CATEGORY tsc
+  ON TSC.STORE_CATEGORY_NUMBER = TS.STORE_CATEGORY_NUMBER
+  WHERE ts.STORE_NUMBER = #{storeNumber}
+ </select>
+
+<!-- 스토어 게시글 삭제 -->
+ <delete id="deleteStore">
+  DELETE FROM TBL_STORE ts
+  WHERE STORE_NUMBER = #{storeNumber}
+ </delete>
 <!-- 스토어 게시글 수 -->
  <select id="storeTotal" resultType="_int">
   SELECT COUNT(STORE_NUMBER) FROM TBL_STORE
