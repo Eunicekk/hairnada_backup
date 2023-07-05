@@ -8,6 +8,7 @@ import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.service.admin.AdminFileService;
 import com.example.hairnada.service.admin.AdminService;
 import com.example.hairnada.vo.hairVo.HairVo;
+import com.example.hairnada.vo.hairVo.StoreVo;
 import com.example.hairnada.vo.level.LevelVo;
 import com.example.hairnada.vo.page.CriteriaAdmin;
 import com.example.hairnada.vo.page.CriteriaAdminList;
@@ -89,7 +90,7 @@ public class AdminController {
     @GetMapping("/hairModify")
     public void hairModify(Long hairNumber, Model model){
         HairDto hairInfo = adminService.findHairInfo(hairNumber);
-        List<HairFileDto> hairFileList = adminFileService.findList(hairNumber);
+        List<HairFileDto> hairFileList = adminFileService.findHairList(hairNumber);
         model.addAttribute("hairInfo", hairInfo);
         model.addAttribute("hairFile", hairFileList);
     }
@@ -116,7 +117,7 @@ public class AdminController {
 
         if(files != null){
             try {
-                adminFileService.registerAndSaveFiles(files, hairDto.getHairNumber());
+                adminFileService.registerHairAndSaveFiles(files, hairDto.getHairNumber());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -156,7 +157,8 @@ public class AdminController {
     // 상품 리스트
     @GetMapping("/storeList")
     public void storeList(CriteriaAdminList criteriaAdminList, Model model){
-        List<StoreDto> storeList = adminService.findStoreList(criteriaAdminList);
+        List<StoreVo> storeList = adminService.findStoreList(criteriaAdminList);
+        System.out.println(storeList.toString());
         model.addAttribute("storeList", storeList);
         model.addAttribute("pageInfo", new PageAdminListVo(criteriaAdminList, adminService.getStoreTotal()));
     }
@@ -170,6 +172,23 @@ public class AdminController {
     // 상품 올리기
     @GetMapping("/storeUpload")
     public void storeUpload(){}
+
+    // 상품 올리기
+    @PostMapping("/storeUpload")
+    public RedirectView storeUpload(StoreDto storeDto, HttpServletRequest req, RedirectAttributes redirectAttributes, @RequestParam("storeFile")List<MultipartFile> files) throws IOException {
+        adminService.registerStore(storeDto);
+        redirectAttributes.addFlashAttribute("storeNumber", storeDto.getStoreNumber());
+
+        if(files != null){
+            try {
+                adminFileService.registerStoreAndSaveFiles(files, storeDto.getStoreNumber());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return new RedirectView("/admin/storeList");
+    }
+
 
 
 

@@ -24,7 +24,12 @@ $('.dropdown-content li').on('click', function(){
   $input.attr('readonly',true);
   let text = $(this).text();
   $input.val(text);
-})
+});
+
+
+
+
+
 
 
 // 가격에 천 단위마다 컴마

@@ -148,7 +148,7 @@
  </update>
 
 <!-- 상품 게시글 목록 조회 -->
- <select id="selectStoreList" resultType="storeDto">
+ <select id="selectStoreList" resultType="storeVo">
   SELECT
    STORE_NUMBER ,
    STORE_TITLE ,
@@ -217,6 +217,15 @@
   WHERE
    RNUM > (#{page} - 1 ) * #{amount}
  </select>
+
+<!-- 스토어 게시글 작성 -->
+ <insert id="insertStore">
+    <selectKey keyProperty="storeNumber" order="BEFORE" resultType="long">
+     SELECT SEQ_STORE.NEXTVAL FROM DUAL
+    </selectKey>
+  INSERT INTO TBL_STORE (STORE_NUMBER, STORE_TITLE, STORE_CONTENT, STORE_CATEGORY_NUMBER, STORE_PRICE, STORE_MAIN_CONTENT)
+  VALUES (#{storeNumber}, #{storeTitle}, #{storeContent}, #{storeCategoryNumber}, #{storePrice}, #{storeMainContent})
+ </insert>
 
 <!-- 스토어 게시글 수 -->
  <select id="storeTotal" resultType="_int">
