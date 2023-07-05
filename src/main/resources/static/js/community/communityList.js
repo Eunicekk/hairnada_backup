@@ -30,6 +30,7 @@ $(document).ready(function () {
 });
 
 // 클릭된 버튼에 active 클래스 추가 및 다른 버튼의 active 클래스 제거
+
 $(document).ready(function () {
   $(".categoryBtn").click(function () {
     $(".categoryBtn").removeClass("active");
@@ -37,10 +38,12 @@ $(document).ready(function () {
   });
 });
 
-// 글쓰기 버튼
+// 글쓰기
 $('.write-btn').on('click', function () {
   window.location.href = '/board/communityWrite';
 });
+
+let obj = {};
 
 document.addEventListener('DOMContentLoaded', function() {
   var categoryButtons = document.querySelectorAll('.categoryBtn');
@@ -48,58 +51,88 @@ document.addEventListener('DOMContentLoaded', function() {
   categoryButtons.forEach(function(button) {
     button.addEventListener('click', function() {
       // 선택된 버튼 강조 표시
-      categoryButtons.forEach(function(btn) {
+      categoryButtons.forEach(function (btn) {
         btn.classList.remove('selected');
       });
       this.classList.add('selected');
+    });
+
+  });
+});
 
 
-      // $(document).ready(function() {
-        // 초기 로딩 시, 전체 카테고리 게시물 로드
-        loadBoardList(0);
-        console.log("ready!!")
-        $('.categoryBtn').click(function() {
-          console.log("click")
-          var boardCategoryNumber = $(this).data('board-category-number');
-          console.log(boardCategoryNumber);
-          loadBoardList(boardCategoryNumber);
+
+
+      $(".search-btn").on("click", function () {
+        console.log("검색했디")
+        obj = {
+          boardCategoryNumber: $('.selected').val(),
+          keyword: $('.select-name').val()
+        };
+        searchModule(1, obj, showSearchResult, paging);
+      });
+
+      $(".categoryBtn").on("click", function () {
+        console.log("클릭했디")
+        obj = {
+          boardCategoryNumber: $(this).val(),
+          keyword: $('.select-name').val()
+        };
+        console.log("카테고리 ================== " + obj.boardCategoryNumber);
+        searchModule(1, obj, showSearchResult, paging);
+      });
+
+      function searchModule(page, obj, callback, paging) {
+        $.ajax({
+          url: `/boardR/communitySearchList/${page}`,
+          type: 'get',
+          data: obj,
+          dataType: 'json',
+          success: function (result) {
+            if (callback) {
+              callback(result);
+              paging(result);
+            }
+          },
+          error: function (a, b, c) {
+            console.error(c);
+          }
         });
+      }
 
-        function loadBoardList(boardCategoryNumber) {
-          $.ajax({
-            url: "/boardR/communityList",
-            method: "GET",
-            data: { boardCategoryNumber: boardCategoryNumber },
-            success: function (response) {
-              console.log(response)
-              $('.ListUl').html('');
-              response.forEach(function (board) {
-                $('.ListUl').append(`
+      function showSearchResult(result) {
+        console.log(result);
+
+        let boardList = result.boardList;
+
+        $(".ListUl").html('');
+        for (let i = 0; i < boardList.length; i++) {
+          $('.ListUl').append(`
                 <li class="ListLi">
-            <div class="board-category-number" style="display: none;">${board.boardCategoryNumber}</div>
+            <div class="board-category-number" style="display: none;">${boardList[i].boardCategoryNumber}</div>
             <div class="profile">
               <a href="#">
                 <div class="profiles profile-img">
                   <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTgz/MDAxNjM5NTc2MDYxMjQw.jGbcfmGy9UjE1k3obpZy9piP41BQTf_PbLi0VdBRL9sg.vfIiwqDJVvwviW1J9I0QZwNCcfleCTAGemKH_INjJfwg.JPEG.se413496/c55c762ce418abefd071aa7e81c5a213.jpg?type=w800" alt="프로필 이미지">
                 </div>
-                <p class="profiles profile-nick">${board.userNickName}</p>
+                <p class="profiles profile-nick">${boardList[i].userNickName}</p>
               </a>
               <div class="buttons">
                 <button type="button" class="like">하트</button>
               </div>
             </div>
-            <a href="/board/communityRead?boardNumber=${board.boardNumber}">
+            <a href="/board/communityRead?boardNumber=${boardList[i].boardNumber}">
               <div class="img-list">
-                <div ${board.boardFileName ? 'style="display: none;"' : ''} class="main-img">
+                <div ${boardList[i].boardFileName ? 'style="display: none;"' : ''} class="main-img">
                   <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800" alt="썸네일">
                 </div>
-                <div ${board.boardFileName ? '' : 'style="display: none;"'} class="main-img">
-                  <img src="/upload/${board.boardFileUploadPath}/th_${board.boardFileUuid}_${board.boardFileName}" alt="썸네일"/>
+                <div ${boardList[i].boardFileName ? '' : 'style="display: none;"'} class="main-img">
+                  <img src="/upload/${boardList[i].boardFileUploadPath}/th_${boardList[i].boardFileUuid}_${boardList[i].boardFileName}" alt="썸네일"/>
                 </div>
               </div>
             </a>
             <div class="titleAndCnt">
-              <p class="community-title">${board.boardTitle}</p>
+              <p class="community-title">${boardList[i].boardTitle}</p>
               <div class="count">
                 <span class="reply">댓글</span>
                 <span class="replyCnt">3</span>
@@ -109,14 +142,37 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
           </li>
           `);
-              });
-            },
-            error: function (xhr, status, error) {
-              console.error(error);
-            }
-          });
         }
-      // });
-    });
-  });
-});
+      }
+
+      // 페이징
+      function paging(result) {
+        let pageInfo = result.page;
+        let text = '';
+
+        text += `
+      ${pageInfo.prev ?
+            '<a href="javascript:void(0)" class="prev" onclick="searchModule(' + (pageInfo.startPage - 1) + ',obj,showSearchResult,paging)"><li>&laquo;</li></a>'
+            : ''}
+    `;
+
+        for (let i = pageInfo.startPage; i <= pageInfo.endPage; i++) {
+          text += `
+        <a href="javascript:void(0)" onclick="searchModule(${i},obj,showSearchResult,paging)">
+        ${pageInfo.criteria.page == i ?
+              '<li class="active">' + i + '</li>'
+              :
+              '<li>' + i + '</li>'
+          }
+        </a>
+      `;
+        }
+
+        text += `
+      ${pageInfo.next ?
+            '<a href="javascript:void(0)" class="next" onclick="searchModule(' + (pageInfo.endPage + 1) + ',obj,showSearchResult,paging)"><li>&raquo;</li></a>'
+            : ''}
+    `;
+
+        $('.pagination > ul').html(text);
+      }

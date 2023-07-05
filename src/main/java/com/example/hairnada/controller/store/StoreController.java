@@ -5,6 +5,7 @@ import com.example.hairnada.service.store.StoreService;
 import com.example.hairnada.vo.hairVo.StoreVo;
 import com.example.hairnada.vo.page.CriteriaAdminList;
 import com.example.hairnada.vo.page.PageAdminListVo;
+import com.example.hairnada.vo.page.SearchStoreVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,19 +22,22 @@ public class StoreController {
 
 //    상품 리스트
     @GetMapping("/productList")
-    public void productList(CriteriaAdminList criteriaAdminList, Model model){
-        List<StoreDto> productList = storeService.findStoreList(criteriaAdminList);
+    public String productList(CriteriaAdminList criteriaAdminList, Model model, SearchStoreVo searchStoreVo){
+        List<StoreVo> productList = storeService.selectStoreList(criteriaAdminList);
 
         System.out.println(productList);
         model.addAttribute("productList", productList);
         model.addAttribute("pageInfo", new PageAdminListVo(criteriaAdminList,storeService.findStoreListTotal()));
+        model.addAttribute("searchStoreVo", searchStoreVo);
+
+        return "store/productList";
     }
 
     @GetMapping("/productRead")
     public String productRead(Long storeNumber, Model model){
-        StoreDto storeDto = storeService.findStore(storeNumber);
-        model.addAttribute("store",storeDto);
-        System.out.println(storeDto);
+        StoreVo storeVo = storeService.findStore(storeNumber);
+        model.addAttribute("productList",storeVo);
+        System.out.println(storeVo);
         return "store/productRead";
     }
 

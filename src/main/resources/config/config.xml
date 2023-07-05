@@ -37,6 +37,7 @@
 
         <typeAlias type="com.example.hairnada.vo.hairVo.StoreVo" alias="StoreVo"/>
         <typeAlias type="com.example.hairnada.vo.page.SearchHairVo" alias="searchHairVo"/>
+        <typeAlias type="com.example.hairnada.vo.page.SearchStoreVo" alias="searchStoreVo"/>
 
         <typeAlias type="com.example.hairnada.dto.hairshop.HairShopDto" alias="hairShopDto" />
         <typeAlias type="com.example.hairnada.vo.hairshop.HairShopVo" alias="hairShopVo" />

@@ -47,20 +47,19 @@
 
 
 
-        <div class="style-content">
+        <div class="style-content" th:each="store : ${productList}">
+          <input type="hidden" th:value="${store.storeNumber}" class="store-num"/>
           <div class="styleBox">
-            <div class="style-title">
-              실크테라피 오리지널 헤어에센스 150ml x 2p
+            <div class="style-title" th:text="${store.storeTitle}">
             </div>
-            <div class="title-content">
-              제주로 떠나온 듯, 다채로운 제주의 퍼퓸함을 담은 에센스
+            <div class="title-content" th:text="${store.storeContent}">
             </div>
             <div class="like">
               <div class="starScoreBox">
                 <div class="starScore-img">
                   <span class="material-symbols-rounded">star</span>
                 </div>
-                <span class="starSecore-avg">4.5</span>
+                <span class="starSecore-avg" th:text="${store.storeScoreAvg}"></span>
               </div>
               <div class="likeBox">
                 <div class="like-img"></div>
@@ -73,7 +72,7 @@
             <div class="productContent">
               <div class="productBox">
                 <span class="product-name">판매가</span
-                ><span class="product-price">17000 <span>원</span></span>
+                ><span class="product-price" th:text="${store.storePrice}"> <span>원</span></span>
               </div>
               <div class="productBox">
                 <span class="product-name">배송비</span
@@ -271,7 +270,10 @@
   </div>
 
     <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+  <script th:inline="javascript">
+    let loginNumber = [[${session.userNumber}]];
+  </script>
   <script th:src="@{/js/index/header.js}"></script>
-    <script src="/js/product/productRead.js"></script>
+    <script type="module" th:src="@{/js/product/productRead.js}"></script>
   </body>
 </html>

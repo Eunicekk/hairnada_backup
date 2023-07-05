@@ -64,9 +64,13 @@ function appendText(map){
       text += `
                 <button type="button" class="comment-modify-ready">수정</button>
                 <button type="button" class="comment-delete">삭제</button>
+                `;
+    }
+
+    text +=`
               </div>
             </div>`;
-    }
+
 
     text += `
             <div class="comment-content">

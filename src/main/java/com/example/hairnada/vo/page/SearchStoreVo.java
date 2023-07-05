@@ -7,8 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Data
 @NoArgsConstructor
-public class SearchVo {
-    private Long boardCategoryNumber;
-    private String searchType;
-    private String keyword;
+public class SearchStoreVo {
+    private Long storeCategoryNumber;
+    private String sortingType;
 }

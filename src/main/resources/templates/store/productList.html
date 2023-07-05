@@ -25,29 +25,29 @@
         <table class="category">
           <tr>
             <td>
-              <button>전체 <span>(521)</span></button>
+              <button value="" class="category-btn selected">전체 <span>(521)</span></button>
             </td>
             <td>
-              <button value="1">트리트먼트/팩 <span>(300)</span></button>
+              <button value="1" class="category-btn">트리트먼트/팩 <span>(300)</span></button>
             </td>
             <td>
-              <button value="2">헤어에센스 <span>(200)</span></button>
+              <button value="2" class="category-btn">헤어에센스 <span>(200)</span></button>
             </td>
             <td>
-              <button value="3">염색약/펌 <span>(1)</span></button>
+              <button value="3" class="category-btn">염색약/펌 <span>(1)</span></button>
             </td>
             <td>
-              <button value="4">헤어기기 <span>(15)</span></button>
+              <button value="4" class="category-btn">헤어기기 <span>(15)</span></button>
             </td>
             <td>
-              <button value="5">스타일링 <span>(3)</span></button>
+              <button value="5" class="category-btn">스타일링 <span>(3)</span></button>
             </td>
             <td>
-              <button value="6">샴푸/린스 <span>(2)</span></button>
+              <button value="6" class="category-btn">샴푸/린스 <span>(2)</span></button>
             </td>
           </tr>
         </table>
-          
+
         <div class="dropdown">
           <div class="dropdown-btn">
             인기순
@@ -56,9 +56,9 @@
             </span>
           </div>
           <ul class="dropdown-menu">
-            <li>인기순</li>
-            <li>가격 높은 순</li>
-            <li>가격 낮은 순</li>
+            <li data-sort-type="popularity" class="btn-drop">인기순</li>
+            <li data-sort-type="high_price" class="btn-drop">가격 높은 순</li>
+            <li data-sort-type="low_price" class="btn-drop">가격 낮은 순</li>
           </ul>
         </div>
 
@@ -110,7 +110,6 @@
                 <li th:text="${i}" th:unless="${i == pageInfo.criteria.page}"></li>
               </a>
             </th:block>
-            
             <a th:href="@{/store/productList(page=${pageInfo.endPage + 1})}" class="next" th:if="${pageInfo.next}">
               <li>&raquo;</li>
             </a>

@@ -22,6 +22,7 @@ public class HairController {
     @GetMapping("/hairStyleList")
     public void hairStyleList(CriteriaAdminList criteriaAdminList, Model model){
         List<HairVo> hairStyleList = hairService.findHairList(criteriaAdminList);
+        System.out.println(hairStyleList);
         model.addAttribute("hairStyleList", hairStyleList);
         model.addAttribute("pageInfo", new PageAdminListVo(criteriaAdminList, hairService.getHairTotal()));
     }

@@ -21,12 +21,10 @@
 
       <!-- 검색 기능 -->
         <div class="search">
-          <form id="search" th:action="@{/board/search}" method="get">
             <input type="radio" id="title" name="searchType" value="title" checked> <label for="title">제목</label>
             <input type="radio" id="content" name="searchType" value="content"> <label for="content">내용</label>
-            <input type="text" id="text" name="keyword" placeholder="검색 단어를 입력해 주세요.">
-                  <button type="submit">검색</button>
-          </form>
+            <input type="text" id="text" name="keyword" class="select-name" placeholder="검색 단어를 입력해 주세요.">
+                  <button type="submit" class="search-btn">검색</button>
                   <button type="button" class="write-btn">글쓰기</button>
 
       </div>
@@ -35,27 +33,27 @@
       <table class="category">
         <tr>
           <td>
-            <button id="button0" class="categoryBtn selected">
+            <button id="button0" class="categoryBtn selected" value="">
               전체&nbsp;(<span>1</span>)
             </button>
           </td>
           <td>
-            <button id="button1" class="categoryBtn" data-board-category-number="1">
+            <button id="button1" class="categoryBtn" value="1">
               자유&nbsp;(<span>1</span>)
             </button>
           </td>
           <td>
-            <button id="button2" class="categoryBtn" data-board-category-number="2">
+            <button id="button2" class="categoryBtn" value="2">
               꿀팁&nbsp;(<span>1</span>)
             </button>
           </td>
           <td>
-            <button id="button3" class="categoryBtn" data-board-category-number="3">
+            <button id="button3" class="categoryBtn" value="3">
               질문&nbsp;(<span>1</span>)
             </button>
           </td>
           <td>
-            <button id="button4" class="categoryBtn" data-board-category-number="4">
+            <button id="button4" class="categoryBtn" value="4">
               후기&nbsp;(<span>1</span>)
             </button>
           </td>

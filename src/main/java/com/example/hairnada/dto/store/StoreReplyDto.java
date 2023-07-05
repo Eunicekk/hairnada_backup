@@ -10,9 +10,10 @@ import org.springframework.stereotype.Component;
 public class StoreReplyDto {
     private Long storeReplyNumber;
     private String storeReplyContent;
-    private String storeRegisterDate;
-    private String storeUpdateDate;
-    private String storeScore;
+    private String storeReplyRegisterDate;
+    private String storeReplyUpdateDate;
+    private Long storeScore;
     private Long userNumber;
-    private Long storeNUmber;
+    private String userNickName;
+    private Long storeNumber;
 }
