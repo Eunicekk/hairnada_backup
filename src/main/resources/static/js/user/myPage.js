@@ -1,6 +1,23 @@
 function mainPage() {
-  $(".main-join").html(getMainJoin);
+
+    dropDown();
+    userModify();
+    checkNickname();
+    box();
+    getUser();
+    // 성별 체크 css
+    $(".main-join").on("click",".female-box", function () {
+        $(".female-box").css("background-color", "#e0e0e0");
+        $(".male-box").css("background-color", "#FFF");
+    });
+
+    $(".main-join").on("click",".male-box", function () {
+        $(".male-box").css("background-color", "#e0e0e0");
+        $(".female-box").css("background-color", "#FFF");
+    });
+  //   userUpdate();
 }
+
 
 mainPage();
 
@@ -23,19 +40,46 @@ $(".main-join").on("click", ".ok-btn", function () {
 //   console.log(files[0]);
 // });
 
-function getMainJoin() {
+// let users = $('.user').val();
+//
+// console.log(users);
+//
+// var dtoArray = [];
+// USER_NUMBER, USER_NAME, USER_NICKNAME, USER_GENDER, USER_PHONE_NUMBER, USER_EMAIL, USER_ADDRESS, USER_ADDRESS_DETAIL
+// var dto = {}
+
+
+function getUser(){
+    $.ajax({
+       url:"/myPages/userInfo",
+       type: "GET",
+       dataType: "json",
+       success: function (result) {
+           console.log(result);
+           let infoModifyPage = getMainJoin(result);
+
+           $(".main-join").html(infoModifyPage);
+       }
+    });
+}
+
+
+
+
+function getMainJoin(users) {
   return `
+<form class="signup-form" action="/user/myPage" method="post" enctype="multipart/form-data">
   <div class="input-box">
             <div class="my-profile">
               <div class="profile">프로필</div>
               <div class="profile-file">
                <ul class="file-wrap">
                 <!-- 썸네일 처리 해야함 -->
-                <li class="img-list">
+                <li class="img-list" style="background-image: url('/userFile/display?fileName=${users.userFileUploadPath+'/th_'+users.userFileUuid + '_' + users.userFileName}')">
                   <input
                     type="file"
                     id="post-image"
-                    name="boardFile"
+                    name="userFile"
                     accept="image/*"
                   />
                 </li>
@@ -45,43 +89,59 @@ function getMainJoin() {
             <div class="input-id">
               
             </div>
-            <div class="input-password">
+           <div class="input-password">
               <div class="password">비밀번호</div>
               <input
-                type="text"
+                type="password"
                 class="password-box"
+                name="userPassword"
                 placeholder="영문 대소문자 및 숫자 중 2개 이상 조합, 8자리 이상"
+                autocomplete="off"
+                required
               />
             </div>
-            <span class="err-text">이전 비밀번호와 동일합니다.</span>
+            <span class="pw-err-text"
+              >영문 대소문자 및 숫자 중 2개 이상 조합, 8자리 이상
+              작성해주세요.</span
+            >
             <div class="input-repassword">
               <div class="repassword">비밀번호 확인</div>
-              <input type="text" class="repassword-box" />
+              <input type="password" class="repassword-box" required autocomplete="off"/>
             </div>
-            <span class="err-text">일치하지 않는 비밀번호 입니다.</span>
+            <span class="pw-err-text1">일치하지 않는 비밀번호 입니다.</span>
+            <span class="pw-err-text2">일치하는 비밀번호 입니다.</span>
             <div class="input-name">
               <div class="name">이름</div>
-              <input type="text" class="name-box" />
+              <input type="text" class="name-box" name="userName" value="${users.userName}" required autocomplete="off"/>
             </div>
             <div class="input-nickname">
               <div class="nickname">닉네임</div>
-              <input type="text" class="nickname-box" />
+              <input type="text" class="nickname-box" name="userNickname" value="${users.userNickname}" required autocomplete="off"/>
             </div>
-            <span class="err-text">이전 닉네임과 동일합니다.</span>
+            <span class="nickName-err-text">중복된 닉네임 입니다.</span>
+            <span class="nickName-err-text2">사용 가능한 닉네임 입니다.</span>
             <div class="input-gender">
               <div class="gender">성별</div>
-              <button type="button" class="female-box">여성</button>
-              <button type="button" class="male-box">남성</button>
+              <label for="gender-f">
+                <div type="button" class="female-box" ${users.userGender.trim() == 'F' ? 'style="background-color: #e0e0e0"' : ''}>여성</div>
+              </label>
+              <label for="gender-m">
+                <div type="button" class="male-box check-background" ${users.userGender.trim() == 'M' ? 'style="background-color: #e0e0e0"' : ''}>남성</div>
+              </label>
+              <input type="radio" name="userGender" id="gender-f"  value="F" ${users.userGender.trim() == 'F' ? 'checked' : ''} />
+              <input type="radio" name="userGender" id="gender-m" value="M" ${users.userGender.trim() == 'M' ? 'checked' : ''}/>
             </div>
             <div class="input-phone">
               <div class="phone">휴대전화 번호</div>
-              <input type="text" class="phone-box" />
+              <input type="text" class="phone-box" name="userPhoneNumber" value="${users.userPhoneNumber}" required autocomplete="off"/>
             </div>
             <div class="input-email">
               <div class="email">이메일</div>
-              <input type="text" class="email-box" />
+              <input type="hidden" name="userEmail" class="realEmail" value="${users.userEmail}">
+              <input type="text" class="email-box" value="${users.userEmail}" required autocomplete="off"/>
+
               <div class="dropdown">
-                <button class="dropdown-btn">
+                <button class="dropdown-btn" type="button">
                   직접입력
                   <span class="material-symbols-rounded">
                     expand_more
@@ -100,31 +160,31 @@ function getMainJoin() {
               ※ 아이디 비밀번호 찾기에 활용 되므로 정확하게 입력해 주세요.
             </div>
             <div class="input-address">
-            <div class="address">주소</div>
+              <div class="address">주소</div>
+              <input
+                type="text"
+                id="sample6_postcode"
+                placeholder="우편번호"
+                readonly
+                required
+              />
+              <button type="button" class="search-address" onclick="sample6_execDaumPostcode();">
+                우편변호 검색
+              </button>
+            </div>
             <input
               type="text"
-              id="sample6_postcode"
-              placeholder="우편번호"
+              id="sample6_address"
+              placeholder="주소"
+              name="userAddress"
               readonly
+              value="${users.userAddress}"
             />
-            <button type="button" class="search-address" onclick="sample6_execDaumPostcode()">
-              우편변호 검색
-            </button>
+            <input type="text" placeholder="상세주소" value="${users.userAddressDetail}" name="userAddressDetail" autocomplete="off" id="sample6_detailAddress" />
+            <input type="text" placeholder="참고항목" id="sample6_extraAddress" readonly />
+            <button type="submit" class="ok-btn">회원가입</button>
           </div>
-          <input
-            type="text"
-            id="sample6_address"
-            placeholder="주소"
-            readonly
-          />
-          <input type="text" placeholder="상세주소" id="sample6_detailAddress" />
-          <input type="text" placeholder="참고항목" id="sample6_extraAddress" readonly />
-            <button class="ok-btn">정보수정</button>
-            <div class="my-remove">
-              회원을 탈퇴하고 싶으신가요?
-              <a href="#" class="remove-btn">회원탈퇴</a>
-            </div>
-          </div>
+  </form>
   `;
 }
 
@@ -212,31 +272,35 @@ function appendImg(file) {
 // 등급 파일처리
 
 
+
+
+
 // 드롭다운 박스
-$(document).ready(function() {
-  $('.dropdown').click(function() {
-    $(this).find('.dropdown-menu').toggle();
-  });
+function dropDown() {
+    $(document).ready(function() {
+        $('.dropdown').click(function() {
+            $(this).find('.dropdown-menu').toggle();
+        });
 
-  $(document).click(function(e) {
-    var target = e.target;
-    if (!$(target).is('.dropdown') && !$(target).parents().is('.dropdown')) {
-      $('.dropdown-menu').hide();
-    }
-  });
-});
+        $(document).click(function(e) {
+            var target = e.target;
+            if (!$(target).is('.dropdown') && !$(target).parents().is('.dropdown')) {
+                $('.dropdown-menu').hide();
+            }
+        });
+    });
 
-$('.dropdown-menu li').on('click', function(){
-  let $input = $('.dropdown-btn');
-  let text = $(this).text();
-  $input.html(text + `
-  <span class="material-symbols-rounded">
-  expand_more
-  </span>
-  `);
-})
+    $('.dropdown-menu li').on('click', function(){
+        let $input = $('.dropdown-btn');
+        let text = $(this).text();
+        $input.html(text + `
+    <span class="material-symbols-rounded">
+    expand_more
+    </span>
+    `);
+    })
 
-
+}
 // 주소 api
 function sample6_execDaumPostcode() {
 new daum.Postcode({
@@ -272,7 +336,7 @@ new daum.Postcode({
             }
             // 조합된 참고항목을 해당 필드에 넣는다.
             document.getElementById("sample6_extraAddress").value = extraAddr;
-        
+
         } else {
             document.getElementById("sample6_extraAddress").value = '';
         }
@@ -285,3 +349,109 @@ new daum.Postcode({
     }
 }).open();
 }
+
+
+
+function userModify() {
+// 비밀번호 일치
+    let pw1;
+    let pw2;
+
+// 비밀번호 정규식 (특수문자, 8글자 이상)
+    let regex;
+
+
+    $('.password-box').on('change', function () {
+        pw1 = $(this).val();
+        regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+        console.log(pw1);
+        if (regex.test(pw1)) {
+            $('.pw-err-text').css("display", "none");
+        } else {
+            $('.pw-err-text').css("display", "inline-block");
+        }
+    });
+
+    $('.repassword-box').on('change', function () {
+        pw2 = $(this).val();
+        console.log(pw2);
+        if (pw1 == pw2) {
+            $('.pw-err-text2').css("display", "inline-block");
+            $('.pw-err-text1').css("display", "none");
+        } else {
+            $('.pw-err-text1').css("display", "inline-block");
+            $('.pw-err-text2').css("display", "none");
+        }
+    });
+
+
+
+
+
+// 이메일 주소 연결
+    let emailReal;
+    let email2;
+    let result;
+
+    $('.email-box').on('change', function () {
+        let email = $(this).val();
+        console.log(email);
+
+        email2 = email;
+    });
+
+    $('.dropdown-menu li').on('click', function () {
+        let text = $(this).text();
+        if (text == '직접입력') {
+            $('.realEmail').val(email2);
+            console.log($('.realEmail').val());
+            return;
+        } else {
+            emailReal = email2 + text;
+            $('.realEmail').val(emailReal);
+        }
+
+        console.log($('.realEmail').val());
+    });
+}
+
+function box(){
+$(".female-box").on("click", function () {
+    $(".female-box").css("background-color", "#e0e0e0");
+    $(".male-box").css("background-color", "#FFF");
+});
+
+$(".male-box").on("click", function () {
+    $(".male-box").css("background-color", "#e0e0e0");
+    $(".female-box").css("background-color", "#FFF");
+});
+}
+
+// 닉네임 중복검사
+function checkNickname() {
+    $('.nickname-box').on('blur', function () {
+        var userNickname = $(".nickname-box").val();
+
+        $.ajax({
+            url: "/users/checkNickname",
+            type: "GET",
+            data: {userNickname: userNickname},
+            success: function (result) {
+                // 중복 여부에 따라 처리
+                if (result == 0) {
+                    $('.nickName-err-text2').css("display", "inline-block");
+                    $('.nickName-err-text').css("display", "none");
+                } else {
+                    $('.nickName-err-text').css("display", "inline-block");
+                    $('.nickName-err-text2').css("display", "none");
+                }
+            },
+            error: function () {
+                console.log("오류 발생");
+            }
+        });
+    });
+}
+
+
+

@@ -1,10 +1,10 @@
 package com.example.hairnada.mapper.user;
 
 import com.example.hairnada.vo.board.BoardVo;
+import com.example.hairnada.vo.careshop.CareShopVo;
 import com.example.hairnada.vo.hairVo.HairVo;
 import com.example.hairnada.vo.hairVo.StoreVo;
 import com.example.hairnada.vo.hairshop.HairShopVo;
-import com.example.hairnada.vo.page.Criteria03;
 import com.example.hairnada.vo.page.Criteria11;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -37,5 +37,11 @@ public interface MyLikeMapper {
 
 //    제품 좋아요 페이징
     public int getTotal4(Long userNumber);
+
+//    케어샵 좋아요
+    public List<CareShopVo> likeCare(@Param("userNumber")Long userNumber, @Param("criteria")Criteria11 criteria11);
+
+//    케어샵 페이징
+    public int getTotal5(Long userNumber);
 
 }

@@ -61,5 +61,14 @@ public class UserController {
         return "/";
     }
 
-
+//    @GetMapping("/modify")
+//    public void userUpdate(){}
+//
+//    @PostMapping("/modify")
+//    public RedirectView userUpdate(HttpServletRequest req, UserDto userDto) {
+//        req.getSession().getAttribute("userNumber");
+//        userService.userUpdate(userDto);
+//
+//        return new RedirectView("/user/myPage");
+//    }
 }

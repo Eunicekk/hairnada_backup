@@ -291,6 +291,7 @@ input[type="radio"] {
   margin: 40px auto;
 }
 
+
 .my-board-text {
   width: 1260px;
   height: 100px;
@@ -310,7 +311,7 @@ input[type="radio"] {
 }
 
 #my-community-text {
-  width: 315px;
+  width: 252px;
   height: 100%;
   display: flex;
   align-items: center;
@@ -320,7 +321,7 @@ input[type="radio"] {
 }
 
 #my-hairshop-text {
-  width: 315px;
+  width: 252px;
   height: 100%;
   display: flex;
   align-items: center;
@@ -330,7 +331,7 @@ input[type="radio"] {
 }
 
 #my-product-text {
-  width: 315px;
+  width: 252px;
   height: 100%;
   display: flex;
   align-items: center;
@@ -340,7 +341,16 @@ input[type="radio"] {
 }
 
 #my-style-text {
-  width: 315px;
+  width: 252px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  cursor: pointer;
+  /* border-bottom: 5px solid #969696; */
+}
+#my-careshop-text {
+  width: 252px;
   height: 100%;
   display: flex;
   align-items: center;
