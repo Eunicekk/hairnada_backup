@@ -75,19 +75,19 @@ $(".category").on("click", function () {
             </a>`;
       }
 
-      for(let i= result.pageInfo.startPage; i<= result.pageInfo.endPage; i++){
-        if(result.pageInfo.criteria.page == i){
-          pageNum += `<a href="#"><li class="page-num active">${i}</li></a>`;
-        }else{
-          pageNum += `<a href="#"><li class="page-num">${i}</li></a>`;
+      for(let i= pageInfo.startPage; i<= result.pageInfo.endPage; i++){
+        if (pageInfo.page == i) {
+          pageNum += `<a href="hairList?page=${i}"><li class="page-num active">${i}</li></a>`;
+        } else {
+          pageNum += `<a href="hairList?page=${i}"><li class="page-num">${i}</li></a>`;
         }
       }
 
-      if(result.pageInfo.next){
+      if(pageInfo.next){
         `
         <a href="#" class="page-a">
                 <li class="page-num next">&gt</li>
-              </a>
+        </a>
         `;
       }
 
