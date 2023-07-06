@@ -29,7 +29,7 @@ $(".face-shape").on("change", function () {
   faceShape = $(this).val();
 });
 
-$(".search").on("click", function () {
+$(".category").on("click", function () {
   let hairGender = gender;
   let lengthNumber = hairLength;
   let shapeNumber = faceShape;
@@ -121,7 +121,7 @@ $('.title').on('click', function (){
          <ul class="list-ul">
                   <!-- 첫번째 -->
                   <li class="list-li">
-                    <a href="">
+                    <a href="/admin/hairRead?hairNumber=${result.nameHair[i].hairNumber}">
                       <div class="img-list">
                       <img src="${'/upload/' + result.nameHair[i].hairFileUploadPath + '/th_' +result.nameHair[i].hairFileUuid + '_' + result.nameHair[i].hairFileName}" alt="">
                       </div>
