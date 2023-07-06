@@ -1,3 +1,51 @@
+let rowCount = 0;
+let buyCnt = 0;
+let basketNumbers = [];
+
+// 장바구니에서 가져온 구매할 상품 띄우기
+$.ajax({
+    url: '/stores/basketList',
+    type: 'GET',
+    success: function(data) {
+        let text = '';
+        let resultPrice = 0;
+
+        for(let i = 0; i < data.length; i++) {
+            text += `
+            <tr>
+                <td>
+                    <img src="/upload/${data[i].storeFileUploadPath}/th_${data[i].storeFileUuid}_${data[i].storeFileName}" alt="상품">
+                    <p class="test-product">${data[i].storeTitle}</p>
+                </td>
+                <td class="test-count">${data[i].basketCnt}</td>
+                <td class="test-price">${data[i].storePrice}</td>
+                <td class="test-result">${data[i].basketCnt * data[i].storePrice}</td>
+                <input type="hidden" class="store-number" value="${data[i].storeNumber}">
+                <input type="hidden" class="basket-number" value="${data[i].basketNumber}">
+            </tr>
+            `;
+            resultPrice += data[i].basketCnt * data[i].storePrice;
+            rowCount++;
+            setTimeout(function() {
+                buyCnt = parseInt($('.test-count').eq(i).text(), 10);
+                basketNumbers.push($(".basket-number").eq(i).val());
+                console.log("장바구니번호 ; " + basketNumbers);
+            }, 500);
+        }
+        $(".tbody").html(text);
+        $('.price-number').text(resultPrice);
+
+        if(resultPrice <= 50000){
+            $('.delivery-number').text(3000);
+            $('.final-price-number').text(resultPrice + 3000);
+        }else{
+            $('.delivery-number').text(0);
+            $('.final-price-number').text(resultPrice);
+        }
+    }
+});
+
+
 // 드롭다운 박스 설정
 $(document).ready(function() {
     $('.dropdown').click(function() {
@@ -12,7 +60,6 @@ $(document).ready(function() {
     });
 });
 
-
 $('.dropdown-content li').on('click', function(){
   let $input = $('.require-input');
   if($(this).is('.li-write')){
@@ -25,11 +72,6 @@ $('.dropdown-content li').on('click', function(){
   let text = $(this).text();
   $input.val(text);
 });
-
-
-
-
-
 
 
 // 가격에 천 단위마다 컴마
@@ -91,4 +133,80 @@ function sample6_execDaumPostcode() {
           document.getElementById("sample6_detailAddress").focus();
       }
   }).open();
+}
+
+
+// 결제 API
+var IMP = window.IMP;
+IMP.init("imp80646252"); // 가맹점 식별코드
+
+var today = new Date();
+var hours = today.getHours(); // 시
+var minutes = today.getMinutes();  // 분
+var seconds = today.getSeconds();  // 초
+var milliseconds = today.getMilliseconds();
+var makeMerchantUid = hours + minutes + seconds + milliseconds;
+
+let buyArray = [];
+
+function requestPay() {
+    IMP.request_pay({
+        pg: 'html5_inicis', // PG사 코드표에서 선택
+        pay_method: 'card', // 결제 방식
+        merchant_uid: "IMP" + makeMerchantUid, // 결제 고유 번호
+        name: $('.test-product:first').text() + " 외 " + (rowCount - 1) + "개", // 제품명
+        /*amount : $('.final-price-number).text(), // 사용할 가격*/
+        amount: 10, // 연결 확인을 위해 사용한 가격 확인 후 지우기
+
+        buyer_email: '',
+        buyer_name: $('#userName').val(),
+        buyer_tel: $('#userPhoneNumber').val(),
+        buyer_addr: $('#sample6_address').val() + $('#sample6_detailAddress').val() + $('#sample6_extraAddress').val(),
+        buyer_postcode: $('#sample6_postcode').val()
+    }, function(rsp) { // callback
+        if (rsp.success) {
+            console.log(rsp);
+            let buyInfo = {};
+            for (let i = 0; i < rowCount; i++) {
+                buyInfo = {
+                    buyName: $('#userName').val(),
+                    buyPhoneNumber: $('#userPhoneNumber').val(),
+                    buyPostCode: $('#sample6_postcode').val(),
+                    buyAddress: $('#sample6_address').val(),
+                    buyAddressDetail: $('#sample6_detailAddress').val(),
+                    buyReference: $('#sample6_extraAddress').val(),
+                    buyCnt: buyCnt,
+                    buyMsg: $('.require-input').val(),
+                    storeNumber: $('.store-number').eq(i).val()
+                };
+                buyArray.push(buyInfo);
+                console.log(buyInfo);
+            };
+
+            $.ajax({
+                url: '/stores/buyOk',
+                data: JSON.stringify(buyArray),
+                contentType: 'application/json; charset=utf-8',
+                type: 'POST',
+                traditional: true,
+                success: function(result) {
+                    //페이지 이동
+                    $.ajax({
+                        url: '/stores/remove',
+                        type: 'delete',
+                        traditional: true,
+                        data: JSON.stringify(basketNumbers),
+                        contentType: "application/json;charset=utf-8",
+                        success: function() {
+                            window.location.href = "/user/myBasket";
+                        }
+                    });
+                }
+            });
+            //    console.log(rsp)로 결과 값 출력해봐야함
+            console.log('연결 성공했지 히히');
+        } else {
+            console.log(rsp);
+        }
+    });
 }

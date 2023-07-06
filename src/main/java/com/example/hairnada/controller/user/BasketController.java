@@ -1,13 +1,16 @@
 package com.example.hairnada.controller.user;
 
 import com.example.hairnada.dto.user.BasketDto;
+import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.service.user.BasketService;
 import com.example.hairnada.vo.user.BasketVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -29,9 +32,7 @@ public class BasketController {
 
     // 장바구니에 담긴 상품 삭제하기
     @DeleteMapping("/remove")
-    public void remove(@RequestBody Long[] basketNumbers, HttpServletRequest req){
-        Long userNumber = (Long)req.getSession().getAttribute("userNumber");
-
+    public void remove(@RequestBody Long[] basketNumbers){
         for (Long basketNumber : basketNumbers) {
             basketService.remove(basketNumber);
         }
@@ -57,4 +58,5 @@ public class BasketController {
             basketService.modify(basketDto);
         }
     }
+
 }

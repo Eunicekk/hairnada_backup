@@ -1,8 +1,8 @@
 package com.example.hairnada.service.user;
 
 import com.example.hairnada.dto.user.BasketDto;
+import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.mapper.user.BasketMapper;
-import com.example.hairnada.service.store.StoreFileService;
 import com.example.hairnada.vo.user.BasketVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -59,4 +59,5 @@ public class BasketService {
         }
         basketMapper.update(basketDto);
     }
+
 }

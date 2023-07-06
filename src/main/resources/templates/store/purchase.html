@@ -8,6 +8,8 @@
     <link rel="stylesheet" th:href="@{/css/index/header.css}">
     <link rel="stylesheet" th:href="@{/css/index/footer.css}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.4.js"></script>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
     <title>HairNada</title>
 </head>
 <body>
@@ -93,16 +95,7 @@
                         <th>총 상품 금액</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <img src="https://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0014/A00000014950114ko.jpg?l=ko" alt="상품">
-                            <p class="test-product">라보에이치 탈모증상완화 샴푸인데 본문이 길 경우에 어떻게 나오는지 궁금해서 이름을 길게 해보겠습니다 꺄아아앙아아아ㅏㅏㅇ아아악</p>
-                        </td>
-                        <td class="test-count">1</td>
-                        <td class="test-price">26000</td>
-                        <td class="test-result">26000</td>
-                    </tr>
+                <tbody class="tbody">
                 </tbody>
             </table>
         </div>
@@ -112,11 +105,11 @@
             <h3>최종결제금액</h3>
             <div class="price-content">
                 <div class="price-title">총 상품 금액</div>
-                <div class="price-text"><span class="price-number">26000</span>원</div>
+                <div class="price-text"><span class="price-number"></span>원</div>
             </div>
             <div class="price-content">
                 <div class="price-title">배송비</div>
-                <div class="price-text">+ <span class="delivery-number">0</span>원</div>
+                <div class="price-text">+ <span class="delivery-number"></span>원</div>
             </div>
             <div class="price-content">
                 <div class="price-title">할인</div>
@@ -124,17 +117,16 @@
             </div>
             <div class="price-content">
                 <div class="price-title">최종결제금액</div>
-                <div class="final-price-text"><span class="final-price-number">26000</span>원</div>
+                <div class="final-price-text"><span class="final-price-number"></span>원</div>
             </div>
         </div>
 
         <div class="purchase-btn">
-            <a href="#">결제하기</a>
+            <button type="button" onclick="requestPay()">결제하기</button>
         </div>
     </div>
 <footer class="footer" th:replace="fragment/footer :: footer"></footer>
 
-    <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <script th:inline="javascript">
     /*<![CDATA[*/
     var userName = /*[[${true ? user.userName : ''}]]*/ '';

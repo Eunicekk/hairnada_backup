@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.hairnada.mapper.store.BuyMapper">
+
     <!-- 회원 정보 가져오기 -->
     <select id="selectUser" resultType="UserDto">
         SELECT USER_NAME, USER_PHONE_NUMBER, USER_POST_CODE, USER_ADDRESS,
@@ -27,6 +28,26 @@
                 FROM TBL_STORE_FILE
             ) F ON S.STORE_NUMBER = F.STORE_NUMBER AND F.RK = 1
         ) J ON B.STORE_NUMBER = J.STORE_NUMBER
+        WHERE BASKET_NUMBER = #{basketNumber}
         ORDER BY BASKET_NUMBER DESC
     </select>
+
+    <!-- 구매 정보 추가하기 -->
+    <insert id="insert">
+        <selectKey keyProperty="buyNumber" order="BEFORE" resultType="long">
+            SELECT SEQ_BUY.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO TBL_BUY(BUY_NUMBER, BUY_NAME, BUY_PHONE_NUMBER, BUY_ADDRESS,
+                            BUY_ADDRESS_DETAIL, BUY_POST_CODE, BUY_REFERENCE, BUY_CNT, BUY_MSG,
+                            USER_NUMBER, STORE_NUMBER, DELIVERY_NUMBER)
+        VALUES(#{buyNumber}, #{buyName}, #{buyPhoneNumber}, #{buyAddress}, #{buyAddressDetail},
+        #{buyPostCode}, #{buyReference}, #{buyCnt}, #{buyMsg}, #{userNumber}, #{storeNumber}, #{deliveryNumber})
+    </insert>
+
+    <!-- 구매가 완료된 장바구니에 담은 상품 삭제하기 -->
+    <delete id="delete">
+        DELETE FROM TBL_BASKET
+        WHERE BASKET_NUMBER = #{basketNumber}
+    </delete>
+
 </mapper>
