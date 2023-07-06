@@ -14,7 +14,7 @@
       <a href="#">
         <img class="logo" src="/img/logo.png" />
       </a>
-      <button class="logout-btn" type="button">로그아웃</button>
+      <a th:href="@{/admin/logout}" class="logout-btn" type="button">로그아웃</a>
     </div>
     <div class="body-container">
       <div class="main-container">
@@ -56,7 +56,7 @@
                 <option value="5">스타일링</option>
                 <option value="6">샴푸/린스</option>
               </select>
-              <button type="button" class="select">조회</button>
+<!--              <button type="button" class="select">조회</button>-->
             </div>
             <div class="select-by-title">
               <input

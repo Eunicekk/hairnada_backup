@@ -1,17 +1,12 @@
 
 // select option 저장하기
-let categoryNumber;
 
-$(".category").on("change", function () {
-  categoryNumber = $(this).val();
-  console.log(categoryNumber);
-});
 
 
 
 // 카테고리 별 상품 조회 ajax
-$('.select').on('click', function (){
-  let selectCategoryNumber = categoryNumber;
+$('.category').on('change', function (){
+  let selectCategoryNumber = $(this).val();
 
   if(selectCategoryNumber == 0){
     window.location.href = '/admin/storeList';

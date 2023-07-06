@@ -26,6 +26,15 @@ public class AdminService {
     private final AdminMapper adminMapper;
     private final AdminFileService adminFileService;
 
+    // 로그인
+    public Long adminLogin(String userId, String userPassword){
+        if (userId == null || userPassword == null) {
+            throw new IllegalArgumentException("아이디 또는 비밀번호 누락");
+        }
+
+        return Optional.ofNullable(adminMapper.login(userId, userPassword))
+                .orElseThrow(()-> {throw new IllegalArgumentException("일치하는 회원 정보가 없습니다!");});
+    }
 
     // 회원 전체 조회
     @Transactional(readOnly = true)

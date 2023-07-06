@@ -16,6 +16,8 @@ import java.util.List;
 
 @Mapper
 public interface AdminMapper {
+    // 로그인
+    public Long login(@Param("userId")String userId, @Param("userPassword")String userPassword);
     // 회원 전체 조회
     public List<UserDto> selectUserList(CriteriaAdmin criteriaAdmin);
 
