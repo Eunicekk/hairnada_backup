@@ -1,6 +1,7 @@
 package com.example.hairnada.controller.user;
 
 import com.example.hairnada.dto.user.UserDto;
+import com.example.hairnada.service.user.BasketService;
 import com.example.hairnada.service.user.MyPageService;
 import com.example.hairnada.service.user.UserFileService;
 import com.example.hairnada.service.user.UserService;
@@ -31,9 +32,10 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class MyPageController {
 
-    private final MyPageService myPageService;
     private final UserService userService;
+    private final MyPageService myPageService;
     private final UserFileService userFileService;
+
 
 
     @GetMapping("/myPageMain")

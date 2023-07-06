@@ -1,7 +1,5 @@
 package com.example.hairnada.controller.user;
 
-import com.example.hairnada.dto.user.UserDto;
-import com.example.hairnada.service.user.MyPageService;
 import com.example.hairnada.service.user.UserService;
 import com.example.hairnada.vo.user.UserVo;
 import lombok.RequiredArgsConstructor;
