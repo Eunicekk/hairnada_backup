@@ -2,6 +2,7 @@ package com.example.hairnada.mapper.user;
 
 import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.vo.user.UserVo;
+import org.apache.catalina.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,7 +19,7 @@ public interface UserMapper {
 
 //    계정찾기 smtp-> api 사용하기
 //    등급신청 할 때 맴버십 넘버 보내주기
-    public UserDto findUserIdPassword(@Param("userName") String userName, @Param("userEmail") String userEmail);
+    public UserDto findUserIdPassword(UserDto userDto);
 
 //    아이디 중복확인
     public int checkId(String userId);
@@ -35,4 +36,5 @@ public interface UserMapper {
 //    회원정보 수정 확인
     public UserVo updateSelect(Long userNumber);
 
+//    계정찾기
 }

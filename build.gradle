@@ -41,6 +41,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     //aop
     implementation 'org.springframework.boot:spring-boot-starter-aop'
+    //email Api
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+
 }
 
 tasks.named('test') {

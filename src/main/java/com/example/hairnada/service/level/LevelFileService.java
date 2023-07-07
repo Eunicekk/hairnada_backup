@@ -105,7 +105,7 @@ public class LevelFileService {
     public void registerAndSaveFiles(MultipartFile file, Long levelNumber) throws IOException{
         LevelFileDto levelFileDto = saveFile(file);
 
-        levelFileDto.setLevelFileNumber(levelNumber);
+        levelFileDto.setLevelNumber(levelNumber);
         register(levelFileDto);
     }
 
