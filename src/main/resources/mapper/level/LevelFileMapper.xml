@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hairnada.mapper.level.LevelFileMapper">
+  <insert id="insertFileTier">
+      <selectKey keyProperty="levelFileNumber" resultType="long" order="BEFORE">
+          SEQ_LEVEL_FILE.NEXTVAL FROM DUAL
+      </selectKey>
+      INSERT INTO TBL_LEVEL_FILE (LEVEL_FILE_NUMBER, LEVEL_FILE_NAME, LEVEL_FILE_UPLOAD_PATH, LEVEL_FILE_UUID, LEVEL_NUMBER)
+      VALUES (#{levelFileNumber}, #{levelFileName}, #{levelFileUploadPath}, #{levelFileUuid}, #{levelNumber});
+  </insert>
+
+    <select id="selectFileTier" resultType="levelFileDto">
+        SELECT LEVEL_FILE_NUMBER, LEVEL_FILE_NAME, LEVEL_FILE_UPLOAD_PATH, LEVEL_FILE_UUID, LEVEL_NUMBER
+        FROM TBL_LEVEL_FILE
+        WHERE LEVEL_NUMBER = ${levelNumber}
+    </select>
+
+    <delete id="deleteFileTier">
+        DELETE FROM TBL_LEVEL_FILE
+        WHERE LEVEL_NUMBER = #{levelNumber}
+    </delete>
+
+</mapper>

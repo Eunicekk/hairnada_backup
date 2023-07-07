@@ -24,29 +24,14 @@ mainPage();
 $("#my-modify-btn").on("click", mainPage);
 
 $("#my-tier-btn").on("click", function () {
-  $(".main-join").html(getMainTier);
+
+    getTier();
+    tierCheck();
 });
 
 $(".main-join").on("click", ".ok-btn", function () {
   console.log("click!!!!!!!");
 });
-
-// $("#profile-upload").on("click", function () {
-//   let files = this.files;
-
-//   $("#profile-upload").append(
-//     ` <img src="" alt="" id="profile-preview" class="profile-img"/>`
-//   );
-//   console.log(files[0]);
-// });
-
-// let users = $('.user').val();
-//
-// console.log(users);
-//
-// var dtoArray = [];
-// USER_NUMBER, USER_NAME, USER_NICKNAME, USER_GENDER, USER_PHONE_NUMBER, USER_EMAIL, USER_ADDRESS, USER_ADDRESS_DETAIL
-// var dto = {}
 
 
 function getUser(){
@@ -59,6 +44,21 @@ function getUser(){
            let infoModifyPage = getMainJoin(result);
 
            $(".main-join").html(infoModifyPage);
+
+       }
+    });
+}
+
+function getTier(){
+    $.ajax({
+       url: "/levels/myTier",
+       type: "GET",
+       dataType: "json",
+       success: function (result){
+           console.log(result);
+           let myTierPage = getMainTier(result);
+
+           $(".main-join").html(myTierPage);
        }
     });
 }
@@ -165,6 +165,8 @@ function getMainJoin(users) {
                 type="text"
                 id="sample6_postcode"
                 placeholder="우편번호"
+                value="${users.userPostCode}"
+                name="userPostCode"
                 readonly
                 required
               />
@@ -181,20 +183,17 @@ function getMainJoin(users) {
               value="${users.userAddress}"
             />
             <input type="text" placeholder="상세주소" value="${users.userAddressDetail}" name="userAddressDetail" autocomplete="off" id="sample6_detailAddress" />
-            <input type="text" placeholder="참고항목" id="sample6_extraAddress" readonly />
-            <button type="submit" class="ok-btn">회원가입</button>
+            <input type="text" placeholder="참고항목" id="sample6_extraAddress" name="userReference" value="${users.userReference}" readonly />
+            <button type="submit" class="ok-btn">정보수정</button>
           </div>
   </form>
   `;
 }
 
-function getMainTier() {
+function getMainTier(tier) {
   return `
-  <div class="tier-input-box">
-      <div class="now-tier-box">
-        <div class="tier">현재등급</div>
-        <div class="tier-input">일반회원</div>
-      </div>
+ <form class="tier-form" action="/level/tier" method="post" enctype="multipart/form-data">
+ <div class="tier-input-box">
       <div class="certificate-img-box">
         <div class="certiflcate">자격증(면허증)</div>
         <div class="certiflcate-img">
@@ -203,31 +202,53 @@ function getMainTier() {
         <input
           type="file"
           id="post-image2"
-          name="boardFile"
+          name="levelFile"
           accept="image/*"
           multiple
         />
-        <li class="img-lists"></li>
-        <li class="img-lists"></li>
-        <li class="img-lists"></li>
-        <li class="img-lists"></li>
+        <li class="img-lists" style="background-image: url('/levelFile/display?fileName=${tier.levelFileUploadPath+'/th_'+tier.levelFileUuid + '_' + tier.levelFileName}')"></li>
+       
       </ul>
         </div>
+      </div>
+      <div class="now-tier-box">
+        <div class="now-tier">현재등급</div>
+        <div class="now-tier-status">${tier.membershipName}</div>
+      </div>
+      <div class="now-tier-box">
+        <div class="tier">신청등급</div>
+        <label for="normal">
+          <div class="normal-tier">일반회원</div>
+        </label>
+
+        <label for="style">
+          <div class="style-tier">스타일 전문가</div>
+        </label>
+
+        <label for="care">
+          <div class="care-tier">케어 전문가</div>
+        </label>
+
+        <input type="radio" name="membershipNumber" id="normal" value="1" />
+        <input type="radio" name="membershipNumber" id="style" value="2"/>
+        <input type="radio" name="membershipNumber" id="care" value="3"/>
       </div>
       <div class="explanation-box">
         <div class="explanation">제목</div>
         <input
           type="text"
           class="explanation1"
+          name="levelTitle"
           placeholder="글 제목을 입력해주세요"
         />
-        <textarea type="text" class="explanation2"></textarea>
+        <textarea type="text" name="levelContent" class="explanation2"></textarea>
       </div>
       <div class="app-btn">
         <button class="cancel" type="button">취소</button>
-        <button class="application" type="button">신청하기</button>
+        <button class="application" type="submit">신청하기</button>
       </div>
     </div>
+   </form>
   `;
 }
 
@@ -271,18 +292,39 @@ function appendImg(file) {
 
 // 등급 파일처리
 
+$(".main-join").on("change", "#post-image2", function (event) {
+    let $input = $("#post-image2");
+    let $imgList = $(".img-lists");
+    let file = event.target.files[0]; // 파일 객체를 얻음
+    console.log(file);
+    console.log("aaaaaaaaaaaaaaa");
+    appendImg(file);
+});
+
+function appendImg(file) {
+    let $imgList = $(".img-list");
+    let src = URL.createObjectURL(file);
+
+    $imgList
+        .css("background-image", `url(${src})`)
+        .css("background-size", "contain")
+        .data("name", `${file.name}`);
+
+    $imgList.addClass("x-box");
+}
+
 
 
 
 
 // 드롭다운 박스
 function dropDown() {
-    $(document).ready(function() {
-        $('.dropdown').click(function() {
+    $('.main-join').ready(function() {
+        $('.main-join').on('click', '.dropdown', function() {
             $(this).find('.dropdown-menu').toggle();
         });
 
-        $(document).click(function(e) {
+        $('.main-join').on('click', function(e) {
             var target = e.target;
             if (!$(target).is('.dropdown') && !$(target).parents().is('.dropdown')) {
                 $('.dropdown-menu').hide();
@@ -290,7 +332,7 @@ function dropDown() {
         });
     });
 
-    $('.dropdown-menu li').on('click', function(){
+    $('.main-join').on('click', '.dropdown-menu li', function(){
         let $input = $('.dropdown-btn');
         let text = $(this).text();
         $input.html(text + `
@@ -298,9 +340,15 @@ function dropDown() {
     expand_more
     </span>
     `);
-    })
-
+    });
 }
+
+
+
+
+
+
+
 // 주소 api
 function sample6_execDaumPostcode() {
 new daum.Postcode({
@@ -361,7 +409,7 @@ function userModify() {
     let regex;
 
 
-    $('.password-box').on('change', function () {
+    $('.main-join').on('change', '.password-box', function () {
         pw1 = $(this).val();
         regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
         console.log(pw1);
@@ -372,7 +420,7 @@ function userModify() {
         }
     });
 
-    $('.repassword-box').on('change', function () {
+    $('.main-join').on('change', '.repassword-box', function () {
         pw2 = $(this).val();
         console.log(pw2);
         if (pw1 == pw2) {
@@ -393,14 +441,14 @@ function userModify() {
     let email2;
     let result;
 
-    $('.email-box').on('change', function () {
+    $('.main-join').on('change','.email-box', function () {
         let email = $(this).val();
         console.log(email);
 
         email2 = email;
     });
 
-    $('.dropdown-menu li').on('click', function () {
+    $('.main-join').on('click', '.dropdown-menu li', function () {
         let text = $(this).text();
         if (text == '직접입력') {
             $('.realEmail').val(email2);
@@ -429,7 +477,7 @@ $(".male-box").on("click", function () {
 
 // 닉네임 중복검사
 function checkNickname() {
-    $('.nickname-box').on('blur', function () {
+    $('.main-join').on('blur', '.nickname-box', function () {
         var userNickname = $(".nickname-box").val();
 
         $.ajax({
@@ -453,5 +501,25 @@ function checkNickname() {
     });
 }
 
+// 등급 체크박스
+function tierCheck() {
+    $(".main-join").on("click",".normal-tier", function () {
+        $(".normal-tier").css("background-color", "#e0e0e0");
+        $(".style-tier").css("background-color", "#FFF");
+        $(".care-tier").css("background-color", "#FFF");
+    });
+
+    $(".main-join").on("click", ".style-tier", function () {
+        $(".style-tier").css("background-color", "#e0e0e0");
+        $(".care-tier").css("background-color", "#FFF");
+        $(".normal-tier").css("background-color", "#FFF");
+    });
+
+    $(".main-join").on("click", ".care-tier", function () {
+        $(".care-tier").css("background-color", "#e0e0e0");
+        $(".normal-tier").css("background-color", "#FFF");
+        $(".style-tier").css("background-color", "#FFF");
+    });
+}
 
 

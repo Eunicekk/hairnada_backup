@@ -14,6 +14,8 @@ public class UserVo {
     private String userPassword;
     private String userPhoneNumber;
     private String userAddress;
+    private String userReference;
+    private String userPostCode;
     private String userAddressDetail;
     private Long userStatus;
     private String userNickname;
