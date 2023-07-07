@@ -24,30 +24,14 @@ mainPage();
 $("#my-modify-btn").on("click", mainPage);
 
 $("#my-tier-btn").on("click", function () {
-  $(".main-join").html(getMainTier);
+
+    getTier();
     tierCheck();
 });
 
 $(".main-join").on("click", ".ok-btn", function () {
   console.log("click!!!!!!!");
 });
-
-// $("#profile-upload").on("click", function () {
-//   let files = this.files;
-
-//   $("#profile-upload").append(
-//     ` <img src="" alt="" id="profile-preview" class="profile-img"/>`
-//   );
-//   console.log(files[0]);
-// });
-
-// let users = $('.user').val();
-//
-// console.log(users);
-//
-// var dtoArray = [];
-// USER_NUMBER, USER_NAME, USER_NICKNAME, USER_GENDER, USER_PHONE_NUMBER, USER_EMAIL, USER_ADDRESS, USER_ADDRESS_DETAIL
-// var dto = {}
 
 
 function getUser(){
@@ -61,6 +45,20 @@ function getUser(){
 
            $(".main-join").html(infoModifyPage);
 
+       }
+    });
+}
+
+function getTier(){
+    $.ajax({
+       url: "/levels/myTier",
+       type: "GET",
+       dataType: "json",
+       success: function (result){
+           console.log(result);
+           let myTierPage = getMainTier(result);
+
+           $(".main-join").html(myTierPage);
        }
     });
 }
@@ -192,10 +190,10 @@ function getMainJoin(users) {
   `;
 }
 
-function getMainTier() {
+function getMainTier(tier) {
   return `
+ <form class="tier-form" action="/level/tier" method="post" enctype="multipart/form-data">
  <div class="tier-input-box">
-      
       <div class="certificate-img-box">
         <div class="certiflcate">자격증(면허증)</div>
         <div class="certiflcate-img">
@@ -204,18 +202,18 @@ function getMainTier() {
         <input
           type="file"
           id="post-image2"
-          name="boardFile"
+          name="levelFile"
           accept="image/*"
           multiple
         />
-        <li class="img-lists"></li>
+        <li class="img-lists" style="background-image: url('/levelFile/display?fileName=${tier.levelFileUploadPath+'/th_'+tier.levelFileUuid + '_' + tier.levelFileName}')"></li>
        
       </ul>
         </div>
       </div>
       <div class="now-tier-box">
         <div class="now-tier">현재등급</div>
-        <div class="now-tier-status">일반회원</div>
+        <div class="now-tier-status">${tier.membershipName}</div>
       </div>
       <div class="now-tier-box">
         <div class="tier">신청등급</div>
@@ -231,24 +229,26 @@ function getMainTier() {
           <div class="care-tier">케어 전문가</div>
         </label>
 
-        <input type="radio" name="check-tier" id="normal" value="1" />
-        <input type="radio" name="check-tier" id="style" value="2"/>
-        <input type="radio" name="check-tier" id="care" value="3"/>
+        <input type="radio" name="membershipNumber" id="normal" value="1" />
+        <input type="radio" name="membershipNumber" id="style" value="2"/>
+        <input type="radio" name="membershipNumber" id="care" value="3"/>
       </div>
       <div class="explanation-box">
         <div class="explanation">제목</div>
         <input
           type="text"
           class="explanation1"
+          name="levelTitle"
           placeholder="글 제목을 입력해주세요"
         />
-        <textarea type="text" class="explanation2"></textarea>
+        <textarea type="text" name="levelContent" class="explanation2"></textarea>
       </div>
       <div class="app-btn">
         <button class="cancel" type="button">취소</button>
-        <button class="application" type="button">신청하기</button>
+        <button class="application" type="submit">신청하기</button>
       </div>
     </div>
+   </form>
   `;
 }
 
@@ -291,6 +291,27 @@ function appendImg(file) {
 }
 
 // 등급 파일처리
+
+$(".main-join").on("change", "#post-image2", function (event) {
+    let $input = $("#post-image2");
+    let $imgList = $(".img-lists");
+    let file = event.target.files[0]; // 파일 객체를 얻음
+    console.log(file);
+    console.log("aaaaaaaaaaaaaaa");
+    appendImg(file);
+});
+
+function appendImg(file) {
+    let $imgList = $(".img-list");
+    let src = URL.createObjectURL(file);
+
+    $imgList
+        .css("background-image", `url(${src})`)
+        .css("background-size", "contain")
+        .data("name", `${file.name}`);
+
+    $imgList.addClass("x-box");
+}
 
 
 
@@ -482,19 +503,19 @@ function checkNickname() {
 
 // 등급 체크박스
 function tierCheck() {
-    $(".normal-tier").on("click", function () {
+    $(".main-join").on("click",".normal-tier", function () {
         $(".normal-tier").css("background-color", "#e0e0e0");
         $(".style-tier").css("background-color", "#FFF");
         $(".care-tier").css("background-color", "#FFF");
     });
 
-    $(".style-tier").on("click", function () {
+    $(".main-join").on("click", ".style-tier", function () {
         $(".style-tier").css("background-color", "#e0e0e0");
         $(".care-tier").css("background-color", "#FFF");
         $(".normal-tier").css("background-color", "#FFF");
     });
 
-    $(".care-tier").on("click", function () {
+    $(".main-join").on("click", ".care-tier", function () {
         $(".care-tier").css("background-color", "#e0e0e0");
         $(".normal-tier").css("background-color", "#FFF");
         $(".style-tier").css("background-color", "#FFF");

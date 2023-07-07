@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface LevelMapper {
 
+
 //    등급신청
     public void insertTier(LevelDto levelDto);
 

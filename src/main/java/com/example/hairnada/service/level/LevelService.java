@@ -24,7 +24,7 @@ public class LevelService {
 
 //    등급 조회
     public LevelVo selectTier(Long userNumber){
-        if(userNumber = null){
+        if(userNumber == null){
             throw new IllegalArgumentException("회원번호 누락");
         }
 
