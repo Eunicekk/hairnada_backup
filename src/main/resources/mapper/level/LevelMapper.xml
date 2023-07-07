@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.hairnada.mapper.level.LevelMapper">
+    <insert id="insertTier">
+        <selectKey keyProperty="levelNumber" resultType="long" order="BEFORE">
+            SELECT SEQ_LEVEL.nextval FROM DUAL
+        </selectKey>
+        INSERT INTO TBL_LEVEL (LEVEL_NUMBER, LEVEL_TITLE, LEVEL_CONTENT, MEMBERSHIP_NUMBER, USER_NUMBER)
+        VALUES (#{levelNumber}, #{levelTitle}, #{levelContent}, #{membershipNumber}, #{userNumber})
+    </insert>
+
+    <select id="selectTier" resultType="levelVo">
+        SELECT MEMBERSHIP_NAME
+        FROM TBL_MEMBERSHIP TM
+                 LEFT JOIN TBL_USER TU ON TM.MEMBERSHIP_NUMBER = TU.MEMBERSHIP_NUMBER
+        WHERE TU.USER_NUMBER = #{userNumber}
+    </select>
 
 </mapper>
