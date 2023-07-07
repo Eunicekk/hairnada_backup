@@ -32,6 +32,13 @@
         VALUES(#{basketNumber}, #{basketCnt}, #{storeNumber}, #{userNumber})
     </insert>
 
+    <!-- 장바구니에 담긴 상품 개수 변경하기 -->
+    <update id="update">
+        UPDATE TBL_BASKET
+        SET BASKET_CNT = #{basketCnt}
+        WHERE STORE_NUMBER = #{storeNumber} AND USER_NUMBER = #{userNumber}
+    </update>
+
     <!-- 장바구니에 담은 상품 삭제하기 -->
     <delete id="delete">
         DELETE FROM TBL_BASKET
@@ -52,7 +59,7 @@
     </select>
 
     <!-- 결제하기 직전 제품 개수 업데이트하기 -->
-    <update id="update">
+    <update id="updateCount">
         UPDATE TBL_BASKET
         SET BASKET_CNT = #{basketCnt}
         WHERE BASKET_NUMBER = #{basketNumber}

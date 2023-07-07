@@ -3,11 +3,13 @@ package com.example.hairnada.service.store;
 import com.example.hairnada.dto.store.BuyDto;
 import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.mapper.store.BuyMapper;
+import com.example.hairnada.vo.store.BuyVo;
 import com.example.hairnada.vo.user.BasketVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -51,5 +53,14 @@ public class BuyService {
             throw new IllegalArgumentException("장바구니 번호가 없습니다.");
         }
         buyMapper.delete(basketNumber);
+    }
+
+    // 구매 내역 조회하기
+    @Transactional(readOnly = true)
+    public List<BuyVo> findBuyOk(Long userNumber){
+        if(userNumber == null){
+            throw new IllegalArgumentException("회원 번호가 존재하지 않습니다.");
+        }
+        return buyMapper.selectBuyOk(userNumber);
     }
 }

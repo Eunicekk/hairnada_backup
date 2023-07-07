@@ -2,8 +2,10 @@ package com.example.hairnada.controller.store;
 
 import com.example.hairnada.dto.store.BuyDto;
 import com.example.hairnada.service.store.BuyService;
+import com.example.hairnada.vo.store.BuyVo;
 import com.example.hairnada.vo.user.BasketVo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,6 +50,13 @@ public class BuyRestController {
 
             buyService.register(buyDto);
         }
+    }
+
+    @GetMapping("/buyList")
+    public List<BuyVo> buyList(HttpServletRequest req){
+        Long userNumber = (Long)req.getSession().getAttribute("userNumber");
+        List<BuyVo> buyList = buyService.findBuyOk(userNumber);
+        return buyList;
     }
 
     // 구매가 완료되면 제거하기

@@ -2,8 +2,11 @@ package com.example.hairnada.mapper.store;
 
 import com.example.hairnada.dto.store.BuyDto;
 import com.example.hairnada.dto.user.UserDto;
+import com.example.hairnada.vo.store.BuyVo;
 import com.example.hairnada.vo.user.BasketVo;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface BuyMapper {
@@ -18,4 +21,7 @@ public interface BuyMapper {
 
     // 구매 완료되면 장바구니 삭제하기
     public void delete(Long basketNumber);
+
+    // 구매내역 조회하기
+    public List<BuyVo> selectBuyOk(Long userNumber);
 }

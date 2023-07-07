@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/myBasket/*")
 @RequiredArgsConstructor
-public class BasketController {
+public class BasketRestController {
     private final BasketService basketService;
 
     // 장바구니에 담긴 상품 조회하기
@@ -29,6 +29,8 @@ public class BasketController {
     }
 
     // 장바구니에 상품 추가하기는 상품 페이지에서 컨트롤러 태우기
+
+    // 장바구니에 담긴 상품의 개수 변경하기는 상품 페이지에서 컨트롤러 태우기
 
     // 장바구니에 담긴 상품 삭제하기
     @DeleteMapping("/remove")
@@ -52,10 +54,13 @@ public class BasketController {
     }
 
     // 결제 직전 상품 개수 업데이트하기
-    @PatchMapping("/modify")
+    @PatchMapping("/modifyCount")
     public void modify(@RequestBody List<BasketDto> basketList){
         for(BasketDto basketDto : basketList){
-            basketService.modify(basketDto);
+            Long count = 0L;
+            count = basketDto.getBasketCnt();
+            System.out.println("@#@#@#" + count);
+            basketService.modifyCount(basketDto);
         }
     }
 

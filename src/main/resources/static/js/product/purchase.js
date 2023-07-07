@@ -29,7 +29,6 @@ $.ajax({
             setTimeout(function() {
                 buyCnt = parseInt($('.test-count').eq(i).text(), 10);
                 basketNumbers.push($(".basket-number").eq(i).val());
-                console.log("장바구니번호 ; " + basketNumbers);
             }, 500);
         }
         $(".tbody").html(text);
@@ -190,21 +189,31 @@ function requestPay() {
                 type: 'POST',
                 traditional: true,
                 success: function(result) {
-                    //페이지 이동
                     $.ajax({
-                        url: '/stores/remove',
-                        type: 'delete',
+                        url: '/stores/modifyBuy',
+                        type: 'patch',
                         traditional: true,
                         data: JSON.stringify(basketNumbers),
                         contentType: "application/json;charset=utf-8",
                         success: function() {
-                            window.location.href = "/user/myBasket";
+                            //페이지 이동
+                            $.ajax({
+                                url: '/stores/remove',
+                                type: 'delete',
+                                traditional: true,
+                                data: JSON.stringify(basketNumbers),
+                                contentType: "application/json;charset=utf-8",
+                                success: function() {
+                                    window.location.href = "/user/myBasket";
+                                    $(document).ready(function() {
+                                        mainBasket2();
+                                    });
+                                }
+                            });
                         }
                     });
                 }
             });
-            //    console.log(rsp)로 결과 값 출력해봐야함
-            console.log('연결 성공했지 히히');
         } else {
             console.log(rsp);
         }
