@@ -32,6 +32,13 @@
         VALUES(#{basketNumber}, #{basketCnt}, #{storeNumber}, #{userNumber})
     </insert>
 
+    <!-- 장바구니에 담긴 상품 개수 변경하기 -->
+    <update id="update">
+        UPDATE TBL_BASKET
+        SET BASKET_CNT = #{basketCnt}
+        WHERE STORE_NUMBER = #{storeNumber} AND USER_NUMBER = #{userNumber}
+    </update>
+
     <!-- 장바구니에 담은 상품 삭제하기 -->
     <delete id="delete">
         DELETE FROM TBL_BASKET
@@ -52,10 +59,40 @@
     </select>
 
     <!-- 결제하기 직전 제품 개수 업데이트하기 -->
-    <update id="update">
+    <update id="updateCount">
         UPDATE TBL_BASKET
         SET BASKET_CNT = #{basketCnt}
         WHERE BASKET_NUMBER = #{basketNumber}
     </update>
+
+    <!-- 회원 정보 가져오기 -->
+    <select id="selectUser" resultType="UserDto">
+        SELECT USER_NAME, USER_PHONE_NUMBER, USER_POST_CODE, USER_ADDRESS,
+               USER_ADDRESS_DETAIL, USER_REFERENCE
+        FROM TBL_USER
+        WHERE USER_NUMBER = #{userNumber}
+    </select>
+
+    <!-- 장바구니에서 구매할 상품 조회하기 -->
+    <select id="selectBuy" resultType="BasketVo">
+        SELECT BASKET_NUMBER, BASKET_CNT, B.STORE_NUMBER, U.USER_NUMBER,
+               STORE_TITLE, STORE_PRICE,
+               STORE_FILE_NUMBER, STORE_FILE_UPLOAD_PATH, STORE_FILE_UUID, STORE_FILE_NAME
+        FROM TBL_USER U
+                 JOIN TBL_BASKET B ON U.USER_NUMBER = B.USER_NUMBER
+                 LEFT JOIN (
+            SELECT STORE_TITLE, STORE_PRICE, STORE_FILE_NUMBER, S.STORE_NUMBER,
+                   STORE_FILE_UPLOAD_PATH, STORE_FILE_UUID, STORE_FILE_NAME
+            FROM TBL_STORE S
+                     LEFT JOIN (
+                SELECT STORE_FILE_NUMBER, STORE_FILE_UPLOAD_PATH,
+                       STORE_FILE_UUID, STORE_FILE_NAME, STORE_NUMBER,
+                       RANK() OVER (PARTITION BY STORE_NUMBER ORDER BY STORE_FILE_NUMBER) AS RK
+                FROM TBL_STORE_FILE
+            ) F ON S.STORE_NUMBER = F.STORE_NUMBER AND F.RK = 1
+        ) J ON B.STORE_NUMBER = J.STORE_NUMBER
+        WHERE BASKET_NUMBER = #{basketNumber}
+        ORDER BY BASKET_NUMBER DESC
+    </select>
 
 </mapper>

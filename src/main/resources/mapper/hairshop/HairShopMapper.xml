@@ -72,7 +72,7 @@
         UPDATE TBL_HAIR_SHOP
         SET HAIR_SHOP_ADDRESS = #{hairShopAddress}, HAIR_SHOP_PHONE_NUMBER = #{hairShopPhoneNumber},
         HAIR_SHOP_OPEN_TIME = #{hairShopOpenTime}, HAIR_SHOP_NAME = #{hairShopName},
-        HAIR_SHOP_LINK = #{hairShopLink}, HAIR_SHOP_CONTENT = #{hairShopContent}
+        HAIR_SHOP_LINK = #{hairShopLink}, HAIR_SHOP_CONTENT = #{hairShopContent, jdbcType=CLOB}
         WHERE HAIR_SHOP_NUMBER = #{hairShopNumber}
     </update>
 

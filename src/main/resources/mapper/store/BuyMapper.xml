@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.hairnada.mapper.store.BuyMapper">
+
     <!-- 회원 정보 가져오기 -->
     <select id="selectUser" resultType="UserDto">
         SELECT USER_NAME, USER_PHONE_NUMBER, USER_POST_CODE, USER_ADDRESS,
@@ -27,6 +28,50 @@
                 FROM TBL_STORE_FILE
             ) F ON S.STORE_NUMBER = F.STORE_NUMBER AND F.RK = 1
         ) J ON B.STORE_NUMBER = J.STORE_NUMBER
+        WHERE BASKET_NUMBER = #{basketNumber}
         ORDER BY BASKET_NUMBER DESC
     </select>
+
+    <!-- 구매 정보 추가하기 -->
+    <insert id="insert">
+        <selectKey keyProperty="buyNumber" order="BEFORE" resultType="long">
+            SELECT SEQ_BUY.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO TBL_BUY(BUY_NUMBER, BUY_NAME, BUY_PHONE_NUMBER, BUY_ADDRESS,
+                            BUY_ADDRESS_DETAIL, BUY_POST_CODE, BUY_REFERENCE, BUY_CNT, BUY_MSG,
+                            USER_NUMBER, STORE_NUMBER, DELIVERY_NUMBER)
+        VALUES(#{buyNumber}, #{buyName}, #{buyPhoneNumber}, #{buyAddress}, #{buyAddressDetail},
+        #{buyPostCode}, #{buyReference}, #{buyCnt}, #{buyMsg}, #{userNumber}, #{storeNumber}, #{deliveryNumber})
+    </insert>
+
+    <!-- 구매가 완료된 장바구니에 담은 상품 삭제하기 -->
+    <delete id="delete">
+        DELETE FROM TBL_BASKET
+        WHERE BASKET_NUMBER = #{basketNumber}
+    </delete>
+
+    <!-- 구매내역 조회하기 -->
+    <select id="selectBuyOk" resultType="BuyVo">
+        SELECT BUY_NUMBER, U.USER_NUMBER, J.STORE_NUMBER, TO_CHAR(BUY_DATE, 'YY-MM-DD') AS BUY_DATE_FORMAT,
+               BUY_CNT, BUY_MSG, (BUY_CNT * J.STORE_PRICE) AS STORE_REAL_PRICE, STORE_TITLE,
+               STORE_FILE_NUMBER, STORE_FILE_UPLOAD_PATH, STORE_FILE_UUID, STORE_FILE_NAME,
+               D.DELIVERY_NAME, D.DELIVERY_NUMBER, STORE_PRICE
+        FROM TBL_USER U
+                 JOIN TBL_BUY B ON U.USER_NUMBER = B.USER_NUMBER
+                 LEFT JOIN (
+            SELECT STORE_TITLE, STORE_PRICE, STORE_FILE_NUMBER, S.STORE_NUMBER,
+                   STORE_FILE_UPLOAD_PATH, STORE_FILE_UUID, STORE_FILE_NAME
+            FROM TBL_STORE S
+                     LEFT JOIN (
+                SELECT STORE_FILE_NUMBER, STORE_FILE_UPLOAD_PATH,
+                       STORE_FILE_UUID, STORE_FILE_NAME, STORE_NUMBER,
+                       RANK() OVER (PARTITION BY STORE_NUMBER ORDER BY STORE_FILE_NUMBER) AS RK
+                FROM TBL_STORE_FILE
+            ) F ON S.STORE_NUMBER = F.STORE_NUMBER AND F.RK = 1
+        ) J ON B.STORE_NUMBER = J.STORE_NUMBER
+                 LEFT JOIN TBL_DELIVERY D ON B.DELIVERY_NUMBER = D.DELIVERY_NUMBER
+        WHERE U.USER_NUMBER = 1
+        ORDER BY BUY_NUMBER DESC
+    </select>
+
 </mapper>

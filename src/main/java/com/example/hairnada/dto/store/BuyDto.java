@@ -1,4 +1,4 @@
-package com.example.hairnada.dto.user;
+package com.example.hairnada.dto.store;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,8 +9,10 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 public class BuyDto {
     private Long buyNumber;
+    private String buyPostCode;
     private String buyAddress;
     private String buyAddressDetail;
+    private String buyReference;
     private Long buyCnt;
     private String buyDate;
     private String buyPhoneNumber;

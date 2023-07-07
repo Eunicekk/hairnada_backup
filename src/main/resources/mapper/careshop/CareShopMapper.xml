@@ -72,7 +72,7 @@
         UPDATE TBL_CARE_SHOP
         SET CARE_SHOP_ADDRESS = #{careShopAddress}, CARE_SHOP_PHONE_NUMBER = #{careShopPhoneNumber},
             CARE_SHOP_OPEN_TIME = #{careShopOpenTime}, CARE_SHOP_NAME = #{careShopName},
-            CARE_SHOP_LINK = #{careShopLink}, CARE_SHOP_CONTENT = #{careShopContent}
+            CARE_SHOP_LINK = #{careShopLink}, CARE_SHOP_CONTENT = #{careShopContent, jdbcType=CLOB}
         WHERE CARE_SHOP_NUMBER = #{careShopNumber}
     </update>
 
