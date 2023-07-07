@@ -29,6 +29,12 @@
   height: 800px;
 }
 
+.msg{
+  margin-top: 20px;
+  margin-left: 30px;
+  color: red;
+}
+
 .product-category-box {
   margin-left: 27px;
   margin-top: 20px;

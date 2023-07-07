@@ -3,6 +3,7 @@ $(document).ready(function () {
   $("#my-hairshop-text").children().first().removeClass("selected");
   $("#my-product-text").children().first().removeClass("selected");
   $("#my-style-text").children().first().removeClass("selected");
+  $("#my-careshop-text").children().first().removeClass("selected");
 
   $('.pagination').on('click', '.li__like', function (e){
     e.preventDefault();
@@ -30,6 +31,13 @@ $(document).ready(function () {
 
     let number = $(this).text();
     storePage(number);
+  });
+
+  $('.pagination').on('click', '.li_care', function (e){
+    e.preventDefault();
+
+    let number = $(this).text();
+    careShopPage(number);
   });
 
 
@@ -112,6 +120,11 @@ $("#my-product-text").on("click", function () {
 $("#my-style-text").on("click", function () {
   // $(".communityList").html(getStyle);
   hairPage(1);
+});
+
+// 케어샵 좋아요
+$("#my-careshop-text").on("click", function(){
+  careShopPage(1);
 });
 
 // 헤어스타일 좋아요 ajax
@@ -234,6 +247,41 @@ function hairShopPage(page) {
   });
 }
 
+// 케어샵 좋아요 모음
+function careShopPage(page) {
+  let tagList = '';
+  $.ajax({
+    url: `/users/likeCareShop/${page}`,
+    type: "GET",
+    success: function (result) {
+      tagList = getCareShop(result.likeCare);
+      $(".communityList").html(tagList);
+      LikeImg();
+
+      let pageNum = '';
+      let pageinfo = result.pageinfo;
+
+      if (pageinfo.prev) {
+        pageNum += `<li class="li_care"><a href="#" class="prev">&laquo;</a></li>`;
+      }
+
+      for (let i = pageinfo.startPage; i <= pageinfo.endPage; i++) {
+        if (pageinfo.criteria.page == i) {
+          pageNum += `<li class="li_care"><a href="#" class="active">${i}</a></li>`;
+        } else {
+          pageNum += `<li class="li_care"><a href="#" >${i}</a></li>`;
+        }
+      }
+
+      if (pageinfo.next) {
+        pageNum += `<li class="li_care"><a href="#" class="next">&raquo;</a></li>`;
+      }
+
+      $('.pagination ul').html(pageNum);
+    }
+  });
+}
+
 
 // 커뮤니티 좋아요
 function getCommunity(obj) {
@@ -307,6 +355,39 @@ function getHairShop(obj) {
           </div>
           <div class="address-box">
               <span class="address">${obj[i].hairShopAddress}</span>
+          </div>
+      </li>
+  `;
+  }
+  text+= `</ul>`;
+
+  return text;
+}
+
+function getCareShop(obj) {
+  console.log(obj)
+  let text = '';
+
+  text += `<ul class="ListUl">`;
+
+  for(let i=0; i<obj.length; i++) {
+    text += `
+      <li class="ListLi">
+          <a href="#">
+              <div class="img-list">
+                  <div class="main-img">
+                      <img src="/upload/${obj[i].careShopFileUploadPath}/th_${obj[i].careShopFileUuid}_${obj[i].careShopFileName}" alt="썸네일">
+                    </div>
+              </div>
+          </a>
+          <div class="titleAndBtn">
+              <p class="shop-title">${obj[i].careShopName}</p>
+              <div class="buttons">
+                  <button type="button" class="like">하트</button>
+              </div>
+          </div>
+          <div class="address-box">
+              <span class="address">${obj[i].careShopAddress}</span>
           </div>
       </li>
   `;
@@ -396,6 +477,7 @@ function getStyle(obj) {
 }
 
 let hairBtn = document.getElementById("my-hairshop-text");
+let careBtn = document.getElementById("my-careshop-text");
 let productBtn = document.getElementById("my-product-text");
 let styleBtn = document.getElementById("my-style-text");
 let communityBtn = document.getElementById("my-community-text");
@@ -405,6 +487,7 @@ hairBtn.addEventListener("click", function () {
   productBtn.querySelector(".active-banner").classList.remove("selected");
   styleBtn.querySelector(".active-banner").classList.remove("selected");
   communityBtn.querySelector(".active-banner").classList.remove("selected");
+  careBtn.querySelector(".active-banner").classList.remove("selected");
 });
 
 productBtn.addEventListener("click", function () {
@@ -412,6 +495,7 @@ productBtn.addEventListener("click", function () {
   hairBtn.querySelector(".active-banner").classList.remove("selected");
   styleBtn.querySelector(".active-banner").classList.remove("selected");
   communityBtn.querySelector(".active-banner").classList.remove("selected");
+  careBtn.querySelector(".active-banner").classList.remove("selected");
 });
 
 styleBtn.addEventListener("click", function () {
@@ -419,6 +503,7 @@ styleBtn.addEventListener("click", function () {
   productBtn.querySelector(".active-banner").classList.remove("selected");
   hairBtn.querySelector(".active-banner").classList.remove("selected");
   communityBtn.querySelector(".active-banner").classList.remove("selected");
+  careBtn.querySelector(".active-banner").classList.remove("selected");
 });
 
 communityBtn.addEventListener("click", function () {
@@ -426,5 +511,13 @@ communityBtn.addEventListener("click", function () {
   productBtn.querySelector(".active-banner").classList.remove("selected");
   styleBtn.querySelector(".active-banner").classList.remove("selected");
   hairBtn.querySelector(".active-banner").classList.remove("selected");
+  careBtn.querySelector(".active-banner").classList.remove("selected");
 });
 
+careBtn.addEventListener("click", function () {
+  careBtn.querySelector(".active-banner").classList.add("selected");
+  productBtn.querySelector(".active-banner").classList.remove("selected");
+  styleBtn.querySelector(".active-banner").classList.remove("selected");
+  hairBtn.querySelector(".active-banner").classList.remove("selected");
+  communityBtn.querySelector(".active-banner").classList.remove("selected");
+});

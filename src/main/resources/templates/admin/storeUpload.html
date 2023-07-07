@@ -21,7 +21,7 @@
       <a href="#">
         <img class="logo" src="/img/logo.png" />
       </a>
-      <button class="logout-btn" type="button">로그아웃</button>
+      <a th:href="@{/admin/logout}" class="logout-btn" type="button">로그아웃</a>
     </div>
     <div class="body-container">
       <div class="main-container">
@@ -74,6 +74,7 @@
               </div>
             </div>
             <div class="product-information">
+              <span class="msg">제품 등록 후 수정이 어려우니 신중히 기입해주세요.</span>
               <div class="product-category-box">
                 <select name="storeCategoryNumber" class="category">
                   <option value="">카테고리 선택</option>

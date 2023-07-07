@@ -4,6 +4,7 @@
 <configuration>
     <typeAliases>
         <typeAlias type="com.example.hairnada.dto.user.UserDto" alias="userDto" />
+        <typeAlias type="com.example.hairnada.vo.user.UserVo" alias="userVo" />
         <typeAlias type="com.example.hairnada.dto.user.UserFileDto" alias="userFileDto" />
         <typeAlias type="com.example.hairnada.dto.user.BasketDto" alias="basketDto" />
         <typeAlias type="com.example.hairnada.vo.user.BasketVo" alias="basketVo" />

@@ -45,6 +45,7 @@
 <!--        &lt;!&ndash; 정보수정 &ndash;&gt;-->
 <!--    </div>-->
         <div class="main-box">
+          <input type="hidden" class="user" th:value="${user}">
           <div class="my-modify-box">
             <div id="my-modify-btn">
               <div class="my-modify active-banner selected">정보수정</div>
@@ -66,6 +67,7 @@
       integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
       crossorigin="anonymous"
     ></script>
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script th:src="@{/js/user/myPage.js}"></script>
     <script th:src="@{/js/user/myTier.js}"></script>
     <script th:src="@{/js/index/header.js}"></script>

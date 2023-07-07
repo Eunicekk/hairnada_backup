@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
@@ -37,18 +38,44 @@ public class AdminController {
     private final AdminService adminService;
     private final AdminFileService adminFileService;
 
+    // 로그인
+    @GetMapping("/adminLogin")
+    public void adminLogin(Model model){}
+
+    @PostMapping("/adminLogin")
+    public RedirectView adminLogin(String userId, String userPassword, HttpServletRequest req, Model model){
+        Long isAdmin = adminService.adminLogin(userId, userPassword);
+
+        if(isAdmin == 4){
+            req.getSession().setAttribute("membershipNumber", isAdmin);
+            model.addAttribute("admin", isAdmin);
+            return new RedirectView("/admin/userList");
+        } else {
+            return new RedirectView("/admin/adminLogin");
+        }
+
+    }
+
+    // 로그아웃
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest req){
+        // 세션 초기화
+        req.getSession().invalidate();
+        return "admin/adminLogin";
+    }
+
     // 유저 리스트
     @GetMapping("/userList")
-    public void memberList(CriteriaAdmin criteriaAdmin, Model model){
+    public void memberList(CriteriaAdmin criteriaAdmin, Model model, HttpServletRequest req){
+        Long membershipNumber = (Long)req.getSession().getAttribute("membershipNumber");
+        System.out.println("*******membershipNumber" + membershipNumber);
         List<UserDto> userList = adminService.findUserList(criteriaAdmin);
         model.addAttribute("userList", userList);
         model.addAttribute("pageInfo", new PageAdminVo(criteriaAdmin, adminService.getUserTotal()));
     }
 
 
-    // 로그인
-    @GetMapping("/adminLogin")
-    public void adminLogin(){}
+
 
     // 배송 관리
     @GetMapping("/delivery")

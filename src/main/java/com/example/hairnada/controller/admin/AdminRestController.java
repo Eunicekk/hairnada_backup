@@ -49,16 +49,22 @@ public class AdminRestController {
 
     // 카테고리로 상품 조회
     @GetMapping("/storeList")
-    public List<StoreVo> findStoreList(Long storeCategoryNumber){
-        List<StoreVo> categoryStore =  adminService.findStoreListByCategory(storeCategoryNumber);
-        return categoryStore;
+    public Map<String, Object> findStoreList(Long storeCategoryNumber, CriteriaAdminList criteriaAdminList){
+        Map<String, Object> result = new HashMap<>();
+        List<StoreVo> categoryStore =  adminService.findStoreListByCategory(storeCategoryNumber, criteriaAdminList);
+        result.put("categoryStore", categoryStore);
+        result.put("pageInfo", new PageAdminListVo(criteriaAdminList, adminService.getCategoryStoreTotal(storeCategoryNumber)));
+        return result;
     }
 
     // 이름으로 상품 조회
     @GetMapping("/storeTitle")
-    public List<StoreVo> findStoreListByTitle(String storeTitle){
-        List<StoreVo> titleStore = adminService.findStoreListByTitle(storeTitle);
-        return titleStore;
+    public Map<String, Object> findStoreListByTitle(String storeTitle,CriteriaAdminList criteriaAdminList){
+        Map<String, Object> result = new HashMap<>();
+        List<StoreVo> titleStore = adminService.findStoreListByTitle(storeTitle,criteriaAdminList);
+        result.put("titleStore", titleStore);
+        result.put("pageInfo", new PageAdminListVo(criteriaAdminList, adminService.getTitleStoreTotal(storeTitle)));
+        return result;
     }
 
     // 카테고리로 헤어 조회

@@ -10,10 +10,15 @@
   </head>
   <body>
     <img class="logo" src="/img/logo2.jpg" />
-    <div class="id-password-box">
-      <input type="text" placeholder=" 아이디 입력" />
-      <input type="password" placeholder=" 비밀번호 입력" />
+    <form action="/admin/adminLogin" method="post">
+    <div class="id-password-box" >
+      <input type="text" name="userId" placeholder=" 아이디 입력" />
+      <input type="password" name="userPassword" placeholder=" 비밀번호 입력" />
+      <th:block th:if="${error != null}">
+      <span class="false-msg" >아이디 또는 비밀번호가 일치하지 않습니다.</span>
+      </th:block>
     </div>
-    <button class="login-btn" type="button">로그인</button>
+    <button class="login-btn" type="submit">로그인</button>
+    </form>
   </body>
 </html>
