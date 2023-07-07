@@ -1,5 +1,6 @@
 .main-box {
   width: 1300px;
+  height: auto!important;
   margin: 40px auto;
 }
 
@@ -49,7 +50,7 @@
 .big-box {
   width: 1200px;
   margin: 0 auto;
-  height: 800px;
+  height: auto!important;
 }
 
 /* 장바구니 시작 */
@@ -200,6 +201,10 @@
   font-size: 14px;
   color: #666;
   margin: 12px 0;
+}
+
+.buy-text:last-child{
+  margin-bottom: 80px;
 }
 
 .selected {

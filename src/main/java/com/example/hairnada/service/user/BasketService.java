@@ -1,8 +1,8 @@
 package com.example.hairnada.service.user;
 
 import com.example.hairnada.dto.user.BasketDto;
+import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.mapper.user.BasketMapper;
-import com.example.hairnada.service.store.StoreFileService;
 import com.example.hairnada.vo.user.BasketVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -33,6 +33,14 @@ public class BasketService {
         basketMapper.insert(basketDto);
     }
 
+    // 장바구니 상품 개수 변경
+    public void modify(Long storeNumber, Long userNumber){
+        if(storeNumber == null || userNumber == null){
+            throw new IllegalArgumentException("상품 정보 혹은 회원 정보가 없습니다.");
+        }
+        basketMapper.update(storeNumber, userNumber);
+    }
+
     // 장바구니에서 상품 삭제
     public void remove(Long basketNumber){
         if(basketNumber == null){
@@ -53,10 +61,11 @@ public class BasketService {
     }
 
     // 결제 직전 상품 개수 업데이트하기
-    public void modify(BasketDto basketDto){
+    public void modifyCount(BasketDto basketDto){
         if(basketDto == null){
             throw new IllegalArgumentException("장바구니에 상품이 없습니다.");
         }
-        basketMapper.update(basketDto);
+        basketMapper.updateCount(basketDto);
     }
+
 }

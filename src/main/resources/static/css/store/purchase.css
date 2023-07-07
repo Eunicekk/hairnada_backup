@@ -229,10 +229,13 @@ h3{
     text-align: center;
 }
 
-.purchase-btn a{
+.purchase-btn button{
     display: inline-block;
     width: 230px;
+    font-size: 18px;
+    font-weight: 500;
     color: white;
     background-color: #222;
     padding: 20px 0;
+    cursor: pointer;
 }

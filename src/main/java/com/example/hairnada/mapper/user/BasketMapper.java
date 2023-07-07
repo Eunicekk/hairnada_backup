@@ -14,6 +14,9 @@ public interface BasketMapper {
     // 장바구니에 상품 추가
     public void insert(BasketDto basketDto);
 
+    // 장바구니 상품 개수 변경
+    public void update(Long storeNumber, Long userNumber);
+
     // 장바구니에서 상품 삭제
     public void delete(Long basketNumber);
 
@@ -24,5 +27,5 @@ public interface BasketMapper {
     public int count(Long userNumber);
 
     // 결제 직전 상품 개수 업데이트하기
-    public void update(BasketDto basketDto);
+    public void updateCount(BasketDto basketDto);
 }
