@@ -412,14 +412,7 @@ textarea {
   /* background-color: yellow; */
 }
 
-.certificate-img-box {
-  display: flex;
-  flex-direction: column;
-  color: #626262;
-  font-weight: bold;
-  margin-top: 20px;
-  margin-bottom: 80px;
-}
+
 
 .certiflcate-img {
   margin-top: 10px;
@@ -434,32 +427,17 @@ textarea {
   color: black;
 }
 
-.now-tier-box {
-  display: flex;
-  flex-direction: column;
-  color: #626262;
-  font-weight: bold;
-}
 
-.tier-input {
-  margin-top: 10px;
-  width: 1000px;
-  height: 50px;
-  background-color: #d1d1d18a;
-  cursor: default;
-  border: 1px solid black;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  box-sizing: border-box;
-}
+
+
 
 .explanation-box {
   display: flex;
   flex-direction: column;
   color: #626262;
   font-weight: bold;
-  margin: 20px auto 0;
+  margin-left: 10px;
+  margin-top: 20px;
 }
 
 .explanation1 {
@@ -478,7 +456,9 @@ textarea {
 
 .app-btn {
   display: flex;
+  width: 1000px;
   justify-content: flex-end;
+  margin-left: 10px;
   margin-top: 10px;
 }
 
@@ -495,6 +475,7 @@ textarea {
   margin-right: 7px;
   width: 60px;
   height: 30px;
+  display: none;
   background-color: white;
   border: 1px solid black;
   border-radius: 5px;
@@ -601,7 +582,7 @@ textarea:focus {
   border-radius: 10px;
   list-style: none;
   width: 250px;
-  height: 250px;
+  height: 180px;
 }
 
 .tier__file-wrap {
@@ -622,3 +603,94 @@ textarea:focus {
   color: green;
   display: none;
 }
+
+
+/* css 수정 */
+.now-tier-box {
+  display: flex;
+  flex-direction: column;
+  color: #626262;
+  font-weight: bold;
+  margin-left: 10px;
+  margin-top: 20px;
+}
+
+.certificate-img-box {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  color: #626262;
+  font-weight: bold;
+}
+
+.normal-tier {
+  margin-top: 10px;
+  width: 1000px;
+  height: 50px;
+  background-color: white;
+  cursor: default;
+  border: 1px solid #706f6f;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  cursor: pointer;
+}
+
+.style-tier {
+  margin-top: 10px;
+  width: 1000px;
+  height: 50px;
+  background-color: white;
+  cursor: default;
+  border: 1px solid #706f6f;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  cursor: pointer;
+}
+
+.care-tier {
+  margin-top: 10px;
+  width: 1000px;
+  height: 50px;
+  background-color: white;
+  cursor: default;
+  border: 1px solid #706f6f;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  cursor: pointer;
+}
+
+#normal,
+#style,
+#care {
+  display: none;
+}
+
+.certiflcate-img {
+  margin-top: 10px;
+  /* border: 1px solid black; */
+  width: 208px;
+  height: 205px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  cursor: pointer;
+  font-weight: bold;
+  color: black;
+}
+
+.now-tier-status {
+  margin-top: 10px;
+  width: 1000px;
+  height: 50px;
+  background-color: white;
+  cursor: default;
+  border: 1px solid #706f6f;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+

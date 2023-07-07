@@ -9,11 +9,9 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 public class LevelDto {
     private Long levelNumber;
-    private String levelName;
     private String levelTitle;
     private String levelContent;
     private String levelRegisterDate;
     private Long membershipNumber;
     private Long userNumber;
-    private Long userFileNumber;
 }
