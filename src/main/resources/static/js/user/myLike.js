@@ -222,6 +222,7 @@ function hairShopPage(page) {
       tagList = getHairShop(result.likeShop);
       $(".communityList").html(tagList);
       LikeImg();
+      hairShopCancle();
 
       let pageNum = '';
       let pageinfo = result.pageinfo;
@@ -521,3 +522,30 @@ careBtn.addEventListener("click", function () {
   hairBtn.querySelector(".active-banner").classList.remove("selected");
   communityBtn.querySelector(".active-banner").classList.remove("selected");
 });
+
+
+
+// 좋아요 취소 처리
+// $(document).ready(function() {
+//   $(".buttons").click(function() {
+//     var buttonImg = $(this).find(".like");
+//     var hairShopNumber = $(this).find(".like").val();
+//
+//     $.ajax({
+//       url: "/hairshopLike/subtract",
+//       type: "DELETE",
+//       contentType: "application/json",
+//       data: JSON.stringify({ hairShopNumber: hairShopNumber }),
+//       success: function() {
+//         console.log("빼기 성공");
+//       },
+//       error: function(xhr, status, error) {
+//         console.log("빼기 실패: " + error); // 에러 발생 시 콘솔에 표시
+//       }
+//     });
+//
+//     buttonImg.removeClass("active");
+//     buttonImg.css("background-image", "url('/img/heart1.png')");
+//   });
+// });
+

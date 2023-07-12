@@ -54,12 +54,12 @@ public class UserService {
      * @return
      * @throws IllegalArgumentException 존재하지 않는 name, email로 조회하는 경우
      */
-    public UserDto findIdPassword(String userName, String userEmail){
-        if(userName == null || userEmail == null){
+    public UserDto findIdPassword(UserDto userDto){
+        if(userDto.getUserId() == null || userDto.getUserPassword() == null){
             throw new IllegalArgumentException("이름 또는 이메일 누락");
         }
 
-        return Optional.ofNullable(userMapper.findUserIdPassword(userName, userEmail))
+        return Optional.ofNullable(userMapper.findUserIdPassword(userDto))
                 .orElseThrow(()-> {throw new IllegalArgumentException("일치하지 않는 정보입니다!");});
     }
 
@@ -98,6 +98,7 @@ public class UserService {
         }
 
         userMapper.userUpdate(userDto);
+        if(multipartFile == null || multipartFile.isEmpty()){return;}
         userFileService.remove(userDto.getUserNumber());
         try {
             userFileService.registerAndSaveFiles(multipartFile, userDto.getUserNumber());

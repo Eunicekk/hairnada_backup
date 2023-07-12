@@ -1,20 +1,36 @@
 package com.example.hairnada.controller.user;
 
 import com.example.hairnada.dto.user.UserDto;
+import com.example.hairnada.service.user.EmailService;
 import com.example.hairnada.service.user.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
+import org.apache.catalina.Session;
+import org.apache.catalina.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.ws.mime.MimeMessage;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
+import java.net.PasswordAuthentication;
+import java.util.Properties;
+
 
 @Controller
 @RequestMapping("/user/*")
 @RequiredArgsConstructor
 public class UserController {
+
+    @Autowired
+    private final EmailService emailService;
 
     private final UserService userService;
 
@@ -50,15 +66,24 @@ public class UserController {
         return new RedirectView("/");
     }
 
-
+//  계정찾기
     @GetMapping("/find-id")
     public void find(){}
 
+   @PostMapping("/find-id")
+   public RedirectView sendMail(UserDto userDto){
+       emailService.sendIdPasswordEmail(userDto);
+       System.out.println("메일 전송 완료");
+       return new RedirectView("/user/login");
+   }
+
+
+//    로그아웃
     @GetMapping("/logout")
-    public String logout(HttpServletRequest req){
+    public RedirectView logout(HttpServletRequest req){
         // 세션 초기화
         req.getSession().invalidate();
-        return "/";
+        return new RedirectView("/");
     }
 
 //    @GetMapping("/modify")
