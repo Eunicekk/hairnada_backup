@@ -18,10 +18,11 @@
       <div class="main-body">
         <div class="find-id">
           <h1 class="find-id-text">계정 찾기</h1>
+          <form name="signup-form" th:action="@{/user/find-id}" method="post">
           <div class="input-box">
             <input type="text" class="input-name" placeholder="이름" />
             <input type="text" class="input-email" placeholder="이메일" />
-            <button type="button" class="find-btn">계정 찾기</button>
+            <button type="submit" class="find-btn">계정 찾기</button>
             <div
               class="naver-login"
               id="naverIdLogin_loginButton"
@@ -46,7 +47,7 @@
                 카카오 아이디 로그인
               </div>
             </div>
-          </div>
+          </div></form>
         </div>
       </div>
     </div>

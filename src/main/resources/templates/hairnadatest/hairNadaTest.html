@@ -1,31 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>hairnadaTest</title>
   <style></style>
-  <link rel="stylesheet" href="/css/hairnadatest/examplePage.css" />
-  <link rel="stylesheet" href="/css/hairnadatest/recommendation.css" />
-  <link rel="stylesheet" href="/css/hairnadatest/exampleResult.css" />
+  <link rel="stylesheet" th:href="@{/css/reset.css}">
+  <link rel="stylesheet" th:href="@{/css/hairnadatest/examplePage.css}" />
+  <link rel="stylesheet" th:href="@{/css/hairnadatest/recommendation.css}" />
+  <link rel="stylesheet" th:href="@{/css/hairnadatest/exampleResult.css}" />
 </head>
 <body>
+<header class="header" th:replace="fragment/header :: header"></header>
 <!-- div요소 class명을 반드시 rec-box로 설정할 것 -->
 <!-- 사이즈를 설정할 것 -->
 <!-- rec-box 꼭 필요!!!!!! -->
-<div
-        class="rec-box"
-        style="width: 550px; height: 745px; margin: 0 auto"
-></div>
+<div class="rec-box" style="width: 550px; height: 745px; margin: 0 auto"></div>
 <!-- <iframe
   src="https://smore.im/quiz/DYQ17LpSF4"
   width="500px"
   height="500px"
 ></iframe> -->
+<footer class="footer" th:replace="fragment/footer :: footer"></footer>
 <!-- jquery를 반드시 설정할 것 -->
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <!-- module 설정하고 js추가할 것 -->
-<script type="module" src="/js/hairnadatest/examplePage.js"></script>
+<script
+        src="https://code.jquery.com/jquery-3.7.0.js"
+        integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+        crossorigin="anonymous"
+></script>
+<script type="module" th:src="@{/js/hairnadatest/examplePage.js}"></script>
+<script th:src="@{/js/hairnadatest/recommendation.js}"></script>
+<script th:src="@{/js/hairnadatest/quiz-recommendation.js}"></script>
+<script th:src="@{/js/index/header.js}"></script>
 </body>
 </html>
