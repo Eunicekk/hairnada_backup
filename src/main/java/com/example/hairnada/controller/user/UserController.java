@@ -35,14 +35,10 @@ public class UserController {
     public RedirectView login(String userId, String userPassword, HttpServletRequest req){
         try {
             Long userNumber = userService.findUserNumber(userId, userPassword).getUserNumber();
-            Long memberShip = userService.findUserNumber(userId, userPassword).getMembershipNumber();
+            Long membershipNumber = userService.findUserNumber(userId, userPassword).getMembershipNumber();
             // 로그인 성공시 세션에 담기
             req.getSession().setAttribute("userNumber" , userNumber);
-            req.getSession().setAttribute("memberShip", memberShip);
-
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!"+memberShip);
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!"+userNumber);
-
+            req.getSession().setAttribute("membershipNumber", membershipNumber);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return new RedirectView("/user/login");
@@ -55,10 +51,10 @@ public class UserController {
     public void find(){}
 
     @GetMapping("/logout")
-    public String logout(HttpServletRequest req){
+    public RedirectView logout(HttpServletRequest req){
         // 세션 초기화
         req.getSession().invalidate();
-        return "/";
+        return new RedirectView("/");
     }
 
 //    @GetMapping("/modify")
