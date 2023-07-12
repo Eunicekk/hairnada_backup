@@ -2,6 +2,7 @@ package com.example.hairnada.service.admin;
 
 import com.example.hairnada.dto.buy.AdminBuyDto;
 import com.example.hairnada.dto.hair.HairDto;
+import com.example.hairnada.dto.level.LevelFileDto;
 import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.mapper.admin.AdminMapper;
@@ -85,6 +86,14 @@ public class AdminService {
                 .orElseThrow(()-> {throw new IllegalArgumentException("존재하지 않는 게시글 번호입니다.");});
     }
 
+    public LevelFileDto findLevelFile(Long levelNumber){
+        if (levelNumber == null) {
+            throw new IllegalArgumentException("게시글 번호가 없습니다.");
+        }
+        return Optional.ofNullable(adminMapper.selectLevelFile(levelNumber))
+                .orElseThrow(()->{throw new IllegalArgumentException("존재하지 않는 게시글 번호입니다.");});
+    }
+
     // 등업 요청 수락
     public void acceptQuest(Long userNumber, Long membershipNumber){
         if (membershipNumber == null || userNumber == null) {
@@ -115,39 +124,33 @@ public class AdminService {
     }
 
     // 카테고리로 상품 조회
-    public List<StoreVo> findStoreListByCategory(Long storeCategoryNumber, CriteriaAdminList criteriaAdminList){
-        if (storeCategoryNumber == null) {
-            throw new IllegalArgumentException("카테고리 선택 정보가 없습니다.");
-        }
-        return Optional.ofNullable(adminMapper.selectStoreListByCategory(storeCategoryNumber, criteriaAdminList))
+    public List<StoreVo> findStoreListByCategory(Long storeCategoryNumber, String storeTitle,CriteriaAdminList criteriaAdminList){
+        return Optional.ofNullable(adminMapper.selectStoreListByCategory(storeCategoryNumber, storeTitle,criteriaAdminList))
                 .orElseThrow(()-> {throw new IllegalArgumentException("존재하는 게시글이 없습니다");});
     }
 
     // 카테고리로 상품 조회 토탈
-    public int getCategoryStoreTotal(Long storeCategoryNumber){
-        if (storeCategoryNumber == null) {
-            throw new IllegalArgumentException("상품 카테고리 정보 누락");
-        }
-        return Optional.ofNullable(adminMapper.categoryStoreTotal(storeCategoryNumber))
+    public int getCategoryStoreTotal(Long storeCategoryNumber, String storeTitle){
+        return Optional.ofNullable(adminMapper.categoryStoreTotal(storeCategoryNumber, storeTitle))
                 .orElseThrow(()-> {throw new IllegalArgumentException("일치하는 게시글이 없습니다 !!");});
     }
 
     // 이름으로 상품 조회
-    public List<StoreVo> findStoreListByTitle(String storeTitle, CriteriaAdminList criteriaAdminList){
-        if (storeTitle == null) {
-            throw new IllegalArgumentException("상품 제목을 입력해주세요");
-        }
-        return Optional.ofNullable(adminMapper.selectStoreListByTitle(storeTitle, criteriaAdminList))
-                .orElseThrow(()->{throw new IllegalArgumentException("일치하는 상품이 없습니다.");});
-    }
+//    public List<StoreVo> findStoreListByTitle(String storeTitle, CriteriaAdminList criteriaAdminList){
+//        if (storeTitle == null) {
+//            throw new IllegalArgumentException("상품 제목을 입력해주세요");
+//        }
+//        return Optional.ofNullable(adminMapper.selectStoreListByTitle(storeTitle, criteriaAdminList))
+//                .orElseThrow(()->{throw new IllegalArgumentException("일치하는 상품이 없습니다.");});
+//    }
     // 제목으로 상품 조회 토탈
-    public int getTitleStoreTotal(String storeTitle){
-        if (storeTitle == null) {
-            throw new IllegalArgumentException("상품 정보를 제대로 입력해주세요");
-        }
-        return Optional.ofNullable(adminMapper.titleStoreTotal(storeTitle))
-                .orElseThrow(()->{throw new IllegalArgumentException("일치하는 게시글이 없스빈다.");});
-    }
+//    public int getTitleStoreTotal(String storeTitle){
+//        if (storeTitle == null) {
+//            throw new IllegalArgumentException("상품 정보를 제대로 입력해주세요");
+//        }
+//        return Optional.ofNullable(adminMapper.titleStoreTotal(storeTitle))
+//                .orElseThrow(()->{throw new IllegalArgumentException("일치하는 게시글이 없스빈다.");});
+//    }
 
     // 상품 게시글 1개 읽기
     public StoreVo lookUpStore(Long storeNumber){
@@ -186,40 +189,33 @@ public class AdminService {
     }
 
     // 카테고리 헤어스타일 토탈
-    public int getCategoryHairTotal(Long lengthNumber, Long shapeNumber, String hairGender){
-        if (lengthNumber == null || shapeNumber == null || hairGender == null) {
-            throw new IllegalArgumentException("카테고리 선택 누락 !!");
-        }
-        return adminMapper.categoryHairTotal(lengthNumber, shapeNumber, hairGender);
+    public int getCategoryHairTotal(Long lengthNumber, Long shapeNumber, String hairGender, String hairName){
+
+        return adminMapper.categoryHairTotal(lengthNumber, shapeNumber, hairGender, hairName);
     }
 
     // 제목 헤어스타일 토탈
-    public int getNameHairTotal(String hairName){
-        if (hairName == null) {
-            throw new IllegalArgumentException("제목 검색 누락!!");
-        }
-        return adminMapper.nameHairTotal(hairName);
-    }
+//    public int getNameHairTotal(String hairName){
+//
+//        return adminMapper.nameHairTotal(hairName);
+//    }
 
     // 카테고리별 헤어스타일 조회
-    public List<HairVo> findHairListByCategory(Long lengthNumber, Long shapeNumber, String hairGender, CriteriaAdminList criteriaAdminList){
-        if (hairGender == null || lengthNumber == null || shapeNumber == null) {
-            throw new IllegalArgumentException("카테고리 선택 누락!!");
-        }
+    public List<HairVo> findHairListByCategory(Long lengthNumber, Long shapeNumber, String hairGender, String hairName, CriteriaAdminList criteriaAdminList){
 
-        return Optional.ofNullable(adminMapper.selectHairListByCategory( lengthNumber, shapeNumber, hairGender, criteriaAdminList))
+        return Optional.ofNullable(adminMapper.selectHairListByCategory( lengthNumber, shapeNumber, hairGender, hairName, criteriaAdminList))
                 .orElseThrow(()-> {throw new IllegalArgumentException("일치하는 게시글이 없습니다!!"); });
     }
 
     // 이름으로 헤어스타일 조회
-    public List<HairVo> findHairListByName(String hairName, CriteriaAdminList criteriaAdminList){
-        if (hairName == null) {
-            throw new IllegalArgumentException("검색어를 제대로 입력해주세요");
-        }
-
-        return Optional.ofNullable(adminMapper.selectHairListByName(hairName, criteriaAdminList))
-                .orElseThrow(()-> {throw new IllegalArgumentException("일치하는 게시글이 없습니다 !!");});
-    }
+//    public List<HairVo> findHairListByName(String hairName, CriteriaAdminList criteriaAdminList){
+//        if (hairName == null) {
+//            throw new IllegalArgumentException("검색어를 제대로 입력해주세요");
+//        }
+//
+//        return Optional.ofNullable(adminMapper.selectHairListByName(hairName, criteriaAdminList))
+//                .orElseThrow(()-> {throw new IllegalArgumentException("일치하는 게시글이 없습니다 !!");});
+//    }
 
     // 헤어 게시글 읽기
     public HairVo lookUpHair(Long hairNumber){

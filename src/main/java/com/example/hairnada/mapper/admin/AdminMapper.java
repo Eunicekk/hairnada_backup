@@ -2,6 +2,7 @@ package com.example.hairnada.mapper.admin;
 
 import com.example.hairnada.dto.buy.AdminBuyDto;
 import com.example.hairnada.dto.hair.HairDto;
+import com.example.hairnada.dto.level.LevelFileDto;
 import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.vo.hairVo.HairVo;
@@ -37,7 +38,10 @@ public interface AdminMapper {
     public int levelTotal();
 
     // 등업 게시글 읽기
-    public LevelVo levelBoardRead(long levelNumber);
+    public LevelVo levelBoardRead(Long levelNumber);
+
+    // 등업 게시글 사진
+    public LevelFileDto selectLevelFile(Long levelNumber);
 
     // 등업 요청 수락
     public void updateMembershipNumber(@Param("userNumber")Long userNumber, @Param("membershipNumber")Long membershipNumber);
@@ -51,16 +55,16 @@ public interface AdminMapper {
     public void insertStore(StoreDto storeDto);
 
     // 상품 카테고리로 검색
-    public List<StoreVo> selectStoreListByCategory(Long storeCategoryNumber,  @Param("criteria")CriteriaAdminList criteriaAdminList);
+    public List<StoreVo> selectStoreListByCategory(@Param("storeCategoryNumber") Long storeCategoryNumber, @Param("storeTitle")String storeTitle, @Param("criteria")CriteriaAdminList criteriaAdminList);
 
     // 상품 카테고리 검색 수
-    public int categoryStoreTotal(Long storeCategoryNumber);
+    public int categoryStoreTotal(@Param("storeCategoryNumber") Long storeCategoryNumber, @Param("storeTitle")String storeTitle);
 
     // 상품 제목으로 검색
-    public List<StoreVo> selectStoreListByTitle(String storeTitle, @Param("criteria")CriteriaAdminList criteriaAdminList);
+//    public List<StoreVo> selectStoreListByTitle(String storeTitle, @Param("criteria")CriteriaAdminList criteriaAdminList);
 
     // 상품 제목으로 검색 수
-    public int titleStoreTotal(String storeTitle);
+//    public int titleStoreTotal(String storeTitle);
 
     // 상품 게시글 읽기
     public StoreVo storeRead(Long storeNumber);
@@ -77,7 +81,8 @@ public interface AdminMapper {
     // 카테고리 헤어리스트 수
     public int categoryHairTotal(@Param("lengthNumber") Long lengthNumber,
                                  @Param("shapeNumber") Long shapeNumber,
-                                 @Param("hairGender") String hairGender);
+                                 @Param("hairGender") String hairGender,
+                                 @Param("hairName") String hairName);
 
     // 제목 헤어리스트 수
     public int nameHairTotal(@Param("hairName") String hairName);
@@ -90,10 +95,11 @@ public interface AdminMapper {
                                                   @Param("lengthNumber") Long lengthNumber,
                                                   @Param("shapeNumber") Long shapeNumber,
                                                   @Param("hairGender") String hairGender,
+                                                  @Param("hairName") String hairName,
                                                   @Param("criteria") CriteriaAdminList criteriaAdminList);
 
     // 제목으로 헤어 검색
-    public List<HairVo> selectHairListByName(@Param("hairName")String hairName, @Param("criteria")CriteriaAdminList criteriaAdminList);
+//    public List<HairVo> selectHairListByName(@Param("hairName")String hairName, @Param("criteria")CriteriaAdminList criteriaAdminList);
 
     // 헤어 게시글 읽기
     public HairVo hairRead(Long hairNumber);
