@@ -49,44 +49,53 @@ public class AdminRestController {
 
     // 카테고리로 상품 조회
     @GetMapping("/storeList")
-    public Map<String, Object> findStoreList(Long storeCategoryNumber, CriteriaAdminList criteriaAdminList){
+    public Map<String, Object> findStoreList(Long storeCategoryNumber, String storeTitle,CriteriaAdminList criteriaAdminList
+            , @RequestParam(defaultValue = "1")int page){
         Map<String, Object> result = new HashMap<>();
-        List<StoreVo> categoryStore =  adminService.findStoreListByCategory(storeCategoryNumber, criteriaAdminList);
+        criteriaAdminList.setPage(page);
+        List<StoreVo> categoryStore =  adminService.findStoreListByCategory(storeCategoryNumber, storeTitle,criteriaAdminList);
         result.put("categoryStore", categoryStore);
-        result.put("pageInfo", new PageAdminListVo(criteriaAdminList, adminService.getCategoryStoreTotal(storeCategoryNumber)));
+        result.put("pageInfo", new PageAdminListVo(criteriaAdminList, adminService.getCategoryStoreTotal(storeCategoryNumber, storeTitle)));
         return result;
     }
 
     // 이름으로 상품 조회
-    @GetMapping("/storeTitle")
-    public Map<String, Object> findStoreListByTitle(String storeTitle,CriteriaAdminList criteriaAdminList){
-        Map<String, Object> result = new HashMap<>();
-        List<StoreVo> titleStore = adminService.findStoreListByTitle(storeTitle,criteriaAdminList);
-        result.put("titleStore", titleStore);
-        result.put("pageInfo", new PageAdminListVo(criteriaAdminList, adminService.getTitleStoreTotal(storeTitle)));
-        return result;
-    }
+//    @GetMapping("/storeTitle")
+//    public Map<String, Object> findStoreListByTitle(String storeTitle,CriteriaAdminList criteriaAdminList){
+//        Map<String, Object> result = new HashMap<>();
+//        List<StoreVo> titleStore = adminService.findStoreListByTitle(storeTitle,criteriaAdminList);
+//        result.put("titleStore", titleStore);
+//        result.put("pageInfo", new PageAdminListVo(criteriaAdminList, adminService.getTitleStoreTotal(storeTitle)));
+//        return result;
+//    }
 
     // 카테고리로 헤어 조회
     @GetMapping("/hairList")
-    public Map<String, Object> findHairList (Long lengthNumber, Long shapeNumber, String hairGender, CriteriaAdminList criteriaAdminList){
+    public Map<String, Object> findHairList (Long lengthNumber, Long shapeNumber, String hairGender, String hairName, CriteriaAdminList criteriaAdminList
+    , @RequestParam(defaultValue = "1")int page){
+
+
+        System.out.println("gender ******************"+ hairGender);
+
         Map<String, Object> result = new HashMap<>();
-        List<HairVo> categoryHair = adminService.findHairListByCategory( lengthNumber, shapeNumber,hairGender, criteriaAdminList);
+        criteriaAdminList.setPage(page);
+        List<HairVo> categoryHair = adminService.findHairListByCategory(lengthNumber, shapeNumber,hairGender,hairName, criteriaAdminList);
 
         result.put("categoryHair", categoryHair);
-        result.put("pageInfo", new PageAdminListVo(criteriaAdminList, adminService.getCategoryHairTotal(lengthNumber, shapeNumber, hairGender)));
+        result.put("pageInfo", new PageAdminListVo(criteriaAdminList, adminService.getCategoryHairTotal(lengthNumber, shapeNumber, hairGender, hairName)));
         return result;
     }
 
     // 이름으로 헤어스타일 조회
-    @GetMapping("/hairName")
-    public Map<String, Object> findHairListByName(String hairName, CriteriaAdminList criteriaAdminList){
-        Map<String, Object> result = new HashMap<>();
-         List<HairVo> nameHair = adminService.findHairListByName(hairName, criteriaAdminList);
-        result.put("nameHair", nameHair);
-        result.put("pageInfo", new PageAdminListVo(criteriaAdminList, adminService.getNameHairTotal(hairName)));
-        return result;
-    }
+//    @GetMapping("/hairName")
+//    public Map<String, Object> findHairListByName(String hairName, CriteriaAdminList criteriaAdminList, @RequestParam(defaultValue = "1")int page){
+//        Map<String, Object> result = new HashMap<>();
+//        criteriaAdminList.setPage(page);
+//         List<HairVo> nameHair = adminService.findHairListByName(hairName, criteriaAdminList);
+//        result.put("nameHair", nameHair);
+//        result.put("pageInfo", new PageAdminListVo(criteriaAdminList, adminService.getNameHairTotal(hairName)));
+//        return result;
+//    }
 
     // 배송 완료 목록 조회
     @GetMapping("/complete")

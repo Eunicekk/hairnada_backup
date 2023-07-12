@@ -3,6 +3,7 @@ package com.example.hairnada.controller.admin;
 import com.example.hairnada.dto.buy.AdminBuyDto;
 import com.example.hairnada.dto.hair.HairDto;
 import com.example.hairnada.dto.hair.HairFileDto;
+import com.example.hairnada.dto.level.LevelFileDto;
 import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.dto.store.StoreFileDto;
 import com.example.hairnada.dto.user.UserDto;
@@ -170,7 +171,9 @@ public class AdminController {
     @GetMapping("/levelUp")
     public void levelUP(Long levelNumber, Model model){
         LevelVo levelVo = adminService.findLevelBoard(levelNumber);
+        LevelFileDto levelFileDto = adminService.findLevelFile(levelNumber);
         model.addAttribute("LevelBoard", levelVo);
+        model.addAttribute("levelFile", levelFileDto);
     }
 
 //    // 회원 기존 등급 조회

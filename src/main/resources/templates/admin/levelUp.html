@@ -55,8 +55,9 @@
             <span class="board-register-date" th:text="${view.levelRegisterDate}"></span>
           </div>
 
-          <div class="board-main">
-            <img class="license-photo" src="../LogoImg/Hairnada.jpg" />
+          <div class="board-main" th:each="file : ${levelFileDto}">
+            <img class="license-photo" th:if="${file.levelFileName == null}" src="../LogoImg/Hairnada.jpg" />
+            <img class="license-photo" th:unless="${file.levelFileName == null}" th:src="${'/upload/' + file.levelFileUploadPath + '/th_' + file.levelFileUuid + '_' + file.levelFileName }" />
             <span class="board-content"
                th:text="${view.levelContent}">
             </span>
