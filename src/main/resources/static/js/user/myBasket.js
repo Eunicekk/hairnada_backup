@@ -23,28 +23,41 @@ function mainBasket1() {
         let checkedCount = $('.check-label2:checked').length;
         let basketList = [];
         let basketNumber = $('.check-label2:checked');
-        let basketCnt = $('.check-label2:checked').closest('.basket-content').find('.number-box').prop('value');
 
-        basketNumber.each(function(){
+
+        basketNumber.each(function(index, element){
+          let basketCnt = $(element).closest('.basket-content').find('.number-box').prop('value');
           let basketVoTemp = {
-            basketNumber: basketNumber.val(),
+            basketNumber: $(element).val(),
             basketCnt: basketCnt
           };
           basketList.push(basketVoTemp);
         });
-        console.log(basketList);
+
+        let basketNumbers = [];
+        basketNumber.each(function(){
+          basketNumbers.push($(this).val());
+        });
 
         if (checkedCount > 0) {
           // 체크박스가 선택되었을 경우 구매 페이지로 이동
           $.ajax({
-            url: '/myBasket/modify',
+            url: '/myBasket/modifyCount',
             type: 'patch',
             traditional : true,
             data: JSON.stringify(basketList),
             contentType: "application/json;charset=utf-8",
             success: function(){
-              window.location.href = '/store/buy';
-              console.log(basketList);
+              $.ajax({
+                url: '/stores/buy',
+                type: 'post',
+                traditional: true,
+                data: JSON.stringify(basketNumbers),
+                contentType: "application/json;charset=utf-8",
+                success: function() {
+                  window.location.href = '/store/buy';
+                }
+              });
             }
           });
         } else {
@@ -80,12 +93,22 @@ function deleteProduct(){
   });
 }
 
-$("#my-basket-btn").on("click", mainBasket1);
+// 구매내역 리스트 실행
+function mainBasket2(){
+  let basket = '';
+  $.ajax({
+    url: '/stores/buyList',
+    type: 'GET',
+    success: function(data) {
+      basket = getBigBox2(data);
+      $('.big-box').html(basket);
+      createDatePicker();
+    }
+  });
+};
 
-$("#my-pay-btn").on("click", function () {
-  $(".big-box").html(getBigBox2());
-  createDatePicker();
-});
+$("#my-basket-btn").on("click", mainBasket1);
+$("#my-pay-btn").on("click", mainBasket2);
 
 
 function getBigBox(obj) {
@@ -164,62 +187,77 @@ function getBigBox(obj) {
   return text;
 }
 
-function getBigBox2() {
-  return `
-  <div class="find-purchase-history">
-          <div class="double">
-            <input id="datepicker1" type="text" name="test" autocomplete='off'/> ~
-            <input id="datepicker2" type="text" name="test2" autocomplete='off'/>
-          </div>
-          <button class="check-btn" type="submit">조회</button>
-        </div>
-        
-        <div class="dropdown-buy">
-          <button class="dropdown-btn">
-            전체
-            <span class="material-symbols-rounded">
-              expand_more
-            </span>
-          </button>
-          <ul class="dropdown-menu">
-            <li class="dropdown-item">전체</li>
-            <li class="dropdown-item">주문접수</li>
-            <li class="dropdown-item">결제완료</li>
-            <li class="dropdown-item">상품준비중</li>
-            <li class="dropdown-item">배송중</li>
-            <li class="dropdown-item">배송완료</li>
-            <li class="dropdown-item">취소/교환/반품</li>
-          </ul>
-        </div>
-        <table class="buy-tbl">
-            <thead>
-                <tr>
-                    <th>주문날짜</th>
-                    <th>상품정보</th>
-                    <th>수량</th>
-                    <th>총 상품 금액</th>
-                    <th>배송비</th>
-                    <th>진행상황</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>2023-06-29</td>
-                    <td>
-                        <img src="https://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0014/A00000014950114ko.jpg?l=ko" alt="상품">
-                        <p class="test-product">라보에이치 탈모증상완화 샴푸인데 일부러러러러러러러러러 글을 길게 써서 한번 넘겨보자자자자자자자자자자 울지마 바보야 난정말괜찮아아아아아아앙아아아아</p>
-                    </td>
-                    <td>2</td>
-                    <td>52000</td>
-                    <td>무료배송</td>
-                    <td>취소/교환/반품</td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="coopang-box">
-           <img src="/img/coopang.png" alt="" class="coopang-img" />
-        </div>
-  `;
+function getBigBox2(data) {
+  let text = '';
+
+  text += `
+    <div class="find-purchase-history">
+      <div class="double">
+        <input id="datepicker1" type="text" name="test" autocomplete='off'/> ~
+        <input id="datepicker2" type="text" name="test2" autocomplete='off'/>
+      </div>
+      <button class="check-btn" type="submit">조회</button>
+    </div>
+      
+    <div class="dropdown-buy">
+      <button class="dropdown-btn">
+        전체
+        <span class="material-symbols-rounded">
+          expand_more
+        </span>
+      </button>
+      <ul class="dropdown-menu">
+        <li class="dropdown-item">전체</li>
+        <li class="dropdown-item">결제완료</li>
+        <li class="dropdown-item">상품준비중</li>
+        <li class="dropdown-item">배송중</li>
+        <li class="dropdown-item">배송완료</li>
+      </ul>
+    </div>
+    <table class="buy-tbl">
+      <thead>
+        <tr>
+          <th>주문날짜</th>
+          <th>상품정보</th>
+          <th>수량</th>
+          <th>총 상품 금액</th>
+          <th>진행상황</th>
+        </tr>
+      </thead>`;
+
+  if (data.length === 0) {
+    text += `
+      <tbody>
+        <tr>
+          <td colspan="5">구매한 상품이 없습니다.</td>
+        </tr>
+      </tbody>`;
+  } else {
+    text += `<tbody>`;
+    for (let i = 0; i < data.length; i++) {
+    let priceAll = data[i].buyCnt * data[i].storePrice;
+      text += `
+        <tr>
+          <td>${data[i].buyDateFormat}</td>
+          <td>
+            <img src="/upload/${data[i].storeFileUploadPath}/th_${data[i].storeFileUUID}_${data[i].storeFileName}" alt="상품">
+            <p class="test-product">${data[i].storeTitle}</p>
+          </td>
+          <td>${data[i].buyCnt}</td>
+          <td>${priceAll}</td>
+          <td>${data[i].deliveryName}</td>
+        </tr>`;
+    }
+    text += `</tbody>`;
+  }
+
+  text += `
+    </table>
+    <div class="coopang-box">
+      <img src="/img/coopang.png" alt="" class="coopang-img" />
+    </div>`;
+
+  return text;
 }
 
 // 달력
