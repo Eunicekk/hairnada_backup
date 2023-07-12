@@ -12,10 +12,11 @@ public class AdminInterceptorConfig implements WebMvcConfigurer {
     private final AdminLoginInterceptor adminLoginInterceptor;
 
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {
+    public void addInterceptors(InterceptorRegistry registry){
         registry.addInterceptor(adminLoginInterceptor)
                 .order(1)
                 .addPathPatterns("/admin/**")
-                .excludePathPatterns("/admin/adminLogin");
+                .excludePathPatterns("/admin/adminLogin", "/error");
+
     }
 }
