@@ -105,6 +105,9 @@ public class UserFileService {
      * @throws IOException
      */
     public void registerAndSaveFiles(MultipartFile file, Long userNumber) throws IOException{
+        if(file == null || file.isEmpty()){
+            return;
+        }
             UserFileDto userFileDto = saveFile(file);
 
             userFileDto.setUserNumber(userNumber);

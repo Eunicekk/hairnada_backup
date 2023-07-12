@@ -12,5 +12,5 @@ public class LevelFileDto {
     private String levelFileName;
     private String levelFileUploadPath;
     private String levelFileUuid;
-    private Long levelBoardNumber;
+    private Long levelNumber;
 }
