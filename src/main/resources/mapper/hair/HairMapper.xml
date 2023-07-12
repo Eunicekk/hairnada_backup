@@ -20,7 +20,7 @@
             HAIR_NUMBER,
             HAIR_NAME,
             HAIR_FILE_NAME,
-            HAIR_FILE_UUID
+            HAIR_FILE_UUID,
             HAIR_FILE_UPLOAD_PATH
         FROM
             (

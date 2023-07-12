@@ -149,7 +149,7 @@
               <a th:href="@{/hair/hairStyleRead(hairNumber=${hair.hairNumber})}">
                 <div class="img-list">
                   <div class="main-img">
-                    <img src="https://img1.daumcdn.net/thumb/C360x360/?fname=https://mud-kage.kakao.com/dn/tiTz0/btsjboVScnc/36eDc0R0JCIeBLE6uPouDk/img_1080.jpg&scode=purple" alt="헤어스타일">
+                    <img th:src="${'/upload/' + hair.hairFileUploadPath + '/th_' +hair.hairFileUuid + '_' + hair.hairFileName }" alt="헤어스타일">
                   </div>
                 </div>
               </a>

@@ -18,6 +18,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,12 +29,18 @@ public class BoardRestController {
     private final BoardService boardService;
 
 //    카테고리로 조회
-    @GetMapping("communityList")
-    public List<BoardVo> selectCategory(@Param("boardCategoryNumber") Long boardCategoryNumber,@Param("criteria")Criteria03 criteria03){
-        System.out.println("카테고리 넘버 ==================== " + boardCategoryNumber);
-        List<BoardVo> response = boardService.selectCategory(boardCategoryNumber, criteria03);
-        System.out.println("이거야++++++++++++++" +  response);
-        return response;
-    }
+@GetMapping("/communitySearchList/{page}")
+public Map<String, Object> searchBoard(SearchVo searchVo, @PathVariable("page") int page){
+    System.out.println("Rest임 수고");
+    System.out.println("searchVo =============" + searchVo);
+    Criteria03 criteria03 = new Criteria03(page, 9);
+    int total = boardService.findSearchTotal(searchVo);
+    Page03Vo page03Vo = new Page03Vo(criteria03, total);
+    Map<String, Object> map = new HashMap<>();
+    List<BoardVo> list = boardService.findBoardList(searchVo, criteria03);
+    map.put("page", page03Vo);
+    map.put("boardList", list);
 
+    return map;
+}
 }

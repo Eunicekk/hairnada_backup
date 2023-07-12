@@ -258,10 +258,10 @@ function showSearchResult(result){
   for (let i =0; i < hairList.length; i++){
     $('.ListUl').append(`
             <li class="ListLi">
-              <a href="">
+              <a href="/hair/hairStyleRead?hairNumber=${hairList[i].hairNumber}">
                 <div class="img-list">
                   <div class="main-img">
-                    <img src="https://img1.daumcdn.net/thumb/C360x360/?fname=https://mud-kage.kakao.com/dn/tiTz0/btsjboVScnc/36eDc0R0JCIeBLE6uPouDk/img_1080.jpg&scode=purple" alt="헤어스타일">
+                    <img src="${'/upload/' + hairList[i].hairFileUploadPath + '/th_' +hairList[i].hairFileUuid + '_' + hairList[i].hairFileName }" alt="헤어스타일">
                   </div>
                 </div>
               </a>
