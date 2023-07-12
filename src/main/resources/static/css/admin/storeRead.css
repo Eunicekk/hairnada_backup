@@ -121,7 +121,8 @@
 }
 
 .btn-box > button {
-  width: 200px;
+  margin-top: 550px;
+  width: 400px;
   height: 60px;
   border-radius: 4px;
   border: none;

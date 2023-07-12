@@ -14,15 +14,17 @@ $(".order-cnt").on("click", function () {
   $(".completed-orders-box").css("background-color", "#FFFFFF");
 });
 
-
-
-
-
-// 배송 미완료 목록
+// 배송 완료 목록
 $(".completed-cnt").on("click", function () {
+  findCompleteList();
+});
+
+function findCompleteList(){
+  let page = pageVal;
   $.ajax({
     url : "/adminR/complete",
     type : 'get',
+    data: {page : page},
     success: function(result){
       $('.quest-list').html('');
       for (let i = 0; i < result.completeList.length; i++) {
@@ -39,9 +41,13 @@ $(".completed-cnt").on("click", function () {
               </ul>
   `);
       }
+      let pageInfo = result.pageInfo;
+      let pageHtml = generatePageLinks(pageInfo);
+
+      $('.page-box').html(pageHtml);
     }
   });
-});
+}
 
 $('.order-cnt').on('click', function (){
   $.ajax({
@@ -60,9 +66,10 @@ $('.order-cnt').on('click', function (){
                 <li class="delivery-status"> 
                  <select name="delivery" class="delivery">
                     <option value="">배송 상태</option>
-                    <option value="1" ${result.incompleteList[i].deliveryNumber == 1 ? 'selected' : ''}>상품 준비중</option>
-                    <option value="2" ${result.incompleteList[i].deliveryNumber == 2 ? 'selected' : ''}>배송중</option>
-                    <option value="3" ${result.incompleteList[i].deliveryNumber == 3 ? 'selected' : ''}>배송 완료</option>
+                    <option value="1" ${result.incompleteList[i].deliveryNumber == 1 ? 'selected' : ''}>결제 완료</option>
+                    <option value="2" ${result.incompleteList[i].deliveryNumber == 2 ? 'selected' : ''}>상품 준비중</option>
+                    <option value="3" ${result.incompleteList[i].deliveryNumber == 3 ? 'selected' : ''}>배송중</option>
+                    <option value="4" ${result.incompleteList[i].deliveryNumber == 4 ? 'selected' : ''}>배송 완료</option>
                  </select>
                   <button type="submit" class="registration">등록</button></li>
               </ul>
@@ -94,9 +101,49 @@ $('.registration').on('click', function (){
     },
     success : function (){
       window.alert("배송 상태가 변경 되었습니다!");
-      if(deliveryNumber == 3) {
+      if(deliveryNumber == 4) {
         window.location.href = '/admin/delivery';
       }
     }
   });
 });
+
+
+
+// 페이징 처리 함수
+function generatePageLinks(pageInfo) {
+  let pageNum = '';
+
+  if (pageInfo.prev) {
+    pageNum += `<a href="" class="cate-a" data-num="${pageInfo.startPage -1}"><li class="page-num prev">&lt;</li></a>`;
+  }
+
+  for (let i = pageInfo.startPage; i <= pageInfo.endPage; i++) {
+    if (pageInfo.criteria.page == i) {
+      pageNum += `<a href="" class="page-a cate-a" data-num="${i}"><li class="page-num active">${i}</li></a>`;
+    } else {
+      pageNum += `<a href="" class="page-a cate-a" data-num="${i}"><li class="page-num">${i}</li></a>`;
+    }
+  }
+
+  if (pageInfo.next) {
+    pageNum += `<a href="" class="cate-a" data-num="${pageInfo.endPage+1}"><li class="page-num next">&gt;</li></a>`;
+  }
+
+  return pageNum;
+}
+
+// 페이지 저장
+let pageVal;
+
+$('.page-box').on('click','.page-num', function(e) {
+  pageVal = $(this).text();
+});
+
+
+$('.page-box').on('click', '.cate-a', function (e){
+  e.preventDefault();
+  console.log("click!!!!!")
+  pageVal = $(this).data('num');
+  findCompleteList();
+})

@@ -100,8 +100,10 @@ public class AdminRestController {
     // 배송 완료 목록 조회
     @GetMapping("/complete")
     @ResponseBody
-    public Map<String, Object> findCompleteList(CriteriaAdmin criteriaAdmin){
+    public Map<String, Object> findCompleteList(@RequestParam(defaultValue = "1")int page, CriteriaAdmin criteriaAdmin){
         Map<String, Object> result = new HashMap<>();
+        criteriaAdmin.setPage(page);
+
         List<AdminBuyDto> completeList = adminService.findCompleteList(criteriaAdmin);
         result.put("completeList", completeList);
 

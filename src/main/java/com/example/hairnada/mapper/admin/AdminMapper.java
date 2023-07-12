@@ -120,7 +120,7 @@ public interface AdminMapper {
     public int incompleteTotal();
 
     // 배송 완료 목록 조회
-    public List<AdminBuyDto> selectCompleteList(CriteriaAdmin criteriaAdmin);
+    public List<AdminBuyDto> selectCompleteList(@Param("criteria")CriteriaAdmin criteriaAdmin);
 
     // 배송 완료 목록 수
     public int completeTotal();
