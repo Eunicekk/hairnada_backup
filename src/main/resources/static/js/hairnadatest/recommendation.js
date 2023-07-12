@@ -49,6 +49,7 @@ export function main() {
     </section>
     <section class="btn-sec">
       <button class="btn-sec__btn">시작하기</button>
+      <button class="btn-sec__btn2">메인으로</button>
     </section>
   </section>
   </section>
@@ -109,6 +110,15 @@ function btnStyleFunction() {
     $btn.css("border", btnStyle.border);
 }
 
+// function btnStyleFunction2() {
+//     let $btn = $(".btn-sec__btn2");
+//     $btn.css("background-color", btnStyle.backgroundColor);
+//     $btn.css("border-radius", `${btnStyle.borderRadius}px`);
+//     $btn.css("color", btnStyle.color);
+//     $btn.css("border", btnStyle.border);
+// }
+
+
 // 타이틀 스타일 설정 함수(main, sub)
 function titleStyleFunction() {
     let [$mainTitle, $subTitle] = [$(".main-title"), $(".sub-title")];
@@ -123,6 +133,7 @@ function titleStyleFunction() {
 // 스타일 함수 페이지에 반영
 $(document).ready(function () {
     btnStyleFunction();
+    btnStyleFunction2();
     titleStyleFunction();
 });
 

@@ -47,10 +47,12 @@ quiz.makeQuizPage(
 quiz.setApi(function (resultList) {
     console.log(resultList);
     $.ajax({
-        url: "url....",
+        url: "/tests/hairTest",
         type: "get",
-        data: resultList, //resultList에 사용자가 선택한 문항이 배열 형태로 저장되어 있다.
+        tranditional : true,
+        data: {resultList:resultList}, //resultList에 사용자가 선택한 문항이 배열 형태로 저장되어 있다.
         success: function (result) {
+            console.log(result)
             //성공시 실행시킬 함수를 정의한다.
             //아래의 setFinalPage()와 함께 사용하면 된다.
             //예시

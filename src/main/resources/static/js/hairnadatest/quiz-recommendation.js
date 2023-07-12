@@ -68,8 +68,6 @@ $(document).ready(function () {
 // main페이지 시작하기 버튼 이벤트
 function addBtnEvent() {
     $(".rec-box").on("click", ".btn-sec__btn", function () {
-        console.log(pageNo);
-        console.log(resultPages);
 
         $(".rec-box").html(
             `
@@ -107,10 +105,12 @@ function pageBar(maxPage) {
 function addQuizBtnEvent() {
     $(".rec-box").on("click", ".quiz-btn-sec__btn", function () {
         let maxCount = $(".max-count").text();
-        let answer = $(this).text();
+        let answer = $(this).data('num');
 
         answerList.push(answer);
         pageNo++;
+
+        $('.current-count').text(pageNo<maxCount ? pageNo+1: pageNo);
 
         $(".quiz-around").html(resultPages[pageNo]);
         pageBar(maxPage);
@@ -139,7 +139,7 @@ function addQuizBtnEvent() {
 function makeQuizBtns(btns) {
     let btnHtml = "";
     for (let i = 0; i < btns.length; i++) {
-        btnHtml += `<button class="quiz-btn-sec__btn">${btns[i]}</button>`;
+        btnHtml += `<button class="quiz-btn-sec__btn" data-num="${i}">${btns[i]}</button>`;
     }
 
     return btnHtml;
@@ -185,7 +185,7 @@ export function makeQuizPage(numberOfPage, mainTitle, subTitle, btnList) {
 
     resultPages = [...pageList];
 
-    console.log(resultPages);
+    // console.log(resultPages);
 }
 
 /**
