@@ -60,3 +60,108 @@ $(".dropdown-menu li").click(function() {
         </span>
     `);
 });
+
+let obj = {};
+
+$(".category-btn").on("click", function (){
+  console.log("클릭했어")
+  obj = {storeCategoryNumber : $(this).val()};
+  console.log("카테고리 =========== " + obj.storeCategoryNumber);
+  searchModule(1, obj, showSearchResult, paging);
+});
+
+// $(".btn-drop").on("click", function (){
+//   console.log("이것도 클릭했다")
+//   obj = {storeCategoryNumber : $(this).val(),
+//       sortingType : $(this).val()};
+//   console.log("this ============== " + this);
+//   console.log("sortingType ============= " + obj.sortingType);
+//   searchModule(1, obj, showSearchResult, paging)
+// })
+
+function searchModule(page, obj, callback, paging){
+  $.ajax({
+    url : `/storeR/productSearchList/${page}`,
+    type : 'get',
+    data : obj,
+    dataType : 'json',
+    success : function (result){
+      if (callback){
+        callback(result);
+        paging(result);
+      }
+    },
+    error : function (a, b, c){
+      console.error(c);
+    }
+  });
+}
+
+function showSearchResult(result){
+  console.log(result);
+
+  let  productList = result.productList;
+
+  $(".ListUl").html('');
+  for (let i = 0; i < productList.length; i++){
+    $('.ListUl').append(`
+       <li class="ListLi">
+              <div class="store-category-number"style="display: none;"> ${productList[i].storeCategoryNumber} </div>
+              <a href="/store/productRead?storeNumber=${productList[i].storeNumber}">
+                <div class="img-list">
+                  <div class="main-img">
+                    <img src="https://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0014/A00000014950306ko.jpg?l=ko" alt="제품 이미지">
+                  </div>
+                </div>
+              </a>
+              <div class="titleAndBnt">
+                <p class="product-title">${productList[i].storeTitle}</p>
+                <div class="profile">
+                  <button id="basketButton" type="button" class="basket">
+                    구매
+                  </button>
+                  <div class="buttons">
+                    <button type="button" class="like">하트</button>
+                  </div>
+                </div>
+              </div>
+              <div class="productInformation">
+                <p class="productCate">${productList[i].storeCategoryName}</p>
+                <p class="productPrice">₩ <span class="price">${productList[i].storePrice}</span></p>
+              </div>
+            </li>
+    `);
+  }
+}
+
+// 페이징
+function paging(result) {
+  let pageInfo = result.page;
+  let text = '';
+
+  text += `
+      ${pageInfo.prev ?
+      '<a href="javascript:void(0)" class="prev" onclick="searchModule(' + (pageInfo.startPage - 1) + ',obj,showSearchResult,paging)"><li>&laquo;</li></a>'
+      : ''}
+    `;
+
+  for (let i = pageInfo.startPage; i <= pageInfo.endPage; i++) {
+    text += `
+        <a href="javascript:void(0)" onclick="searchModule(${i},obj,showSearchResult,paging)">
+        ${pageInfo.criteria.page == i ?
+        '<li class="active">' + i + '</li>'
+        :
+        '<li>' + i + '</li>'
+    }
+        </a>
+      `;
+  }
+
+  text += `
+      ${pageInfo.next ?
+      '<a href="javascript:void(0)" class="next" onclick="searchModule(' + (pageInfo.endPage + 1) + ',obj,showSearchResult,paging)"><li>&raquo;</li></a>'
+      : ''}
+    `;
+
+  $('.pagination > ul').html(text);
+}

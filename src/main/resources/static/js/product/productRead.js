@@ -1,3 +1,8 @@
+import * as storeReply from '../module/storeReply.js';
+
+const storeNumber = $(".store-num").val();
+
+
 // 장바구니 클릭시 나타나는 문구
 $(".basket").click(function () {
   alert("장바구니에 추가하였습니다!");
@@ -132,33 +137,33 @@ $(".info3").on("click", function () {
   <fieldset>
   <div class="star-score">
   <span class="star-text">별점&nbsp; | &nbsp;</span>
-  <label for="star1">
+  <label for="star1" data-star="1">
   <span class="material-symbols-rounded">star</span>
   </label>
-  <label for="star2">
+  <label for="star2" data-star="2">
   <span class="material-symbols-rounded">star</span>
   </label>
-  <label for="star3">
+  <label for="star3" data-star="3">
   <span class="material-symbols-rounded">star</span>
   </label>
-  <label for="star4">
+  <label for="star4" data-star="4">
   <span class="material-symbols-rounded">star</span>
   </label>
-  <label for="star5">
+  <label for="star5" data-star="5">
   <span class="material-symbols-rounded">star</span>
   </label>
-  <input type="radio" value="1" id="star1" />
-  <input type="radio" value="2" id="star2" />
-            <input type="radio" value="3" id="star3" />
-            <input type="radio" value="4" id="star4" />
-            <input type="radio" value="5" id="star5" />
+  <input type="radio" value="1" id="star1" class="input-star" name="input-star"/>
+  <input type="radio" value="2" id="star2" class="input-star" name="input-star" />
+            <input type="radio" value="3" id="star3" class="input-star"  name="input-star"/>
+            <input type="radio" value="4" id="star4" class="input-star" name="input-star" />
+            <input type="radio" value="5" id="star5" class="input-star" name="input-star" />
             </div>
             </fieldset>
             <div>
             <div class="replyBox">
             <textarea
-              id="replyContent"
-              name="replyContent"
+              id="storeReplyContent"
+              name="storeReplyContent"
               required
               placeholder="댓글을 작성하세요."
             ></textarea>
@@ -197,6 +202,10 @@ $(".info3").on("click", function () {
             </ul>
             </div>
             </div> `);
+
+
+
+
   // 별점
   let $star = $(".star-score label");
 
@@ -207,6 +216,9 @@ $(".info3").on("click", function () {
       .nextAll("label")
       .children()
       .css("text-shadow", "0 0 0 rgb(203, 203, 203)");
+
+    // console.log($(this).data('star'));
+
   });
 });
 
@@ -230,3 +242,125 @@ increaseButton.addEventListener("click", () => {
   currentValue++;
   quantityInput.value = currentValue;
 });
+
+// 댓글
+let page = 1;
+
+storeReply.getListPage({storeNumber : storeNumber, page : page}, showReply, showError);
+
+function showReply(map) {
+
+  console.log('==========================')
+  console.log(map);
+  console.log('==========================')
+
+  let text = '';
+
+  map.replyList.forEach(r => {
+    text += `
+          <ul id="comment-list" class="reply" data-num="${r.storeReplyNumber}">
+            <li>
+            <div class="comment-wrap">
+              <div class="comment-info">
+                <span class="writer">${r.userNickname}</span> ｜ 
+                <div class="user-star-score">
+                      <span class="material-symbols-rounded">star</span> <span>5</span>
+                </div> ｜ 
+                <span class="date">${storeReply.timeForToday(r.storeReplyRegisterDate == r.storeReplyUpdateDate ? r.storeReplyRegisterDate : r.storeReplyUpdateDate)}</span>
+              </div>
+                <div class="comment-btn-group">`;
+
+    if(r.userNumber == loginNumber){
+      text +=`
+                  <button type="button" class="comment-modify-ready">수정</button>
+                  <button type="button" class="comment-delete">삭제</button>
+                </div>
+              </div>`;
+    }
+
+    text += `
+            </div>
+            <div class="comment-content">
+            <p>${r.storeReplyContent}</p>
+            </div>
+            </li>
+            </ul>
+    `;
+  });
+
+  $(".comment-list").append(text);
+}
+
+
+function appendText(map){
+  let text = '';
+
+  map.replyList.forEach(r => {
+    text += `
+           <ul id="comment-list" class="reply" data-num="${r.storeReplyNumber}">
+            <li>
+            <div class="comment-wrap">
+              <div class="comment-info">
+                <span class="writer">${r.userNickName}</span> ｜ 
+                <div class="user-star-score">
+                      <span class="material-symbols-rounded">star</span> <span>${r.storeScore}</span>
+                </div> ｜ 
+                <span class="date">${storeReply.timeForToday(r.storeReplyRegisterDate == r.storeReplyUpdateDate ? r.storeReplyRegisterDate : r.storeReplyUpdateDate)}</span>
+              </div>
+                <div class="comment-btn-group">`;
+
+    if(r.userNumber == loginNumber){
+      text +=`
+                  <button type="button" class="comment-modify-ready">수정</button>
+                  <button type="button" class="comment-delete">삭제</button>
+                `;
+    }
+
+    text += `</div>
+              </div>`;
+
+    text += `
+            </div>
+            <div class="comment-content">
+            <p>${r.storeReplyContent}</p>
+            </div>
+            </li>
+            </ul>     
+    `
+  });
+  $('.comment-list').append(text);
+}
+
+// 댓글 스크롤로 페이징
+$(window).on('scroll', function (){
+  if(Math.round($(window).scrollTop()) == $(document).height() - $(window).height()){
+    // console.log(++page);
+    storeReply.getListPage({storeNumber : storeNumber, page : page}, appendText, showError);
+  }
+});
+
+function showError(a, b, c){
+  console.error(c);
+}
+
+$(".bigBox").on('click', '.submit-btn', function (){
+  let storeReplyContent = $('#storeReplyContent').val();
+
+  console.log($('.input-star:checked'))
+  console.log($('.input-star:checked').val())
+
+  let replyObj = {
+    storeReplyContent : storeReplyContent,
+    storeNumber : storeNumber,
+    storeScore : $('.input-star:checked').val()
+  }
+
+  page = 1;
+
+  storeReply.add(replyObj,
+      function (){
+    storeReply.getListPage({storeNumber : storeNumber, page : page}, showReply, showError);
+      },
+      showError)
+});
+

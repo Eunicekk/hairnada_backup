@@ -2,16 +2,100 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.hairnada.mapper.store.StoreMapper">
 
-    <select id="select" resultType="storeDto">
-        SELECT S.STORE_NUMBER, STORE_TITLE, STORE_CONTENT, STORE_PRICE, STORE_SCORE_AVG,STORE_FILE_NAME,
-               STORE_FILE_UPLOAD_PATH,STORE_FILE_UUID
-        FROM TBL_STORE S JOIN TBL_STORE_FILE SF
-        ON S.STORE_NUMBER = #{storeNumber} AND S.STORE_NUMBER = SF.STORE_NUMBER
+    <select id="select" resultType="storeVo">
+        SELECT STORE_NUMBER, STORE_TITLE, STORE_CONTENT, STORE_PRICE, STORE_SCORE_AVG, ts.STORE_CATEGORY_NUMBER
+        FROM TBL_STORE ts JOIN TBL_STORE_CATEGORY tsc
+        ON ts.STORE_NUMBER = #{storeNumber} AND ts.STORE_CATEGORY_NUMBER = tsc.STORE_CATEGORY_NUMBER
     </select>
 
 
 <!--  게시물 리스트  -->
-    <select id="selectList" resultType="storeDto">
+    <select id="selectList" resultType="storeVo">
+            SELECT
+                STORE_NUMBER ,
+                STORE_TITLE ,
+                STORE_PRICE ,
+                STORE_CATEGORY_NAME,
+                STORE_CATEGORY_NUMBER,
+                STORE_FILE_NAME,
+                STORE_FILE_UPLOAD_PATH,
+                STORE_FILE_UUID
+            FROM
+                (
+                    SELECT
+                        ROWNUM AS RNUM ,
+                        STORE_NUMBER ,
+                        STORE_TITLE ,
+                        STORE_PRICE ,
+                        STORE_CATEGORY_NAME,
+                        STORE_CATEGORY_NUMBER,
+                        STORE_FILE_NAME,
+                        STORE_FILE_UPLOAD_PATH,
+                        STORE_FILE_UUID
+                    FROM
+                        (
+                            SELECT
+                                ts.STORE_NUMBER ,
+                                ts.STORE_TITLE ,
+                                ts.STORE_PRICE ,
+                                ts.STORE_CATEGORY_NUMBER,
+                                tsf.STORE_FILE_NAME,
+                                STORE_FILE_UPLOAD_PATH,
+                                STORE_FILE_UUID,
+                                tsc.STORE_CATEGORY_NAME
+                            FROM
+                                TBL_STORE ts
+                                    JOIN TBL_STORE_CATEGORY tsc
+                                         ON
+                                             ts.STORE_CATEGORY_NUMBER = tsc.STORE_CATEGORY_NUMBER
+                                    LEFT JOIN
+                                (
+                                    SELECT
+                                        STORE_FILE_NUMBER ,
+                                        STORE_FILE_NAME ,
+                                        STORE_FILE_UPLOAD_PATH ,
+                                        STORE_FILE_UUID ,
+                                        STORE_NUMBER
+                                    FROM
+                                        (
+                                            SELECT
+                                                STORE_FILE_NUMBER ,
+                                                STORE_FILE_NAME ,
+                                                STORE_FILE_UPLOAD_PATH ,
+                                                STORE_FILE_UUID ,
+                                                STORE_NUMBER ,
+                                                RANK() OVER(PARTITION BY STORE_NUMBER ORDER BY STORE_FILE_NUMBER) RK
+                                            FROM
+                                                TBL_STORE_FILE)
+                                    WHERE
+                                        RK = 1) tsf
+                                ON
+                                    ts.STORE_NUMBER = tsf.STORE_NUMBER
+                            ORDER BY
+                                ts.STORE_NUMBER DESC)
+    <![CDATA[
+                    WHERE
+                        ROWNUM <= #{page} * #{amount}
+                 ]]>
+            )
+            WHERE
+                RNUM > (#{page} - 1 ) * #{amount}
+    </select>
+
+<!--  스토어 게시물 수  -->
+    <select id="storeTotal" resultType="_int">
+        SELECT COUNT(STORE_NUMBER) FROM TBL_STORE
+    </select>
+
+<!--  스토어 카테고리  -->
+    <select id="selectStoreCategory" resultType="storeVo">
+        SELECT STORE_NUMBER , STORE_TITLE , STORE_PRICE , ts.STORE_CATEGORY_NUMBER, tsc.STORE_CATEGORY_NAME  FROM TBL_STORE ts
+        JOIN TBL_STORE_CATEGORY tsc
+        ON tsc.STORE_CATEGORY_NUMBER  = ts.STORE_CATEGORY_NUMBER
+        WHERE ts.STORE_CATEGORY_NUMBER = #{storeCategoryNumber}
+    </select>
+
+    <select id="selectStoreSearch" resultType="storeVo">
         SELECT
             STORE_NUMBER ,
             STORE_TITLE ,
@@ -72,33 +156,64 @@
                                     RK = 1) tsf
                             ON
                                 ts.STORE_NUMBER = tsf.STORE_NUMBER
-                        ORDER BY
-                            ts.STORE_NUMBER DESC)
-<![CDATA[
+                        <trim prefix="where" prefixOverrides="AND">
+                            <if test="searchStoreVo.storeCategoryNumber != null">
+                                AND ts.STORE_CATEGORY_NUMBER = #{searchStoreVo.storeCategoryNumber}
+                            </if>
+                        </trim>
+<!--                        <trim prefix="order by" prefixOverrides="AND">-->
+<!--                            <if test="searchStoreVo.sortingType == 'popularity'">-->
+<!--                                AND ts.STORE_NUMBER DESC-->
+<!--                            </if>-->
+
+<!--                            <if test="searchStoreVo.sortingType == 'high_price'">-->
+<!--                                AND ts.STORE_PRICE DESC-->
+<!--                            </if>-->
+<!--                            <if test="searchStoreVo.sortingType == 'low_price'">-->
+<!--                                AND ts.STORE_PRICE ASC-->
+<!--                            </if>-->
+<!--                        </trim>-->
+        ORDER BY
+        ts.STORE_NUMBER DESC)
+    <![CDATA[
                 WHERE
-                    ROWNUM <= #{page} * #{amount}
-             ]]>
-        )
+                    ROWNUM <= #{criteria.page} * #{criteria.amount}
+                 ]]>
+            )
         WHERE
-            RNUM > (#{page} - 1 ) * #{amount}
+            RNUM > (#{criteria.page} - 1 ) * #{criteria.amount}
     </select>
 
-<!--  스토어 게시물 수  -->
-    <select id="storeTotal" resultType="_int">
-        SELECT COUNT(STORE_NUMBER) FROM TBL_STORE
+    <select id="selectSearchTotal" resultType="_int">
+        SELECT COUNT(ts.STORE_NUMBER)
+        FROM TBL_STORE ts
+        JOIN TBL_STORE_CATEGORY tsc ON ts.STORE_CATEGORY_NUMBER = tsc.STORE_CATEGORY_NUMBER
+        LEFT JOIN (
+        SELECT
+        STORE_FILE_NUMBER,
+        STORE_FILE_NAME,
+        STORE_FILE_UPLOAD_PATH,
+        STORE_FILE_UUID,
+        STORE_NUMBER
+        FROM (
+        SELECT
+        STORE_FILE_NUMBER,
+        STORE_FILE_NAME,
+        STORE_FILE_UPLOAD_PATH,
+        STORE_FILE_UUID,
+        STORE_NUMBER,
+        RANK() OVER (PARTITION BY STORE_NUMBER ORDER BY STORE_FILE_NUMBER) RK
+        FROM TBL_STORE_FILE
+        )
+        WHERE RK = 1
+        ) tsf ON ts.STORE_NUMBER = tsf.STORE_NUMBER
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="storeCategoryNumber != null">
+                AND ts.STORE_CATEGORY_NUMBER = #{storeCategoryNumber}
+            </if>
+        </trim>
     </select>
 
-<!--  스토어 카테고리  -->
-    <select id="selectStoreCategory" resultType="storeDto">
-        SELECT STORE_NUMBER , STORE_TITLE , STORE_PRICE , ts.STORE_CATEGORY_NUMBER, tsc.STORE_CATEGORY_NAME  FROM TBL_STORE ts
-        JOIN TBL_STORE_CATEGORY tsc
-        ON tsc.STORE_CATEGORY_NUMBER  = ts.STORE_CATEGORY_NUMBER
-        WHERE ts.STORE_CATEGORY_NUMBER = #{storeCategoryNumber}
-    </select>
 
-<!--  스토어 카테고리  -->
-    <select id="selectStoreSearch">
-
-    </select>
 
 </mapper>

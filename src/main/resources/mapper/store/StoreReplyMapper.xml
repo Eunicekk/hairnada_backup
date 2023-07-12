@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hairnada.mapper.store.StoreReplyMapper">
+
+    <insert id="insert">
+        INSERT INTO TBL_STORE_REPLY(STORE_REPLY_NUMBER, STORE_REPLY_CONTENT, STORE_NUMBER, USER_NUMBER, STORE_SCORE)
+        VALUES (SEQ_STORE_REPLY.NEXTVAL, #{storeReplyContent}, #{storeNumber}, #{userNumber}, #{storeScore})
+    </insert>
+
+    <select id="selectList" resultType="storeReplyDto">
+        SELECT STORE_REPLY_NUMBER, STORE_REPLY_CONTENT, STORE_REPLY_REGISTER_DATE, STORE_REPLY_UPDATE_DATE, STORE_NUMBER, U.USER_NUMBER,
+               U.USER_NICKNAME, STORE_SCORE
+        FROM TBL_USER U JOIN TBL_STORE_REPLY R
+                             ON U.USER_NUMBER = R.USER_NUMBER
+        WHERE STORE_NUMBER = #{storeNumber}
+        ORDER BY STORE_REPLY_NUMBER DESC
+    </select>
+
+    <select id="select" resultType="storeReplyDto">
+        SELECT STORE_REPLY_NUMBER, STORE_REPLY_CONTENT, STORE_REPLY_REGISTER_DATE, STORE_REPLY_UPDATE_DATE, STORE_NUMBER, U.USER_NUMBER,
+               U.USER_NICKNAME
+        FROM TBL_USER U JOIN TBL_STORE_REPLY R
+                             ON STORE_REPLY_NUMBER = #{storeReplyNumber} AND R.USER_NUMBER = U.USER_NUMBER
+    </select>
+
+    <update id="update">
+        UPDATE TBL_STORE_REPLY
+        SET STORE_REPLY_CONTENT = #{storeReplyContent} , STORE_REPLY_UPDATE_DATE = SYSDATE
+        WHERE STORE_REPLY_NUMBER = #{storeReplyNumber}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM TBL_STORE_REPLY
+        WHERE STORE_REPLY_NUMBER = #{storeReplyNumber}
+    </delete>
+
+    <select id="selectListPage" resultType="storeReplyDto">
+        SELECT STORE_REPLY_NUMBER, STORE_REPLY_CONTENT, STORE_REPLY_REGISTER_DATE, STORE_REPLY_UPDATE_DATE, STORE_NUMBER, USER_NUMBER,
+               USER_NICKNAME, STORE_SCORE
+        FROM (
+                 SELECT ROWNUM RN,
+                        STORE_REPLY_NUMBER, STORE_REPLY_CONTENT, STORE_REPLY_REGISTER_DATE, STORE_REPLY_UPDATE_DATE, STORE_NUMBER, USER_NUMBER,
+                        USER_NICKNAME, STORE_SCORE
+                 FROM(
+                         SELECT STORE_REPLY_NUMBER, STORE_REPLY_CONTENT, STORE_REPLY_REGISTER_DATE, STORE_REPLY_UPDATE_DATE, STORE_NUMBER, U.USER_NUMBER,
+                                U.USER_NICKNAME, STORE_SCORE
+                         FROM TBL_USER U JOIN TBL_STORE_REPLY R
+                                ON STORE_NUMBER = #{storeNumber} AND U.USER_NUMBER = R.USER_NUMBER
+                         ORDER BY STORE_REPLY_NUMBER DESC
+                     )
+            <![CDATA[
+                 WHERE ROWNUM <= #{criteria.page} * #{criteria.amount}
+            ]]>
+        )
+        WHERE RN > ( #{criteria.page} - 1 ) * #{criteria.amount}
+    </select>
+
+    <select id="selectTotal" resultType="_int">
+        SELECT COUNT(STORE_REPLY_NUMBER)
+        FROM TBL_STORE_REPLY
+        WHERE STORE_NUMBER = #{storeNumber}
+    </select>
+
+</mapper>

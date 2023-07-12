@@ -106,5 +106,20 @@ public class BoardService {
               .orElseThrow(()->{throw new IllegalArgumentException("존재하는 게시글이 없습니다.");});
     }
 
+//    카테고리 검색 조회
+    public List<BoardVo> findBoardList(SearchVo searchVo, Criteria03 criteria03){
+        if (searchVo == null){
+            throw new IllegalArgumentException("뭐가 없습니다.");
+        }
+        return boardMapper.selectBoardSearch(searchVo, criteria03);
+    }
+
+    public int findSearchTotal(SearchVo searchVo){
+        if (searchVo == null){
+            throw new IllegalArgumentException("searchVo 누락!");
+        }
+        return boardMapper.selectSearchTotal(searchVo);
+    }
+
 
 }
