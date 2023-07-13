@@ -12,4 +12,5 @@ public class BasketDto {
     private Long basketCnt;
     private Long storeNumber;
     private Long userNumber;
+    private String basketAddDate;
 }

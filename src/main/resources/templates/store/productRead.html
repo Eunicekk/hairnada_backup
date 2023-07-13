@@ -77,7 +77,7 @@
               <div class="productBox">
                 <span class="product-name">배송비</span
                 ><span class="delivery-content"
-                  >3,000원 (25,000원이상 구매시 무료배송)</span
+                  >3,000원 (50,000원이상 구매시 무료배송)</span
                 >
               </div>
             </div>
@@ -94,10 +94,12 @@
 
           <div class="allButtons">
             <div class="basketButtons">
-              <button type="button" class="basket">구매</button>
+              <button type="button" class="basket" th:data-num="${store.storeNumber}" >구매</button>
             </div>
             <div class="buttons">
-              <button type="button" class="likeBtn" th:value="${store.storeNumber}">하트</button>
+              <button type="button" class="likeBtn" th:value="${store.storeNumber}"
+              th:classappend="${store.likeCnt == 1 ? 'active' : ''}"
+                      th:style="${store.likeCnt == 1 ? 'background-image:url(/img/heart2.png)' : ''}">하트</button>
             </div>
             <div class="buyButtons">
               <button type="button" class="buyBtn">구매하기</button>
