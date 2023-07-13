@@ -328,6 +328,10 @@
     display: flex;
     justify-content: space-between;
   }
+
+  .profile-nick{
+      margin-left: 10px;
+  }
   
   .cL .profile {
     position: relative;

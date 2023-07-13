@@ -1,5 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.hairnada.mapper.main.MainMapper">
+    <!-- 헤어스타일 띄우기 -->
+    <select id="selectHair" resultType="hairVo">
+        SELECT RNUM, HAIR_NUMBER, HAIR_NAME, HAIR_FILE_NUMBER, HAIR_FILE_UPLOAD_PATH, HAIR_FILE_UUID, HAIR_FILE_NAME
+        FROM (
+        SELECT ROWNUM AS RNUM, H.HAIR_NUMBER, HAIR_NAME, HAIR_FILE_NUMBER, HAIR_FILE_UPLOAD_PATH, HAIR_FILE_UUID, HAIR_FILE_NAME
+        FROM TBL_HAIR H
+        LEFT JOIN (
+        SELECT HAIR_FILE_NUMBER, HAIR_FILE_UPLOAD_PATH,HAIR_FILE_UUID, HAIR_FILE_NAME, HAIR_NUMBER
+        FROM (
+        SELECT HAIR_FILE_NUMBER, HAIR_FILE_UPLOAD_PATH,HAIR_FILE_UUID, HAIR_FILE_NAME, HAIR_NUMBER,
+        RANK() OVER (PARTITION BY HAIR_NUMBER ORDER BY HAIR_FILE_NUMBER) RK
+        FROM TBL_HAIR_FILE HF
+        ) TMP
+        WHERE RK = 1
+        ) J ON H.HAIR_NUMBER = J.HAIR_NUMBER
+        ) TMP2
+        WHERE RNUM = #{number}
+    </select>
 
+    <!-- 헤어스타일 개수 -->
+    <select id="selectHairCnt" resultType="_int">
+        SELECT COUNT(HAIR_NUMBER)
+        FROM TBL_HAIR
+    </select>
+
+    <!-- 상품 띄우기 -->
+    <select id="selectStore" resultType="StoreVo">
+
+    </select>
+
+
+    <!-- 상품 개수 -->
+    <select id="selectStoreCnt" resultType="_int">
+        SELECT COUNT(STORE_NUMBER)
+        FROM TBL_STORE
+        WHERE STORE_CATEGORY_NUMBER = #{storeCategoryNumber}
+    </select>
+
+    <!-- 커뮤니티 띄우기 -->
+    <select id="selectBoard" resultType="boardVo">
+        SELECT ROWNUM, BOARD_NUMBER, BOARD_TITLE, BOARD_VIEW_CNT, BOARD_CONTENT, USER_NUMBER, USER_NICKNAME,
+        BOARD_FILE_UPLOAD_PATH, BOARD_FILE_UUID, BOARD_FILE_NAME, USER_FILE_UPLOAD_PATH, USER_FILE_UUID, USER_FILE_NAME
+        FROM (
+        SELECT ROWNUM AS RNUM, BOARD_NUMBER, BOARD_TITLE, BOARD_VIEW_CNT, BOARD_CONTENT,
+        USER_NUMBER, USER_NICKNAME,
+        BOARD_FILE_UPLOAD_PATH, BOARD_FILE_UUID, BOARD_FILE_NAME,
+        USER_FILE_UPLOAD_PATH, USER_FILE_UUID, USER_FILE_NAME
+        FROM (
+        SELECT B.BOARD_NUMBER, BOARD_TITLE, BOARD_VIEW_CNT, BOARD_CONTENT,
+        B.USER_NUMBER, USER_NICKNAME,
+        J.BOARD_FILE_UPLOAD_PATH, J.BOARD_FILE_UUID, J.BOARD_FILE_NAME,
+        UF.USER_FILE_UPLOAD_PATH, UF.USER_FILE_UUID, UF.USER_FILE_NAME,
+        B.BOARD_CATEGORY_NUMBER
+        FROM TBL_USER U
+        JOIN TBL_BOARD B ON U.USER_NUMBER = B.USER_NUMBER
+        LEFT JOIN (
+        SELECT BOARD_FILE_NUMBER, BOARD_FILE_UPLOAD_PATH, BOARD_FILE_UUID, BOARD_FILE_NAME, BOARD_NUMBER,
+        RANK() OVER (PARTITION BY BOARD_NUMBER ORDER BY BOARD_FILE_NUMBER) RK
+        FROM TBL_BOARD_FILE
+        ) J ON B.BOARD_NUMBER = J.BOARD_NUMBER
+        LEFT JOIN TBL_USER_FILE UF ON U.USER_NUMBER = UF.USER_NUMBER
+        ) S1
+        ) S2
+        WHERE RNUM = #{number}
+    </select>
+
+    <!-- 커뮤니티 개수 -->
+    <select id="selectBoardCnt" resultType="_int">
+        SELECT COUNT(BOARD_NUMBER)
+        FROM TBL_BOARD
+    </select>
 </mapper>

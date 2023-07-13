@@ -6,12 +6,21 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/careshopLike/*")
 @RequiredArgsConstructor
 public class CareShopLikeController {
     private final CareShopLikeService careShopLikeService;
+
+    // 좋아요 확인
+    @GetMapping("/check")
+    public List<Long> checkLike(HttpServletRequest req){
+        Long userNumber = (Long)req.getSession().getAttribute("userNumber");
+        List<Long> likeList = careShopLikeService.checkLike(userNumber);
+        return likeList;
+    }
 
     // 좋아요 추가
     @PostMapping("/add")

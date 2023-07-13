@@ -26,7 +26,7 @@
                 <input type="radio" id="address" name="searchType" value="address"> <label for="address">주소</label>
                 <input type="text" id="text" name="keyword" placeholder="검색 단어를 입력해 주세요.">
                 <button type="submit">검색</button>
-                <th:block th:if="${session.membershipNumber == 3}">
+                <th:block th:if="${session.membershipNumber == 3L}">
                     <button type="button" class="add-post">등록하기</button>
                 </th:block>
             </form>
@@ -37,6 +37,7 @@
             <ul class="style-box">
                 <th:block th:if="${not #lists.isEmpty(careShopList)}">
                     <li class="ListLi" th:each="careShop : ${careShopList}">
+                        <input class="hidden-number" type="hidden" th:value="${careShop.careShopNumber}">
                         <a th:href="@{read(careShopNumber=${careShop.careShopNumber})}">
                             <div class="img-list">
                                 <div class="main-img">

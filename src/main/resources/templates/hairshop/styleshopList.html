@@ -16,7 +16,7 @@
 
         <!-- 배너 -->
         <div class="banner">
-            <img src="/img/tab-banner-07.png" alt="배너">
+            <img src="/img/tab-banner-01.png" alt="배너">
         </div>
 
         <!-- 필터 및 검색 -->
@@ -26,7 +26,7 @@
                 <input type="radio" id="address" name="searchType" value="address"> <label for="address">주소</label>
                 <input type="text" id="text" name="keyword" placeholder="검색 단어를 입력해 주세요.">
                 <button type="submit">검색</button>
-                <th:block th:if="${session.membershipNumber == 2}">
+                <th:block th:if="${session.membershipNumber == 2L}">
                     <button type="button" class="add-post">등록하기</button>
                 </th:block>
             </form>
@@ -37,6 +37,7 @@
             <ul class="style-box">
                 <th:block th:if="${not #lists.isEmpty(hairShopList)}">
                     <li class="ListLi" th:each="hairShop : ${hairShopList}">
+                        <input class="hidden-number" type="hidden" th:value="${hairShop.hairShopNumber}">
                         <a th:href="@{read(hairShopNumber=${hairShop.hairShopNumber})}">
                             <div class="img-list">
                                 <div class="main-img">
