@@ -2,6 +2,7 @@ package com.example.hairnada.service.admin;
 
 import com.example.hairnada.dto.buy.AdminBuyDto;
 import com.example.hairnada.dto.hair.HairDto;
+import com.example.hairnada.dto.level.LevelDto;
 import com.example.hairnada.dto.level.LevelFileDto;
 import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.dto.user.UserDto;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -102,7 +104,10 @@ public class AdminService {
         adminMapper.updateMembershipNumber(userNumber, membershipNumber);
     }
 
-
+    // 등업 수락 게시글 조회
+    public List<LevelDto> acceptList(){
+        return adminMapper.selectCompleteLevel();
+    }
 
     // 상품 목록 조회
     public List<StoreVo> findStoreList(CriteriaAdminList criteriaAdminList){

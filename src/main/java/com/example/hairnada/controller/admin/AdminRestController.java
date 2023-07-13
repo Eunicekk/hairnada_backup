@@ -2,6 +2,7 @@ package com.example.hairnada.controller.admin;
 
 import com.example.hairnada.dto.buy.AdminBuyDto;
 import com.example.hairnada.dto.hair.HairDto;
+import com.example.hairnada.dto.level.LevelDto;
 import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.dto.user.UserDto;
 import com.example.hairnada.service.admin.AdminService;
@@ -133,4 +134,13 @@ public class AdminRestController {
         adminService.modifyDeliveryStatus(deliveryNumber, buyNumber);
     }
 
-}
+    // 등업 수락 목록
+    @PostMapping("/acceptList")
+    public Map<String, Object> acceptList(){
+        List<LevelDto> findList = adminService.acceptList();
+        Map<String, Object> result = new HashMap<>();
+        result.put("list",findList);
+        return result;
+    }
+
+    }

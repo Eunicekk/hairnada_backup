@@ -682,4 +682,13 @@
   WHERE BUY_NUMBER = #{buyNumber}
  </update>
 
+<!-- 등업신청 완료한 게시글 조회 -->
+ <select id="selectCompleteLevel" resultType="levelDto">
+  SELECT tl.LEVEL_NUMBER FROM TBL_LEVEL tl
+  JOIN TBL_USER tu
+  ON tu.USER_NUMBER = tl.USER_NUMBER
+  WHERE tu.MEMBERSHIP_NUMBER = tl.MEMBERSHIP_NUMBER
+  ORDER BY tl.LEVEL_NUMBER DESC
+ </select>
+
 </mapper>
