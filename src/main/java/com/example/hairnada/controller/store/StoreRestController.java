@@ -29,12 +29,13 @@ public class StoreRestController {
 
 //    상품 리스트
     @GetMapping("/productSearchList/{page}")
-   public Map<String, Object> searchStore(SearchStoreVo searchStoreVo, @PathVariable("page") int page){
+   public Map<String, Object> searchStore(SearchStoreVo searchStoreVo, @PathVariable("page") int page, HttpServletRequest req){
+        Long userNumber = (Long)req.getSession().getAttribute("userNumber");
         CriteriaAdminList criteriaAdminList = new CriteriaAdminList(page, 12);
         int total = storeService.findSearchTotal(searchStoreVo);
         PageAdminListVo pageAdminListVo = new PageAdminListVo(criteriaAdminList, total);
         Map<String, Object> map = new HashMap<>();
-        List<StoreVo> list = storeService.findStoreList(searchStoreVo, criteriaAdminList);
+        List<StoreVo> list = storeService.findStoreList(searchStoreVo, criteriaAdminList, userNumber != null ? userNumber : 0);
         map.put("page", pageAdminListVo);
         map.put("productList", list);
 

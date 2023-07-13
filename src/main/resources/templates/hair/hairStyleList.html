@@ -156,7 +156,9 @@
               <div class="hairTitle">
                 <p class="product-title" th:text="${hair.hairName}"></p>
                 <div class="buttons">
-                  <button type="button" class="like" th:value="${hair.hairNumber}">하트</button>
+                  <button type="button" class="like" th:value="${hair.hairNumber}"
+                          th:classappend="${hair.likeCnt == 1 ? 'active' : ''}"
+                          th:style="${hair.likeCnt == 1 ? 'background-image:url(/img/heart2.png)' : ''}">하트</button>
                 </div>
               </div>
             </li>

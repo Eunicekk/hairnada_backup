@@ -1,21 +1,8 @@
+
 $(document).ready(function () {
   $(".buttons").click(function () {
     var buttonImg = $(this).find(".likeBtn");
-
-    if (buttonImg.hasClass("active")) {
-      buttonImg.removeClass("active");
-      buttonImg.css("background-image", "url('/img/heart1.png')");
-    } else {
-      buttonImg.addClass("active");
-      buttonImg.css("background-image", "url('/img/heart2.png')");
-    }
-  });
-});
-
-$(document).ready(function () {
-  $(".button").click(function () {
-    var buttonImg = $(this).find(".like");
-    var hairNumber = $(this).find(".like").val();
+    var hairNumber = $(this).find(".likeBtn").val();
 
     if (buttonImg.hasClass("active")) {
       $.ajax({
@@ -24,6 +11,10 @@ $(document).ready(function () {
         contentType: "application/json",
         data: JSON.stringify({ hairNumber: hairNumber }),
         success: function(){
+          let likeNumber = parseInt($(".like-cnt").text());
+          let test = likeNumber - 1;
+
+          $(".like-cnt").text(test)
           console.log("빼기 성공");
         }
       });
@@ -37,6 +28,10 @@ $(document).ready(function () {
         contentType: "application/json",
         data: JSON.stringify({ hairNumber: hairNumber }),
         success: function(){
+          let likeNumber = parseInt($(".like-cnt").text());
+          let test = likeNumber + 1;
+
+          $(".like-cnt").text(test)
           console.log("더하기 성공");
         }
       });
@@ -67,3 +62,30 @@ $(".background").on("click", function () {
 $(".view-img").on("click", function () {
   console.log($(this).attr("background-image"));
 });
+let hairNum = $('.hairNumber').val();
+
+function displayAjax(){
+  let hairNumber = hairNum;
+
+  $.ajax({
+    url : '/adminFile/hairImgList',
+    type : 'get',
+    data : {hairNumber : hairNumber},
+    success : function(hairImgList){
+      let text = '';
+      $('.file-wrap').html('');
+      hairImgList.forEach(file => {
+        let fileName = file.hairFileUploadPath + '/' + file.hairFileUuid + '_' + file.hairFileName;
+        text += `
+                    <li>
+                      <img  class="img-list" src="/adminFile/display?fileName=${fileName}" data-number="${file.hairFileNumber}" data-name="${fileName}" />
+                    </li>  
+`;
+      });
+
+      $('.file-wrap').html(text);
+    }
+  });
+}
+
+displayAjax();
