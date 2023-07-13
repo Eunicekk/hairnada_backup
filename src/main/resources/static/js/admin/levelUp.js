@@ -6,6 +6,7 @@ if (userMembership == questMembership){
     $('.accept').css("display", "none");
     $('.refuse').css("display", "none");
     window.alert("이미 수락한 게시글 입니다!");
+
 }
 
 // 수락 버튼

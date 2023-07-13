@@ -86,6 +86,7 @@
   display: flex;
   margin: 0 auto;
   align-items: center;
+  border-bottom: 1px solid #00000020;
 }
 
 .stop-button,
@@ -94,7 +95,7 @@
   background-color: #222;
   color: #ffffff;
   border-style: none;
-  margin-left: 55px;
+  margin-left: 20px;
   cursor: pointer;
   height: 30px;
   border-radius: 4px;

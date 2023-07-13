@@ -37,6 +37,14 @@
   position: relative;
 }
 
+.add{
+  color: #aeaeae;
+}
+
+.member{
+  border-bottom: 1px solid #00000020;
+}
+
 .nav > li,
 .member > li {
   text-align: center;

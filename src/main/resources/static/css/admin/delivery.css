@@ -74,6 +74,10 @@
   position: relative;
 }
 
+.order-list{
+  border-bottom: 1px solid #00000020;
+}
+
 .nav > li,
 .order-list > li {
   font-size: 14px;

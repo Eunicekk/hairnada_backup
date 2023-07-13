@@ -143,7 +143,7 @@
 
 <!-- 등업 게시글 사진 -->
  <select id="selectLevelFile" resultType="levelFileDto">
-  SELECT LEVEL_FILE_NUMBER , LEVEL_FILE_NAME , LEVEL_FILE_UPLOAD_PATH , LEVEL_FILE_UUID FROM TBL_LEVEL_FILE tlf
+  SELECT LEVEL_FILE_NUMBER , LEVEL_FILE_NAME , LEVEL_FILE_UPLOAD_PATH , LEVEL_FILE_UUID, LEVEL_NUMBER FROM TBL_LEVEL_FILE tlf
   WHERE LEVEL_NUMBER = #{levelNumber}
  </select>
 
@@ -602,7 +602,7 @@
              ON
               tb.USER_NUMBER = tu.USER_NUMBER
       WHERE
-       DELIVERY_NUMBER != 3
+       DELIVERY_NUMBER != 4
       ORDER BY
        BUY_NUMBER DESC)
 	<![CDATA[
@@ -617,7 +617,7 @@
 <!-- 미완료 배송 목록 수 -->
  <select id="incompleteTotal" resultType="_int">
   SELECT COUNT(BUY_NUMBER) FROM TBL_BUY tb
-  WHERE DELIVERY_NUMBER != 3
+  WHERE DELIVERY_NUMBER != 4
  </select>
 
 <!-- 배송 완료 목록 -->
@@ -657,22 +657,22 @@
              ON
               tb.USER_NUMBER = tu.USER_NUMBER
       WHERE
-       DELIVERY_NUMBER = 3
+       DELIVERY_NUMBER = 4
       ORDER BY
        BUY_NUMBER DESC)
 	<![CDATA[
     WHERE
-     ROWNUM <= #{page} * #{amount}
+     ROWNUM <= #{criteria.page} * #{criteria.amount}
              ]]>
         )
   WHERE
-   RNUM > (#{page} - 1 ) * #{amount}
+   RNUM > (#{criteria.page} - 1 ) * #{criteria.amount}
  </select>
 
 <!-- 배송 완료 전체 수 -->
  <select id="completeTotal" resultType="_int">
   SELECT COUNT(BUY_NUMBER) FROM TBL_BUY tb
-  WHERE DELIVERY_NUMBER = 3
+  WHERE DELIVERY_NUMBER = 4
  </select>
 
 <!-- 배송 상태 변경 -->
@@ -681,5 +681,14 @@
   SET DELIVERY_NUMBER = #{deliveryNumber}
   WHERE BUY_NUMBER = #{buyNumber}
  </update>
+
+<!-- 등업신청 완료한 게시글 조회 -->
+ <select id="selectCompleteLevel" resultType="levelDto">
+  SELECT tl.LEVEL_NUMBER FROM TBL_LEVEL tl
+  JOIN TBL_USER tu
+  ON tu.USER_NUMBER = tl.USER_NUMBER
+  WHERE tu.MEMBERSHIP_NUMBER = tl.MEMBERSHIP_NUMBER
+  ORDER BY tl.LEVEL_NUMBER DESC
+ </select>
 
 </mapper>

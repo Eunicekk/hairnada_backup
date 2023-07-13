@@ -80,9 +80,10 @@
                 <li class="delivery-status">
                   <select name="delivery" class="delivery">
                     <option value="">배송 상태</option>
-                    <option value="1" th:selected="${incompleteList.deliveryNumber == 1}">상품 준비중</option>
-                    <option value="2" th:selected="${incompleteList.deliveryNumber == 2}">배송중</option>
-                    <option value="3" th:selected="${incompleteList.deliveryNumber == 3}">배송 완료</option>
+                    <option value="1" th:selected="${incompleteList.deliveryNumber == 1}">결제 완료</option>
+                    <option value="2" th:selected="${incompleteList.deliveryNumber == 2}">상품 준비중</option>
+                    <option value="3" th:selected="${incompleteList.deliveryNumber == 3}">배송중</option>
+                    <option value="4" th:selected="${incompleteList.deliveryNumber == 4}">배송 완료</option>
                   </select>
                   <button type="submit" class="registration">등록</button>
                 </li>

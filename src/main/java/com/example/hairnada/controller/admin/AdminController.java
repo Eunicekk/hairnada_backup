@@ -172,6 +172,7 @@ public class AdminController {
     public void levelUP(Long levelNumber, Model model){
         LevelVo levelVo = adminService.findLevelBoard(levelNumber);
         LevelFileDto levelFileDto = adminService.findLevelFile(levelNumber);
+        System.out.println(levelFileDto.toString());
         model.addAttribute("LevelBoard", levelVo);
         model.addAttribute("levelFile", levelFileDto);
     }

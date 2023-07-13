@@ -2,6 +2,7 @@ package com.example.hairnada.mapper.admin;
 
 import com.example.hairnada.dto.buy.AdminBuyDto;
 import com.example.hairnada.dto.hair.HairDto;
+import com.example.hairnada.dto.level.LevelDto;
 import com.example.hairnada.dto.level.LevelFileDto;
 import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.dto.user.UserDto;
@@ -14,6 +15,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface AdminMapper {
@@ -45,6 +47,10 @@ public interface AdminMapper {
 
     // 등업 요청 수락
     public void updateMembershipNumber(@Param("userNumber")Long userNumber, @Param("membershipNumber")Long membershipNumber);
+
+    // 수락 목록
+    public List<LevelDto> selectCompleteLevel();
+
     // 상품 리스트 목록
     public List<StoreVo> selectStoreList(CriteriaAdminList criteriaAdminList);
 
@@ -120,7 +126,7 @@ public interface AdminMapper {
     public int incompleteTotal();
 
     // 배송 완료 목록 조회
-    public List<AdminBuyDto> selectCompleteList(CriteriaAdmin criteriaAdmin);
+    public List<AdminBuyDto> selectCompleteList(@Param("criteria")CriteriaAdmin criteriaAdmin);
 
     // 배송 완료 목록 수
     public int completeTotal();
