@@ -63,4 +63,5 @@ public class StoreService {
         }
         return storeMapper.selectSearchTotal(searchStoreVo);
     }
+
 }

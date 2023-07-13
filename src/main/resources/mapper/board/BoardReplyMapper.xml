@@ -61,4 +61,5 @@
         WHERE BOARD_NUMBER = #{boardNumber}
     </select>
 
+
 </mapper>

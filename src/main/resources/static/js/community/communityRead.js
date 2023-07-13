@@ -24,12 +24,14 @@ function showReply(map){
 
 
     if (r.userNumber == loginNumber) {
-    text += `
-                <button type="button" class="comment-modify-ready">수정</button>
-                <button type="button" class="comment-delete">삭제</button>
-              </div>
-            </div>`;
-        }
+      text +=`
+                  <button type="button" class="comment-modify-ready">수정</button>
+                  <button type="button" class="comment-delete">삭제</button>
+                `;
+    }
+
+    text += `</div>
+              </div>`;
 
           text += `
             <div class="comment-content">
@@ -61,11 +63,14 @@ function appendText(map){
 
 
     if (r.userNumber == loginNumber) {
-      text += `
-                <button type="button" class="comment-modify-ready">수정</button>
-                <button type="button" class="comment-delete">삭제</button>
+      text +=`
+                  <button type="button" class="comment-modify-ready">수정</button>
+                  <button type="button" class="comment-delete">삭제</button>
                 `;
     }
+
+    text += `</div>
+              </div>`;
 
     text +=`
               </div>
@@ -89,7 +94,7 @@ function appendText(map){
 // 댓글 스크롤로 페이징
 $(window).on('scroll', function (){
   if(Math.round($(window).scrollTop()) == $(document).height() - $(window).height()){
-    // console.log(++page);
+    console.log(++page);
     boardReply.getListPage({boardNumber : boardNumber, page : page}, appendText, showError);
   }
 });
@@ -165,11 +170,32 @@ $('.comment-list').on('click','.comment-modify', function (){
 $(document).ready(function () {
   $(".buttons").click(function () {
     var buttonImg = $(this).find(".like");
+    var boardNumber = $(this).find(".like").val();
 
     if (buttonImg.hasClass("active")) {
+      $.ajax({
+        url: "/boardLike/subtract",
+        type: "DELETE",
+        contentType: "application/json",
+        data: JSON.stringify({ boardNumber: boardNumber }),
+        success: function(){
+          console.log("빼기 성공");
+        }
+      });
+
       buttonImg.removeClass("active");
       buttonImg.css("background-image", "url('/img/heart1.png')");
     } else {
+      $.ajax({
+        url: "/boardLike/add",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({ boardNumber: boardNumber }),
+        success: function(){
+          console.log("더하기 성공");
+        }
+      });
+
       buttonImg.addClass("active");
       buttonImg.css("background-image", "url('/img/heart2.png')");
     }
@@ -179,7 +205,7 @@ $(document).ready(function () {
 // 게시물 삭제
 $('.btn-remove').on('click',function (){
   let boardNumber = $('.board-num').val();
-  window.location.href = '/board/communityRemove?boardNumber' + boardNumber;
+  window.location.href = '/board/communityRemove?boardNumber=' + boardNumber;
 });
 
 // 게시물 수정

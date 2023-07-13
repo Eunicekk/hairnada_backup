@@ -77,7 +77,7 @@
                   <p class="profiles profile-nick" th:text="${board.userNickName}"></p>
                 </a>
                 <div class="buttons">
-                  <button type="button" class="like">하트</button>
+                  <button type="button" class="like" th:value="${board.boardNumber}">하트</button>
                 </div>
               </div>
               <a th:href="@{/board/communityRead(boardNumber=${board.boardNumber})}">
@@ -98,9 +98,9 @@
                 <p class="community-title" th:text="${board.boardTitle}"></p>
                 <div class="count">
                   <span class="reply">댓글</span>
-                  <span class="replyCnt">3</span>
+                  <span class="replyCnt" th:text="${board.replyCnt}"></span>
                   <span class="view">조회수 </span>
-                  <span class="viewCnt">5</span>
+                  <span class="viewCnt" th:text="${board.boardViewCnt}"></span>
                 </div>
               </div>
             </li>

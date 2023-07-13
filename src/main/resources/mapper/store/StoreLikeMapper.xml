@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hairnada.mapper.store.StoreLikeMapper">
+
+    <!-- 헤어샵 좋아요 추가 -->
+    <insert id="insert">
+        INSERT INTO TBL_STORE_LIKE(STORE_NUMBER, USER_NUMBER)
+        VALUES (#{storeNumber}, #{userNumber})
+    </insert>
+
+    <!-- 헤어샵 좋아요 삭제 -->
+    <delete id="delete">
+        DELETE FROM TBL_STORE_LIKE
+        WHERE STORE_NUMBER = #{storeNumber} AND USER_NUMBER = #{userNumber}
+    </delete>
+
+</mapper>

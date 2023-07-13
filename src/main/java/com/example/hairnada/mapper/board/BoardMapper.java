@@ -41,4 +41,10 @@ public interface BoardMapper {
     public List<BoardVo> selectBoardSearch(@Param("searchVo") SearchVo searchVo, @Param("criteria") Criteria03 criteria03);
 
     public int selectSearchTotal(SearchVo searchVo);
+
+//    조회수 업뎃
+    public void updateReadCount(Long boardNumber);
+
+//    댓글수 업뎃
+    public int selectReplyCnt(Long boardNumber);
 }
