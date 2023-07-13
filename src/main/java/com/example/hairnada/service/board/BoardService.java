@@ -121,5 +121,19 @@ public class BoardService {
         return boardMapper.selectSearchTotal(searchVo);
     }
 
+    //    조회수
+    public void updateViewCnt(Long boardNumber){
+        if (boardNumber == null){
+            throw new IllegalArgumentException("몰라요");
+        }
+        boardMapper.updateReadCount(boardNumber);
+    }
 
+//    댓글수
+//    public int updateReplyCnt(Long boardNumber){
+//        if (boardNumber == null){
+//            throw new IllegalArgumentException("몰라용");
+//        }
+//       return boardMapper.selectReplyCnt(boardNumber);
+//    }
 }

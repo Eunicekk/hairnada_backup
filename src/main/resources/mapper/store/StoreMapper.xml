@@ -161,20 +161,21 @@
                                 AND ts.STORE_CATEGORY_NUMBER = #{searchStoreVo.storeCategoryNumber}
                             </if>
                         </trim>
-<!--                        <trim prefix="order by" prefixOverrides="AND">-->
-<!--                            <if test="searchStoreVo.sortingType == 'popularity'">-->
-<!--                                AND ts.STORE_NUMBER DESC-->
-<!--                            </if>-->
+                        <trim prefix="order by" >
+                            <if test="searchStoreVo.sortingType != null and searchStoreVo.sortingType.equals('popularity')">
+                                 ts.STORE_NUMBER DESC
+                            </if>
 
-<!--                            <if test="searchStoreVo.sortingType == 'high_price'">-->
-<!--                                AND ts.STORE_PRICE DESC-->
-<!--                            </if>-->
-<!--                            <if test="searchStoreVo.sortingType == 'low_price'">-->
-<!--                                AND ts.STORE_PRICE ASC-->
-<!--                            </if>-->
-<!--                        </trim>-->
-        ORDER BY
-        ts.STORE_NUMBER DESC)
+                            <if test="searchStoreVo.sortingType != null and searchStoreVo.sortingType.equals('high_price')">
+                                 ts.STORE_PRICE DESC
+                            </if>
+                            <if test="searchStoreVo.sortingType != null and searchStoreVo.sortingType.equals('low_price')">
+                                 ts.STORE_PRICE ASC
+                            </if>
+                        </trim>
+--         ORDER BY
+--         ts.STORE_NUMBER DESC
+                        )
     <![CDATA[
                 WHERE
                     ROWNUM <= #{criteria.page} * #{criteria.amount}

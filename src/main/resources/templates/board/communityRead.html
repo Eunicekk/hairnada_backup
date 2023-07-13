@@ -22,7 +22,7 @@
       <div class="community-title">
         <h1 th:text="${board.boardTitle}"></h1>
         <div class="buttons">
-          <button type="button" class="like">하트</button>
+          <button type="button" class="like" th:value="${board.boardNumber}">하트</button>
         </div>
       </div>
 
@@ -41,7 +41,7 @@
           <span class="reply">댓글</span>
                   <span class="replyCnt">3</span>
                   <span class="view">조회수 </span>
-                  <span class="viewCnt">5</span>
+                  <span class="viewCnt" th:text="${board.boardViewCnt}"></span>
         </div>
         </div>
       </article>

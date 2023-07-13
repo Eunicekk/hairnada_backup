@@ -86,6 +86,8 @@ public class BoardController {
 
     @GetMapping("/communityRead")
     public String communityRead(Long boardNumber, Model model){
+        boardService.updateViewCnt(boardNumber);
+//        boardService.updateReplyCnt(boardNumber);
         BoardVo boardVo = boardService.findBoard(boardNumber);
         model.addAttribute("board",boardVo);
         System.out.println(boardVo);

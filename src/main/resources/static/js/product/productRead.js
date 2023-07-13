@@ -12,13 +12,34 @@ $(".basket").click(function () {
 $(document).ready(function () {
   $(".buttons").click(function () {
     var buttonImg = $(this).find(".likeBtn");
+    var storeNumber = $(this).find(".like").val();
 
     if (buttonImg.hasClass("active")) {
+      $.ajax({
+        url: "/storeLike/subtract",
+        type: "DELETE",
+        contentType: "application/json",
+        data: JSON.stringify({ storeNumber: storeNumber }),
+        success: function(){
+          console.log("빼기 성공");
+        }
+      });
+
       buttonImg.removeClass("active");
-      buttonImg.css("background-image", "url('../img/heart1.png')");
+      buttonImg.css("background-image", "url('/img/heart1.png')");
     } else {
+      $.ajax({
+        url: "/storeLike/add",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({ storeNumber: storeNumber }),
+        success: function(){
+          console.log("더하기 성공");
+        }
+      });
+
       buttonImg.addClass("active");
-      buttonImg.css("background-image", "url('../img/heart2.png')");
+      buttonImg.css("background-image", "url('/img/heart2.png')");
     }
   });
 });
@@ -175,31 +196,6 @@ $(".info3").on("click", function () {
             </div>
             
             <div class="comment-list">
-            <ul id="comment-list">
-            <li>
-            <div class="comment-wrap">
-              <div class="comment-info">
-                <span class="writer">메시</span> ｜ 
-                <div class="user-star-score">
-                      <span class="material-symbols-rounded">star</span> <span>5</span>
-                </div> ｜ 
-                <span class="date">2222-22-22</span>
-              </div>
-              <div class="comment-content-wrap">
-                <div class="comment-btn-group">
-                  <button type="button" class="comment-modify-ready">수정</button>
-                  <button type="button" class="comment-delete">삭제</button>
-                </div>
-                <div class="comment-btn-group none">
-                  <button type="button" class="comment-modify">수정 완료</button>
-                </div>
-              </div>
-            </div>
-            <div class="comment-content">
-            <p>안녕하세요</p>
-            </div>
-            </li>
-            </ul>
             </div>
             </div> `);
 
@@ -274,9 +270,11 @@ function showReply(map) {
       text +=`
                   <button type="button" class="comment-modify-ready">수정</button>
                   <button type="button" class="comment-delete">삭제</button>
-                </div>
-              </div>`;
+                `;
     }
+
+    text += `</div>
+              </div>`;
 
     text += `
             </div>
@@ -288,7 +286,7 @@ function showReply(map) {
     `;
   });
 
-  $(".comment-list").append(text);
+  $(".comment-list").html(text);
 }
 
 
@@ -334,7 +332,7 @@ function appendText(map){
 // 댓글 스크롤로 페이징
 $(window).on('scroll', function (){
   if(Math.round($(window).scrollTop()) == $(document).height() - $(window).height()){
-    // console.log(++page);
+    console.log(++page);
     storeReply.getListPage({storeNumber : storeNumber, page : page}, appendText, showError);
   }
 });
@@ -362,5 +360,44 @@ $(".bigBox").on('click', '.submit-btn', function (){
     storeReply.getListPage({storeNumber : storeNumber, page : page}, showReply, showError);
       },
       showError)
+});
+
+$(".big-box").on("click",".comment-delete", function (){
+  let storeReplyNumber = $(this).closest(".reply").data("num")
+
+  page = 1;
+
+  storeReply.remove(storeReplyNumber, function (){
+    storeReply.getListPage({storeNumber : storeNumber, page : page}, showReply, showError);
+  }, showError);
+});
+
+$(".big-box").on("click", ".comment-modify-ready", function (){
+  let $storeReplyContent = $(this).closest(".reply").find(".comment-content");
+  $storeReplyContent.replaceWith(`
+    <div class='modify-box'>
+  <textarea class="modify-content">${$storeReplyContent.text()}</textarea>
+  <button type="button" class="comment-modify">수정 완료</button>
+  </div>
+  `)
+  $(".comment-btn-group").addClass("none");
+});
+
+
+$(".big-box").on("click", ".comment-modify", function (){
+  console.log("수정됐다.");
+  let storeReplyNumber = $(this).closest(".reply").data("num");
+  let storeReplyContent = $(this).closest(".modify-box").find(".modify-content").val();
+
+  let replyObj = {
+    storeReplyNumber : storeReplyNumber,
+    storeReplyContent : storeReplyContent
+  }
+
+  page = 1;
+
+  storeReply.modify(replyObj, function (){
+    storeReply.getListPage({storeNumber : storeNumber, page : page}, showReply, showError);
+  }, showError);
 });
 

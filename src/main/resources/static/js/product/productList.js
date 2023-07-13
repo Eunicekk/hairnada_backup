@@ -6,11 +6,32 @@ $(".basket").click(function () {
 $(document).ready(function () {
   $(".buttons").click(function () {
     var buttonImg = $(this).find(".like");
+    var storeNumber = $(this).find(".like").val();
 
     if (buttonImg.hasClass("active")) {
+      $.ajax({
+        url: "/storeLike/subtract",
+        type: "DELETE",
+        contentType: "application/json",
+        data: JSON.stringify({ storeNumber: storeNumber }),
+        success: function(){
+          console.log("빼기 성공");
+        }
+      });
+
       buttonImg.removeClass("active");
       buttonImg.css("background-image", "url('/img/heart1.png')");
     } else {
+      $.ajax({
+        url: "/storeLike/add",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({ storeNumber: storeNumber }),
+        success: function(){
+          console.log("더하기 성공");
+        }
+      });
+
       buttonImg.addClass("active");
       buttonImg.css("background-image", "url('/img/heart2.png')");
     }
@@ -70,14 +91,15 @@ $(".category-btn").on("click", function (){
   searchModule(1, obj, showSearchResult, paging);
 });
 
-// $(".btn-drop").on("click", function (){
-//   console.log("이것도 클릭했다")
-//   obj = {storeCategoryNumber : $(this).val(),
-//       sortingType : $(this).val()};
-//   console.log("this ============== " + this);
-//   console.log("sortingType ============= " + obj.sortingType);
-//   searchModule(1, obj, showSearchResult, paging)
-// })
+$(".btn-drop").on("click", function (){
+  console.log("이것도 클릭했다")
+  // obj = {storeCategoryNumber : $(this).val(),
+  //     sortingType : $(this).val()};
+  obj.sortingType = $(this).data('sort-type');
+  console.log("this ============== " + this);
+  console.log("sortingType ============= " + obj.sortingType);
+  searchModule(1, obj, showSearchResult, paging)
+})
 
 function searchModule(page, obj, callback, paging){
   $.ajax({
@@ -110,7 +132,7 @@ function showSearchResult(result){
               <a href="/store/productRead?storeNumber=${productList[i].storeNumber}">
                 <div class="img-list">
                   <div class="main-img">
-                    <img src="https://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0014/A00000014950306ko.jpg?l=ko" alt="제품 이미지">
+                    <img src="${'/upload/' + productList[i].storeFileUploadPath + '/th_' + productList[i].storeFileUuid + '_' + productList[i].storeFileName }" alt="제품 이미지">
                   </div>
                 </div>
               </a>
