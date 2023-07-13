@@ -31,27 +31,6 @@ public class MainRestController {
     }
 
     // 상품 띄우기
-//    @GetMapping("/store")
-//    public List<Integer> mainStore(){
-//        int min = 1;
-//        int max = 0;
-//        int count = 4;
-//
-//        for (int categoryNumber = 1; categoryNumber <= 6; categoryNumber++) {
-//            max = mainService.getStoreCnt(categoryNumber);
-//
-//            Set<Integer> result = new HashSet<>();
-//            Random random = new Random();
-//            while (result.size() < count) {
-//                int number = random.nextInt(max - min + 1) + min;
-//                result.add(number);
-//            }
-//            List<Integer> storeCntList = new ArrayList<>(result);
-//            storeCntLists.add(storeCntList);
-//        }
-//
-//        return boardCntList;
-//    }
 
     // 커뮤니티 띄우기
     @GetMapping("/board")

@@ -20,15 +20,13 @@ public class MainController {
     @GetMapping("/")
     public String main(Model model){
         // 헤어스타일
-        List<Integer> hairNumbers = mainRestController.mainHair();
-        List<HairVo> hairList = mainService.findHair(hairNumbers);
+        List<HairVo> hairList = mainService.findHair();
         model.addAttribute("hairList", hairList);
 
         // 상품
 
         // 커뮤니티
-        List<Integer> boardNumbers = mainRestController.mainBoard();
-        List<BoardVo> boardList = mainService.findBoard(boardNumbers);
+        List<BoardVo> boardList = mainService.findBoard();
         model.addAttribute("boardList", boardList);
 
         return "index";

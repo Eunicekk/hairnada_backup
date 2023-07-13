@@ -1,5 +1,22 @@
 // 버튼 클릭시 하트 변경
 $(document).ready(function () {
+
+  $.ajax({
+    url: "/hairshopLike/check",
+    type: "GET",
+    contentType: "application/json",
+    success: function(likeList) {
+      $('.ListLi').each(function() {
+        var hiddenNumber = $(this).find('.hidden-number').val();
+        var $likeButton = $(this).find('.like');
+        if (likeList.includes(Number(hiddenNumber))) {
+          $likeButton.addClass("active");
+          $likeButton.css("background-image", "url('/img/heart2.png')");
+        }
+      });
+    }
+  });
+
   $(".buttons").click(function () {
     var buttonImg = $(this).find(".like");
     var hairShopNumber = $(this).find(".like").val();

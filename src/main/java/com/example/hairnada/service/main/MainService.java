@@ -7,7 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -17,8 +19,17 @@ public class MainService {
 
     // 해어스타일 조회
     @Transactional(readOnly = true)
-    public List<HairVo> findHair(List<Integer> list){
-        return mainMapper.selectHair(list);
+    public List<HairVo> findHair(){
+        Random random = new Random();
+        List<HairVo> hairList = new ArrayList<>();
+        int number;
+
+        for(int i=0; i<6; i++){
+            number = random.nextInt(getHairCnt()) + 1;
+            hairList.add(mainMapper.selectHair(number));
+        }
+
+        return hairList;
     }
 
     // 헤어스타일 개수
@@ -29,6 +40,7 @@ public class MainService {
 
     // 상품 조회
 
+
     // 상품 개수
     @Transactional(readOnly = true)
     public int getStoreCnt(Long storeCategoryNumber){
@@ -37,12 +49,21 @@ public class MainService {
 
     // 커뮤니티 조회
     @Transactional(readOnly = true)
-    public List<BoardVo> findBoard(List<Integer> list){
-        return mainMapper.selectBoard(list);
+    public List<BoardVo> findBoard(){
+        Random random = new Random();
+        List<BoardVo> boardList = new ArrayList<>();
+        int number;
+
+        for(int i=0; i<6; i++){
+            number = random.nextInt(getBoardCnt()) + 1;
+            boardList.add(mainMapper.selectBoard(number));
+        }
+
+        return boardList;
     }
 
     // 커뮤니티 개수
-    @Transactional(readOnly = false)
+    @Transactional(readOnly = true)
     public int getBoardCnt(){
         return mainMapper.selectBoardCnt();
     }

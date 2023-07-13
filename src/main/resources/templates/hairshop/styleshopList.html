@@ -37,6 +37,7 @@
             <ul class="style-box">
                 <th:block th:if="${not #lists.isEmpty(hairShopList)}">
                     <li class="ListLi" th:each="hairShop : ${hairShopList}">
+                        <input class="hidden-number" type="hidden" th:value="${hairShop.hairShopNumber}">
                         <a th:href="@{read(hairShopNumber=${hairShop.hairShopNumber})}">
                             <div class="img-list">
                                 <div class="main-img">

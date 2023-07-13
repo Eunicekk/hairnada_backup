@@ -10,18 +10,19 @@ import java.util.List;
 @Mapper
 public interface MainMapper {
     // 헤어스타일 띄우기
-    public List<HairVo> selectHair(@Param("hairCntList") List<Integer> hairCntList);
+    public HairVo selectHair(int number);
 
     // 헤어스타일 개수
     public int selectHairCnt();
 
     // 상품 띄우기
 
+
     // 상품 개수
     public int selectStoreCnt(Long storeCategoryNumber);
 
     // 커뮤니티 띄우기
-    public List<BoardVo> selectBoard(@Param("boardCntList") List<Integer> boardCntList);
+    public BoardVo selectBoard(int number);
 
     // 커뮤니티 개수
     public int selectBoardCnt();

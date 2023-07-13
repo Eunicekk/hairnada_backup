@@ -3,7 +3,7 @@
 <mapper namespace="com.example.hairnada.mapper.main.MainMapper">
     <!-- 헤어스타일 띄우기 -->
     <select id="selectHair" resultType="hairVo">
-        SELECT HAIR_NUMBER, HAIR_NAME, HAIR_FILE_NUMBER, HAIR_FILE_UPLOAD_PATH, HAIR_FILE_UUID, HAIR_FILE_NAME
+        SELECT RNUM, HAIR_NUMBER, HAIR_NAME, HAIR_FILE_NUMBER, HAIR_FILE_UPLOAD_PATH, HAIR_FILE_UUID, HAIR_FILE_NAME
         FROM (
         SELECT ROWNUM AS RNUM, H.HAIR_NUMBER, HAIR_NAME, HAIR_FILE_NUMBER, HAIR_FILE_UPLOAD_PATH, HAIR_FILE_UUID, HAIR_FILE_NAME
         FROM TBL_HAIR H
@@ -17,10 +17,7 @@
         WHERE RK = 1
         ) J ON H.HAIR_NUMBER = J.HAIR_NUMBER
         ) TMP2
-        WHERE RNUM IN
-        <foreach collection="hairCntList" index="index" open="(" close=")" item="num" separator=",">
-            #{num}
-        </foreach>
+        WHERE RNUM = #{number}
     </select>
 
     <!-- 헤어스타일 개수 -->
@@ -30,6 +27,9 @@
     </select>
 
     <!-- 상품 띄우기 -->
+    <select id="selectStore" resultType="StoreVo">
+
+    </select>
 
 
     <!-- 상품 개수 -->
@@ -41,7 +41,7 @@
 
     <!-- 커뮤니티 띄우기 -->
     <select id="selectBoard" resultType="boardVo">
-        SELECT BOARD_NUMBER, BOARD_TITLE, BOARD_VIEW_CNT, BOARD_CONTENT, USER_NUMBER, USER_NICKNAME,
+        SELECT ROWNUM, BOARD_NUMBER, BOARD_TITLE, BOARD_VIEW_CNT, BOARD_CONTENT, USER_NUMBER, USER_NICKNAME,
         BOARD_FILE_UPLOAD_PATH, BOARD_FILE_UUID, BOARD_FILE_NAME, USER_FILE_UPLOAD_PATH, USER_FILE_UUID, USER_FILE_NAME
         FROM (
         SELECT ROWNUM AS RNUM, BOARD_NUMBER, BOARD_TITLE, BOARD_VIEW_CNT, BOARD_CONTENT,
@@ -64,10 +64,7 @@
         LEFT JOIN TBL_USER_FILE UF ON U.USER_NUMBER = UF.USER_NUMBER
         ) S1
         ) S2
-        WHERE RNUM IN
-        <foreach collection="boardCntList" index="index" open="(" close=")" item="num" separator=",">
-            #{num}
-        </foreach>
+        WHERE RNUM = #{number}
     </select>
 
     <!-- 커뮤니티 개수 -->
