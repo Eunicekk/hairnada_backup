@@ -14,10 +14,10 @@ import java.util.List;
 public interface StoreMapper {
 
 //    조회
-    public StoreVo select(Long storeNumber);
+    public StoreVo select(Long storeNumber, @Param("userNumber") Long userNumber);
 
 //    상품 리스트
-    public List<StoreVo> selectList(CriteriaAdminList criteriaAdminList);
+    public List<StoreVo> selectList(@Param("criteria") CriteriaAdminList criteriaAdminList, @Param("userNumber") Long userNumber);
 
 //    상품 토탈
     public int storeTotal();

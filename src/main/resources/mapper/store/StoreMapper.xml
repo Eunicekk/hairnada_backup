@@ -3,9 +3,10 @@
 <mapper namespace="com.example.hairnada.mapper.store.StoreMapper">
 
     <select id="select" resultType="storeVo">
-        SELECT STORE_NUMBER, STORE_TITLE, STORE_CONTENT, STORE_PRICE, STORE_SCORE_AVG, ts.STORE_CATEGORY_NUMBER
+        SELECT STORE_NUMBER, STORE_TITLE, STORE_CONTENT, STORE_PRICE, STORE_SCORE_AVG, ts.STORE_CATEGORY_NUMBER,
+               (SELECT COUNT(L.USER_NUMBER) FROM TBL_STORE_LIKE L WHERE L.USER_NUMBER = #{userNumber} AND TS.STORE_NUMBER = L.STORE_NUMBER) LIKE_CNT
         FROM TBL_STORE ts JOIN TBL_STORE_CATEGORY tsc
-        ON ts.STORE_NUMBER = #{storeNumber} AND ts.STORE_CATEGORY_NUMBER = tsc.STORE_CATEGORY_NUMBER
+                               ON ts.STORE_NUMBER = #{storeNumber} AND ts.STORE_CATEGORY_NUMBER = tsc.STORE_CATEGORY_NUMBER
     </select>
 
 
@@ -19,7 +20,8 @@
                 STORE_CATEGORY_NUMBER,
                 STORE_FILE_NAME,
                 STORE_FILE_UPLOAD_PATH,
-                STORE_FILE_UUID
+                STORE_FILE_UUID,
+                (SELECT COUNT(L.USER_NUMBER) FROM TBL_STORE_LIKE L WHERE L.USER_NUMBER = #{userNumber} AND S1.STORE_NUMBER = L.STORE_NUMBER) LIKE_CNT
             FROM
                 (
                     SELECT
@@ -75,11 +77,11 @@
                                 ts.STORE_NUMBER DESC)
     <![CDATA[
                     WHERE
-                        ROWNUM <= #{page} * #{amount}
+                        ROWNUM <= #{criteria.page} * #{criteria.amount}
                  ]]>
-            )
+            ) s1
             WHERE
-                RNUM > (#{page} - 1 ) * #{amount}
+                RNUM > (#{criteria.page} - 1 ) * #{criteria.amount}
     </select>
 
 <!--  스토어 게시물 수  -->
@@ -104,7 +106,8 @@
             STORE_CATEGORY_NUMBER,
             STORE_FILE_NAME,
             STORE_FILE_UPLOAD_PATH,
-            STORE_FILE_UUID
+            STORE_FILE_UUID,
+            (SELECT COUNT(L.USER_NUMBER) FROM TBL_STORE_LIKE L WHERE L.USER_NUMBER = #{userNumber} AND S1.STORE_NUMBER = L.STORE_NUMBER) LIKE_CNT
         FROM
             (
                 SELECT
@@ -180,7 +183,7 @@
                 WHERE
                     ROWNUM <= #{criteria.page} * #{criteria.amount}
                  ]]>
-            )
+            ) S1
         WHERE
             RNUM > (#{criteria.page} - 1 ) * #{criteria.amount}
     </select>
