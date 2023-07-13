@@ -6,19 +6,53 @@ const storeNumber = $(".store-num").val();
 // 장바구니 클릭시 나타나는 문구
 $(".basket").click(function () {
   alert("장바구니에 추가하였습니다!");
+  let storeNumber = $(this).data("num")
+  let storeCnt = $("#quantityInput").val();
+  console.log(storeNumber);
+  console.log(storeCnt);
+  $.ajax({
+    url : "/storeR/productBuy",
+    type : "post",
+    contentType : "application/json",
+    data : JSON.stringify({storeNumber : storeNumber, basketCnt : storeCnt}),
+    success : function (){
+      console.log("들어갓다.");
+    }
+  });
 });
 
 // 좋아요
 $(document).ready(function () {
   $(".buttons").click(function () {
     var buttonImg = $(this).find(".likeBtn");
+    var storeNumber = $(this).find(".like").val();
 
     if (buttonImg.hasClass("active")) {
+      $.ajax({
+        url: "/storeLike/subtract",
+        type: "DELETE",
+        contentType: "application/json",
+        data: JSON.stringify({ storeNumber: storeNumber }),
+        success: function(){
+          console.log("빼기 성공");
+        }
+      });
+
       buttonImg.removeClass("active");
-      buttonImg.css("background-image", "url('../img/heart1.png')");
+      buttonImg.css("background-image", "url('/img/heart1.png')");
     } else {
+      $.ajax({
+        url: "/storeLike/add",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({ storeNumber: storeNumber }),
+        success: function(){
+          console.log("더하기 성공");
+        }
+      });
+
       buttonImg.addClass("active");
-      buttonImg.css("background-image", "url('../img/heart2.png')");
+      buttonImg.css("background-image", "url('/img/heart2.png')");
     }
   });
 });
@@ -116,8 +150,8 @@ $(".info2").on("click", function () {
   <div>
   <p><strong>[일반 배송]</strong></p>
   <p><strong>배송지역 : </strong>전국</p>
-  <p><strong>배송비 : </strong><span class="dataName">2,500원</span></p>
-  <p>올리브영 배송 상품의 총 결제금액<span class="dataName">25,000원</span> 이상일 경우<span class="dataName"> 무료 배송</span> 됩니다.</p>
+  <p><strong>배송비 : </strong><span class="dataName">3,000원</span></p>
+  <p>올리브영 배송 상품의 총 결제금액<span class="dataName">50,000원</span> 이상일 경우<span class="dataName"> 무료 배송</span> 됩니다.</p>
   <p><strong>배송가능일 : </strong><span class="dataName">6</span>일</p>
   <p>배송가능일이란 본 상품을 주문하신 고객님들께 상품 배송이 가능한 기간을 의미합니다. 단, 연휴 및 공휴일은 기간 계산시 제외하며 현금 주문일 경우 입금일 기준 입니다.</p>
   <p>예약 상품의 경우 예약된 날짜에 출고되며, 상품의 입고가 빠르게 진행된 경우 예약일 보다 일찍 배송될 수 있습니다.</p>
@@ -175,31 +209,6 @@ $(".info3").on("click", function () {
             </div>
             
             <div class="comment-list">
-            <ul id="comment-list">
-            <li>
-            <div class="comment-wrap">
-              <div class="comment-info">
-                <span class="writer">메시</span> ｜ 
-                <div class="user-star-score">
-                      <span class="material-symbols-rounded">star</span> <span>5</span>
-                </div> ｜ 
-                <span class="date">2222-22-22</span>
-              </div>
-              <div class="comment-content-wrap">
-                <div class="comment-btn-group">
-                  <button type="button" class="comment-modify-ready">수정</button>
-                  <button type="button" class="comment-delete">삭제</button>
-                </div>
-                <div class="comment-btn-group none">
-                  <button type="button" class="comment-modify">수정 완료</button>
-                </div>
-              </div>
-            </div>
-            <div class="comment-content">
-            <p>안녕하세요</p>
-            </div>
-            </li>
-            </ul>
             </div>
             </div> `);
 
@@ -262,9 +271,9 @@ function showReply(map) {
             <li>
             <div class="comment-wrap">
               <div class="comment-info">
-                <span class="writer">${r.userNickname}</span> ｜ 
+                <span class="writer">${r.userNickName}</span> ｜ 
                 <div class="user-star-score">
-                      <span class="material-symbols-rounded">star</span> <span>5</span>
+                      <span class="material-symbols-rounded">star</span> <span>${r.storeScore}</span>
                 </div> ｜ 
                 <span class="date">${storeReply.timeForToday(r.storeReplyRegisterDate == r.storeReplyUpdateDate ? r.storeReplyRegisterDate : r.storeReplyUpdateDate)}</span>
               </div>
@@ -274,9 +283,11 @@ function showReply(map) {
       text +=`
                   <button type="button" class="comment-modify-ready">수정</button>
                   <button type="button" class="comment-delete">삭제</button>
-                </div>
-              </div>`;
+                `;
     }
+
+    text += `</div>
+              </div>`;
 
     text += `
             </div>
@@ -288,7 +299,7 @@ function showReply(map) {
     `;
   });
 
-  $(".comment-list").append(text);
+  $(".comment-list").html(text);
 }
 
 
@@ -301,10 +312,10 @@ function appendText(map){
             <li>
             <div class="comment-wrap">
               <div class="comment-info">
-                <span class="writer">${r.userNickName}</span> ｜ 
+                <span class="writer">${r.userNickName}</span>  
                 <div class="user-star-score">
                       <span class="material-symbols-rounded">star</span> <span>${r.storeScore}</span>
-                </div> ｜ 
+                </div>
                 <span class="date">${storeReply.timeForToday(r.storeReplyRegisterDate == r.storeReplyUpdateDate ? r.storeReplyRegisterDate : r.storeReplyUpdateDate)}</span>
               </div>
                 <div class="comment-btn-group">`;
@@ -334,7 +345,7 @@ function appendText(map){
 // 댓글 스크롤로 페이징
 $(window).on('scroll', function (){
   if(Math.round($(window).scrollTop()) == $(document).height() - $(window).height()){
-    // console.log(++page);
+    console.log(++page);
     storeReply.getListPage({storeNumber : storeNumber, page : page}, appendText, showError);
   }
 });
@@ -364,3 +375,48 @@ $(".bigBox").on('click', '.submit-btn', function (){
       showError)
 });
 
+$(".big-box").on("click",".comment-delete", function (){
+  let storeReplyNumber = $(this).closest(".reply").data("num")
+
+  page = 1;
+
+  storeReply.remove(storeReplyNumber, function (){
+    storeReply.getListPage({storeNumber : storeNumber, page : page}, showReply, showError);
+  }, showError);
+});
+
+
+// 댓 수정
+$(".big-box").on("click", ".comment-modify-ready", function (){
+  let $storeReplyContent = $(this).closest(".reply").find(".comment-content");
+  $storeReplyContent.replaceWith(`
+    <div class='modify-box'>
+  <textarea class="modify-content">${$storeReplyContent.text()}</textarea>
+  <button type="button" class="comment-modify">수정 완료</button>
+  </div>
+  `)
+  $(".comment-btn-group").addClass("none");
+});
+
+
+$(".big-box").on("click", ".comment-modify", function (){
+  console.log("수정됐다.");
+  let storeReplyNumber = $(this).closest(".reply").data("num");
+  let storeReplyContent = $(this).closest(".modify-box").find(".modify-content").val();
+
+  let replyObj = {
+    storeReplyNumber : storeReplyNumber,
+    storeReplyContent : storeReplyContent
+  }
+
+  page = 1;
+
+  storeReply.modify(replyObj, function (){
+    storeReply.getListPage({storeNumber : storeNumber, page : page}, showReply, showError);
+  }, showError);
+});
+
+// 구매하기 버튼
+$(".buyBtn").on("click", function (){
+  window.location.href = "/store/buy";
+})

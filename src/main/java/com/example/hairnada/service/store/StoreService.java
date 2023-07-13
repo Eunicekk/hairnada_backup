@@ -21,19 +21,19 @@ public class StoreService {
 
 //    조회
     @Transactional(readOnly = true)
-    public StoreVo findStore(Long storeNumber){
+    public StoreVo findStore(Long storeNumber, Long userNumber){
         if (storeNumber == null){
             throw new IllegalArgumentException("상품 번호가 없습니다.");
         }
-        return Optional.ofNullable(storeMapper.select(storeNumber))
+        return Optional.ofNullable(storeMapper.select(storeNumber, userNumber))
                 .orElseThrow(() -> {
                     throw new IllegalArgumentException("존재하지 않는 상품 번호");
                 });
     }
 
 //    상품 리스트
-    public List<StoreVo> selectStoreList(CriteriaAdminList criteriaAdminList){
-        return storeMapper.selectList(criteriaAdminList);
+    public List<StoreVo> selectStoreList(CriteriaAdminList criteriaAdminList, Long userNumber){
+        return storeMapper.selectList(criteriaAdminList, userNumber);
     }
 
 //    상품 토탈 수
@@ -63,4 +63,5 @@ public class StoreService {
         }
         return storeMapper.selectSearchTotal(searchStoreVo);
     }
+
 }

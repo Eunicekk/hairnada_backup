@@ -27,7 +27,7 @@
 
 
     <select id="select" resultType="boardVo">
-        SELECT BOARD_NUMBER, BOARD_TITLE, BOARD_CONTENT, B.USER_NUMBER, U.USER_NICKNAME
+        SELECT BOARD_NUMBER, BOARD_TITLE, BOARD_CONTENT, B.USER_NUMBER, U.USER_NICKNAME, BOARD_VIEW_CNT
         FROM TBL_BOARD B JOIN TBL_USER U
             ON B.board_number = #{boardNumber} AND B.USER_NUMBER = U.USER_NUMBER
     </select>
@@ -257,6 +257,19 @@
                 AND BOARD_CONTENT LIKE '%' || #{keyword} || '%'
             </if>
         </trim>
+    </select>
+    
+    <update id="updateReadCount">
+        UPDATE TBL_BOARD
+        SET
+        BOARD_VIEW_CNT = BOARD_VIEW_CNT + 1
+        WHERE BOARD_NUMBER = #{boardNumber}
+    </update>
+
+    <select id="selectReplyCnt" resultType="_int">
+        SELECT COUNT(BOARD_REPLY_NUMBER) AS REPLY_CNT
+        FROM TBL_BOARD_REPLY
+        WHERE BOARD_NUMBER = #{boardNumber}
     </select>
 
 </mapper>

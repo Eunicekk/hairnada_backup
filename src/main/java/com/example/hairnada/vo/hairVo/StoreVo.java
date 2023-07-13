@@ -22,4 +22,5 @@ public class StoreVo {
     private String storeFileUuid;
     private Long userNumber;
     private String storeMainContent;
+    private int likeCnt;
 }

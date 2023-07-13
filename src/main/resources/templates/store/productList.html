@@ -74,7 +74,7 @@
               <a th:href="@{/store/productRead(storeNumber=${store.storeNumber})}">
                 <div class="img-list">
                   <div class="main-img">
-                    <img src="https://image.oliveyoung.co.kr/uploads/images/goods/550/10/0000/0014/A00000014950306ko.jpg?l=ko" alt="제품 이미지">
+                    <img th:unless="${store.storeFileName == null}" th:src="${'/upload/' + store.storeFileUploadPath + '/th_' + store.storeFileUuid + '_' + store.storeFileName }" alt="">
                   </div>
                 </div>
               </a>
@@ -85,7 +85,9 @@
                     구매
                   </button>
                   <div class="buttons">
-                    <button type="button" class="like">하트</button>
+                    <button type="button" class="like" th:value="${store.storeNumber}"
+                            th:classappend="${store.likeCnt == 1 ? 'active' : ''}"
+                            th:style="${store.likeCnt == 1 ? 'background-image:url(/img/heart2.png)' : ''}">하트</button>
                   </div>
                 </div>
               </div>

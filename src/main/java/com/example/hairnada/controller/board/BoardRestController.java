@@ -30,7 +30,7 @@ public class BoardRestController {
 
 //    카테고리로 조회
 @GetMapping("/communitySearchList/{page}")
-public Map<String, Object> searchBoard(SearchVo searchVo, @PathVariable("page") int page){
+public Map<String, Object> searchBoard(Long boardNumber, SearchVo searchVo, @PathVariable("page") int page){
     System.out.println("Rest임 수고");
     System.out.println("searchVo =============" + searchVo);
     Criteria03 criteria03 = new Criteria03(page, 9);
