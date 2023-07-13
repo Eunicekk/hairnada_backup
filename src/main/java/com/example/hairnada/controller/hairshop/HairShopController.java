@@ -2,6 +2,7 @@ package com.example.hairnada.controller.hairshop;
 
 import com.example.hairnada.dto.hairshop.HairShopDto;
 import com.example.hairnada.service.hairshop.HairShopFileService;
+import com.example.hairnada.service.hairshop.HairShopLikeService;
 import com.example.hairnada.service.hairshop.HairShopService;
 import com.example.hairnada.vo.page.SearchVo;
 import com.example.hairnada.vo.hairshop.HairShopVo;
@@ -28,6 +29,7 @@ import java.util.List;
 public class HairShopController {
     private final HairShopService hairShopService;
     private final HairShopFileService hairShopFileService;
+
 
     // list 페이지 띄우기 및 전체 게시물 조회하기
     @GetMapping("/list")

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.hairnada.mapper.careshop.CareShopLikeMapper">
+    <!-- 케어샵 좋아요 확인 -->
+    <select id="check" resultType="long">
+        SELECT CARE_SHOP_NUMBER
+        FROM TBL_CARE_SHOP_LIKE
+        WHERE USER_NUMBER = #{userNumber}
+    </select>
 
     <!-- 케어샵 좋아요 추가 -->
     <insert id="insert">

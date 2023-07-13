@@ -37,42 +37,12 @@
             </span>
             <div class="hair-section">
                 <ul class="hair-box">
-
-                    <li class="hair-content">
-                        <a href="#" class="img-overflow">
-                            <img src="https://mud-kage.kakao.com/dn/b4RjEO/btsikVtD60s/xrOW4lfLq6Xar7UPzXKmhK/img_750.jpg" alt="예시1">
+                    <li class="hair-content" th:each="hair : ${hairList}">
+                        <a th:href="@{hairStyleRead(hairNumber=${hair.hairNumber})}" class="img-overflow">
+                            <img th:if="${hair.hairFileName == null}" src="https://3.bp.blogspot.com/-ZKBbW7TmQD4/U6P_DTbE2MI/AAAAAAAADjg/wdhBRyLv5e8/s1600/noimg.gif" alt="임시 썸네일">
+                            <img th:unless="${hair.hairFileName == null}" th:src="@{'/upload/' + ${hair.hairFileUploadPath} + '/th_' + ${hair.hairFileUuid} + '_' + ${hair.hairFileName}}" alt="헤어">
                         </a>
-                        <p>레이어드 컷</p>
-                    </li>
-                    <li class="hair-content">
-                        <a href="#" class="img-overflow">
-                            <img src="https://mud-kage.kakao.com/dn/MYtmf/btscQyEj9zQ/MMy64scxyZkCWDjDEb0qak/img_750.jpg" alt="예시2">
-                        </a>
-                        <p>허쉬 컷</p>
-                    </li>
-                    <li class="hair-content">
-                        <a href="#" class="img-overflow">
-                            <img src="https://mud-kage.kakao.com/dn/cuQB5u/btsisQrNXAe/sxT12QTU7RO8Kzj2JK3qqk/img_750.jpg" alt="예시3">
-                        </a>
-                        <p>뱅 헤어</p>
-                    </li>
-                    <li class="hair-content">
-                        <a href="#" class="img-overflow">
-                            <img src="https://mud-kage.kakao.com/dn/bVtL2J/btsiaDUy2G1/UDywOFS8QHr3g4BWTxkIIK/img_750.jpg" alt="예시4">
-                        </a>
-                        <p>보브 컷</p>
-                    </li>
-                    <li class="hair-content">
-                        <a href="#" class="img-overflow">
-                            <img src="https://mud-kage.kakao.com/dn/5lZpy/btqV9YsMEEe/XNnMSxCXafXZkna7yJSKCK/img_750.jpg" alt="예시5">
-                        </a>
-                        <p>리프 컷</p>
-                    </li>
-                    <li class="hair-content">
-                        <a href="#" class="img-overflow">
-                            <img src="https://mud-kage.kakao.com/dn/d4XJuD/btsiu0uLCbH/XytITp68wuZsuKKL4NZ8V1/img_750.jpg" alt="예시6">
-                        </a>
-                        <p>원랭스 컷</p>
+                        <p th:text="${hair.hairName}"></p>
                     </li>
                 </ul>
             </div>
@@ -98,12 +68,12 @@
             <div class="img-text-area">
                 <h2>매장 찾기</h2>
                 <p>
-                    당신과 가장 가까운<br>
-                    스타일 / 케어 전문점을<br>
+                    당신에게 필요한<br>
+                    헤어샵 / 케어샵을<br>
                     지금 확인해보세요.
                 </p>
-                <a th:href="@{/hairshop/list}">스타일 전문점 바로가기</a>
-                <a th:href="@{/careshop/list}">케어 전문점 바로가기</a>
+                <a th:href="@{/hairshop/list}">헤어샵 바로가기</a>
+                <a th:href="@{/careshop/list}">케어샵 바로가기</a>
             </div>
         </div>
 
@@ -222,15 +192,15 @@
                 <div class="communityList cL">
                     <ul class="ListUl">
                         <!-- 첫번째 -->
-                        <li class="ListLi">
+                        <li class="ListLi" th:each="board : ${boardList}">
                             <div class="profile">
-                                <a href="#">
+                                <div class="profile-info">
                                     <div class="profiles profile-img">
-                                        <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTgz/MDAxNjM5NTc2MDYxMjQw.jGbcfmGy9UjE1k3obpZy9piP41BQTf_PbLi0VdBRL9sg.vfIiwqDJVvwviW1J9I0QZwNCcfleCTAGemKH_INjJfwg.JPEG.se413496/c55c762ce418abefd071aa7e81c5a213.jpg?type=w800"
-                                             alt="프로필 이미지">
+                                        <img th:if="${board.userFileName == null}" src="https://www.studiopeople.kr/common/img/default_profile.png" alt="임시 썸네일">
+                                        <img th:unless="${board.userFileName == null}" th:src="@{'/upload/' + ${board.userFileUploadPath} + '/th_' + ${board.userFileUuid} + '_' + ${board.userFileName}}" alt="프로필">
                                     </div>
-                                    <p class="profiles profile-nick">닉네임</p>
-                                </a>
+                                    <p class="profiles profile-nick" th:text="${board.userNickName}"></p>
+                                </div>
                                 <div class="buttons">
                                     <button type="button" class="like">하트</button>
                                 </div>
@@ -238,183 +208,18 @@
                             <a href="">
                                 <div class="img-list">
                                     <div class="main-img">
-                                        <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800"
-                                             alt="썸네일">
+                                        <img th:if="${board.boardFileName == null}" src="https://3.bp.blogspot.com/-ZKBbW7TmQD4/U6P_DTbE2MI/AAAAAAAADjg/wdhBRyLv5e8/s1600/noimg.gif" alt="임시 썸네일">
+                                        <img th:unless="${board.boardFileName == null}" th:src="@{'/upload/' + ${board.boardFileUploadPath} + '/th_' + ${board.boardFileUuid} + '_' + ${board.boardFileName}}" alt="커뮤니티">
                                     </div>
                                 </div>
                             </a>
                             <div class="titleAndCnt">
-                                <p class="community-title">제목이여유</p>
+                                <p class="community-title" th:text="${board.boardTitle}"></p>
                                 <div class="count">
                                     <span class="reply">댓글</span>
                                     <span class="replyCnt">3</span>
                                     <span class="view">조회수 </span>
-                                    <span class="viewCnt">5</span>
-                                </div>
-                            </div>
-                        </li>
-
-                        <!-- 두번째 -->
-                        <li class="ListLi">
-                            <div class="profile">
-                                <a href="#">
-                                    <div class="profiles profile-img">
-                                        <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTgz/MDAxNjM5NTc2MDYxMjQw.jGbcfmGy9UjE1k3obpZy9piP41BQTf_PbLi0VdBRL9sg.vfIiwqDJVvwviW1J9I0QZwNCcfleCTAGemKH_INjJfwg.JPEG.se413496/c55c762ce418abefd071aa7e81c5a213.jpg?type=w800"
-                                             alt="프로필 이미지">
-                                    </div>
-                                    <p class="profiles profile-nick">닉네임</p>
-                                </a>
-                                <div class="buttons">
-                                    <button type="button" class="like">하트</button>
-                                </div>
-                            </div>
-                            <a href="">
-                                <div class="img-list">
-                                    <div class="main-img">
-                                        <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800"
-                                             alt="썸네일">
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="titleAndCnt">
-                                <p class="community-title">제목이여유</p>
-                                <div class="count">
-                                    <span class="reply">댓글</span>
-                                    <span class="replyCnt">3</span>
-                                    <span class="view">조회수 </span>
-                                    <span class="viewCnt">5</span>
-                                </div>
-                            </div>
-                        </li>
-
-                        <!-- 세번째 -->
-                        <li class="ListLi">
-                            <div class="profile">
-                                <a href="#">
-                                    <div class="profiles profile-img">
-                                        <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTgz/MDAxNjM5NTc2MDYxMjQw.jGbcfmGy9UjE1k3obpZy9piP41BQTf_PbLi0VdBRL9sg.vfIiwqDJVvwviW1J9I0QZwNCcfleCTAGemKH_INjJfwg.JPEG.se413496/c55c762ce418abefd071aa7e81c5a213.jpg?type=w800"
-                                             alt="프로필 이미지">
-                                    </div>
-                                    <p class="profiles profile-nick">닉네임</p>
-                                </a>
-                                <div class="buttons">
-                                    <button type="button" class="like">하트</button>
-                                </div>
-                            </div>
-                            <a href="">
-                                <div class="img-list">
-                                    <div class="main-img">
-                                        <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800"
-                                             alt="썸네일">
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="titleAndCnt">
-                                <p class="community-title">제목이여유</p>
-                                <div class="count">
-                                    <span class="reply">댓글</span>
-                                    <span class="replyCnt">3</span>
-                                    <span class="view">조회수 </span>
-                                    <span class="viewCnt">5</span>
-                                </div>
-                            </div>
-                        </li>
-
-                        <!-- 네번째 -->
-                        <li class="ListLi">
-                            <div class="profile">
-                                <a href="#">
-                                    <div class="profiles profile-img">
-                                        <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTgz/MDAxNjM5NTc2MDYxMjQw.jGbcfmGy9UjE1k3obpZy9piP41BQTf_PbLi0VdBRL9sg.vfIiwqDJVvwviW1J9I0QZwNCcfleCTAGemKH_INjJfwg.JPEG.se413496/c55c762ce418abefd071aa7e81c5a213.jpg?type=w800"
-                                             alt="프로필 이미지">
-                                    </div>
-                                    <p class="profiles profile-nick">닉네임</p>
-                                </a>
-                                <div class="buttons">
-                                    <button type="button" class="like">하트</button>
-                                </div>
-                            </div>
-                            <a href="">
-                                <div class="img-list">
-                                    <div class="main-img">
-                                        <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800"
-                                             alt="썸네일">
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="titleAndCnt">
-                                <p class="community-title">제목이여유</p>
-                                <div class="count">
-                                    <span class="reply">댓글</span>
-                                    <span class="replyCnt">3</span>
-                                    <span class="view">조회수 </span>
-                                    <span class="viewCnt">5</span>
-                                </div>
-                            </div>
-                        </li>
-
-                        <!-- 다섯번째 -->
-                        <li class="ListLi">
-                            <div class="profile">
-                                <a href="#">
-                                    <div class="profiles profile-img">
-                                        <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTgz/MDAxNjM5NTc2MDYxMjQw.jGbcfmGy9UjE1k3obpZy9piP41BQTf_PbLi0VdBRL9sg.vfIiwqDJVvwviW1J9I0QZwNCcfleCTAGemKH_INjJfwg.JPEG.se413496/c55c762ce418abefd071aa7e81c5a213.jpg?type=w800"
-                                             alt="프로필 이미지">
-                                    </div>
-                                    <p class="profiles profile-nick">닉네임</p>
-                                </a>
-                                <div class="buttons">
-                                    <button type="button" class="like">하트</button>
-                                </div>
-                            </div>
-                            <a href="">
-                                <div class="img-list">
-                                    <div class="main-img">
-                                        <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800"
-                                             alt="썸네일">
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="titleAndCnt">
-                                <p class="community-title">제목이여유</p>
-                                <div class="count">
-                                    <span class="reply">댓글</span>
-                                    <span class="replyCnt">3</span>
-                                    <span class="view">조회수 </span>
-                                    <span class="viewCnt">5</span>
-                                </div>
-                            </div>
-                        </li>
-
-                        <!-- 여섯번째 -->
-                        <li class="ListLi">
-                            <div class="profile">
-                                <a href="#">
-                                    <div class="profiles profile-img">
-                                        <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTgz/MDAxNjM5NTc2MDYxMjQw.jGbcfmGy9UjE1k3obpZy9piP41BQTf_PbLi0VdBRL9sg.vfIiwqDJVvwviW1J9I0QZwNCcfleCTAGemKH_INjJfwg.JPEG.se413496/c55c762ce418abefd071aa7e81c5a213.jpg?type=w800"
-                                             alt="프로필 이미지">
-                                    </div>
-                                    <p class="profiles profile-nick">닉네임</p>
-                                </a>
-                                <div class="buttons">
-                                    <button type="button" class="like">하트</button>
-                                </div>
-                            </div>
-                            <a href="">
-                                <div class="img-list">
-                                    <div class="main-img">
-                                        <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800"
-                                             alt="썸네일">
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="titleAndCnt">
-                                <p class="community-title">제목이여유</p>
-                                <div class="count">
-                                    <span class="reply">댓글</span>
-                                    <span class="replyCnt">3</span>
-                                    <span class="view">조회수 </span>
-                                    <span class="viewCnt">5</span>
+                                    <span class="viewCnt" th:text="${board.boardViewCnt}"></span>
                                 </div>
                             </div>
                         </li>
