@@ -201,5 +201,7 @@ $('.dropdown-menu li').on('click', function () {
 
 
 // $(document).ready(function(){
-//
+//     if(pw1 != pw2){
+//         return;
+//     }
 // });

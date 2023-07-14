@@ -52,6 +52,30 @@
     transform: translateY(-4px);
 }
 
+.btn-sec__btn2 {
+    height: 40px;
+    width: 70%;
+    box-shadow: rgba(0, 0, 0, 0.34) 0px 5px 20px;
+    cursor: pointer;
+    margin: 10px 83px;
+    transition: transform 0.2s ease-in-out 0s, background-color 0.2s ease 0s,
+    opacity 0.2s ease 0s;
+    font-weight: bold;
+    font-size: 16px;
+    animation-duration: 1s;
+    animation-name: mainBtn;
+    animation-iteration-count: 1;
+    position: relative;
+    background-color: rgb(34, 34, 34);
+    border-radius: 20px;
+    color: white;
+    border: none;
+}
+
+.btn-sec__btn2:hover {
+    transform: translateY(-4px);
+}
+
 /* 여백 설정 */
 .space {
     width: 100%;
