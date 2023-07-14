@@ -48,3 +48,9 @@ displayAjax();
 $('.delete').on('click' , function (){
   window.location.href = '/admin/storeRemove?storeNumber=' + storeNum;
 });
+
+
+// modify
+$('.modify').on('click', function (){
+  window.location.href = '/admin/storeModify?storeNumber=' + storeNum;
+});

@@ -202,6 +202,46 @@ public class AdminController {
         model.addAttribute("storeMainContent", storeMainContent);
     }
 
+
+    // 상품 수정 정보 읽어오기
+    @GetMapping("/storeModify")
+    public void storeModify(Long storeNumber, Model model){
+        StoreVo storeRead = adminService.lookUpStore(storeNumber);
+        String storeMainContent = adminService.lookUpStore(storeNumber).getStoreMainContent();
+        List<StoreFileDto> storeFileList = adminFileService.findStoreList(storeNumber);
+        model.addAttribute("storeFile", storeFileList);
+        model.addAttribute("storeRead", storeRead);
+        model.addAttribute("storeMainContent", storeMainContent);
+    }
+
+
+//    // 헤어 게시글 사진 수정
+//    @PostMapping("/hairModify")
+//    public RedirectView updateHairFile( HairDto hairDto, @RequestParam("hairFile") List<MultipartFile> files,  RedirectAttributes redirectAttributes) throws IOException {
+//        try {
+//            adminService.modifyHair(hairDto, files);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        redirectAttributes.addAttribute("hairNumber", hairDto.getHairNumber());
+//        return new RedirectView("/admin/hairRead?hairNumber=" + hairDto.getHairNumber());
+//    }
+
+    // 스토어 게시글 사진 수정
+    @PostMapping("/storeModify")
+    public RedirectView updateStoreFile(StoreDto storeDto, @RequestParam("storeFile")List<MultipartFile> files, RedirectAttributes redirectAttributes) throws IOException{
+        try {
+            adminService.modifyStore(storeDto, files);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        redirectAttributes.addAttribute("storeNumber", storeDto.getStoreNumber());
+        return new RedirectView("/admin/storeRead?storeNumber=" + storeDto.getStoreNumber());
+    }
+
+
+
     // 상품 올리기
     @GetMapping("/storeUpload")
     public void storeUpload(){}

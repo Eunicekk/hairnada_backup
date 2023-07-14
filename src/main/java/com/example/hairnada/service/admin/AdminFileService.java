@@ -34,7 +34,7 @@ public class AdminFileService {
     private final AdminFileMapper adminFileMapper;
 
     //    application.properties에 저장해둔 file.dir프로퍼티 값을 가져온다.
-    @Value("/Users/leegaeun/Desktop/hairnadaProject/")
+    @Value("${file.dir}")
     private String fileDir;
 
     // 등록
@@ -202,5 +202,29 @@ public class AdminFileService {
         return adminFileMapper.selectStoreList(storeNumber);
     }
 
+
+    // 헤어 사진 삭제
+    public void removeStoreFile(Long storeNumber){
+        if (storeNumber == null) {
+            throw new IllegalArgumentException("헤어스타일 번호 누락");
+        }
+
+        List<StoreFileDto> fileList = findStoreList(storeNumber);
+
+        for(StoreFileDto file : fileList){
+            File target =  new File(fileDir, file.getStoreFileUploadPath() + "/" + file.getStoreFileUuid() + "_" + file.getStoreFileName());
+            File thumbnail = new File(fileDir, file.getStoreFileUploadPath() + "/th_" + file.getStoreFileUuid() + "_" + file.getStoreFileName());
+
+            if(target.exists()){
+                target.delete();
+            }
+
+            if(thumbnail.exists()){
+                thumbnail.delete();
+            }
+        }
+
+        adminFileMapper.deleteStoreFile(storeNumber);
+    }
 
 }
