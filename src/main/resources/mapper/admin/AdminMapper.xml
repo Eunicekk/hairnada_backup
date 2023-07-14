@@ -241,7 +241,7 @@
 
 <!-- 스토어 게시글 읽기 -->
  <select id="storeRead" resultType="storeVo">
-  SELECT STORE_NUMBER, STORE_TITLE, STORE_CONTENT , STORE_PRICE, STORE_MAIN_CONTENT, TSC.STORE_CATEGORY_NAME  FROM TBL_STORE ts
+  SELECT STORE_NUMBER, STORE_TITLE, STORE_CONTENT , STORE_PRICE, STORE_MAIN_CONTENT, TSC.STORE_CATEGORY_NAME, ts.STORE_CATEGORY_NUMBER  FROM TBL_STORE ts
   JOIN TBL_STORE_CATEGORY tsc
   ON TSC.STORE_CATEGORY_NUMBER = TS.STORE_CATEGORY_NUMBER
   WHERE ts.STORE_NUMBER = #{storeNumber}
@@ -256,6 +256,13 @@
  <select id="storeTotal" resultType="_int">
   SELECT COUNT(STORE_NUMBER) FROM TBL_STORE
  </select>
+
+<!-- 스토어 게시글 수정 -->
+ <update id="updateStore">
+  UPDATE TBL_STORE
+  SET STORE_TITLE = #{storeTitle}, STORE_CONTENT = #{storeContent}, STORE_PRICE = #{storePrice}, STORE_CATEGORY_NUMBER = #{storeCategoryNumber}, STORE_MAIN_CONTENT = #{storeMainContent}
+  WHERE STORE_NUMBER = #{storeNumber}
+ </update>
 
 <!-- 카테고리에 따른 스토어 게시글 목록 조회 -->
  <select id="selectStoreListByCategory" resultType="storeVo">

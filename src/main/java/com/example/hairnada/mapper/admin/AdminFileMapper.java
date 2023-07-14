@@ -22,4 +22,7 @@ public interface AdminFileMapper {
 
     // 상품 사진 불러오기
     public List<StoreFileDto> selectStoreList(Long storeNumber);
+
+    // 상품 파일 삭제
+    public void deleteStoreFile(Long storeNumber);
 }
