@@ -22,7 +22,9 @@
       <div class="community-title">
         <h1 th:text="${board.boardTitle}"></h1>
         <div class="buttons">
-          <button type="button" class="like" th:value="${board.boardNumber}">하트</button>
+          <button type="button" class="like" th:value="${board.boardNumber}"
+                  th:classappend="${board.likeCnt == 1 ? 'active' : ''}"
+                  th:style="${board.likeCnt == 1 ? 'background-image:url(/img/heart2.png)' : ''}">하트</button>
         </div>
       </div>
 
@@ -39,7 +41,7 @@
         </div>
         <div class="count">
           <span class="reply">댓글</span>
-                  <span class="replyCnt">3</span>
+                  <span class="replyCnt" th:with="replyCnt = ${replyCnt}" th:text="${replyCnt}"></span>
                   <span class="view">조회수 </span>
                   <span class="viewCnt" th:text="${board.boardViewCnt}"></span>
         </div>
@@ -68,7 +70,7 @@
       <div class="comment-form">
         <div class="holder">
           <h3 class="subtit">
-            댓글 (<span class="comment-count">12</span>)
+            댓글 (<span class="comment-count replyCnt" th:with="replyCnt = ${replyCnt}" th:text="${replyCnt}"></span>)
           </h3>
         </div>
         <form id="comment-form">

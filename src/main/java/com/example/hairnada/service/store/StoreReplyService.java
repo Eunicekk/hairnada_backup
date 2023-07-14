@@ -67,4 +67,11 @@ public class StoreReplyService {
         }
         return storeReplyMapper.selectTotal(storeNumber);
     }
+
+    public float replyAvg(Long storeNumber){
+        if (storeNumber == null){
+            throw new IllegalArgumentException("누락");
+        }
+        return storeReplyMapper.replyAvg(storeNumber);
+    }
 }

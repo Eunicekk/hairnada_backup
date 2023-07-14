@@ -61,4 +61,10 @@
         WHERE STORE_NUMBER = #{storeNumber}
     </select>
 
+    <select id="replyAvg" resultType="_float">
+        SELECT ROUND(AVG(STORE_SCORE), 1) AS scoreAvg
+        FROM TBL_STORE_REPLY
+        WHERE STORE_NUMBER = #{storeNumber}
+    </select>
+
 </mapper>

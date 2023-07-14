@@ -22,5 +22,6 @@ public class BoardVo {
     private String userFileName;
     private String userFileUploadPath;
     private String userFileUuid;
+    private int likeCnt;
 
 }

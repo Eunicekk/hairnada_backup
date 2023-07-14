@@ -30,14 +30,15 @@ public class BoardRestController {
 
 //    카테고리로 조회
 @GetMapping("/communitySearchList/{page}")
-public Map<String, Object> searchBoard(Long boardNumber, SearchVo searchVo, @PathVariable("page") int page){
+public Map<String, Object> searchBoard(Long boardNumber, SearchVo searchVo, @PathVariable("page") int page, HttpServletRequest req){
     System.out.println("Rest임 수고");
     System.out.println("searchVo =============" + searchVo);
+    Long userNumber = (Long)req.getSession().getAttribute("userNumber");
     Criteria03 criteria03 = new Criteria03(page, 9);
     int total = boardService.findSearchTotal(searchVo);
     Page03Vo page03Vo = new Page03Vo(criteria03, total);
     Map<String, Object> map = new HashMap<>();
-    List<BoardVo> list = boardService.findBoardList(searchVo, criteria03);
+    List<BoardVo> list = boardService.findBoardList(searchVo, criteria03, userNumber != null ? userNumber : 0);
     map.put("page", page03Vo);
     map.put("boardList", list);
 

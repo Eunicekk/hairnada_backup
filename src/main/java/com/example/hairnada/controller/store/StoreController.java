@@ -8,6 +8,7 @@ import com.example.hairnada.vo.hairVo.StoreVo;
 import com.example.hairnada.vo.page.CriteriaAdminList;
 import com.example.hairnada.vo.page.PageAdminListVo;
 import com.example.hairnada.vo.page.SearchStoreVo;
+import com.example.hairnada.vo.store.CategoryVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,9 +31,11 @@ public class StoreController {
     public String productList(CriteriaAdminList criteriaAdminList, Model model, SearchStoreVo searchStoreVo, HttpServletRequest req){
         Long userNumber = (Long)req.getSession().getAttribute("userNumber");
         List<StoreVo> productList = storeService.selectStoreList(criteriaAdminList, userNumber != null ? userNumber : 0);
+        List<CategoryVo> categoryList = storeService.findCategoryCnt();
 
-
+        System.out.println(categoryList.toString());
         System.out.println(productList);
+        model.addAttribute("categoryCnt", categoryList);
         model.addAttribute("productList", productList);
         model.addAttribute("pageInfo", new PageAdminListVo(criteriaAdminList,storeService.findStoreListTotal()));
         model.addAttribute("searchStoreVo", searchStoreVo);
@@ -44,12 +47,14 @@ public class StoreController {
     @GetMapping("/productRead")
     public String productRead(Long storeNumber, Model model, HttpServletRequest req){
         Long userNumber = (Long)req.getSession().getAttribute("userNumber");
+        float replyAvg = storeReplyService.replyAvg(storeNumber);
         int likeCnt = storeService.findLikeTotal(storeNumber);
         int replyCnt = storeReplyService.findTotal(storeNumber);
         StoreVo storeVo = storeService.findStore(storeNumber, userNumber != null ? userNumber : 0);
         String storeMainContent = adminService.lookUpStore(storeNumber).getStoreMainContent();
         model.addAttribute("likeCnt", likeCnt);
         model.addAttribute("replyCnt", replyCnt);
+        model.addAttribute("replyAvg", replyAvg);
         model.addAttribute("productList",storeVo);
         model.addAttribute("storeMainContent", storeMainContent);
         System.out.println(storeVo);

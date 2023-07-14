@@ -70,60 +70,24 @@
       <div class="hairShop">
         <div class="shop-group">
           <ul class="ListUl">
-            <li class="ListLi">
-              <a href="#">
+            <li class="ListLi" th:each="hairShop : ${hairShopList}">
+                <input class="hidden-number" type="hidden" th:value="${hairShop.hairShopNumber}">
+              <a th:href="@{/hairshop/read(hairShopNumber=${hairShop.hairShopNumber})}">
                   <div class="img-list">
                       <div class="main-img">
-                          <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800" alt="썸네일">
+                          <img th:if="${hairShop.hairShopFileName == null}" src="https://3.bp.blogspot.com/-ZKBbW7TmQD4/U6P_DTbE2MI/AAAAAAAADjg/wdhBRyLv5e8/s1600/noimg.gif" alt="임시 썸네일">
+                          <img th:unless="${hairShop.hairShopFileName == null}" th:src="@{'/upload/' + ${hairShop.hairShopFileUploadPath} + '/th_' + ${hairShop.hairShopFileUuid} + '_' + ${hairShop.hairShopFileName}}" alt="이미지">
                         </div>
                   </div>
               </a>
               <div class="titleAndBtn">
-                  <p class="shop-title">매장명입니다</p>
-                  <div class="button">
-                      <button type="button" class="like">하트</button>
-                  </div>
+                  <p class="shop-title" th:text="${hairShop.hairShopName}"></p>
+<!--                  <div class="button">-->
+<!--                      <button type="button" class="like">하트</button>-->
+<!--                  </div>-->
               </div>
               <div class="address-box">
-                  <span class="address">상세 주소 어쩌구 저쩌구</span>
-              </div>
-          </li>
-          <!-- 두번째 -->
-          <li class="ListLi">
-              <a href="#">
-                  <div class="img-list">
-                      <div class="main-img">
-                          <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800" alt="썸네일">
-                        </div>
-                  </div>
-              </a>
-              <div class="titleAndBtn">
-                  <p class="shop-title">매장명입니다</p>
-                  <div class="button">
-                      <button type="button" class="like">하트</button>
-                  </div>
-              </div>
-              <div class="address-box">
-                  <span class="address">상세 주소 어쩌구 저쩌구</span>
-              </div>
-          </li>
-          <!-- 세번째 -->
-          <li class="ListLi">
-              <a href="#">
-                  <div class="img-list">
-                      <div class="main-img">
-                          <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800" alt="썸네일">
-                        </div>
-                  </div>
-              </a>
-              <div class="titleAndBtn">
-                  <p class="shop-title">매장명입니다</p>
-                  <div class="button">
-                      <button type="button" class="like">하트</button>
-                  </div>
-              </div>
-              <div class="address-box">
-                  <span class="address">상세 주소 어쩌구 저쩌구</span>
+                  <span class="address"  th:text="${hairShop.hairShopAddress}"></span>
               </div>
           </li>
           </ul>

@@ -4,6 +4,7 @@ import com.example.hairnada.dto.store.StoreDto;
 import com.example.hairnada.vo.hairVo.StoreVo;
 import com.example.hairnada.vo.page.CriteriaAdminList;
 import com.example.hairnada.vo.page.SearchStoreVo;
+import com.example.hairnada.vo.store.CategoryVo;
 import org.apache.catalina.Store;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -30,5 +31,7 @@ public interface StoreMapper {
     public int selectSearchTotal(SearchStoreVo searchStoreVo);
 
     public int likeTotal(Long storeNumber);
+
+    public List<CategoryVo> storeCount();
 
 }
