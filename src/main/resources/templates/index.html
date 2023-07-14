@@ -20,9 +20,9 @@
             <div class="banner-wrap">
                 <ul class="banner-box">
                     <li><img class="banner-image" src="/img/main-banner-03.png" alt="메인배너-01"></li>
-                    <li><img class="banner-image" src="/img/main-banner-04.png" alt="메인배너-02"></li>
-                    <li><img class="banner-image" src="/img/main-banner-03.png" alt="메인배너-03"></li>
-                    <li><img class="banner-image" src="/img/main-banner-04.png" alt="메인배너-04"></li>
+                    <li><img class="banner-image" src="/img/main-banner-01.png" alt="메인배너-02"></li>
+                    <li><img class="banner-image" src="/img/main-banner-04.png" alt="메인배너-03"></li>
+                    <li><img class="banner-image" src="/img/main-banner-02.png" alt="메인배너-04"></li>
                     <li><img class="banner-image" src="/img/main-banner-03.png" alt="메인배너-01"></li>
                 </ul>
             </div>
@@ -38,7 +38,7 @@
             <div class="hair-section">
                 <ul class="hair-box">
                     <li class="hair-content" th:each="hair : ${hairList}">
-                        <a th:href="@{hairStyleRead(hairNumber=${hair.hairNumber})}" class="img-overflow">
+                        <a th:href="@{hair/hairStyleRead(hairNumber=${hair.hairNumber})}" class="img-overflow">
                             <img th:if="${hair.hairFileName == null}" src="/img/no-image.png" alt="임시 썸네일">
                             <img th:unless="${hair.hairFileName == null}" th:src="@{'/upload/' + ${hair.hairFileUploadPath} + '/th_' + ${hair.hairFileUuid} + '_' + ${hair.hairFileName}}" alt="헤어">
                         </a>
@@ -81,7 +81,7 @@
         <div class="main-content-03">
             <div class="product-category">
                 <div class="category-img">
-                    <img src="https://weare.lush.co.kr/images/product/main_hair@3x.png" alt="메인 카테고리 이미지">
+                    <img src="https://weare.lush.co.kr/images/product/main_body@3x.png" alt="메인 카테고리 이미지">
                 </div>
                 <div class="product-text">
                     <h2>트리트먼트/팩</h2>
@@ -93,7 +93,7 @@
                 <div class="product-wrap">
                     <ul class="product-box">
                         <li class="product-image" th:each="store : ${storeList.category01}">
-                            <a href="#">
+                            <a th:href="@{store/productRead(storeNumber=${store.storeNumber})}">
                                 <img th:if="${store.storeFileName == null}" src="/img/no-image.png" alt="임시 썸네일">
                                 <img th:unless="${store.storeFileName == null}" th:src="@{'/upload/' + ${store.storeFileUploadPath} + '/th_' + ${store.storeFileUuid} + '_' + ${store.storeFileName}}" alt="상품">
                                 <div class="caption" th:text="${store.storeTitle}"></div>
@@ -104,7 +104,7 @@
             </div>
             <div class="product-category">
                 <div class="category-img">
-                    <img src="https://weare.lush.co.kr/images/product/main_bath@3x.png" alt="메인 카테고리 이미지">
+                    <img src="https://weare.lush.co.kr/images/product/main_face@3x.png" alt="메인 카테고리 이미지">
                 </div>
                 <div class="product-text">
                     <h2>헤어에센스</h2>
@@ -116,7 +116,7 @@
                 <div class="product-wrap">
                     <ul class="product-box">
                         <li class="product-image" th:each="store : ${storeList.category02}">
-                            <a href="#">
+                            <a th:href="@{store/productRead(storeNumber=${store.storeNumber})}">
                                 <img th:if="${store.storeFileName == null}" src="/img/no-image.png" alt="임시 썸네일">
                                 <img th:unless="${store.storeFileName == null}" th:src="@{'/upload/' + ${store.storeFileUploadPath} + '/th_' + ${store.storeFileUuid} + '_' + ${store.storeFileName}}" alt="상품">
                                 <div class="caption" th:text="${store.storeTitle}"></div>
@@ -127,7 +127,7 @@
             </div>
             <div class="product-category">
                 <div class="category-img">
-                    <img src="https://weare.lush.co.kr/images/product/main_bath@3x.png" alt="메인 카테고리 이미지">
+                    <img src="https://weare.lush.co.kr/images/product/main_shower@3x.png" alt="메인 카테고리 이미지">
                 </div>
                 <div class="product-text">
                     <h2>염색약/펌</h2>
@@ -139,7 +139,7 @@
                 <div class="product-wrap">
                     <ul class="product-box">
                         <li class="product-image" th:each="store : ${storeList.category03}">
-                            <a href="#">
+                            <a th:href="@{store/productRead(storeNumber=${store.storeNumber})}">
                                 <img th:if="${store.storeFileName == null}" src="/img/no-image.png" alt="임시 썸네일">
                                 <img th:unless="${store.storeFileName == null}" th:src="@{'/upload/' + ${store.storeFileUploadPath} + '/th_' + ${store.storeFileUuid} + '_' + ${store.storeFileName}}" alt="상품">
                                 <div class="caption" th:text="${store.storeTitle}"></div>
@@ -150,7 +150,7 @@
             </div>
             <div class="product-category">
                 <div class="category-img">
-                    <img src="https://weare.lush.co.kr/images/product/main_bath@3x.png" alt="메인 카테고리 이미지">
+                    <img src="https://weare.lush.co.kr/images/product/main_gift@3x.png" alt="메인 카테고리 이미지">
                 </div>
                 <div class="product-text">
                     <h2>헤어기기</h2>
@@ -162,7 +162,7 @@
                 <div class="product-wrap">
                     <ul class="product-box">
                         <li class="product-image" th:each="store : ${storeList.category04}">
-                            <a href="#">
+                            <a th:href="@{store/productRead(storeNumber=${store.storeNumber})}">
                                 <img th:if="${store.storeFileName == null}" src="/img/no-image.png" alt="임시 썸네일">
                                 <img th:unless="${store.storeFileName == null}" th:src="@{'/upload/' + ${store.storeFileUploadPath} + '/th_' + ${store.storeFileUuid} + '_' + ${store.storeFileName}}" alt="상품">
                                 <div class="caption" th:text="${store.storeTitle}"></div>
@@ -185,7 +185,7 @@
                 <div class="product-wrap">
                     <ul class="product-box">
                         <li class="product-image" th:each="store : ${storeList.category05}">
-                            <a href="#">
+                            <a th:href="@{store/productRead(storeNumber=${store.storeNumber})}">
                                 <img th:if="${store.storeFileName == null}" src="/img/no-image.png" alt="임시 썸네일">
                                 <img th:unless="${store.storeFileName == null}" th:src="@{'/upload/' + ${store.storeFileUploadPath} + '/th_' + ${store.storeFileUuid} + '_' + ${store.storeFileName}}" alt="상품">
                                 <div class="caption" th:text="${store.storeTitle}"></div>
@@ -196,7 +196,7 @@
             </div>
             <div class="product-category">
                 <div class="category-img">
-                    <img src="https://weare.lush.co.kr/images/product/main_bath@3x.png" alt="메인 카테고리 이미지">
+                    <img src="https://weare.lush.co.kr/images/product/main_hair@3x.png" alt="메인 카테고리 이미지">
                 </div>
                 <div class="product-text">
                     <h2>샴푸/린스</h2>
@@ -208,7 +208,7 @@
                 <div class="product-wrap">
                     <ul class="product-box">
                         <li class="product-image" th:each="store : ${storeList.category06}">
-                            <a href="#">
+                            <a th:href="@{store/productRead(storeNumber=${store.storeNumber})}">
                                 <img th:if="${store.storeFileName == null}" src="/img/no-image.png" alt="임시 썸네일">
                                 <img th:unless="${store.storeFileName == null}" th:src="@{'/upload/' + ${store.storeFileUploadPath} + '/th_' + ${store.storeFileUuid} + '_' + ${store.storeFileName}}" alt="상품">
                                 <div class="caption" th:text="${store.storeTitle}"></div>
@@ -247,7 +247,7 @@
                                     <button type="button" class="like">하트</button>
                                 </div>
                             </div>
-                            <a href="">
+                            <a th:href="@{board/communityRead(boardNumber=${board.boardNumber})}">
                                 <div class="img-list">
                                     <div class="main-img">
                                         <img th:if="${board.boardFileName == null}" src="/img/no-image-box.png" alt="임시 썸네일">
