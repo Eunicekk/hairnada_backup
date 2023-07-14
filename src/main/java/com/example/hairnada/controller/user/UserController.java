@@ -2,6 +2,7 @@ package com.example.hairnada.controller.user;
 
 import com.example.hairnada.dto.user.UserDto;
 //import com.example.hairnada.service.user.EmailService;
+import com.example.hairnada.service.user.EmailService;
 import com.example.hairnada.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
@@ -29,8 +30,7 @@ import java.util.Properties;
 @RequiredArgsConstructor
 public class UserController {
 
-//    @Autowired
-//    private final EmailService emailService;
+    private final EmailService emailService;
 
     private final UserService userService;
 
@@ -63,15 +63,15 @@ public class UserController {
     }
 
 //  계정찾기
-//    @GetMapping("/find-id")
-//    public void find(){}
-//
-//   @PostMapping("/find-id")
-//   public RedirectView sendMail(UserDto userDto){
-//       emailService.sendIdPasswordEmail(userDto);
-//       System.out.println("메일 전송 완료");
-//       return new RedirectView("/user/login");
-//   }
+    @GetMapping("/find-id")
+    public void find(){}
+
+   @PostMapping("/find-id")
+   public RedirectView sendMail(UserDto userDto){
+       emailService.sendIdPasswordEmail(userDto);
+       System.out.println("메일 전송 완료");
+       return new RedirectView("/user/login");
+   }
 
 
 //    로그아웃

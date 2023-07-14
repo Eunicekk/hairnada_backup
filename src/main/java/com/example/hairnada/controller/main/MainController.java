@@ -3,6 +3,7 @@ package com.example.hairnada.controller.main;
 import com.example.hairnada.service.main.MainService;
 import com.example.hairnada.vo.board.BoardVo;
 import com.example.hairnada.vo.hairVo.HairVo;
+import com.example.hairnada.vo.main.RandomProduct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +15,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MainController {
     private final MainService mainService;
-    private final MainRestController mainRestController;
 
     // 메인 띄우기
     @GetMapping("/")
@@ -24,6 +24,8 @@ public class MainController {
         model.addAttribute("hairList", hairList);
 
         // 상품
+        RandomProduct storeList = mainService.findStore();
+        model.addAttribute("storeList", storeList);
 
         // 커뮤니티
         List<BoardVo> boardList = mainService.findBoard();

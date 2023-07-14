@@ -20,8 +20,8 @@
           <h1 class="find-id-text">계정 찾기</h1>
           <form name="signup-form" th:action="@{/user/find-id}" method="post">
           <div class="input-box">
-            <input type="text" class="input-name" placeholder="이름" />
-            <input type="text" class="input-email" placeholder="이메일" />
+            <input type="text" class="input-name" placeholder="이름" th:name="userName" />
+            <input type="text" class="input-email" placeholder="이메일" th:name="userEmail" />
             <button type="submit" class="find-btn">계정 찾기</button>
             <div
               class="naver-login"
