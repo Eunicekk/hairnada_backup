@@ -39,7 +39,7 @@
                 <ul class="hair-box">
                     <li class="hair-content" th:each="hair : ${hairList}">
                         <a th:href="@{hairStyleRead(hairNumber=${hair.hairNumber})}" class="img-overflow">
-                            <img th:if="${hair.hairFileName == null}" src="https://3.bp.blogspot.com/-ZKBbW7TmQD4/U6P_DTbE2MI/AAAAAAAADjg/wdhBRyLv5e8/s1600/noimg.gif" alt="임시 썸네일">
+                            <img th:if="${hair.hairFileName == null}" src="/img/no-image.png" alt="임시 썸네일">
                             <img th:unless="${hair.hairFileName == null}" th:src="@{'/upload/' + ${hair.hairFileUploadPath} + '/th_' + ${hair.hairFileUuid} + '_' + ${hair.hairFileName}}" alt="헤어">
                         </a>
                         <p th:text="${hair.hairName}"></p>
@@ -84,44 +84,19 @@
                     <img src="https://weare.lush.co.kr/images/product/main_hair@3x.png" alt="메인 카테고리 이미지">
                 </div>
                 <div class="product-text">
-                    <h2>샴푸/린스</h2>
+                    <h2>트리트먼트/팩</h2>
                     <p>
-                        건강한 재료를 담아<br>
-                        매일 더 싱그러울 거에요.
+                        당신에게 부드러운<br>
+                        머릿결을 선물합니다.
                     </p>
                 </div>
                 <div class="product-wrap">
                     <ul class="product-box">
-                        <li class="product-image">
+                        <li class="product-image" th:each="store : ${storeList.category01}">
                             <a href="#">
-                                <img src="https://weare.lush.co.kr/images/product/hair/hair_06@3x.png" alt="제품">
-                                <div class="caption">
-                                    제품 01
-                                </div>
-                            </a>
-                        </li>
-                        <li class="product-image">
-                            <a href="#">
-                                <img src="https://weare.lush.co.kr/images/product/hair/hair_04@3x.png" alt="제품">
-                                <div class="caption">
-                                    제품 02
-                                </div>
-                            </a>
-                        </li>
-                        <li class="product-image">
-                            <a href="#">
-                                <img src="https://weare.lush.co.kr/images/product/hair/hair_01@3x.png" alt="제품">
-                                <div class="caption">
-                                    제품 03
-                                </div>
-                            </a>
-                        </li>
-                        <li class="product-image">
-                            <a href="#">
-                                <img src="https://weare.lush.co.kr/images/product/hair/hair_08@3x.png" alt="제품">
-                                <div class="caption">
-                                    제품 04
-                                </div>
+                                <img th:if="${store.storeFileName == null}" src="/img/no-image.png" alt="임시 썸네일">
+                                <img th:unless="${store.storeFileName == null}" th:src="@{'/upload/' + ${store.storeFileUploadPath} + '/th_' + ${store.storeFileUuid} + '_' + ${store.storeFileName}}" alt="상품">
+                                <div class="caption" th:text="${store.storeTitle}"></div>
                             </a>
                         </li>
                     </ul>
@@ -132,44 +107,111 @@
                     <img src="https://weare.lush.co.kr/images/product/main_bath@3x.png" alt="메인 카테고리 이미지">
                 </div>
                 <div class="product-text">
-                    <h2>트리트먼트/팩</h2>
+                    <h2>헤어에센스</h2>
                     <p>
-                        당신에게 부드러운<br>
-                        머릿결을 선물합니다.
+                        일렁이는 향기와 함께<br>
+                        머리카락을 윤기있게 유지하세요.
                     </p>
                 </div>
                 <div class="product-wrap">
                     <ul class="product-box">
-                        <li class="product-image">
+                        <li class="product-image" th:each="store : ${storeList.category02}">
                             <a href="#">
-                                <img src="https://weare.lush.co.kr/images/product/bath/bath_01@3x.png" alt="제품">
-                                <div class="caption">
-                                    제품 05
-                                </div>
+                                <img th:if="${store.storeFileName == null}" src="/img/no-image.png" alt="임시 썸네일">
+                                <img th:unless="${store.storeFileName == null}" th:src="@{'/upload/' + ${store.storeFileUploadPath} + '/th_' + ${store.storeFileUuid} + '_' + ${store.storeFileName}}" alt="상품">
+                                <div class="caption" th:text="${store.storeTitle}"></div>
                             </a>
                         </li>
-                        <li class="product-image">
+                    </ul>
+                </div>
+            </div>
+            <div class="product-category">
+                <div class="category-img">
+                    <img src="https://weare.lush.co.kr/images/product/main_bath@3x.png" alt="메인 카테고리 이미지">
+                </div>
+                <div class="product-text">
+                    <h2>염색약/펌</h2>
+                    <p>
+                        당신의 헤어 스타일을<br>
+                        화려하게 빛내줄 거에요.
+                    </p>
+                </div>
+                <div class="product-wrap">
+                    <ul class="product-box">
+                        <li class="product-image" th:each="store : ${storeList.category03}">
                             <a href="#">
-                                <img src="https://weare.lush.co.kr/images/product/bath/bath_02@3x.png" alt="제품">
-                                <div class="caption">
-                                    제품 06
-                                </div>
+                                <img th:if="${store.storeFileName == null}" src="/img/no-image.png" alt="임시 썸네일">
+                                <img th:unless="${store.storeFileName == null}" th:src="@{'/upload/' + ${store.storeFileUploadPath} + '/th_' + ${store.storeFileUuid} + '_' + ${store.storeFileName}}" alt="상품">
+                                <div class="caption" th:text="${store.storeTitle}"></div>
                             </a>
                         </li>
-                        <li class="product-image">
+                    </ul>
+                </div>
+            </div>
+            <div class="product-category">
+                <div class="category-img">
+                    <img src="https://weare.lush.co.kr/images/product/main_bath@3x.png" alt="메인 카테고리 이미지">
+                </div>
+                <div class="product-text">
+                    <h2>헤어기기</h2>
+                    <p>
+                        당신의 건강한 머릿결에<br>
+                        딱 맞는 제품이에요.
+                    </p>
+                </div>
+                <div class="product-wrap">
+                    <ul class="product-box">
+                        <li class="product-image" th:each="store : ${storeList.category04}">
                             <a href="#">
-                                <img src="https://weare.lush.co.kr/images/product/bath/bath_05@3x.png" alt="제품">
-                                <div class="caption">
-                                    제품 07
-                                </div>
+                                <img th:if="${store.storeFileName == null}" src="/img/no-image.png" alt="임시 썸네일">
+                                <img th:unless="${store.storeFileName == null}" th:src="@{'/upload/' + ${store.storeFileUploadPath} + '/th_' + ${store.storeFileUuid} + '_' + ${store.storeFileName}}" alt="상품">
+                                <div class="caption" th:text="${store.storeTitle}"></div>
                             </a>
                         </li>
-                        <li class="product-image">
+                    </ul>
+                </div>
+            </div>
+            <div class="product-category">
+                <div class="category-img">
+                    <img src="https://weare.lush.co.kr/images/product/main_bath@3x.png" alt="메인 카테고리 이미지">
+                </div>
+                <div class="product-text">
+                    <h2>스타일링</h2>
+                    <p>
+                        다른 누구도 아닌<br>
+                        가장 나다운 모습을 표현하세요.
+                    </p>
+                </div>
+                <div class="product-wrap">
+                    <ul class="product-box">
+                        <li class="product-image" th:each="store : ${storeList.category05}">
                             <a href="#">
-                                <img src="https://weare.lush.co.kr/images/product/bath/bath_07@3x.png" alt="제품">
-                                <div class="caption">
-                                    제품 08
-                                </div>
+                                <img th:if="${store.storeFileName == null}" src="/img/no-image.png" alt="임시 썸네일">
+                                <img th:unless="${store.storeFileName == null}" th:src="@{'/upload/' + ${store.storeFileUploadPath} + '/th_' + ${store.storeFileUuid} + '_' + ${store.storeFileName}}" alt="상품">
+                                <div class="caption" th:text="${store.storeTitle}"></div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="product-category">
+                <div class="category-img">
+                    <img src="https://weare.lush.co.kr/images/product/main_bath@3x.png" alt="메인 카테고리 이미지">
+                </div>
+                <div class="product-text">
+                    <h2>샴푸/린스</h2>
+                    <p>
+                        건강한 재료만 담아<br>
+                        매일 더 싱그러울 거에요.
+                    </p>
+                </div>
+                <div class="product-wrap">
+                    <ul class="product-box">
+                        <li class="product-image" th:each="store : ${storeList.category06}">
+                            <a href="#">
+                                <img th:if="${store.storeFileName == null}" src="/img/no-image.png" alt="임시 썸네일">
+                                <img th:unless="${store.storeFileName == null}" th:src="@{'/upload/' + ${store.storeFileUploadPath} + '/th_' + ${store.storeFileUuid} + '_' + ${store.storeFileName}}" alt="상품">
+                                <div class="caption" th:text="${store.storeTitle}"></div>
                             </a>
                         </li>
                     </ul>
@@ -208,7 +250,7 @@
                             <a href="">
                                 <div class="img-list">
                                     <div class="main-img">
-                                        <img th:if="${board.boardFileName == null}" src="https://3.bp.blogspot.com/-ZKBbW7TmQD4/U6P_DTbE2MI/AAAAAAAADjg/wdhBRyLv5e8/s1600/noimg.gif" alt="임시 썸네일">
+                                        <img th:if="${board.boardFileName == null}" src="/img/no-image-box.png" alt="임시 썸네일">
                                         <img th:unless="${board.boardFileName == null}" th:src="@{'/upload/' + ${board.boardFileUploadPath} + '/th_' + ${board.boardFileUuid} + '_' + ${board.boardFileName}}" alt="커뮤니티">
                                     </div>
                                 </div>

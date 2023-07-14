@@ -41,7 +41,7 @@
                         <a th:href="@{read(careShopNumber=${careShop.careShopNumber})}">
                             <div class="img-list">
                                 <div class="main-img">
-                                    <img th:if="${careShop.careShopFileName == null}" src="https://3.bp.blogspot.com/-ZKBbW7TmQD4/U6P_DTbE2MI/AAAAAAAADjg/wdhBRyLv5e8/s1600/noimg.gif" alt="임시 썸네일">
+                                    <img th:if="${careShop.careShopFileName == null}" src="/img/no-image-box.png" alt="임시 썸네일">
                                     <img th:unless="${careShop.careShopFileName == null}" th:src="@{'/upload/' + ${careShop.careShopFileUploadPath} + '/th_' + ${careShop.careShopFileUuid} + '_' + ${careShop.careShopFileName}}" alt="이미지">
                                 </div>
                             </div>

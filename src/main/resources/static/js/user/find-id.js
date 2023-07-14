@@ -85,4 +85,7 @@ function naverLogout() {
 }
 
 
-//    계정찾기 smtp-> api 사용하기
+// 계정찾기
+$('.find-btn').click(function(){
+  alert("메일 전송이 완료되었습니다. 메일함을 확인해주세요!");
+});

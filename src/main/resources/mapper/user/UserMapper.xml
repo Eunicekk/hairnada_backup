@@ -18,7 +18,7 @@
     </select>
 <!--계정찾기 -->
     <select id="findUserIdPassword" resultType="UserDto">
-        SELECT USER_ID, USER_PASSWORD
+        SELECT USER_NUMBER, USER_ID, USER_PASSWORD, USER_NAME, USER_EMAIL
         FROM TBL_USER
         WHERE USER_NAME = #{userName} AND USER_EMAIL = #{userEmail}
     </select>

@@ -28,15 +28,66 @@
 
     <!-- 상품 띄우기 -->
     <select id="selectStore" resultType="StoreVo">
-
+        SELECT RNUM, STORE_NUMBER , STORE_TITLE , STORE_PRICE , STORE_CATEGORY_NAME,
+               STORE_CATEGORY_NUMBER, STORE_FILE_NAME, STORE_FILE_UPLOAD_PATH, STORE_FILE_UUID
+        FROM (
+                 SELECT RNUM, STORE_NUMBER , STORE_TITLE , STORE_PRICE , STORE_CATEGORY_NAME,
+                        STORE_CATEGORY_NUMBER, STORE_FILE_NAME, STORE_FILE_UPLOAD_PATH, STORE_FILE_UUID
+                 FROM (
+                          SELECT ROWNUM AS RNUM , STORE_NUMBER , STORE_TITLE , STORE_PRICE ,
+                                 STORE_CATEGORY_NAME, STORE_CATEGORY_NUMBER, STORE_FILE_NAME,
+                                 STORE_FILE_UPLOAD_PATH, STORE_FILE_UUID
+                          FROM (
+                                   SELECT ts.STORE_NUMBER , ts.STORE_TITLE , ts.STORE_PRICE , ts.STORE_CATEGORY_NUMBER,
+                                          tsf.STORE_FILE_NAME, STORE_FILE_UPLOAD_PATH, STORE_FILE_UUID, tsc.STORE_CATEGORY_NAME,
+                                          ROW_NUMBER() OVER (PARTITION BY ts.STORE_CATEGORY_NUMBER ORDER BY ts.STORE_NUMBER) AS RNUM
+                                   FROM TBL_STORE ts
+                                            JOIN TBL_STORE_CATEGORY tsc
+                                                 ON ts.STORE_CATEGORY_NUMBER = tsc.STORE_CATEGORY_NUMBER
+                                            LEFT JOIN (
+                                       SELECT STORE_FILE_NUMBER , STORE_FILE_NAME , STORE_FILE_UPLOAD_PATH ,
+                                              STORE_FILE_UUID , STORE_NUMBER ,
+                                              RANK() OVER(PARTITION BY STORE_NUMBER ORDER BY STORE_FILE_NUMBER) RK
+                                       FROM TBL_STORE_FILE
+                                   ) tsf ON ts.STORE_NUMBER = tsf.STORE_NUMBER
+                               )
+                          WHERE STORE_CATEGORY_NUMBER = #{category}
+                      )
+                 WHERE RNUM = #{number}
+             )
     </select>
 
 
     <!-- 상품 개수 -->
-    <select id="selectStoreCnt" resultType="_int">
+    <select id="selectStoreCnt1" resultType="_int">
         SELECT COUNT(STORE_NUMBER)
         FROM TBL_STORE
-        WHERE STORE_CATEGORY_NUMBER = #{storeCategoryNumber}
+        WHERE STORE_CATEGORY_NUMBER = 1
+    </select>
+    <select id="selectStoreCnt2" resultType="_int">
+        SELECT COUNT(STORE_NUMBER)
+        FROM TBL_STORE
+        WHERE STORE_CATEGORY_NUMBER = 2
+    </select>
+    <select id="selectStoreCnt3" resultType="_int">
+        SELECT COUNT(STORE_NUMBER)
+        FROM TBL_STORE
+        WHERE STORE_CATEGORY_NUMBER = 3
+    </select>
+    <select id="selectStoreCnt4" resultType="_int">
+        SELECT COUNT(STORE_NUMBER)
+        FROM TBL_STORE
+        WHERE STORE_CATEGORY_NUMBER = 4
+    </select>
+    <select id="selectStoreCnt5" resultType="_int">
+        SELECT COUNT(STORE_NUMBER)
+        FROM TBL_STORE
+        WHERE STORE_CATEGORY_NUMBER = 5
+    </select>
+    <select id="selectStoreCnt6" resultType="_int">
+        SELECT COUNT(STORE_NUMBER)
+        FROM TBL_STORE
+        WHERE STORE_CATEGORY_NUMBER = 6
     </select>
 
     <!-- 커뮤니티 띄우기 -->
