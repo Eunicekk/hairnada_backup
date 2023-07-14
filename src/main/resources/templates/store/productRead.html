@@ -63,7 +63,7 @@
               </div>
               <div class="likeBox">
                 <div class="like-img"></div>
-                <span class="like-cnt">999</span>
+                <span class="like-cnt" th:with="likeCnt = ${likeCnt}" th:text="${likeCnt}"></span>
               </div>
             </div>
           </div>
@@ -119,7 +119,7 @@
           </td>
           <td>
             <button id="button2" class="info3 categoryBtn">
-              리뷰&nbsp;<span>(1202)</span>
+              리뷰&nbsp;<span class="replyCnt" th:with="replyCnt = ${replyCnt}" th:text="${replyCnt}"></span>
             </button>
           </td>
         </tr>
@@ -127,8 +127,9 @@
 
       <div class="bigBox">
         <div class="productData">
-          <div class="contentImg">
-            <img src="https://image.oliveyoung.co.kr/uploads/images/editor/QuickUpload/C16689/image/20230531164235/qc16_20230531164235.jpg" alt="제품 상세">
+          <div class="contentImg"  th:each="mainContent : ${storeMainContent}">
+            <img th:if="${mainContent == null}" src="https://image.oliveyoung.co.kr/uploads/images/editor/QuickUpload/C16689/image/20230531164235/qc16_20230531164235.jpg" alt="제품 상세">
+            <span class="store-main-content" th:unless="${mainContent == null}" th:utext="${mainContent}" th:style="'width: 100%'"></span>
           </div>
         </div>
       </div>

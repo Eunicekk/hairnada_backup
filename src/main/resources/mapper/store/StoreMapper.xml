@@ -218,6 +218,11 @@
         </trim>
     </select>
 
+    <select id="likeTotal" resultType="_int">
+        SELECT COUNT(USER_NUMBER)
+        FROM TBL_STORE_LIKE
+        WHERE STORE_NUMBER = #{storeNumber}
+    </select>
 
 
 </mapper>

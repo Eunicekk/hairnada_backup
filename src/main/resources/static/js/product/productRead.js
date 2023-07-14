@@ -25,7 +25,8 @@ $(".basket").click(function () {
 $(document).ready(function () {
   $(".buttons").click(function () {
     var buttonImg = $(this).find(".likeBtn");
-    var storeNumber = $(this).find(".like").val();
+    var storeNumber = $(this).find(".likeBtn").val();
+
 
     if (buttonImg.hasClass("active")) {
       $.ajax({
@@ -34,6 +35,10 @@ $(document).ready(function () {
         contentType: "application/json",
         data: JSON.stringify({ storeNumber: storeNumber }),
         success: function(){
+          let likeNumber = parseInt($(".like-cnt").text());
+          let test = likeNumber + 1;
+
+          $(".like-cnt").text(test)
           console.log("빼기 성공");
         }
       });
@@ -47,6 +52,10 @@ $(document).ready(function () {
         contentType: "application/json",
         data: JSON.stringify({ storeNumber: storeNumber }),
         success: function(){
+          let likeNumber = parseInt($(".like-cnt").text());
+          let test = likeNumber - 1;
+
+          $(".like-cnt").text(test)
           console.log("더하기 성공");
         }
       });
@@ -78,6 +87,35 @@ $(".view-img").on("click", function () {
   console.log($(this).attr("background-image"));
 });
 
+let storeNum = $('.store-num').val();
+
+console.log(storeNum);
+function displayAjax(){
+  let storeNumber = storeNum;
+
+  $.ajax({
+    url : '/adminFile/storeImgList',
+    type : 'get',
+    data : {storeNumber : storeNumber},
+    success : function(storeImgList){
+      let text = '';
+      $('.file-wrap').html('');
+      storeImgList.forEach(file => {
+        let fileName = file.storeFileUploadPath + '/' + file.storeFileUuid + '_' + file.storeFileName;
+        text += `
+                    <li>
+                      <img  class="img-list" src="/adminFile/display?fileName=${fileName}" data-number="${file.storeFileNumber}" data-name="${fileName}" />
+                    </li>  
+`;
+      });
+
+      $('.file-wrap').html(text);
+    }
+  });
+}
+
+displayAjax();
+
 // 초기에 "전 체" 버튼을 클릭된 상태로 설정
 document.getElementById("button0").classList.add("active");
 
@@ -97,13 +135,17 @@ for (var i = 0; i < buttons.length; i++) {
   });
 }
 
+var imgSrc = $('.store-main-content img').attr('src');
 // 카테고리 클릭시
 $(".info1").on("click", function () {
+
+// 추출한 속성 값 출력
+  console.log(imgSrc);
   console.log("버튼이당~~!!!");
   $(".bigBox").html("");
   $(".bigBox").append(` <div class="productData">
   <div class="contentImg">
-    <img src="https://image.oliveyoung.co.kr/uploads/images/editor/QuickUpload/C16689/image/20230531164235/qc16_20230531164235.jpg" alt="제품 상세">
+    <img src="${imgSrc}" alt="제품 상세">
   </div>
 </div>`);
 });
@@ -355,7 +397,13 @@ function showError(a, b, c){
 }
 
 $(".bigBox").on('click', '.submit-btn', function (){
+  console.log($(".replyCnt").text());
+  let replyNumber = parseInt($(".replyCnt").text());
   let storeReplyContent = $('#storeReplyContent').val();
+  let test = replyNumber + 1;
+  console.log(test);
+
+  $(".replyCnt").text(test)
 
   console.log($('.input-star:checked'))
   console.log($('.input-star:checked').val())
@@ -368,6 +416,7 @@ $(".bigBox").on('click', '.submit-btn', function (){
 
   page = 1;
 
+
   storeReply.add(replyObj,
       function (){
     storeReply.getListPage({storeNumber : storeNumber, page : page}, showReply, showError);
@@ -375,8 +424,12 @@ $(".bigBox").on('click', '.submit-btn', function (){
       showError)
 });
 
-$(".big-box").on("click",".comment-delete", function (){
+$(".bigBox").on("click",".comment-delete", function (){
   let storeReplyNumber = $(this).closest(".reply").data("num")
+  let replyNumber = parseInt($(".replyCnt").text());
+  let test = replyNumber - 1;
+
+  $(".replyCnt").text(test)
 
   page = 1;
 
@@ -387,7 +440,8 @@ $(".big-box").on("click",".comment-delete", function (){
 
 
 // 댓 수정
-$(".big-box").on("click", ".comment-modify-ready", function (){
+$(".bigBox").on("click", ".comment-modify-ready", function (){
+  console.log("클릭했디")
   let $storeReplyContent = $(this).closest(".reply").find(".comment-content");
   $storeReplyContent.replaceWith(`
     <div class='modify-box'>
@@ -399,7 +453,7 @@ $(".big-box").on("click", ".comment-modify-ready", function (){
 });
 
 
-$(".big-box").on("click", ".comment-modify", function (){
+$(".bigBox").on("click", ".comment-modify", function (){
   console.log("수정됐다.");
   let storeReplyNumber = $(this).closest(".reply").data("num");
   let storeReplyContent = $(this).closest(".modify-box").find(".modify-content").val();

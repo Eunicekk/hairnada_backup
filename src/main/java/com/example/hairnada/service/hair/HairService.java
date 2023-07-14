@@ -20,19 +20,19 @@ public class HairService {
 
 //    조회
     @Transactional(readOnly = true)
-    public HairVo findHair(Long hairNumber){
+    public HairVo findHair(Long hairNumber, Long userNumber){
         if (hairNumber == null){
             throw new IllegalArgumentException("뭐가 없습니다.");
         }
-        return Optional.ofNullable(hairMapper.select(hairNumber))
+        return Optional.ofNullable(hairMapper.select(hairNumber, userNumber))
                 .orElseThrow(() -> {
                     throw new IllegalArgumentException("뭐가 없습니다.");
                 });
     }
 
     // 헤어 스타일 조회
-    public List<HairVo> findHairList(CriteriaAdminList criteriaAdminList){
-        return hairMapper.selectHairList(criteriaAdminList);
+    public List<HairVo> findHairList(CriteriaAdminList criteriaAdminList, Long userNumber){
+        return hairMapper.selectHairList(criteriaAdminList, userNumber);
     }
 
     // 헤어 게시글 수
@@ -74,5 +74,12 @@ public class HairService {
             throw new IllegalArgumentException("searchHairVo 누락!");
         }
         return hairMapper.selectSearchTotal(searchHairVo);
+    }
+
+    public int findLikeTotal(Long hairNumber){
+        if (hairNumber == null){
+            throw new IllegalArgumentException("몰라우");
+        }
+        return hairMapper.likeTotal(hairNumber);
     }
 }

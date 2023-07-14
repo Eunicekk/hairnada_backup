@@ -50,11 +50,11 @@ public class StoreService {
     }
 
 //    카테고리 조회
-    public List<StoreVo> findStoreList(SearchStoreVo searchStoreVo, CriteriaAdminList criteriaAdminList){
+    public List<StoreVo> findStoreList(SearchStoreVo searchStoreVo, CriteriaAdminList criteriaAdminList, Long userNumber){
         if (searchStoreVo == null){
             throw new IllegalArgumentException("뭐가 없습니다.");
         }
-        return storeMapper.selectStoreSearch(searchStoreVo, criteriaAdminList);
+        return storeMapper.selectStoreSearch(searchStoreVo, criteriaAdminList, userNumber);
     }
 
     public int findSearchTotal(SearchStoreVo searchStoreVo){
@@ -62,6 +62,13 @@ public class StoreService {
             throw new IllegalArgumentException("searchStoreVo 누락!");
         }
         return storeMapper.selectSearchTotal(searchStoreVo);
+    }
+
+    public int findLikeTotal(Long storeNumber){
+        if (storeNumber == null){
+            throw new IllegalArgumentException("몰랑");
+        }
+        return storeMapper.likeTotal(storeNumber);
     }
 
 }

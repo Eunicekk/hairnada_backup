@@ -47,21 +47,21 @@ public class UserService {
                 .orElseThrow(() -> {throw new IllegalArgumentException("존재하지 않는 회원입니다 !!");});
     }
 
-    /**
-     * 아이디 비밀번호 조회
-     * @param userName
-     * @param userEmail
-     * @return
-     * @throws IllegalArgumentException 존재하지 않는 name, email로 조회하는 경우
-     */
-    public UserDto findIdPassword(UserDto userDto){
-        if(userDto.getUserId() == null || userDto.getUserPassword() == null){
-            throw new IllegalArgumentException("이름 또는 이메일 누락");
-        }
-
-        return Optional.ofNullable(userMapper.findUserIdPassword(userDto))
-                .orElseThrow(()-> {throw new IllegalArgumentException("일치하지 않는 정보입니다!");});
-    }
+//    /**
+//     * 아이디 비밀번호 조회
+//     * @param userName
+//     * @param userEmail
+//     * @return
+//     * @throws IllegalArgumentException 존재하지 않는 name, email로 조회하는 경우
+//     */
+//    public UserDto findIdPassword(UserDto userDto){
+//        if(userDto.getUserId() == null || userDto.getUserPassword() == null){
+//            throw new IllegalArgumentException("이름 또는 이메일 누락");
+//        }
+//
+//        return Optional.ofNullable(userMapper.findUserIdPassword(userDto))
+//                .orElseThrow(()-> {throw new IllegalArgumentException("일치하지 않는 정보입니다!");});
+//    }
 
     @Transactional(readOnly = true)
     public int checkUserId(String userId){
