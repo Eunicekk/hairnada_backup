@@ -25,8 +25,10 @@ public interface StoreMapper {
 //    상품 카테고리
     public List<StoreVo> selectStoreCategory(Long storeCategoryNumber);
 
-    public List<StoreVo> selectStoreSearch(@Param("searchStoreVo")SearchStoreVo searchStoreVo, @Param("criteria") CriteriaAdminList criteriaAdminList);
+    public List<StoreVo> selectStoreSearch(@Param("searchStoreVo")SearchStoreVo searchStoreVo, @Param("criteria") CriteriaAdminList criteriaAdminList, @Param("userNumber")Long userNumber);
 
     public int selectSearchTotal(SearchStoreVo searchStoreVo);
+
+    public int likeTotal(Long storeNumber);
 
 }

@@ -1,6 +1,8 @@
 package com.example.hairnada.controller.store;
 
 import com.example.hairnada.dto.store.StoreDto;
+import com.example.hairnada.service.admin.AdminService;
+import com.example.hairnada.service.store.StoreReplyService;
 import com.example.hairnada.service.store.StoreService;
 import com.example.hairnada.vo.hairVo.StoreVo;
 import com.example.hairnada.vo.page.CriteriaAdminList;
@@ -20,6 +22,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StoreController {
     private final StoreService storeService;
+    private final AdminService adminService;
+    private final StoreReplyService storeReplyService;
 
 //    상품 리스트
     @GetMapping("/productList")
@@ -36,11 +40,18 @@ public class StoreController {
         return "store/productList";
     }
 
+
     @GetMapping("/productRead")
     public String productRead(Long storeNumber, Model model, HttpServletRequest req){
         Long userNumber = (Long)req.getSession().getAttribute("userNumber");
+        int likeCnt = storeService.findLikeTotal(storeNumber);
+        int replyCnt = storeReplyService.findTotal(storeNumber);
         StoreVo storeVo = storeService.findStore(storeNumber, userNumber != null ? userNumber : 0);
+        String storeMainContent = adminService.lookUpStore(storeNumber).getStoreMainContent();
+        model.addAttribute("likeCnt", likeCnt);
+        model.addAttribute("replyCnt", replyCnt);
         model.addAttribute("productList",storeVo);
+        model.addAttribute("storeMainContent", storeMainContent);
         System.out.println(storeVo);
         return "store/productRead";
     }

@@ -23,4 +23,5 @@ public class HairVo {
     private String hairFileName;
     private String lengthName;
     private String shapeName;
+    private int likeCnt;
 }

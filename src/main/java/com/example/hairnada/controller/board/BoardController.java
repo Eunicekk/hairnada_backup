@@ -120,15 +120,15 @@ public class BoardController {
         return new RedirectView("/board/communityList");
     }
 
-//// 검색기능
-//@GetMapping("/search")
-//public String search(Criteria03 criteria03, Model model, SearchVo searchVo, HttpServletRequest req) {
-//    List<BoardVo> boardList = boardService.search(criteria03, searchVo);
-//    model.addAttribute("boardList", boardList);
-//    model.addAttribute("search", searchVo);
-//    model.addAttribute("pageInfo", new Page03Vo(criteria03, boardService.searchTotal(searchVo)));
-//
-//    return "board/communityList";
-//}
+// 검색기능
+@GetMapping("/search")
+public String search(Criteria03 criteria03, Model model, SearchVo searchVo, HttpServletRequest req) {
+    List<BoardVo> boardList = boardService.search(criteria03, searchVo);
+    model.addAttribute("boardList", boardList);
+    model.addAttribute("search", searchVo);
+    model.addAttribute("pageInfo", new Page03Vo(criteria03, boardService.searchTotal(searchVo)));
+
+    return "board/communityList";
+}
 
 }

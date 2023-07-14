@@ -13,10 +13,10 @@ import java.util.List;
 public interface HairMapper {
 
     // 조회
-    public HairVo select(Long hairNumber);
+    public HairVo select(Long hairNumber, @Param("userNumber") Long userNumber);
 
     // 헤어 리스트 목록
-    public List<HairVo> selectHairList(CriteriaAdminList criteriaAdminList);
+    public List<HairVo> selectHairList(@Param("criteria") CriteriaAdminList criteriaAdminList, @Param("userNumber") Long userNumber);
 
     // 헤어리스트 수
     public int hairTotal();
@@ -34,5 +34,7 @@ public interface HairMapper {
     public List<HairVo> selectHairSearch(@Param("searchHairVo") SearchHairVo searchHairVo, @Param("criteria") CriteriaAdminList criteriaAdminList);
 
     public int selectSearchTotal(SearchHairVo searchHairVo);
+
+    public int likeTotal(Long hairNumber);
 
 }
