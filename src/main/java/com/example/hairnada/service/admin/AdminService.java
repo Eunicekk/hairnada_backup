@@ -174,6 +174,17 @@ public class AdminService {
        adminMapper.deleteStore(storeNumber);
     }
 
+
+    // 상품 게시글 수정
+    public void modifyStore(StoreDto storeDto, List<MultipartFile> files) throws IOException{
+        if(storeDto == null || files == null){
+            throw new IllegalArgumentException("상품 수정 정보 누락");
+        }
+        adminFileService.removeStoreFile(storeDto.getStoreNumber());
+        adminFileService.registerStoreAndSaveFiles(files, storeDto.getStoreNumber());
+        adminMapper.updateStore(storeDto);
+    }
+
     // 헤어 스타일 조회
     public List<HairVo> findHairList(CriteriaAdminList criteriaAdminList){
         return adminMapper.selectHairList(criteriaAdminList);

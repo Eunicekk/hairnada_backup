@@ -38,5 +38,10 @@
         WHERE STORE_NUMBER = #{storeNumber}
     </select>
 
+    <!--    스토어 사진 삭제 -->
+    <delete id="deleteStoreFile">
+        DELETE FROM TBL_STORE_FILE
+        WHERE STORE_NUMBER = #{storeNumber}
+    </delete>
 
 </mapper>

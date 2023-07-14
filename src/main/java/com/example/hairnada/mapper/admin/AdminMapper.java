@@ -78,6 +78,9 @@ public interface AdminMapper {
     // 상품 게시글 삭제
     public void deleteStore(Long storeNumber);
 
+    // 상품 게시글 수정
+    public void updateStore(StoreDto storeDto);
+
     // 헤어 리스트 목록
     public List<HairVo> selectHairList(CriteriaAdminList criteriaAdminList);
 

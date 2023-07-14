@@ -50,14 +50,14 @@
           </nav>
         </div>
         <div class="main-box">
-          <form class="new-post-form" th:action="@{/admin/storeUpload}" method="post" enctype="multipart/form-data">
+          <form class="new-post-form" th:action="@{/admin/storeModify}" method="post" enctype="multipart/form-data">
           <div class="board-write-box">
             <div class="product-img-box">
               <!-- 대표 이미지 업로드 -->
               <div class="form-group">
                 <ul class="file-wrap">
-                  <!-- 썸네일 처리 해야함 -->
-                  <li class="img-list">
+                  <th:block th:each="storeFile, stat : ${storeFile}">
+                  <li class="img-list" th:if="${stat.index == 0}" th:style="'background: url(' + '/upload/' + ${storeFile.storeFileUploadPath} + '/th_' + ${storeFile.storeFileUuid} + '_' + ${storeFile.storeFileName} + ');  background-size: cover;'">
                     <input
                       type="file"
                       id="post-image"
@@ -66,23 +66,25 @@
                       multiple
                     />
                   </li>
-                  <li><img class="img-list" /></li>
-                  <li><img class="img-list" /></li>
-                  <li><img class="img-list" /></li>
-                  <li><img class="img-list" /></li>
+
+                  <li th:unless="${stat.index == 0}">
+                    <img class="img-list" th:src="${'/upload/' + storeFile.storeFileUploadPath + '/th_' + storeFile.storeFileUuid + '_' + storeFile.storeFileName }" alt=""/>
+                  </li>
+                  </th:block>
                 </ul>
               </div>
             </div>
-            <div class="product-information">
+            <div class="product-information" th:each="store : ${storeRead}">
+              <input type="hidden" class="storeNumber" name="storeNumber" th:value="${store.storeNumber}">
               <div class="product-category-box">
                 <select name="storeCategoryNumber" class="category">
-                  <option value="">카테고리 선택</option>
-                  <option value="1">트리트먼트/팩</option>
-                  <option value="2">에센스</option>
-                  <option value="3">염색/펌</option>
-                  <option value="4">헤어기기</option>
-                  <option value="5">스타일링</option>
-                  <option value="6">샴푸/린스</option>
+                  <option value="" >카테고리 선택</option>
+                  <option value="1" th:selected="${store.storeCategoryNumber == 1}">트리트먼트/팩</option>
+                  <option value="2" th:selected="${store.storeCategoryNumber == 2}">에센스</option>
+                  <option value="3" th:selected="${store.storeCategoryNumber == 3}">염색/펌</option>
+                  <option value="4" th:selected="${store.storeCategoryNumber == 4}">헤어기기</option>
+                  <option value="5" th:selected="${store.storeCategoryNumber == 5}">스타일링</option>
+                  <option value="6" th:selected="${store.storeCategoryNumber == 6}">샴푸/린스</option>
                 </select>
               </div>
               <div class="product-name-box">
@@ -91,12 +93,14 @@
                   class="product-name"
                   placeholder="&nbsp;상품 제목 입력..."
                   name="storeTitle"
+                  th:value="${store.storeTitle}"
                 />
                 <input
                   type="text"
                   class="product-content"
                   placeholder="&nbsp; 콘텐츠 입력..."
                   name="storeContent"
+                  th:value="${store.storeContent}"
                 />
                 <hr />
               </div>
@@ -108,6 +112,7 @@
                     class="product-price"
                     placeholder="가격 입력"
                     name="storePrice"
+                    th:value="${store.storePrice}"
                   />
                 </div>
                 <div class="delivery-fee-box">
@@ -116,14 +121,14 @@
                     type="text"
                     class="delivery-fee"
                     placeholder="배송비 입력"
-
                   />
                 </div>
               </div>
             </div>
           </div>
           <!-- 서머노트 -->
-          <textarea name="storeMainContent" id="summernote" value=""></textarea>
+          <textarea name="storeMainContent" id="summernote" value="" th:with="mainContent = ${storeMainContent}"
+                    th:utext="${mainContent}"></textarea>
           <div class="btn-box">
             <button type="submit">작성 완료</button>
           </div>
@@ -132,6 +137,6 @@
       </div>
     </div>
 
-    <script src="/js/admin/storeUpload.js"></script>
+    <script src="/js/admin/storeModify.js"></script>
   </body>
 </html>

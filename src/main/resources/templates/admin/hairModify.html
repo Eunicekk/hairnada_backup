@@ -65,7 +65,8 @@
                     </li>
 
                     <li th:unless="${stat.index == 0}">
-                      <img class="img-list" th:src="${'/upload/' + hairFile.hairFileUploadPath + '/th_' +hairFile.hairFileUuid + '_' + hairFile.hairFileName }" alt=""/></li>
+                      <img class="img-list" th:src="${'/upload/' + hairFile.hairFileUploadPath + '/th_' +hairFile.hairFileUuid + '_' + hairFile.hairFileName }" alt=""/>
+                    </li>
                     </th:block>
                   </ul>
                 </div>
