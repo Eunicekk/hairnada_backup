@@ -11,4 +11,5 @@ public class SearchVo {
     private Long boardCategoryNumber;
     private String searchType;
     private String keyword;
+    private int likeCnt;
 }

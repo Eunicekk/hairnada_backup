@@ -95,7 +95,7 @@
 
     <select id="selectHairSearch" resultType="hairVo">
         SELECT HAIR_NUMBER, HAIR_NAME, HAIR_CONTENT, HAIR_GENDER, SHAPE_NUMBER, LENGTH_NUMBER, HAIR_FILE_NUMBER, HAIR_FILE_NAME, HAIR_FILE_UPLOAD_PATH, HAIR_FILE_UUID,
-        (SELECT COUNT(L.USER_NUMBER) FROM TBL_HAIR_LIKE L WHERE L.USER_NUMBER = #{userNumber} and HAIR_NUMBER = #{hairNumber}) LIKE_CNT
+        (SELECT COUNT(L.USER_NUMBER) FROM TBL_HAIR_LIKE L WHERE L.USER_NUMBER = #{userNumber} and S1.HAIR_NUMBER = L.HAIR_NUMBER) LIKE_CNT
         FROM (
             SELECT ROWNUM AS RNUM, HAIR_NUMBER, HAIR_NAME, HAIR_CONTENT, HAIR_GENDER, SHAPE_NUMBER, LENGTH_NUMBER, HAIR_FILE_NUMBER, HAIR_FILE_NAME, HAIR_FILE_UPLOAD_PATH, HAIR_FILE_UUID
             FROM (
@@ -127,7 +127,7 @@
             )<![CDATA[
             WHERE ROWNUM <= #{criteria.page} * #{criteria.amount}
             ]]>
-        )
+        )S1
         WHERE RNUM > (#{criteria.page} - 1) * #{criteria.amount}
     </select>
 
@@ -163,5 +163,40 @@
         SELECT COUNT (USER_NUMBER)
         FROM TBL_HAIR_LIKE
         WHERE HAIR_NUMBER = #{hairNumber}
+    </select>
+
+    <select id="selectHairShop" resultType="hairShopVo">
+        SELECT HAIR_SHOP_NUMBER, HAIR_SHOP_NAME, HAIR_SHOP_ADDRESS,
+               HAIR_SHOP_FILE_UPLOAD_PATH, HAIR_SHOP_FILE_UUID, HAIR_SHOP_FILE_NAME,
+               USER_NUMBER, MEMBERSHIP_NUMBER
+        FROM (
+                 SELECT ROWNUM AS RNUM, HAIR_SHOP_NUMBER, HAIR_SHOP_NAME,
+                        HAIR_SHOP_ADDRESS, HAIR_SHOP_FILE_UPLOAD_PATH, HAIR_SHOP_FILE_UUID,
+                        HAIR_SHOP_FILE_NAME, USER_NUMBER, MEMBERSHIP_NUMBER
+                 FROM (
+                          SELECT H.HAIR_SHOP_NUMBER, HAIR_SHOP_NAME, HAIR_SHOP_ADDRESS,
+                                 HAIR_SHOP_FILE_UPLOAD_PATH, HAIR_SHOP_FILE_UUID, HAIR_SHOP_FILE_NAME,
+                                 U.USER_NUMBER, MEMBERSHIP_NUMBER
+                          FROM TBL_USER U JOIN TBL_HAIR_SHOP H
+                                               ON U.USER_NUMBER = H.USER_NUMBER
+                                          LEFT JOIN(
+                              SELECT HAIR_SHOP_FILE_NUMBER, HAIR_SHOP_FILE_UPLOAD_PATH,
+                                     HAIR_SHOP_FILE_UUID, HAIR_SHOP_FILE_NAME, HAIR_SHOP_NUMBER
+                              FROM(
+                                      SELECT HAIR_SHOP_FILE_NUMBER, HAIR_SHOP_FILE_UPLOAD_PATH,
+                                             HAIR_SHOP_FILE_UUID, HAIR_SHOP_FILE_NAME, HAIR_SHOP_NUMBER,
+                                             RANK() OVER(PARTITION BY HAIR_SHOP_NUMBER ORDER BY HAIR_SHOP_FILE_NUMBER) RK
+                                      FROM TBL_HAIR_SHOP_FILE
+                                  )
+                              WHERE RK = 1
+                          ) J ON H.HAIR_SHOP_NUMBER = J.HAIR_SHOP_NUMBER
+                          ORDER BY H.HAIR_SHOP_NUMBER DESC
+                      ) T1
+             ) T2 WHERE RNUM =#{number}
+    </select>
+
+    <select id="selectHairShopCnt" resultType="_int">
+        SELECT COUNT(HAIR_SHOP_NUMBER)
+        FROM TBL_HAIR_SHOP
     </select>
 </mapper>

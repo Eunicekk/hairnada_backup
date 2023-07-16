@@ -2,7 +2,9 @@ package com.example.hairnada.controller.board;
 
 import com.example.hairnada.dto.board.BoardDto;
 import com.example.hairnada.service.board.BoardFileService;
+import com.example.hairnada.service.board.BoardReplyService;
 import com.example.hairnada.service.board.BoardService;
+import com.example.hairnada.vo.board.BoardCategoryVo;
 import com.example.hairnada.vo.board.BoardVo;
 import com.example.hairnada.vo.page.Criteria03;
 import com.example.hairnada.vo.page.Page03Vo;
@@ -27,12 +29,17 @@ import java.util.List;
 public class BoardController {
     private final BoardService boardService;
     private final BoardFileService boardFileService;
+    private final BoardReplyService boardReplyService;
 
 
     @GetMapping("/communityList")
-    public String communityList(Criteria03 criteria03, Model model, SearchVo searchVo){
+    public String communityList(Criteria03 criteria03, Model model, SearchVo searchVo,HttpServletRequest req){
         System.out.println("일반임 수고");
-       List<BoardVo> boardList = boardService.findAll(criteria03);
+       Long userNumber = (Long)req.getSession().getAttribute("userNumber");
+       List<BoardVo> boardList = boardService.findAll(criteria03, userNumber != null ? userNumber : 0);
+       List<BoardCategoryVo> categoryList = boardService.findCategoryCnt();
+
+       model.addAttribute("categoryCnt", categoryList);
        model.addAttribute("boardList",boardList);
        model.addAttribute("pageInfo",new Page03Vo(criteria03, boardService.getTotal()));
        model.addAttribute("search", searchVo);
@@ -67,7 +74,7 @@ public class BoardController {
         boardService.register(boardDto);
         System.out.println(boardDto);
 
-        BoardVo boardVo = boardService.findBoard(boardDto.getBoardNumber());
+        BoardVo boardVo = boardService.findBoard(boardDto.getBoardNumber(),boardDto.getUserNumber());
 
         redirectAttributes.addFlashAttribute("board", boardVo);
         System.out.println(boardVo);
@@ -85,18 +92,21 @@ public class BoardController {
 
 
     @GetMapping("/communityRead")
-    public String communityRead(Long boardNumber, Model model){
+    public String communityRead(Long boardNumber, Model model, HttpServletRequest req){
+        Long userNumber = (Long)req.getSession().getAttribute("userNumber");
+        int replyCnt = boardReplyService.findTotal(boardNumber);
         boardService.updateViewCnt(boardNumber);
-//        boardService.updateReplyCnt(boardNumber);
-        BoardVo boardVo = boardService.findBoard(boardNumber);
+        BoardVo boardVo = boardService.findBoard(boardNumber, userNumber != null ? userNumber : 0);
         model.addAttribute("board",boardVo);
+        model.addAttribute("replyCnt", replyCnt);
         System.out.println(boardVo);
         return "board/communityRead";
     }
 
     @GetMapping("/communityModify")
-    public String communityModify(Long boardNumber, Model model){
-        BoardVo boardVo = boardService.findBoard(boardNumber);
+    public String communityModify(Long boardNumber, Model model, HttpServletRequest req){
+        Long userNumber = (Long)req.getSession().getAttribute("userNumber");
+        BoardVo boardVo = boardService.findBoard(boardNumber, userNumber != null ? userNumber : 0);
         model.addAttribute("board", boardVo);
         return "board/communityModify";
     }
@@ -123,7 +133,10 @@ public class BoardController {
 // 검색기능
 @GetMapping("/search")
 public String search(Criteria03 criteria03, Model model, SearchVo searchVo, HttpServletRequest req) {
-    List<BoardVo> boardList = boardService.search(criteria03, searchVo);
+    Long boardNumber = (Long)req.getSession().getAttribute("boardNumber");
+    List<BoardVo> boardList = boardService.search(criteria03, searchVo,boardNumber);
+    int replyCnt = boardReplyService.findTotal(boardNumber);
+    model.addAttribute("replyCnt", replyCnt);
     model.addAttribute("boardList", boardList);
     model.addAttribute("search", searchVo);
     model.addAttribute("pageInfo", new Page03Vo(criteria03, boardService.searchTotal(searchVo)));

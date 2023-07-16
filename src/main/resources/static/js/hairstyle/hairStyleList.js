@@ -7,9 +7,11 @@ $(document).ready(function () {
 
 // 버튼 클릭시
 $(document).ready(function () {
-  $(".ListUl").on('click','.buttons',function () {
-    var buttonImg = $(this).find(".like");
-    var hairNumber = $(this).find(".like").val();
+  $(".ListUl").on('click', '.like', function () {
+    console.log("like 버튼 클릭 !!!!");
+    var buttonImg = $(this);
+    var hairNumber = $(this).val();
+    console.log(hairNumber);
 
     if (buttonImg.hasClass("active")) {
       $.ajax({
@@ -270,12 +272,14 @@ function searchModule(page, obj, callback, paging){
 
 // 검색 결과 화면에 뿌리는 함수
 function showSearchResult(result){
+
   console.log(result);
 
   let hairList = result.hairList;
 
   $('.ListUl').html('');
   for (let i =0; i < hairList.length; i++){
+    let likeClass = hairList[i].likeCnt == 1 ? 'like ifILike active' : 'like';
     $('.ListUl').append(`
             <li class="ListLi">
               <a href="/hair/hairStyleRead?hairNumber=${hairList[i].hairNumber}">
@@ -288,7 +292,7 @@ function showSearchResult(result){
               <div class="hairTitle">
                 <p class="product-title">${hairList[i].hairName}</p>
                 <div class="buttons">
-                  <button type="button" class="like">하트</button>
+                  <button type="button" class="${likeClass}" value="${hairList[i].hairNumber}">하트</button>
                 </div>
               </div>
             </li>

@@ -20,6 +20,7 @@
         <typeAlias type="com.example.hairnada.dto.store.StoreCategoryDto" alias="storeCategoryDto" />
         <typeAlias type="com.example.hairnada.dto.store.BuyDto" alias="buyDto" />
         <typeAlias type="com.example.hairnada.vo.store.BuyVo" alias="buyVo" />
+        <typeAlias type="com.example.hairnada.vo.store.CategoryVo" alias="categoryVo" />
 
         <typeAlias type="com.example.hairnada.dto.level.LevelDto" alias="levelDto" />
         <typeAlias type="com.example.hairnada.dto.level.LevelFileDto" alias="LevelFileDto" />
@@ -30,6 +31,7 @@
         <typeAlias type="com.example.hairnada.dto.board.BoardLikeDto" alias="boardLikeDto" />
         <typeAlias type="com.example.hairnada.dto.board.BoardReplyDto" alias="boardReplyDto" />
         <typeAlias type="com.example.hairnada.dto.board.BoardCategoryDto" alias="boardCategoryDto" />
+        <typeAlias type="com.example.hairnada.vo.board.BoardCategoryVo" alias="boardCategoryVo" />
 
         <typeAlias type="com.example.hairnada.dto.hair.HairDto" alias="hairDto" />
         <typeAlias type="com.example.hairnada.dto.hair.HairFileDto" alias="hairFileDto" />

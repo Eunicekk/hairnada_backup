@@ -1,6 +1,7 @@
 package com.example.hairnada.mapper.board;
 
 import com.example.hairnada.dto.board.BoardDto;
+import com.example.hairnada.vo.board.BoardCategoryVo;
 import com.example.hairnada.vo.board.BoardVo;
 import com.example.hairnada.vo.page.Criteria03;
 import com.example.hairnada.vo.page.SearchVo;
@@ -21,16 +22,16 @@ public interface BoardMapper {
     public void update(BoardDto boardDto);
 
 //    조회
-    public BoardVo select(Long boardNumber);
+    public BoardVo select(Long boardNumber, @Param("userNumber") Long userNumber);
 
 //    전체 조회
-    public List<BoardVo> selectAll(Criteria03 criteria03);
+    public List<BoardVo> selectAll(@Param("criteria") Criteria03 criteria03, @Param("userNumber")Long userNumber);
 
 //    전제 게시글 조회
     public int selectTotal();
 
 //    제목과 내용으로 검색
-    public List<BoardVo> search(@Param("criteria")Criteria03 criteria03, @Param("search") SearchVo searchVo);
+    public List<BoardVo> search(@Param("criteria")Criteria03 criteria03, @Param("search") SearchVo searchVo, @Param("boardNumber")Long boardNumber);
 
 //    검색된 게시글 전체 조회
     public int searchTotal(@Param("search") SearchVo searchVo);
@@ -38,7 +39,7 @@ public interface BoardMapper {
 //    카테고리 별로 조회
     public List<BoardVo> selectCategory(@Param("boardCategoryNumber")Long boardCategoryNumber,@Param("criteria")Criteria03 criteria03);
 
-    public List<BoardVo> selectBoardSearch(@Param("searchVo") SearchVo searchVo, @Param("criteria") Criteria03 criteria03);
+    public List<BoardVo> selectBoardSearch(@Param("searchVo") SearchVo searchVo, @Param("criteria") Criteria03 criteria03, @Param("userNumber")Long userNumber);
 
     public int selectSearchTotal(SearchVo searchVo);
 
@@ -47,4 +48,7 @@ public interface BoardMapper {
 
 //    댓글수 업뎃
     public int selectReplyCnt(Long boardNumber);
+
+//    카테고리별 게시글 수
+    public List<BoardCategoryVo> boardCount();
 }

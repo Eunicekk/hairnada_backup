@@ -22,28 +22,28 @@
 
       <!-- 카테고리 -->
       <div class="product-category">
-        <table class="category">
+        <table class="category" th:with="cnt = ${categoryCnt}">
           <tr>
             <td>
               <button value="" class="category-btn selected">전체 <span>(521)</span></button>
             </td>
             <td>
-              <button value="1" class="category-btn">트리트먼트/팩 <span>(300)</span></button>
+              <button value="1" class="category-btn">트리트먼트/팩 (<span th:text="${cnt[0].categoryCnt}"></span>)</button>
             </td>
             <td>
-              <button value="2" class="category-btn">헤어에센스 <span>(200)</span></button>
+              <button value="2" class="category-btn">헤어에센스 (<span th:text="${cnt[1].categoryCnt}"></span>)</button>
             </td>
             <td>
-              <button value="3" class="category-btn">염색약/펌 <span>(1)</span></button>
+              <button value="3" class="category-btn">염색약/펌 (<span th:text="${cnt[2].categoryCnt}"></span>)</button>
             </td>
             <td>
-              <button value="4" class="category-btn">헤어기기 <span>(15)</span></button>
+              <button value="4" class="category-btn">헤어기기 (<span th:text="${cnt[3].categoryCnt}"></span>)</button>
             </td>
             <td>
-              <button value="5" class="category-btn">스타일링 <span>(3)</span></button>
+              <button value="5" class="category-btn">스타일링 (<span th:text="${cnt[4].categoryCnt}"></span>)</button>
             </td>
             <td>
-              <button value="6" class="category-btn">샴푸/린스 <span>(2)</span></button>
+              <button value="6" class="category-btn">샴푸/린스 (<span th:text="${cnt[5].categoryCnt}"></span>)</button>
             </td>
           </tr>
         </table>

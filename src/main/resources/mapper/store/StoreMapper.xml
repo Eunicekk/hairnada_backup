@@ -224,5 +224,13 @@
         WHERE STORE_NUMBER = #{storeNumber}
     </select>
 
+    <select id="storeCount" resultType="categoryVo">
+        SELECT STORE_CATEGORY_NUMBER, COUNT(STORE_NUMBER) AS categoryCnt
+        FROM TBL_STORE
+        WHERE STORE_CATEGORY_NUMBER BETWEEN 1 AND 6
+        GROUP BY STORE_CATEGORY_NUMBER
+        ORDER BY STORE_CATEGORY_NUMBER ASC
+    </select>
+
 
 </mapper>
