@@ -120,7 +120,9 @@ function addQuizBtnEvent() {
 
         if (maxCount == pageNo) {
             setTimeout(function () {
-                $(".rec-box").html(finalPage);
+                console.log('ininininini')
+                console.log(finalPage)
+                // $(".rec-box").html(finalPage);
                 callFunc(answerList);
             }, 1000);
 
@@ -247,3 +249,7 @@ export function setApi(callBack) {
 export function setFinalPage(finalPageHtml) {
     finalPage = finalPageHtml;
 }
+
+// export function getFinalPage() {
+//     return finalPage;
+// }

@@ -49,61 +49,66 @@ quiz.setApi(function (resultList) {
     $.ajax({
         url: "/tests/hairTest",
         type: "get",
-        tranditional : true,
+        traditional : true,
         data: {resultList:resultList}, //resultList에 사용자가 선택한 문항이 배열 형태로 저장되어 있다.
         success: function (result) {
             console.log(result)
-            //성공시 실행시킬 함수를 정의한다.
-            //아래의 setFinalPage()와 함께 사용하면 된다.
-            //예시
-            /*
-            let finalPage = `
-            <div class="title aa">완료 페이지다</div>
-            <img src="${result.image}"/>
-          `;
 
-            quiz.setFinalPage(finalPage);
-            */
+            quiz.setFinalPage(getTriangleHair(result));
+
+            $(".rec-box").html(getTriangleHair(result));
         },
     });
 });
 
 // 결과 페이지 만들기 예시
 // css는 해당 페이지 css에 추가하면 적용됨
-let finalPage = `
-<div class="hairnada-logo">hairnada</div>
+function getTriangleHair(result) {
+    if(result == null || result.length == 0){
+        return `일치 안함`;
+    }
+
+    let finalPage = ``;
+
+    finalPage += `
+    <div class="hairnada-logo">hairnada</div>
       <div class="result-box">
-        <div class="result-text">짱구형</div>
+        <div class="result-text">${result[0].shapeName}</div>
         <div class="hair-recommend">hair recommendation</div>
         <div class="hair-img-box">
-          <div class="hair-img">
+    `;
+
+    result.forEach(r => {
+        finalPage += `
+            <div class="hair-img">
             <div class="img">
               <img
-                src="https://storage.googleapis.com/static.smalljoys.me/2021/12/7195833_69cb9f3d-6c6a-4a76-afe8-b127152222b5_1639976100.png"
+                src="/upload/${r.hairFileUploadPath}/th_${r.hairFileUuid}_${r.hairFileName}"
                 alt=""
                 class="real-img"
               />
             </div>
-            <div class="hair-name">갓파컷</div>
+            <div class="hair-name">${r.hairName}</div>
           </div>
-          <div class="hair-img">
-            <div class="img">
-              <img
-                src="https://static-storychat.pstatic.net/2020/8/30/27/1149627_hlbn3bmma3jb0.png?type=rsc5"
-                alt=""
-                class="real-img"
-              />
-            </div>
-            <div class="hair-name">가재컷</div>
-          </div>
+        `;
+    });
+
+    finalPage += `
         </div>
         <div class="button-box">
-          <button class="next-button">더 많은 헤어스타일을 보고싶다면?</button>
-          <button class="next-button2">홈으로</button>
+        <form method="get" action="/hair/hairStyleList">
+          <button type="submit" class="next-button">더 많은 헤어스타일을 보고싶다면?</button>
+        </form>
+        <form method="get" action="/">
+          <button class="next-button2">홈 으로</button>
+         </form>
         </div>
       </div>
 `;
 
-quiz.setFinalPage(finalPage);
+    return finalPage;
+}
+
+
 
 console.log("examplePage.js");

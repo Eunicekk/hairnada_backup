@@ -58,5 +58,8 @@
 
         <typeAlias type="com.example.hairnada.dto.buy.AdminBuyDto" alias="adminBuyDto"/>
 
+        <typeAlias type="com.example.hairnada.vo.hairTest.HairTestVo" alias="hairTestVo"/>
+
+
     </typeAliases>
 </configuration>

@@ -49,7 +49,9 @@ export function main() {
     </section>
     <section class="btn-sec">
       <button class="btn-sec__btn">시작하기</button>
-      <button class="btn-sec__btn2">메인으로</button>
+      <form action="/" method="get">
+          <button class="btn-sec__btn2">메인으로</button>
+        </form>
     </section>
   </section>
   </section>
@@ -133,7 +135,7 @@ function titleStyleFunction() {
 // 스타일 함수 페이지에 반영
 $(document).ready(function () {
     btnStyleFunction();
-    btnStyleFunction2();
+    // btnStyleFunction2();
     titleStyleFunction();
 });
 

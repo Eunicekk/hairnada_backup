@@ -39,7 +39,7 @@
             <div class="img-list">
 
               <div  class="main-img">
-                <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800" alt="썸네일">
+                <img class="main-img-img" th:src="@{'/upload/' + ${board.boardFileUploadPath} + '/th_' + ${board.boardFileUuid} + '_' + ${board.boardFileName}}">
               </div>
 <!--th:if="${board.boardFileName == null}"
 <div th:if="${board.boardFileName == null}" class="main-img">-->

@@ -540,7 +540,7 @@ careBtn.addEventListener("click", function () {
 //         console.log("빼기 성공");
 //       },
 //       error: function(xhr, status, error) {
-//         console.log("빼기 실패: " + error); // 에러 발생 시 콘솔에 표시
+//         console.log("빼기 실패: " + error);  // 에러 발생 시 콘솔에 표시
 //       }
 //     });
 //
