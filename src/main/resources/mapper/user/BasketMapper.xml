@@ -20,6 +20,7 @@
                 FROM TBL_STORE_FILE
             ) F ON S.STORE_NUMBER = F.STORE_NUMBER AND F.RK = 1
         ) J ON B.STORE_NUMBER = J.STORE_NUMBER
+        WHERE U.USER_NUMBER = #{userNumber}
         ORDER BY BASKET_NUMBER DESC
     </select>
 
