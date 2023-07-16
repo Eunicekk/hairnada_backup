@@ -396,14 +396,25 @@ function showError(a, b, c){
   console.error(c);
 }
 
+
 $(".bigBox").on('click', '.submit-btn', function (){
   console.log($(".replyCnt").text());
+  console.log($(".starSecore-avg").text());
+  let replyAvg = parseFloat($(".starSecore-avg").text());
   let replyNumber = parseInt($(".replyCnt").text());
   let storeReplyContent = $('#storeReplyContent').val();
+  let starScore = $('.input-star:checked').val();
+  console.log($('.input-star:checked').val())
   let test = replyNumber + 1;
+  let testAvg = ((replyAvg * replyNumber) + starScore)/test;
+  testAvg = testAvg.toFixed(1);
+  console.log("============================================")
   console.log(test);
+  console.log(testAvg);
+  console.log("============================================")
 
   $(".replyCnt").text(test)
+  $(".starSecore-avg").text(testAvg)
 
   console.log($('.input-star:checked'))
   console.log($('.input-star:checked').val())

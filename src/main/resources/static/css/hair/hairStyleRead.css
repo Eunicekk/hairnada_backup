@@ -218,7 +218,7 @@ input[type="file"] {
 .titleAndBtn{
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  margin-top: 10px;
 }
 
 .shop-title{
@@ -252,6 +252,7 @@ input[type="file"] {
   justify-content: space-between;
   position: relative;
   height: 20px;
+  margin-top: 10px;
 }
 
 .address-box span{

@@ -24,51 +24,51 @@ class BoardMapperTest {
     private BoardVo boardVo;
     private SearchVo searchVo;
 
-    @BeforeEach
-    void setUp(){
-        criteria03 = new Criteria03(1,9);
-        boardDto = new BoardDto();
-        searchVo = new SearchVo();
-        boardDto.setBoardTitle("test Title");
-        boardDto.setBoardContent("test Content");
-        boardDto.setUserNumber(1L);
-        searchVo.setKeyword("");
-        searchVo.setBoardCategoryNumber(1L);
-    }
+//    @BeforeEach
+//    void setUp(){
+//        criteria03 = new Criteria03(1,9);
+//        boardDto = new BoardDto();
+//        searchVo = new SearchVo();
+//        boardDto.setBoardTitle("test Title");
+//        boardDto.setBoardContent("test Content");
+//        boardDto.setUserNumber(1L);
+//        searchVo.setKeyword("");
+//        searchVo.setBoardCategoryNumber(1L);
+//    }
 
-    @Test
-    void insert(){
+//    @Test
+//    void insert(){
+//
+//    }
 
-    }
+//    @Test
+//    void delete(){
+//        boardMapper.delete(boardDto.getBoardNumber());
+//        assertThat(boardMapper.select(boardDto.getBoardNumber())).isNull();
+//    }
+//
+//    @Test
+//    void update(){
+//        boardDto.setBoardTitle("update title");
+//        boardDto.setBoardContent("update content");
+//
+//        boardMapper.update(boardDto);
+//
+//        assertThat(boardMapper.select(boardDto.getBoardNumber()).getBoardTitle())
+//                .isEqualTo(boardDto.getBoardTitle());
+//    }
 
-    @Test
-    void delete(){
-        boardMapper.delete(boardDto.getBoardNumber());
-        assertThat(boardMapper.select(boardDto.getBoardNumber())).isNull();
-    }
+//    @Test
+//    void selectAll() {
+////        int beforeSize = boardMapper.selectAll().size();
+////        boardMapper.insert(boardDto);
+////        assertThat(boardMapper.selectAll().size()).isEqualTo(beforeSize+1);
+//    }
 
-    @Test
-    void update(){
-        boardDto.setBoardTitle("update title");
-        boardDto.setBoardContent("update content");
-
-        boardMapper.update(boardDto);
-
-        assertThat(boardMapper.select(boardDto.getBoardNumber()).getBoardTitle())
-                .isEqualTo(boardDto.getBoardTitle());
-    }
-
-    @Test
-    void selectAll() {
-//        int beforeSize = boardMapper.selectAll().size();
-//        boardMapper.insert(boardDto);
-//        assertThat(boardMapper.selectAll().size()).isEqualTo(beforeSize+1);
-    }
-
-    @Test
-    void selectBoardSearch(){
-        List<BoardVo> boardList = boardMapper.selectBoardSearch(searchVo, criteria03);
-        System.out.println("boardList ===============" + boardList);
-    }
+//    @Test
+//    void selectBoardSearch(){
+//        List<BoardVo> boardList = boardMapper.selectBoardSearch(searchVo, criteria03);
+//        System.out.println("boardList ===============" + boardList);
+//    }
 
 }

@@ -4,9 +4,11 @@ $(".basket").click(function () {
 });
 
 $(document).ready(function () {
-  $(".buttons").click(function () {
-    var buttonImg = $(this).find(".like");
-    var storeNumber = $(this).find(".like").val();
+  $(".ListUl").on('click', '.like', function () {
+    console.log("like 버튼 클릭 !!!!");
+    var buttonImg = $(this);
+    var storeNumber = $(this).val();
+    console.log(storeNumber);
 
     if (buttonImg.hasClass("active")) {
       $.ajax({
@@ -37,6 +39,7 @@ $(document).ready(function () {
     }
   });
 });
+
 
 const buttons = document.querySelectorAll(".category button");
 
@@ -126,6 +129,7 @@ function showSearchResult(result){
 
   $(".ListUl").html('');
   for (let i = 0; i < productList.length; i++){
+    let likeClass = productList[i].likeCnt == 1 ? 'like ifILike active' : 'like';
     $('.ListUl').append(`
        <li class="ListLi">
               <div class="store-category-number"style="display: none;"> ${productList[i].storeCategoryNumber} </div>
@@ -143,7 +147,7 @@ function showSearchResult(result){
                     구매
                   </button>
                   <div class="buttons">
-                    <button type="button" class="like">하트</button>
+                    <button type="button" class="${likeClass}" value="${productList[i].storeNumber}">하트</button>
                   </div>
                 </div>
               </div>

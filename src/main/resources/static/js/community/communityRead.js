@@ -108,6 +108,10 @@ function showError(a, b, c){
 // 댓글 작성 완료
 $('.submit-btn').on('click',function (){
   let boardReplyContent = $('#boardReplyContent').val();
+  let replyNumber = parseInt($(".replyCnt").text());
+  let test = replyNumber + 1;
+
+  $(".replyCnt").text(test)
 
   let replyObj = {
     boardReplyContent : boardReplyContent,

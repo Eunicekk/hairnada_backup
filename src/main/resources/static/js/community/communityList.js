@@ -11,9 +11,11 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-  $(".buttons").click(function () {
-    var buttonImg = $(this).find(".like");
-    var boardNumber = $(this).find(".like").val();
+  $(".ListUl").on('click', '.like', function () {
+    console.log("like 버튼 클릭 !!!!");
+    var buttonImg = $(this);
+    var boardNumber = $(this).val();
+    console.log(boardNumber);
 
     if (buttonImg.hasClass("active")) {
       $.ajax({
@@ -128,6 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         $(".ListUl").html('');
         for (let i = 0; i < boardList.length; i++) {
+          let likeClass = boardList[i].likeCnt == 1 ? 'like ifILike active' : 'like';
           $('.ListUl').append(`
                 <li class="ListLi">
             <div class="board-category-number" style="display: none;">${boardList[i].boardCategoryNumber}</div>
@@ -139,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <p class="profiles profile-nick">${boardList[i].userNickName}</p>
               </a>
               <div class="buttons">
-                <button type="button" class="like">하트</button>
+                <button type="button"  class="${likeClass}" value="${boardList[i].boardNumber}">하트</button>
               </div>
             </div>
             <a href="/board/communityRead?boardNumber=${boardList[i].boardNumber}">

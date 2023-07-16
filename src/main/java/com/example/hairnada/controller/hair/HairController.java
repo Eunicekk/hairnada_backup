@@ -3,6 +3,7 @@ package com.example.hairnada.controller.hair;
 import com.example.hairnada.mapper.hair.HairMapper;
 import com.example.hairnada.service.hair.HairService;
 import com.example.hairnada.vo.hairVo.HairVo;
+import com.example.hairnada.vo.hairshop.HairShopVo;
 import com.example.hairnada.vo.page.CriteriaAdminList;
 import com.example.hairnada.vo.page.PageAdminListVo;
 import lombok.RequiredArgsConstructor;
@@ -32,8 +33,10 @@ public class HairController {
     @GetMapping("/hairStyleRead")
     public String hairStyleRead(Long hairNumber, Model model, HttpServletRequest req){
         Long userNumber = (Long)req.getSession().getAttribute("userNumber");
+        List<HairShopVo> hairShopList = hairService.findHairShop();
         int likeCnt = hairService.findLikeTotal(hairNumber);
         HairVo hairVo = hairService.findHair(hairNumber, userNumber != null ? userNumber : 0);
+        model.addAttribute("hairShopList", hairShopList);
         model.addAttribute("likeCnt", likeCnt);
         model.addAttribute("hairList", hairVo);
         return "hair/hairStyleRead";

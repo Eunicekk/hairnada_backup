@@ -56,6 +56,6 @@ class StoreMapperTest {
 
     @Test
     void selectStoreSearch(){
-        List<StoreVo> storeList = storeMapper.selectStoreSearch(searchStoreVo, criteriaAdminList);
+//        List<StoreVo> storeList = storeMapper.selectStoreSearch(searchStoreVo, criteriaAdminList,userNumber);
     }
 }

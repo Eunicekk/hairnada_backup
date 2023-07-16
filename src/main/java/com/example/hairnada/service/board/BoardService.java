@@ -2,6 +2,7 @@ package com.example.hairnada.service.board;
 
 import com.example.hairnada.dto.board.BoardDto;
 import com.example.hairnada.mapper.board.BoardMapper;
+import com.example.hairnada.vo.board.BoardCategoryVo;
 import com.example.hairnada.vo.board.BoardVo;
 import com.example.hairnada.vo.page.Criteria03;
 import com.example.hairnada.vo.page.SearchVo;
@@ -59,19 +60,20 @@ public class BoardService {
 
     //    조회
     @Transactional(readOnly = true)
-    public BoardVo findBoard(Long boardNumber) {
+    public BoardVo findBoard(Long boardNumber, Long userNumber) {
         if (boardNumber == null) {
             throw new IllegalArgumentException("게시물 번호가 없습니다.");
         }
-        return Optional.ofNullable(boardMapper.select(boardNumber))
+        return Optional.ofNullable(boardMapper.select(boardNumber, userNumber))
                 .orElseThrow(() -> {
                     throw new IllegalArgumentException("존재하지 않는 게시물 번호");
                 });
     }
 
     //    전체 조회
-    public List<BoardVo> findAll(Criteria03 criteria03) {
-        return boardMapper.selectAll(criteria03);
+    public List<BoardVo> findAll(Criteria03 criteria03, Long userNumber) {
+
+        return boardMapper.selectAll(criteria03, userNumber);
     }
 
     //    전체 게시글 조회
@@ -82,11 +84,11 @@ public class BoardService {
 
     //    검색
     @Transactional(readOnly = true)
-    public List<BoardVo> search(Criteria03 criteria03, SearchVo searchVo) {
+    public List<BoardVo> search(Criteria03 criteria03, SearchVo searchVo,Long boardNumber) {
         if (searchVo == null) {
             throw new IllegalArgumentException("입력한 키워드가 없습니다.");
         }
-        return boardMapper.search(criteria03, searchVo);
+        return boardMapper.search(criteria03, searchVo, boardNumber);
     }
 
     //    전체 게시글 전체 조회
@@ -107,11 +109,11 @@ public class BoardService {
     }
 
 //    카테고리 검색 조회
-    public List<BoardVo> findBoardList(SearchVo searchVo, Criteria03 criteria03){
+    public List<BoardVo> findBoardList(SearchVo searchVo, Criteria03 criteria03, Long userNumber){
         if (searchVo == null){
             throw new IllegalArgumentException("뭐가 없습니다.");
         }
-        return boardMapper.selectBoardSearch(searchVo, criteria03);
+        return boardMapper.selectBoardSearch(searchVo, criteria03, userNumber);
     }
 
     public int findSearchTotal(SearchVo searchVo){
@@ -136,4 +138,10 @@ public class BoardService {
 //        }
 //       return boardMapper.selectReplyCnt(boardNumber);
 //    }
+
+//    카테고리별 게시글 수
+    public List<BoardCategoryVo> findCategoryCnt(){
+        List<BoardCategoryVo> findCategoryCnt = boardMapper.boardCount();
+        return findCategoryCnt;
+    }
 }

@@ -279,3 +279,7 @@ input[type="text"]{
 .search-btn{
   cursor: pointer;
 }
+
+.ifILike{
+  background-image: url("/img/heart2.png");
+}

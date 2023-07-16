@@ -5,6 +5,7 @@ import com.example.hairnada.mapper.store.StoreMapper;
 import com.example.hairnada.vo.hairVo.StoreVo;
 import com.example.hairnada.vo.page.CriteriaAdminList;
 import com.example.hairnada.vo.page.SearchStoreVo;
+import com.example.hairnada.vo.store.CategoryVo;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.Store;
 import org.springframework.stereotype.Service;
@@ -70,5 +71,11 @@ public class StoreService {
         }
         return storeMapper.likeTotal(storeNumber);
     }
+
+    public List<CategoryVo> findCategoryCnt(){
+        List<CategoryVo> findCategoryCnt = storeMapper.storeCount();
+        return findCategoryCnt;
+    }
+
 
 }

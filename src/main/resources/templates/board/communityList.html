@@ -30,31 +30,31 @@
       </div>
 
         <!-- 카테고리 -->
-      <table class="category">
+      <table class="category" th:with="cnt = ${categoryCnt}">
         <tr>
           <td>
             <button id="button0" class="categoryBtn selected" value="">
-              전체&nbsp;(<span>1</span>)
+              전체&nbsp;(<span></span>)
             </button>
           </td>
           <td>
             <button id="button1" class="categoryBtn" value="1">
-              자유&nbsp;(<span>1</span>)
+              자유&nbsp;(<span th:text="${cnt[0].categoryCnt}"></span>)
             </button>
           </td>
           <td>
             <button id="button2" class="categoryBtn" value="2">
-              꿀팁&nbsp;(<span>1</span>)
+              꿀팁&nbsp;(<span th:text="${cnt[1].categoryCnt}"></span>)
             </button>
           </td>
           <td>
             <button id="button3" class="categoryBtn" value="3">
-              질문&nbsp;(<span>1</span>)
+              질문&nbsp;(<span th:text="${cnt[2].categoryCnt}"></span>)
             </button>
           </td>
           <td>
             <button id="button4" class="categoryBtn" value="4">
-              후기&nbsp;(<span>1</span>)
+              후기&nbsp;(<span th:text="${cnt[3].categoryCnt}"></span>)
             </button>
           </td>
         </tr>
@@ -77,7 +77,9 @@
                   <p class="profiles profile-nick" th:text="${board.userNickName}"></p>
                 </a>
                 <div class="buttons">
-                  <button type="button" class="like" th:value="${board.boardNumber}">하트</button>
+                  <button type="button" class="like" th:value="${board.boardNumber}"
+                          th:classappend="${board.likeCnt == 1 ? 'active' : ''}"
+                          th:style="${board.likeCnt == 1 ? 'background-image:url(/img/heart2.png)' : ''}">하트</button>
                 </div>
               </div>
               <a th:href="@{/board/communityRead(boardNumber=${board.boardNumber})}">
@@ -98,7 +100,7 @@
                 <p class="community-title" th:text="${board.boardTitle}"></p>
                 <div class="count">
                   <span class="reply">댓글</span>
-                  <span class="replyCnt" th:text="${board.replyCnt}"></span>
+                  <span class="replyCnt" th:with="replyCnt = ${board.replyCnt}" th:text="${board.replyCnt}"></span>
                   <span class="view">조회수 </span>
                   <span class="viewCnt" th:text="${board.boardViewCnt}"></span>
                 </div>

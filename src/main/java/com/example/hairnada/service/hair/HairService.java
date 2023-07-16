@@ -3,14 +3,17 @@ package com.example.hairnada.service.hair;
 import com.example.hairnada.dto.hair.HairDto;
 import com.example.hairnada.mapper.hair.HairMapper;
 import com.example.hairnada.vo.hairVo.HairVo;
+import com.example.hairnada.vo.hairshop.HairShopVo;
 import com.example.hairnada.vo.page.CriteriaAdminList;
 import com.example.hairnada.vo.page.SearchHairVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -62,11 +65,11 @@ public class HairService {
     }
 
 //    카테고리,검색 조회
-    public List<HairVo> findHairList(SearchHairVo searchHairVo, CriteriaAdminList criteriaAdminList){
+    public List<HairVo> findHairList(SearchHairVo searchHairVo, CriteriaAdminList criteriaAdminList, Long userNumber){
         if (searchHairVo == null){
             throw new IllegalArgumentException("뭐가 없습니다.");
         }
-        return hairMapper.selectHairSearch(searchHairVo, criteriaAdminList);
+        return hairMapper.selectHairSearch(searchHairVo, criteriaAdminList, userNumber);
     }
 
     public int findSearchTotal(SearchHairVo searchHairVo){
@@ -82,4 +85,23 @@ public class HairService {
         }
         return hairMapper.likeTotal(hairNumber);
     }
+
+    @Transactional(readOnly = true)
+    public List<HairShopVo> findHairShop(){
+        Random random = new Random();
+        List<HairShopVo> hairShopList = new ArrayList<>();
+        int number;
+
+        for(int i = 0; i < 3; i++){
+            number = random.nextInt(getHairShopCnt()) + 1;
+            hairShopList.add(hairMapper.selectHairShop(number));
+        }
+        return hairShopList;
+    }
+
+    @Transactional(readOnly = true)
+    public int getHairShopCnt(){
+        return hairMapper.selectHairShopCnt();
+    }
 }
+

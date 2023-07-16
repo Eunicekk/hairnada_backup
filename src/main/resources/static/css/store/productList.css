@@ -250,3 +250,7 @@ button{
 .pagination .active {
   text-decoration: underline;
 }
+
+.ifILike{
+  background-image: url("/img/heart2.png");
+}
