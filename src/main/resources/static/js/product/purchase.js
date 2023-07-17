@@ -11,10 +11,11 @@ $.ajax({
         let resultPrice = 0;
 
         for(let i = 0; i < data.length; i++) {
+            var src = "/upload/" + data[i].storeFileUploadPath + "/th_" + data[i].storeFileUuid + "_" + data[i].storeFileName;
             text += `
             <tr>
                 <td>
-                    <img src="/upload/${data[i].storeFileUploadPath}/th_${data[i].storeFileUuid}_${data[i].storeFileName}" alt="상품">
+                    <img src=${src} alt="상품">
                     <p class="test-product">${data[i].storeTitle}</p>
                 </td>
                 <td class="test-count">${data[i].basketCnt}</td>

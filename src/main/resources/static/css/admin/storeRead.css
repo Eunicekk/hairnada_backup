@@ -174,7 +174,8 @@
 
 .file-wrap {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  column-gap: calc(40px/3);
   align-items: center;
   flex-wrap: wrap;
   padding: 0;

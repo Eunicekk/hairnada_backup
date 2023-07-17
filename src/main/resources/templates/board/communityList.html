@@ -88,10 +88,9 @@
 
 
                   <div th:if="${board.boardFileName == null}" class="main-img">
-                    <img src="https://www.studiopeople.kr/common/img/default_profile.png" alt="썸네일">
+                    <img src="/img/no-image-box.png" alt="썸네일">
                   </div>
                   <div th:unless="${board.boardFileName == null}" class="main-img">
-<!--                    <img th:src="@{/upload/2023/06/22/th_cc606c92-1766-4571-b275-cf927a336064_102.jpg}">-->
                     <img th:src="@{'/upload/' + ${board.boardFileUploadPath} + '/th_' + ${board.boardFileUuid} + '_' + ${board.boardFileName}}" alt="썸네일">
                   </div>
 

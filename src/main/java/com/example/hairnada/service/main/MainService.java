@@ -9,9 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -25,9 +23,12 @@ public class MainService {
         Random random = new Random();
         List<HairVo> hairList = new ArrayList<>();
         int number;
+        Set<Integer> selectedNumbers = new HashSet<>();
 
         for(int i=0; i<6; i++){
-            number = random.nextInt(getHairCnt()) + 1;
+            do {
+                number = random.nextInt(getHairCnt()) + 1;
+            } while (!selectedNumbers.add(number));
             hairList.add(mainMapper.selectHair(number));
         }
 

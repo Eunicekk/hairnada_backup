@@ -98,6 +98,7 @@ button{
 }
 
 .ListUl {
+  width: 1300px;
   display: flex;
   gap: calc(100px/3);
   position: relative;
