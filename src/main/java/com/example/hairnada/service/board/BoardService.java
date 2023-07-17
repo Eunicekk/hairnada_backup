@@ -84,11 +84,11 @@ public class BoardService {
 
     //    검색
     @Transactional(readOnly = true)
-    public List<BoardVo> search(Criteria03 criteria03, SearchVo searchVo,Long boardNumber) {
+    public List<BoardVo> search(Criteria03 criteria03, SearchVo searchVo) {
         if (searchVo == null) {
             throw new IllegalArgumentException("입력한 키워드가 없습니다.");
         }
-        return boardMapper.search(criteria03, searchVo, boardNumber);
+        return boardMapper.search(criteria03, searchVo);
     }
 
     //    전체 게시글 전체 조회
@@ -131,13 +131,6 @@ public class BoardService {
         boardMapper.updateReadCount(boardNumber);
     }
 
-//    댓글수
-//    public int updateReplyCnt(Long boardNumber){
-//        if (boardNumber == null){
-//            throw new IllegalArgumentException("몰라용");
-//        }
-//       return boardMapper.selectReplyCnt(boardNumber);
-//    }
 
 //    카테고리별 게시글 수
     public List<BoardCategoryVo> findCategoryCnt(){
