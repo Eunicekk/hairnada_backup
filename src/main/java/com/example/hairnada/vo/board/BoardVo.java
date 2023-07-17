@@ -11,7 +11,6 @@ public class BoardVo {
     private Long boardNumber;
     private String boardTitle;
     private Long boardViewCnt;
-    private Long ReplyCnt;
     private String boardContent;
     private Long userNumber;
     private Long boardCategoryNumber;
