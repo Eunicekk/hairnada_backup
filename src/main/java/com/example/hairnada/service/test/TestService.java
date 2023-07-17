@@ -85,7 +85,7 @@ public class TestService {
 
         Long shapeNumber = 0L;
         if (maxCount == eggFace) {
-           shapeNumber = 1L;
+            shapeNumber = 1L;
         } else if (maxCount == longFace) {
             shapeNumber = 2L;
 
