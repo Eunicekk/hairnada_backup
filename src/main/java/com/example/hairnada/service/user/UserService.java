@@ -135,7 +135,7 @@ public void registerKakaoUser(UserDto userDto) {
 
     // 중복된 ID인 경우 로그인 처리
     if (checkUserId(userDto.getUserId()) > 0) {
-//        apiUserLogin();
+
         apiUserLogin(userDto.getUserId());
         return;
     }
@@ -154,6 +154,36 @@ public void registerKakaoUser(UserDto userDto) {
         throw new IllegalArgumentException("Failed to process Kakao login information.");
     }
 }
+
+
+    // 네이버 회원 등록
+    public void registerNaverUser(UserDto userDto) {
+        if (userDto == null) {
+            throw new IllegalArgumentException("네이버 회원 정보가 없습니다.");
+        }
+
+        // 중복된 ID인 경우 로그인 처리
+        if (checkUserId(userDto.getUserId()) > 0) {
+            apiUserLogin(userDto.getUserId());
+            return;
+        }
+
+        // 서버로부터 받은 네이버 사용자 정보를 UserService를 통해 처리
+        System.out.println("Received Naver User Info:");
+        System.out.println("ID: " + userDto.getUserId());
+        System.out.println("Name: " + userDto.getUserName());
+        System.out.println("Email: " + userDto.getUserEmail());
+        System.out.println("Mobile: " + userDto.getUserPhoneNumber());
+        System.out.println("Gender: " + userDto.getUserGender());
+
+        // 사용자 정보 처리 후, 로직을 수행하거나 응답을 반환
+        try {
+            userMapper.insertNaver(userDto);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Failed to process Naver login information.");
+        }
+    }
+
 
 
 }

@@ -40,4 +40,6 @@ public interface UserMapper {
     public Long apiUserLogin(String userId);
 
     public void insertKakao(UserDto userDto);
+
+    public void insertNaver(UserDto userDto);
 }

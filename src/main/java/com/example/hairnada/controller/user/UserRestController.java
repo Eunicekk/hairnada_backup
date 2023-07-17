@@ -35,31 +35,29 @@ public class UserRestController {
 
 
 
-//   @PostMapping("/registerNaver")
-//   public ResponseEntity<String> registerNaverUser(@RequestBody UserVo userVo, HttpServletRequest req) {
-//      System.out.println(userVo);
-//      try {
-//         // 중복된 ID인 경우 에러 응답 반환
-//         if (userService.checkUserId(userVo.getUserId()) > 0) {
-//            // 이미 사용 중인 ID일 경우 로그인 처리
-//            Long userNumber = userService.apiUserLogin(userVo);
-//            req.getSession().setAttribute("userNumber", userNumber);
-//            return ResponseEntity.ok("Naver login successful.");
-//         }
-//
-//         // 서버로부터 받은 네이버 사용자 정보를 UserService를 통해 처리
-//         userService.registerNaverUser(userVo);
-//         req.getSession().setAttribute("userNumber", userVo.getUserNumber());
-//
-//         // 사용자 정보 처리 후, 필요한 응답을 반환
-//         return ResponseEntity.ok("Naver registration successful. Please log in.");
-//      } catch (Exception e) {
-//         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to process Naver login information.");
-//      }
-//   }
+   @PostMapping("/registerNaver")
+   public ResponseEntity<String> registerNaverUser(@RequestBody UserDto userDto, HttpServletRequest req) {
+      System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+userDto);
+      try {
+         if (userService.checkUserId(userDto.getUserId()) > 0) {
+            Long userNumber = userService.apiUserLogin(userDto.getUserId());
+            req.getSession().setAttribute("userNumber", userNumber);
+            return ResponseEntity.ok("Naver login successful.");
+         }
+
+         userService.registerNaverUser(userDto);
+         req.getSession().setAttribute("userNumber", userDto.getUserNumber());
+
+
+         return ResponseEntity.ok("Naver registration successful. Please log in.");
+      } catch (Exception e) {
+         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to process Naver login information.");
+      }
+   }
 
    @PostMapping("/registerKakao")
    public ResponseEntity<String> registerKakaoUser(@RequestBody UserDto userDto, HttpServletRequest req) {
+      System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+ userDto);
       try {
          // 중복된 ID인 경우 에러 응답 반환
          if (userService.checkUserId(userDto.getUserId()) > 0) {
