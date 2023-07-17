@@ -92,12 +92,13 @@ public class HairShopController {
 
     @PostMapping("/modify")
         public RedirectView hairShopModify(HairShopDto hairShopDto, RedirectAttributes redirectAttributes, @RequestParam("hairShopFile") List<MultipartFile> files){
+            System.out.println("@@@@@" + hairShopDto);
             try {
                 hairShopService.modify(hairShopDto, files);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            redirectAttributes.addFlashAttribute("hairShopNumber", hairShopDto.getHairShopNumber());
+            redirectAttributes.addAttribute("hairShopNumber", hairShopDto.getHairShopNumber());
             return new RedirectView("/hairshop/read");
     }
 

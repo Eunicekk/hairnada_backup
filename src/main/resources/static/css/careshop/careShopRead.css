@@ -127,6 +127,10 @@
     text-decoration: underline;
 }
 
+.time{
+    white-space: pre-line;
+}
+
 /* 뒤로 가기 */
 .back{
     width: 1200px; height: 46.13px;
