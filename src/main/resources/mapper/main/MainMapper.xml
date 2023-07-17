@@ -28,35 +28,33 @@
 
     <!-- 상품 띄우기 -->
     <select id="selectStore" resultType="StoreVo">
-        SELECT RNUM, STORE_NUMBER , STORE_TITLE , STORE_PRICE , STORE_CATEGORY_NAME,
+        SELECT RNUM, STORE_NUMBER, STORE_TITLE, STORE_PRICE, STORE_CATEGORY_NAME,
                STORE_CATEGORY_NUMBER, STORE_FILE_NAME, STORE_FILE_UPLOAD_PATH, STORE_FILE_UUID
         FROM (
-                 SELECT RNUM, STORE_NUMBER , STORE_TITLE , STORE_PRICE , STORE_CATEGORY_NAME,
+                 SELECT RNUM, STORE_NUMBER, STORE_TITLE, STORE_PRICE, STORE_CATEGORY_NAME,
                         STORE_CATEGORY_NUMBER, STORE_FILE_NAME, STORE_FILE_UPLOAD_PATH, STORE_FILE_UUID
                  FROM (
-                          SELECT ROWNUM AS RNUM , STORE_NUMBER , STORE_TITLE , STORE_PRICE ,
+                          SELECT ROWNUM AS RNUM, STORE_NUMBER, STORE_TITLE, STORE_PRICE,
                                  STORE_CATEGORY_NAME, STORE_CATEGORY_NUMBER, STORE_FILE_NAME,
-                                 STORE_FILE_UPLOAD_PATH, STORE_FILE_UUID
+                                 STORE_FILE_UPLOAD_PATH, STORE_FILE_UUID, RK
                           FROM (
-                                   SELECT ts.STORE_NUMBER , ts.STORE_TITLE , ts.STORE_PRICE , ts.STORE_CATEGORY_NUMBER,
+                                   SELECT ts.STORE_NUMBER, ts.STORE_TITLE, ts.STORE_PRICE, ts.STORE_CATEGORY_NUMBER,
                                           tsf.STORE_FILE_NAME, STORE_FILE_UPLOAD_PATH, STORE_FILE_UUID, tsc.STORE_CATEGORY_NAME,
-                                          ROW_NUMBER() OVER (PARTITION BY ts.STORE_CATEGORY_NUMBER ORDER BY ts.STORE_NUMBER) AS RNUM
+                                          RANK() OVER (PARTITION BY ts.STORE_NUMBER ORDER BY tsf.STORE_FILE_NUMBER) RK
                                    FROM TBL_STORE ts
-                                            JOIN TBL_STORE_CATEGORY tsc
-                                                 ON ts.STORE_CATEGORY_NUMBER = tsc.STORE_CATEGORY_NUMBER
+                                            JOIN TBL_STORE_CATEGORY tsc ON ts.STORE_CATEGORY_NUMBER = tsc.STORE_CATEGORY_NUMBER
                                             LEFT JOIN (
-                                       SELECT STORE_FILE_NUMBER , STORE_FILE_NAME , STORE_FILE_UPLOAD_PATH ,
-                                              STORE_FILE_UUID , STORE_NUMBER ,
-                                              RANK() OVER(PARTITION BY STORE_NUMBER ORDER BY STORE_FILE_NUMBER) RK
+                                       SELECT STORE_FILE_NUMBER, STORE_FILE_NAME, STORE_FILE_UPLOAD_PATH,
+                                              STORE_FILE_UUID, STORE_NUMBER,
+                                              RANK() OVER (PARTITION BY STORE_NUMBER ORDER BY STORE_FILE_NUMBER) RK
                                        FROM TBL_STORE_FILE
                                    ) tsf ON ts.STORE_NUMBER = tsf.STORE_NUMBER
                                )
-                          WHERE STORE_CATEGORY_NUMBER = #{category}
+                          WHERE STORE_CATEGORY_NUMBER = #{category} AND RK = 1
                       )
                  WHERE RNUM = #{number}
              )
     </select>
-
 
     <!-- 상품 개수 -->
     <select id="selectStoreCnt1" resultType="_int">
@@ -92,7 +90,7 @@
 
     <!-- 커뮤니티 띄우기 -->
     <select id="selectBoard" resultType="boardVo">
-        SELECT ROWNUM, BOARD_NUMBER, BOARD_TITLE, BOARD_VIEW_CNT, BOARD_CONTENT, USER_NUMBER, USER_NICKNAME,
+        SELECT RNUM, BOARD_NUMBER, BOARD_TITLE, BOARD_VIEW_CNT, BOARD_CONTENT, USER_NUMBER, USER_NICKNAME,
         BOARD_FILE_UPLOAD_PATH, BOARD_FILE_UUID, BOARD_FILE_NAME, USER_FILE_UPLOAD_PATH, USER_FILE_UUID, USER_FILE_NAME
         FROM (
         SELECT ROWNUM AS RNUM, BOARD_NUMBER, BOARD_TITLE, BOARD_VIEW_CNT, BOARD_CONTENT,

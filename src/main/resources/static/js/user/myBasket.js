@@ -140,6 +140,7 @@ function getBigBox(obj) {
   } else {
     for (let i = 0; i < obj.length; i++) {
       let priceAll = obj[i].basketCnt * obj[i].storePrice;
+      var src = "/upload/" + obj[i].storeFileUploadPath + "/th_" + obj[i].storeFileUuid + "_" + obj[i].storeFileName;
       text += `
       <tr class="basket-content">
         <td class="check-img-box2">
@@ -147,7 +148,7 @@ function getBigBox(obj) {
             <label for="check-label${i}" class="check-img-label"></label>
         </td>
         <td>
-            <img src="/upload/${obj[i].storeFileUploadPath}/th_${obj[i].storeFileUUID}_${obj[i].storeFileName}" alt="상품">
+            <img src=${src} alt="상품">
             <p class="test-product">${obj[i].storeTitle}</p>
         </td>
         <td class="test-count">
@@ -236,11 +237,12 @@ function getBigBox2(data) {
     text += `<tbody>`;
     for (let i = 0; i < data.length; i++) {
     let priceAll = data[i].buyCnt * data[i].storePrice;
+    var src = "/upload/" + data[i].storeFileUploadPath + "/th_" + data[i].storeFileUuid + "_" + data[i].storeFileName;
       text += `
         <tr>
           <td>${data[i].buyDateFormat}</td>
           <td>
-            <img src="/upload/${data[i].storeFileUploadPath}/th_${data[i].storeFileUUID}_${data[i].storeFileName}" alt="상품">
+            <img src=${src} alt="상품">
             <p class="test-product">${data[i].storeTitle}</p>
           </td>
           <td>${data[i].buyCnt}</td>
