@@ -65,7 +65,7 @@ public class StoreReplyService {
         if (storeNumber == null){
             throw new IllegalArgumentException("게시물 번호 누락");
         }
-        return storeReplyMapper.replyTotal(storeNumber);
+        return storeReplyMapper.selectTotal(storeNumber);
     }
 
     public int replyAvg(Long storeNumber){

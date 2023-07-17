@@ -114,7 +114,6 @@ button{
 .profile {
   display: flex;
   justify-content: space-between;
-  width: 70px;
 }
 
 .cL .profile {
@@ -133,19 +132,19 @@ button{
   text-decoration: underline;
 }
 
-.basket {
-  background-image: url("/img/basket.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-color: transparent;
-  margin-left: 10px;
-  padding-top: 18px;
-  padding-bottom: 18px;
-  line-height: 20px;
-  color: transparent;
-  cursor: pointer;
-}
+/*.basket {*/
+/*  background-image: url("/img/basket.png");*/
+/*  background-position: center;*/
+/*  background-repeat: no-repeat;*/
+/*  background-size: contain;*/
+/*  background-color: transparent;*/
+/*  margin-left: 10px;*/
+/*  padding-top: 18px;*/
+/*  padding-bottom: 18px;*/
+/*  line-height: 20px;*/
+/*  color: transparent;*/
+/*  cursor: pointer;*/
+/*}*/
 
 .like {
   background-image: url("/img/heart1.png");
@@ -153,7 +152,6 @@ button{
   background-repeat: no-repeat;
   background-size: contain;
   background-color: transparent;
-  margin-left: 10px;
   padding-top: 18px;
   padding-bottom: 18px;
   line-height: 20px;
