@@ -55,7 +55,7 @@
         WHERE RN > ( #{criteria.page} - 1 ) * #{criteria.amount}
     </select>
 
-    <select id="selectTotal" resultType="_int">
+    <select id="replyTotal" resultType="_int">
         SELECT COUNT(BOARD_REPLY_NUMBER)
         FROM TBL_BOARD_REPLY
         WHERE BOARD_NUMBER = #{boardNumber}

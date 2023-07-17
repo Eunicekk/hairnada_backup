@@ -47,7 +47,7 @@ public class StoreController {
     @GetMapping("/productRead")
     public String productRead(Long storeNumber, Model model, HttpServletRequest req){
         Long userNumber = (Long)req.getSession().getAttribute("userNumber");
-        float replyAvg = storeReplyService.replyAvg(storeNumber);
+        int replyAvg = storeReplyService.replyAvg(storeNumber);
         int likeCnt = storeService.findLikeTotal(storeNumber);
         int replyCnt = storeReplyService.findTotal(storeNumber);
         StoreVo storeVo = storeService.findStore(storeNumber, userNumber != null ? userNumber : 0);

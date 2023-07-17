@@ -23,5 +23,5 @@ public class BoardVo {
     private String userFileUploadPath;
     private String userFileUuid;
     private int likeCnt;
-
+    private int replyCnt;
 }

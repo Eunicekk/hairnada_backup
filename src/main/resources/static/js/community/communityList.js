@@ -136,8 +136,11 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="board-category-number" style="display: none;">${boardList[i].boardCategoryNumber}</div>
             <div class="profile">
               <a href="#">
-                <div class="profiles profile-img">
-                  <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTgz/MDAxNjM5NTc2MDYxMjQw.jGbcfmGy9UjE1k3obpZy9piP41BQTf_PbLi0VdBRL9sg.vfIiwqDJVvwviW1J9I0QZwNCcfleCTAGemKH_INjJfwg.JPEG.se413496/c55c762ce418abefd071aa7e81c5a213.jpg?type=w800" alt="프로필 이미지">
+                  <div ${boardList[i].userFileName ? 'style="display: none;"' : ''} class="profiles profile-img">
+                  <img src="https://www.studiopeople.kr/common/img/default_profile.png" alt="임시 썸네일"/>
+                </div>
+                <div ${boardList[i].userFileName ? '' : 'style="display: none;"'} class="profiles profile-img">
+                  <img src="/upload/${boardList[i].userFileUploadPath}/th_${boardList[i].userFileUuid}_${boardList[i].userFileName}" alt="썸네일"/>
                 </div>
                 <p class="profiles profile-nick">${boardList[i].userNickName}</p>
               </a>
@@ -148,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <a href="/board/communityRead?boardNumber=${boardList[i].boardNumber}">
               <div class="img-list">
                 <div ${boardList[i].boardFileName ? 'style="display: none;"' : ''} class="main-img">
-                  <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800" alt="썸네일">
+                  <img src="https://www.studiopeople.kr/common/img/default_profile.png" alt="썸네일">
                 </div>
                 <div ${boardList[i].boardFileName ? '' : 'style="display: none;"'} class="main-img">
                   <img src="/upload/${boardList[i].boardFileUploadPath}/th_${boardList[i].boardFileUuid}_${boardList[i].boardFileName}" alt="썸네일"/>
@@ -161,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <span class="reply">댓글</span>
                 <span class="replyCnt">${boardList[i].replyCnt}</span>
                 <span class="view">조회수 </span>
-                <span class="viewCnt" ${boardList[i].boardViewCnt}></span>
+                <span class="viewCnt">${boardList[i].boardViewCnt}</span>
               </div>
             </div>
           </li>

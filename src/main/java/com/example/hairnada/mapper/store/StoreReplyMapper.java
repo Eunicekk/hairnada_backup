@@ -15,6 +15,6 @@ public interface StoreReplyMapper {
     public void update(StoreReplyDto storeReplyDto);
     public void delete(Long storeReplyNumber);
     public List<StoreReplyDto> selectListPage(@Param("criteria")Criteria03 criteria03, @Param("storeNumber") Long storeNumber);
-    public int selectTotal(Long storeNumber);
-    public float replyAvg(Long storeNumber);
+    public int replyTotal(Long storeNumber);
+    public int replyAvg(Long storeNumber);
 }
