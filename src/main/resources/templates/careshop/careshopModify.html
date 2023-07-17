@@ -26,7 +26,7 @@
 
     <!-- 이미지 등록 -->
     <form th:action="@{/careshop/modify}" method="post" enctype="multipart/form-data">
-        <input type="hidden" class="care-shop-num" th:value="${careShop.careShopNumber}">
+        <input type="hidden" class="care-shop-num" name="careShopNumber" th:value="${careShop.careShopNumber}">
         <div class="content">
             <div class="title">장소 이미지</div>
             <div class="image-upload-wrap">

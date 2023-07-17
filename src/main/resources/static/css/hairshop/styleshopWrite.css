@@ -39,7 +39,6 @@
     box-sizing: border-box;
     resize: none;
     outline: none;
-    white-space: pre-line;
 }
 
 .text::placeholder{

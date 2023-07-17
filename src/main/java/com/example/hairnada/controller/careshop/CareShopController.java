@@ -95,7 +95,7 @@ public class CareShopController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        redirectAttributes.addFlashAttribute("careShopNumber", careShopDto.getCareShopNumber());
+        redirectAttributes.addAttribute("careShopNumber", careShopDto.getCareShopNumber());
         return new RedirectView("/careshop/read");
     }
 
