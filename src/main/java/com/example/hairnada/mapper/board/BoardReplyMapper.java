@@ -15,5 +15,5 @@ public interface BoardReplyMapper {
     public void update(BoardReplyDto boardReplyDto);
     public void delete(Long boardReplyNumber);
     public List<BoardReplyDto> selectListPage(@Param("criteria")Criteria03 criteria03, @Param("boardNumber") Long boardNumber);
-    public int selectTotal(Long boardNumber);
+    public int replyTotal(Long boardNumber);
 }
