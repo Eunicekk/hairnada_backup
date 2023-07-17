@@ -58,6 +58,8 @@ function LikeImg() {
       }
     });
   });
+
+
 }
 
 // 커뮤니티 좋아요 모음
@@ -97,6 +99,8 @@ function communityPage(page) {
       $('.pagination ul').html(pageNum);
     }
   });
+
+
 }
 
 communityPage();
@@ -526,26 +530,40 @@ careBtn.addEventListener("click", function () {
 
 
 // 좋아요 취소 처리
-// $(document).ready(function() {
-//   $(".buttons").click(function() {
-//     var buttonImg = $(this).find(".like");
-//     var hairShopNumber = $(this).find(".like").val();
+// $(document).ready(function () {
+//   $(".ListUl").on('click', '.like', function () {
+//     console.log("like 버튼 클릭 !!!!");
+//     var buttonImg = $(this);
+//     var boardNumber = $(this).val();
+//     console.log(boardNumber);
 //
-//     $.ajax({
-//       url: "/hairshopLike/subtract",
-//       type: "DELETE",
-//       contentType: "application/json",
-//       data: JSON.stringify({ hairShopNumber: hairShopNumber }),
-//       success: function() {
-//         console.log("빼기 성공");
-//       },
-//       error: function(xhr, status, error) {
-//         console.log("빼기 실패: " + error);  // 에러 발생 시 콘솔에 표시
-//       }
-//     });
+//     if (buttonImg.hasClass("active")) {
+//       $.ajax({
+//         url: "/boardLike/subtract",
+//         type: "DELETE",
+//         contentType: "application/json",
+//         data: JSON.stringify({ boardNumber: boardNumber }),
+//         success: function(){
+//           console.log("빼기 성공");
+//         }
+//       });
 //
-//     buttonImg.removeClass("active");
-//     buttonImg.css("background-image", "url('/img/heart1.png')");
+//       buttonImg.removeClass("active");
+//       buttonImg.css("background-image", "url('/img/heart1.png')");
+//     } else {
+//       $.ajax({
+//         url: "/boardLike/add",
+//         type: "POST",
+//         contentType: "application/json",
+//         data: JSON.stringify({ boardNumber: boardNumber }),
+//         success: function(){
+//           console.log("더하기 성공");
+//         }
+//       });
+//
+//       buttonImg.addClass("active");
+//       buttonImg.css("background-image", "url('/img/heart2.png')");
+//     }
 //   });
 // });
 

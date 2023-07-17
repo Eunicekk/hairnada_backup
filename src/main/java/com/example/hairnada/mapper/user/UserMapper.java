@@ -36,5 +36,10 @@ public interface UserMapper {
 //    회원정보 수정 확인
     public UserVo updateSelect(Long userNumber);
 
-//    계정찾기
+//    카카오 api
+    public Long apiUserLogin(String userId);
+
+    public void insertKakao(UserDto userDto);
+
+    public void insertNaver(UserDto userDto);
 }
