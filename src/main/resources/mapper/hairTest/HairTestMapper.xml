@@ -2,27 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.hairnada.mapper.hairTest.HairTestMapper">
 
-<select id="selectTestResult" resultType="hairTestVo">
-    SELECT HAIR_NUMBER, HAIR_NAME, HAIR_GENDER, SHAPE_NUMBER,
-    HAIR_FILE_NAME, HAIR_FILE_UPLOAD_PATH, HAIR_FILE_UUID, SHAPE_NAME
-    FROM  (
-    SELECT ROWNUM, H.HAIR_NUMBER, H.HAIR_NAME, H.HAIR_GENDER, H.SHAPE_NUMBER,
-    HF.HAIR_FILE_NAME, HF.HAIR_FILE_UPLOAD_PATH, HF.HAIR_FILE_UUID,
-    FS.SHAPE_NAME
-    FROM (
-    SELECT HAIR_NUMBER, HAIR_NAME, HAIR_GENDER, SHAPE_NUMBER
-    FROM TBL_HAIR
-    WHERE SHAPE_NUMBER = #{shapeNumber} AND HAIR_GENDER = #{hairGender}
-    ) H
-    LEFT JOIN TBL_HAIR_FILE HF
-    ON H.HAIR_NUMBER = HF.HAIR_NUMBER
-    JOIN TBL_FACE_SHAPE FS
-    ON H.SHAPE_NUMBER = FS.SHAPE_NUMBER
-    )S1
+    <select id="selectTestResult" resultType="hairTestVo">
+        SELECT HAIR_NUMBER, HAIR_NAME, HAIR_GENDER, SHAPE_NUMBER,
+               HAIR_FILE_NAME, HAIR_FILE_UPLOAD_PATH, HAIR_FILE_UUID, SHAPE_NAME
+        FROM  (
+                  SELECT ROWNUM, H.HAIR_NUMBER, H.HAIR_NAME, H.HAIR_GENDER, H.SHAPE_NUMBER,
+                         HF.HAIR_FILE_NAME, HF.HAIR_FILE_UPLOAD_PATH, HF.HAIR_FILE_UUID,
+                         FS.SHAPE_NAME
+                  FROM (
+                           SELECT HAIR_NUMBER, HAIR_NAME, HAIR_GENDER, SHAPE_NUMBER
+                           FROM TBL_HAIR
+                           WHERE SHAPE_NUMBER = #{shapeNumber} AND HAIR_GENDER = #{hairGender}
+                       ) H
+                           LEFT JOIN TBL_HAIR_FILE HF
+                                     ON H.HAIR_NUMBER = HF.HAIR_NUMBER
+                           JOIN TBL_FACE_SHAPE FS
+                                ON H.SHAPE_NUMBER = FS.SHAPE_NUMBER
+              )S1
     <![CDATA[
-    WHERE ROWNUM <= 2
-    ]]>
+        WHERE ROWNUM <= 2
+        ]]>
 
-</select>
+    </select>
 
 </mapper>
