@@ -133,13 +133,14 @@ public class BoardController {
 // 검색기능
 @GetMapping("/search")
 public String search(Criteria03 criteria03, Model model, SearchVo searchVo, HttpServletRequest req) {
-    Long boardNumber = (Long)req.getSession().getAttribute("boardNumber");
-    List<BoardVo> boardList = boardService.search(criteria03, searchVo,boardNumber);
-    int replyCnt = boardReplyService.findTotal(boardNumber);
-    model.addAttribute("replyCnt", replyCnt);
+//    Long boardNumber = (Long)req.getSession().getAttribute("boardNumber");
+    int total = boardService.getTotal();
+
+    List<BoardVo> boardList = boardService.search(criteria03, searchVo);
+//    model.addAttribute("replyCnt", replyCnt);
     model.addAttribute("boardList", boardList);
     model.addAttribute("search", searchVo);
-    model.addAttribute("pageInfo", new Page03Vo(criteria03, boardService.searchTotal(searchVo)));
+    model.addAttribute("pageInfo", new Page03Vo(criteria03, total));
 
     return "board/communityList";
 }

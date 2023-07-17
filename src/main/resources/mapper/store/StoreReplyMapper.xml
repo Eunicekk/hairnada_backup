@@ -61,8 +61,8 @@
         WHERE STORE_NUMBER = #{storeNumber}
     </select>
 
-    <select id="replyAvg" resultType="_float">
-        SELECT ROUND(AVG(STORE_SCORE), 1) AS scoreAvg
+    <select id="replyAvg" resultType="_int">
+        SELECT COALESCE(ROUND(AVG(STORE_SCORE), 1), 0) AS scoreAvg
         FROM TBL_STORE_REPLY
         WHERE STORE_NUMBER = #{storeNumber}
     </select>

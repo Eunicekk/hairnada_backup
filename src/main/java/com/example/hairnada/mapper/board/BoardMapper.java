@@ -31,7 +31,7 @@ public interface BoardMapper {
     public int selectTotal();
 
 //    제목과 내용으로 검색
-    public List<BoardVo> search(@Param("criteria")Criteria03 criteria03, @Param("search") SearchVo searchVo, @Param("boardNumber")Long boardNumber);
+    public List<BoardVo> search(@Param("criteria")Criteria03 criteria03, @Param("search") SearchVo searchVo);
 
 //    검색된 게시글 전체 조회
     public int searchTotal(@Param("search") SearchVo searchVo);
@@ -46,8 +46,6 @@ public interface BoardMapper {
 //    조회수 업뎃
     public void updateReadCount(Long boardNumber);
 
-//    댓글수 업뎃
-    public int selectReplyCnt(Long boardNumber);
 
 //    카테고리별 게시글 수
     public List<BoardCategoryVo> boardCount();
