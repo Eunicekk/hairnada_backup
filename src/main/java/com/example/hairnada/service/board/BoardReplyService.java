@@ -64,6 +64,6 @@ public class BoardReplyService {
         if (boardNumber == null){
             throw new IllegalArgumentException("게시물 번호 누락");
         }
-        return boardReplyMapper.selectTotal(boardNumber);
+        return boardReplyMapper.replyTotal(boardNumber);
     }
 }
