@@ -7,13 +7,14 @@ let btnStyle = {
 };
 
 let mainTitleStyle = {
-    fontSize: 26,
+    fontSize: 50,
     color: "rgb(146, 114, 236)",
 };
 
 let subTitleStyle = {
-    fontSize: 16,
-    color: "black",
+    fontSize: 20,
+    color: "#222",
+    fontWeiht: 500,
 };
 
 //============================
@@ -39,7 +40,9 @@ export function setMainText(mainTitle, subTitle) {
  */
 export function main() {
     return `
-  <div class="hairnada-logo">hairnada</div>
+  <div class="hairnada-logo">
+    <img src="/img/logo.png" alt="로고" height="60px">
+  </div>
   <section class="main">
   <div class="space"></div>
   <section class="around">
