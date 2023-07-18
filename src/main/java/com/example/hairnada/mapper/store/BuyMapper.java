@@ -24,4 +24,7 @@ public interface BuyMapper {
 
     // 구매내역 조회하기
     public List<BuyVo> selectBuyOk(Long userNumber);
+
+    // 구매내역 필터 처리하기
+    public List<BuyVo> selectBuyOkFilter(Long userNumber, Long deliveryNumber);
 }

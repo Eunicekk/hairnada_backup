@@ -208,11 +208,11 @@ function getBigBox2(data) {
         </span>
       </button>
       <ul class="dropdown-menu">
-        <li class="dropdown-item">전체</li>
-        <li class="dropdown-item">결제완료</li>
-        <li class="dropdown-item">상품준비중</li>
-        <li class="dropdown-item">배송중</li>
-        <li class="dropdown-item">배송완료</li>
+        <li class="dropdown-item" data-status="0">전체</li>
+        <li class="dropdown-item" data-status="1">결제완료</li>
+        <li class="dropdown-item" data-status="2">상품준비중</li>
+        <li class="dropdown-item" data-status="3">배송중</li>
+        <li class="dropdown-item" data-status="4">배송완료</li>
       </ul>
     </div>
     <table class="buy-tbl">
@@ -408,3 +408,20 @@ $(".product-list").on("change", ".check-img-input", function (e) {
     $("#check-label").prop("checked", false);
   }
 });
+
+// 구매내역 필터 처리
+$(document).on('click', '.dropdown-buy .dropdown-item', function(){
+  console.log($(this).data("status"));
+  let select = $(this).data("status");
+
+  $.ajax({
+    url: "/stores/buyFilter",
+    type: "GET",
+    data: {deliveryNumber: select},
+    success: function(data){
+      basket = getBigBox2(data);
+      $('.big-box').html(basket);
+      createDatePicker();
+    }
+  })
+})
