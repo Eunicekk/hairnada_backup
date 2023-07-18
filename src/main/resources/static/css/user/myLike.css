@@ -175,7 +175,7 @@ input[type="radio"] {
   height: 34px;
   border-radius: 100%;
   border: 1px solid #d9d9d9;
-  background-image: url("https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTgz/MDAxNjM5NTc2MDYxMjQw.jGbcfmGy9UjE1k3obpZy9piP41BQTf_PbLi0VdBRL9sg.vfIiwqDJVvwviW1J9I0QZwNCcfleCTAGemKH_INjJfwg.JPEG.se413496/c55c762ce418abefd071aa7e81c5a213.jpg?type=w800");
+  background-image: url("https://www.studiopeople.kr/common/img/default_profile.png");
 }
 
 .profile-img {
@@ -371,4 +371,10 @@ input[type="radio"] {
 
 .selected {
   border-bottom: 5px solid black;
+}
+
+.profile-img-img{
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
 }
