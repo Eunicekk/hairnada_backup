@@ -70,7 +70,7 @@
             ) F ON S.STORE_NUMBER = F.STORE_NUMBER AND F.RK = 1
         ) J ON B.STORE_NUMBER = J.STORE_NUMBER
                  LEFT JOIN TBL_DELIVERY D ON B.DELIVERY_NUMBER = D.DELIVERY_NUMBER
-        WHERE U.USER_NUMBER = 1
+        WHERE U.USER_NUMBER = #{userNumber}
         ORDER BY BUY_NUMBER DESC
     </select>
 
@@ -94,7 +94,7 @@
             ) F ON S.STORE_NUMBER = F.STORE_NUMBER AND F.RK = 1
         ) J ON B.STORE_NUMBER = J.STORE_NUMBER
                  LEFT JOIN TBL_DELIVERY D ON B.DELIVERY_NUMBER = D.DELIVERY_NUMBER
-        WHERE U.USER_NUMBER = 1 AND D.DELIVERY_NUMBER = #{deliveryNumber}
+        WHERE U.USER_NUMBER = #{userNumber} AND D.DELIVERY_NUMBER = #{deliveryNumber}
         ORDER BY BUY_NUMBER DESC
     </select>
 
