@@ -226,7 +226,7 @@ function hairShopPage(page) {
       tagList = getHairShop(result.likeShop);
       $(".communityList").html(tagList);
       LikeImg();
-      hairShopCancle();
+      // hairShopCancle();
 
       let pageNum = '';
       let pageinfo = result.pageinfo;
@@ -301,7 +301,9 @@ function getCommunity(obj) {
       <li class="ListLi">
         <div class="profile">
           <a href="#">
-            <div class="profiles profile-img"></div>
+            <div class="profiles profile-img">
+               <img class="profile-img-img" src="/upload/${obj[i].userFileUploadPath}/th_${obj[i].userFileUuid}_${obj[i].userFileName}" alt="">
+            </div>
             <p class="profiles profile-nick">${obj[i].userNickName}</p>
           </a>
           <div class="buttons">
