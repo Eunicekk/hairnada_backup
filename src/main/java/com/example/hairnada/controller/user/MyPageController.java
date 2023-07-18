@@ -87,7 +87,7 @@ public class MyPageController {
 //        myPageService.myBoard(userNumber);
 //        redirectAttributes.addFlashAttribute("userNumber", userNum);
         model.addAttribute("myList", myPageService.myBoard(userNum, criteria03));
-        model.addAttribute("pageInfo",new Page03Vo(criteria03, myPageService.getTotal( userNum)));
+        model.addAttribute("pageInfo",new Page03Vo(criteria03 ,myPageService.getTotal(userNum)));
 
         return "user/myboard";
     }
