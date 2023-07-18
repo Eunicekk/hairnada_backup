@@ -14,6 +14,12 @@ body {
   padding: 20px;
 }
 
+.profile-img-img{
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+}
+
 .topBox {
   display: block;
   margin: 0;

@@ -179,7 +179,13 @@ input[type="radio"] {
   height: 34px;
   border-radius: 100%;
   border: 1px solid #d9d9d9;
-  background-image: url("https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTgz/MDAxNjM5NTc2MDYxMjQw.jGbcfmGy9UjE1k3obpZy9piP41BQTf_PbLi0VdBRL9sg.vfIiwqDJVvwviW1J9I0QZwNCcfleCTAGemKH_INjJfwg.JPEG.se413496/c55c762ce418abefd071aa7e81c5a213.jpg?type=w800");
+  /*background-image: url("https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTgz/MDAxNjM5NTc2MDYxMjQw.jGbcfmGy9UjE1k3obpZy9piP41BQTf_PbLi0VdBRL9sg.vfIiwqDJVvwviW1J9I0QZwNCcfleCTAGemKH_INjJfwg.JPEG.se413496/c55c762ce418abefd071aa7e81c5a213.jpg?type=w800");*/
+}
+
+.profile-img-img{
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
 }
 
 .profile-img {
@@ -224,7 +230,7 @@ input[type="radio"] {
 .main-img {
   width: 100%;
   height: 250px;
-  background-image: url("https://mblogthumb-phinf.pstatic.net/MjAyMTEyMTVfMTg3/MDAxNjM5NTc2MDYzOTU5.t99xzUpgqkooL2EJY11JEEGTdsf23al8EeL7HymsDV4g.qCXPe5Gie7lwD1mdQNglSJvsOoOCD05oW7g7hdRhv-gg.JPEG.se413496/b9a07eb4e1e3a6773d93309164a98f2b.jpg?type=w800");
+  background-image: url("https://www.studiopeople.kr/common/img/default_profile.png");
   background-position: center center;
   background-size: cover;
   border-radius: 4px;
