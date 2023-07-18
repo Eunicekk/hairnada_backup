@@ -143,9 +143,6 @@ function showSearchResult(result){
               <div class="titleAndBnt">
                 <p class="product-title">${productList[i].storeTitle}</p>
                 <div class="profile">
-                  <button id="basketButton" type="button" class="basket">
-                    구매
-                  </button>
                   <div class="buttons">
                     <button type="button" class="${likeClass}" value="${productList[i].storeNumber}">하트</button>
                   </div>

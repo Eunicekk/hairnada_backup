@@ -498,7 +498,6 @@ textarea:focus {
 .main-box {
   /* background-color: yellow; */
   width: 1300px;
-  height: 1420px;
   margin: 40px auto;
 }
 
@@ -693,4 +692,10 @@ textarea:focus {
   justify-content: space-evenly;
 }
 
+.main-user-box{
+  height: 1420px;
+}
 
+.main-img-banner{
+  margin-bottom: 40px;
+}

@@ -190,26 +190,17 @@ function requestPay() {
                 type: 'POST',
                 traditional: true,
                 success: function(result) {
+                    //페이지 이동
                     $.ajax({
-                        url: '/stores/modifyBuy',
-                        type: 'patch',
+                        url: '/stores/remove',
+                        type: 'delete',
                         traditional: true,
                         data: JSON.stringify(basketNumbers),
                         contentType: "application/json;charset=utf-8",
-                        success: function() {
-                            //페이지 이동
-                            $.ajax({
-                                url: '/stores/remove',
-                                type: 'delete',
-                                traditional: true,
-                                data: JSON.stringify(basketNumbers),
-                                contentType: "application/json;charset=utf-8",
-                                success: function() {
-                                    window.location.href = "/user/myBasket";
-                                    $(document).ready(function() {
-                                        mainBasket2();
-                                    });
-                                }
+                        success: function () {
+                            window.location.href = "/user/myBasket";
+                            $(document).ready(function () {
+                                mainBasket2();
                             });
                         }
                     });

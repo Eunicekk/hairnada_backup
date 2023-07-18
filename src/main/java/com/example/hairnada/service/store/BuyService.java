@@ -63,4 +63,13 @@ public class BuyService {
         }
         return buyMapper.selectBuyOk(userNumber);
     }
+
+    // 구매 내역 필터 처리하기
+    @Transactional(readOnly = true)
+    public List<BuyVo> FilterBuyOk(Long userNumber, Long deliveryNumber){
+        if(userNumber == null || deliveryNumber == null){
+            throw new IllegalArgumentException("회원 번호 혹은 주문한 상품에 대한 정보가 존재하지 않습니다.");
+        }
+        return buyMapper.selectBuyOkFilter(userNumber, deliveryNumber);
+    }
 }
