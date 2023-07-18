@@ -78,6 +78,7 @@ input[type="file"] {
   font-weight: 600;
   letter-spacing: -2px;
   margin-bottom: 30px;
+  line-height: 1.3;
 }
 
 .title-content {

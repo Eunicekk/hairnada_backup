@@ -3,16 +3,22 @@ let buyCnt = 0;
 let basketNumbers = [];
 
 // 장바구니에서 가져온 구매할 상품 띄우기
-$.ajax({
-    url: '/stores/basketList',
-    type: 'GET',
-    success: function(data) {
-        let text = '';
-        let resultPrice = 0;
+$(document).ready(function() {
+    byTest();
+});
 
-        for(let i = 0; i < data.length; i++) {
-            var src = "/upload/" + data[i].storeFileUploadPath + "/th_" + data[i].storeFileUuid + "_" + data[i].storeFileName;
-            text += `
+function byTest(){
+    $.ajax({
+        url: '/stores/basketList',
+        type: 'GET',
+        success: function(data) {
+            let text = '';
+            let resultPrice = 0;
+            console.log("@@@" + data);
+
+            for(let i = 0; i < data.length; i++) {
+                var src = "/upload/" + data[i].storeFileUploadPath + "/th_" + data[i].storeFileUuid + "_" + data[i].storeFileName;
+                text += `
             <tr>
                 <td>
                     <img src=${src} alt="상품">
@@ -25,26 +31,26 @@ $.ajax({
                 <input type="hidden" class="basket-number" value="${data[i].basketNumber}">
             </tr>
             `;
-            resultPrice += data[i].basketCnt * data[i].storePrice;
-            rowCount++;
-            setTimeout(function() {
-                buyCnt = parseInt($('.test-count').eq(i).text(), 10);
-                basketNumbers.push($(".basket-number").eq(i).val());
-            }, 500);
-        }
-        $(".tbody").html(text);
-        $('.price-number').text(resultPrice);
+                resultPrice += data[i].basketCnt * data[i].storePrice;
+                rowCount++;
+                setTimeout(function() {
+                    buyCnt = parseInt($('.test-count').eq(i).text(), 10);
+                    basketNumbers.push($(".basket-number").eq(i).val());
+                }, 500);
+            }
+            $(".tbody").html(text);
+            $('.price-number').text(resultPrice);
 
-        if(resultPrice <= 50000){
-            $('.delivery-number').text(3000);
-            $('.final-price-number').text(resultPrice + 3000);
-        }else{
-            $('.delivery-number').text(0);
-            $('.final-price-number').text(resultPrice);
+            if(resultPrice <= 50000){
+                $('.delivery-number').text(3000);
+                $('.final-price-number').text(resultPrice + 3000);
+            }else{
+                $('.delivery-number').text(0);
+                $('.final-price-number').text(resultPrice);
+            }
         }
-    }
-});
-
+    });
+}
 
 // 드롭다운 박스 설정
 $(document).ready(function() {

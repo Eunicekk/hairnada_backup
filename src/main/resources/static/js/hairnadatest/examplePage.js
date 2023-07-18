@@ -4,7 +4,7 @@ import * as quiz from "/js/hairnadatest/quiz-recommendation.js";
 
 // main페이지 설정 예시
 recommend.setMainText(
-    "헤어 추천",
+    "헤어스타일 추천",
     "각 문항에 답변하시면 헤어 스타일을 추천합니다."
 );
 
@@ -71,10 +71,15 @@ function getTriangleHair(result) {
     let finalPage = ``;
 
     finalPage += `
-    <div class="hairnada-logo">hairnada</div>
+    <div class="hairnada-logo">
+        <img src="/img/logo.png" alt="로고" height="60px">
+    </div>
       <div class="result-box">
-        <div class="result-text">${result[0].shapeName}</div>
-        <div class="hair-recommend">hair recommendation</div>
+        <div class="result-text">
+        당신의 얼굴형은&nbsp;
+        <span class="result-text-shape">${result[0].shapeName}</span>&nbsp;입니다.
+        </div>
+        <div class="hair-recommend">당신에게 적합한 헤어 스타일</div>
         <div class="hair-img-box">
     `;
 

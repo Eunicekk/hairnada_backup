@@ -71,7 +71,9 @@ function addBtnEvent() {
 
         $(".rec-box").html(
             `
-      <div class="hairnada-logo">hairnada</div>
+      <div class="hairnada-logo">
+        <img src="/img/logo.png" alt="로고" height="60px">
+      </div>
       <main class="quiz-main">
           <div class="quiz-progress-bg">
             <div class="quiz-count"><span class="current-count">${
