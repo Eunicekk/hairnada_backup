@@ -59,6 +59,21 @@ public class BuyRestController {
         return buyList;
     }
 
+    @GetMapping("/buyFilter")
+    public List<BuyVo> buyFilterList(HttpServletRequest req, Long deliveryNumber){
+        Long userNumber = (Long)req.getSession().getAttribute("userNumber");
+        List<BuyVo> buyFilterList;
+
+        if(deliveryNumber == 0){
+            buyFilterList = buyService.findBuyOk(userNumber);
+        }else{
+            buyFilterList = buyService.FilterBuyOk(userNumber, deliveryNumber);
+        }
+
+        System.out.println("@@@" + buyFilterList.toString());
+        return buyFilterList;
+    }
+
     // 구매가 완료되면 제거하기
     @DeleteMapping("/remove")
     public void remove(@RequestBody Long[] basketNumbers){

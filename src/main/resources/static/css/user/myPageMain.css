@@ -5,7 +5,9 @@
   /* background-color: #fff9f3; */
 }
 
-
+.main-img-banner{
+  margin-bottom: 40px;
+}
 
 .main-header {
   width: 1300px;
@@ -76,6 +78,5 @@
 .main-box {
   /*background-color: beige;*/
   width: 1300px;
-  height: 1420px;
   margin: 40px auto;
 }
