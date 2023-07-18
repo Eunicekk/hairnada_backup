@@ -302,7 +302,9 @@ function getCommunity(obj) {
         <div class="profile">
           <a href="#">
             <div class="profiles profile-img">
+
                <img class="profile-img-img" src="/upload/${obj[i].userFileUploadPath}/th_${obj[i].userFileUuid}_${obj[i].userFileName}" alt="">
+
             </div>
             <p class="profiles profile-nick">${obj[i].userNickName}</p>
           </a>
@@ -311,7 +313,7 @@ function getCommunity(obj) {
             <button type="button" class="like">하트</button>
           </div>
         </div>
-        <a href="">
+        <a href="/board/communityRead?boardNumber=${obj[i].boardNumber}">
           <div class="img-list">
             <div class="main-img">
                 <img src="/upload/${obj[i].boardFileUploadPath}/th_${obj[i].boardFileUuid}_${obj[i].boardFileName}"/>
@@ -347,10 +349,10 @@ function getHairShop(obj) {
   for(let i=0; i<obj.length; i++) {
     text += `
       <li class="ListLi">
-          <a href="#">
+          <a href="/hairshop/read?hairShopNumber=${obj[i].hairShopNumber}">
               <div class="img-list">
                   <div class="main-img">
-                      <img src="/upload/${obj[i].hairShopFileUploadPath}/th_${obj[i].hairShopFileUuid}_${obj[i].hairShopFileName}" alt="썸네일">
+                      <img src="/upload/${obj[i].hairShopFileUploadPath}/th_${obj[i].hairShopFileUuid}_${obj[i].hairShopFileName}" alt="">
                     </div>
               </div>
           </a>
@@ -380,7 +382,7 @@ function getCareShop(obj) {
   for(let i=0; i<obj.length; i++) {
     text += `
       <li class="ListLi">
-          <a href="#">
+          <a href="/read?careShopNumber=${obj[i].careShopNumber}">
               <div class="img-list">
                   <div class="main-img">
                       <img src="/upload/${obj[i].careShopFileUploadPath}/th_${obj[i].careShopFileUuid}_${obj[i].careShopFileName}" alt="썸네일">
@@ -416,7 +418,7 @@ function getProduct(obj) {
     text += `
             <!-- 첫번째 -->
             <li class="ListLi">
-              <a href="">
+              <a href="/store/productRead?storeNumber=${obj[i].storeNumber}">
                 <div class="img-list">
                   <div class="main-img">
                     <img
@@ -461,7 +463,7 @@ function getStyle(obj) {
     text += `
             <!-- 첫번째 -->
             <li class="ListLi">
-              <a href="">
+              <a href="/hair/hairStyleRead?hairNumber=${obj[i].hairNumber}">
                 <div class="img-list">
                   <div class="main-img">
                     <img src="/upload/${obj[i].hairFileUploadPath}/th_${obj[i].hairFileUuid}_${obj[i].hairFileName}" alt="헤어스타일">
