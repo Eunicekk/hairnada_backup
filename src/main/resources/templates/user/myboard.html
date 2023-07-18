@@ -22,6 +22,9 @@
   <!-- 리스트 -->
   <article class="holder">
     <div class="communityList cL">
+      <th:block th:each="test : ${test}">
+      <h1 th:if="${test == 0}" class="no-board-msg"> 아직 작성한 게시글이 없습니다 ! </h1>
+      </th:block>
       <ul class="ListUl">
         <!-- 첫번째 -->
         <li class="ListLi" th:each="board : ${myList}">
