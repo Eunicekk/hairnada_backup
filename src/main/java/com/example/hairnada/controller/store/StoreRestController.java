@@ -11,6 +11,7 @@ import com.example.hairnada.vo.page.SearchStoreVo;
 import io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.Store;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -43,12 +44,16 @@ public class StoreRestController {
     }
 
     @PostMapping("/productBuy")
-    public void buyProduct(@RequestBody BasketDto basketDto, HttpServletRequest req){
-//        System.out.println(basketDto);
+    public ResponseEntity<Map<String, Object>> buyProduct(@RequestBody BasketDto basketDto, HttpServletRequest req){
         Long userNumber =(Long) req.getSession().getAttribute("userNumber");
         basketDto.setUserNumber(userNumber);
         basketService.register(basketDto);
 
+        Long basketNumber = basketDto.getBasketNumber();
+        Map<String, Object> response = new HashMap<>();
+        response.put("basketNumber", basketNumber);
+
+        return ResponseEntity.ok(response);
     }
 
 

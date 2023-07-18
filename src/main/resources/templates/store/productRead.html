@@ -57,8 +57,11 @@
           <div class="contentBox">
             <div class="productContent">
               <div class="productBox">
-                <span class="product-name">판매가</span
-                ><span class="product-price" th:text="${store.storePrice}"> <span>원</span></span>
+                <span class="product-name">판매가</span>
+                <div>
+                  <span class="product-price" th:text="${store.storePrice}"></span>
+                  <span class="product-price">원</span>
+                </div>
               </div>
               <div class="productBox">
                 <span class="product-name">배송비</span

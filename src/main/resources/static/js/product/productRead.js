@@ -483,5 +483,28 @@ $(".bigBox").on("click", ".comment-modify", function (){
 
 // 구매하기 버튼
 $(".buyBtn").on("click", function (){
-  window.location.href = "/store/buy";
+  let storeNumber = $(".basket").data("num")
+  let storeCnt = $("#quantityInput").val();
+  $.ajax({
+    url: '/storeR/productBuy',
+    type: 'post',
+    contentType : "application/json",
+    data : JSON.stringify({storeNumber : storeNumber, basketCnt : storeCnt}),
+    success : function (res){
+      let basketNumber = res.basketNumber;
+      let basketNumbers = [];
+      basketNumbers.push(basketNumber);
+      $.ajax({
+        url: '/stores/buy',
+        type: 'post',
+        traditional: true,
+        data: JSON.stringify(basketNumbers),
+        contentType: "application/json;charset=utf-8",
+        success: function() {
+          window.location.href = '/store/buy';
+        }
+      });
+    }
+  });
+
 })
