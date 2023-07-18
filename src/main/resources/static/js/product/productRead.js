@@ -67,16 +67,10 @@ $(document).ready(function () {
 });
 
 // 사진 눌렀을 때 모달 띄우면서 확대
-
-$(".img-list").on("click", function () {
-  let viewImg = $(this).find('img').attr("src");
+$(".file-wrap").on("click", '.img-list',function () {
+  let viewImg = $(this).attr("src");
   $(".modal").css("display", "flex");
-  // $(".view-img").attr("src", viewImg);
-
-  $(".view-img2").css("width", '600px');
-  $(".view-img2").css("height", '600px');
-  $(".view-img2").css("background-image", `url(${viewImg})`);
-  console.log(viewImg)
+  $(".view-img").attr("src", viewImg);
 });
 
 $(".background").on("click", function () {
@@ -86,6 +80,7 @@ $(".background").on("click", function () {
 $(".view-img").on("click", function () {
   console.log($(this).attr("background-image"));
 });
+
 
 let storeNum = $('.store-num').val();
 

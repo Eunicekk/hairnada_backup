@@ -43,19 +43,17 @@ $(document).ready(function () {
 });
 
 // 사진 눌렀을 때 모달 띄우면서 확대
-
-$(".file-wrap").on("click", '.img-list-thumbnail',function () {
-  console.log("클릭했다")
+$(".file-wrap").on("click", '.img-list',function () {
   let viewImg = $(this).attr("src");
   $(".modal").css("display", "flex");
-  $(".view-img2").attr("src", viewImg);
+  $(".view-img").attr("src", viewImg);
 });
 
 $(".background").on("click", function () {
   $(".modal").css("display", "none");
 });
 
-$(".view-img2").on("click", function () {
+$(".view-img").on("click", function () {
   console.log($(this).attr("background-image"));
 });
 
