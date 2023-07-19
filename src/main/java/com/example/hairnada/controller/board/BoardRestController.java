@@ -39,6 +39,7 @@ public Map<String, Object> searchBoard(Long boardNumber, SearchVo searchVo, @Pat
     Page03Vo page03Vo = new Page03Vo(criteria03, total);
     Map<String, Object> map = new HashMap<>();
     List<BoardVo> list = boardService.findBoardList(searchVo, criteria03, userNumber != null ? userNumber : 0);
+    System.out.println(page03Vo);
     map.put("page", page03Vo);
     map.put("boardList", list);
 

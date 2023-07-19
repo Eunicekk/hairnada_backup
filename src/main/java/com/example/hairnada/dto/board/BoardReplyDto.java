@@ -15,4 +15,5 @@ public class BoardReplyDto {
     private Long userNumber;
     private Long boardNumber;
     private String userNickName;
+    private String membershipName;
 }

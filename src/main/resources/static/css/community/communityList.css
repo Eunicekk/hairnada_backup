@@ -212,7 +212,7 @@ input[type="text"]{
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 290px;
+  width: 250px;
 }
 
 .count span {
@@ -255,3 +255,9 @@ input[type="text"]{
 .ifILike{
   background-image: url("/img/heart2.png");
 }
+
+label{
+  margin-right: 10px;
+  cursor: pointer;
+}
+

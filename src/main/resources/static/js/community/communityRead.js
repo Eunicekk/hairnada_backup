@@ -17,28 +17,33 @@ function showReply(map){
           <li>
             <div class="comment-wrap">
               <div class="comment-info">
-                <span class="writer">${r.userNickName}</span>
-                <span class="date">${boardReply.timeForToday(r.boardReplyRegisterDate == r.boardReplyUpdateDate ? r.boardReplyRegisterDate : r.boardReplyUpdateDate)}</span>
+                <span class="writer">${r.userNickName}</span>`
+    if(r.membershipName === '스타일 전문가'){
+      text += `<span class="membership-name">✂️${r.membershipName}</span>`
+    } else if(r.membershipName === '일반 회원'){
+      text += `<span class="membership-name">👤${r.membershipName}</span>`
+    } else {
+      text += `<span class="membership-name">🎓${r.membershipName}</span>`
+    }
+
+    text +=    `<span class="date">${boardReply.timeForToday(r.boardReplyRegisterDate == r.boardReplyUpdateDate ? r.boardReplyRegisterDate : r.boardReplyUpdateDate)}</span>
               </div>
              <div class="comment-btn-group">`;
 
 
     if (r.userNumber == loginNumber) {
-      text +=`
+      text +=`    
                   <button type="button" class="comment-modify-ready">수정</button>
                   <button type="button" class="comment-delete">삭제</button>
+                 
                 `;
     }
 
     text += `</div>
               </div>`;
 
-          text += `
-            <div class="comment-content">
-            <p>
-              ${r.boardReplyContent}
-            </p>
-            </div>
+    text += `
+            <div class="comment-content">${r.boardReplyContent}</div>
           </li>
         </ul>
     `;
@@ -56,8 +61,16 @@ function appendText(map){
           <li>
             <div class="comment-wrap">
               <div class="comment-info">
-                <span class="writer">${r.userNickName}</span>
-                <span class="date">${boardReply.timeForToday(r.boardReplyRegisterDate == r.boardReplyUpdateDate ? r.boardReplyRegisterDate : r.boardReplyUpdateDate)}</span>
+                                <span class="writer">${r.userNickName}</span>`
+    if(r.membershipName === '스타일 전문가'){
+      text += `<span class="membership-name">✂️${r.membershipName}</span>`
+    } else if(r.membershipName === '일반 회원'){
+      text += `<span class="membership-name">👤${r.membershipName}</span>`
+    } else {
+      text += `<span class="membership-name">🎓${r.membershipName}</span>`
+    }
+
+    text +=    `<span class="date">${boardReply.timeForToday(r.boardReplyRegisterDate == r.boardReplyUpdateDate ? r.boardReplyRegisterDate : r.boardReplyUpdateDate)}</span>
               </div>
              <div class="comment-btn-group">`;
 
@@ -78,11 +91,7 @@ function appendText(map){
 
 
     text += `
-            <div class="comment-content">
-            <p>
-              ${r.boardReplyContent}
-            </p>
-            </div>
+            <div class="comment-content">${r.boardReplyContent}</div>
           </li>
         </ul>
     `;
@@ -109,9 +118,13 @@ function showError(a, b, c){
 $('.submit-btn').on('click',function (){
   let boardReplyContent = $('#boardReplyContent').val();
   let replyNumber = parseInt($(".replyCnt").text());
+  console.log("=========================================================")
+  console.log(replyNumber)
   let test = replyNumber + 1;
-
-  $(".replyCnt").text(test)
+    console.log(test)
+  $(".replyCnt").html(test)
+  $(".replyCnt1").html(test)
+  $('#boardReplyContent').val('');
 
   let replyObj = {
     boardReplyContent : boardReplyContent,
@@ -131,6 +144,13 @@ $('.submit-btn').on('click',function (){
 $('.comment-list').on('click', '.comment-delete', function (){
 
   let boardReplyNumber = $(this).closest('.reply').data('num')
+  let replyNumber = parseInt($(".replyCnt").text());
+  console.log("=========================================================")
+  console.log(replyNumber)
+  let test1 = replyNumber - 1;
+  console.log(test1)
+  $(".replyCnt").html(test1)
+  $(".replyCnt1").html(test1)
 
   page = 1;
 
@@ -142,10 +162,8 @@ $('.comment-list').on('click', '.comment-delete', function (){
 // 댓글 수정
 $('.comment-list').on('click','.comment-modify-ready', function (){
   let $boardReplyContent = $(this).closest('.reply').find('.comment-content');
-  $boardReplyContent.replaceWith(`
-  <div class='modify-box'>
-  <textarea class="modify-content">${$boardReplyContent.text()}</textarea>
-  <button type="button" class="comment-modify">수정 완료</button>
+  console.log($boardReplyContent)
+  $boardReplyContent.replaceWith(`<div class='modify-box'><textarea class="modify-content" value="">${$boardReplyContent.text()}</textarea><button type="button" class="comment-modify">수정 완료</button>
   </div>
   `);
   $('.comment-btn-group').addClass('none');

@@ -87,8 +87,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
       $(".search-btn").on("click", function () {
+        let searchType = $("input[name='searchType']:checked").val();
+        console.log(searchType);
         console.log("검색했디")
         obj = {
+          searchType : $("input[name='searchType']:checked").val(),
           boardCategoryNumber: $('.selected').val(),
           keyword: $('.select-name').val()
         };
@@ -98,6 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
       $(".categoryBtn").on("click", function () {
         console.log("클릭했디")
         obj = {
+          searchType : $("input[name='searchType']:checked").val(),
           boardCategoryNumber: $(this).val(),
           keyword: $('.select-name').val()
         };
