@@ -42,7 +42,7 @@
         </div>
         <div class="count">
           <span class="reply">댓글</span>
-                  <span class="replyCnt" th:with="replyCnt = ${replyCnt}" th:text="${replyCnt}"></span>
+                  <span class="replyCnt1" th:with="replyCnt = ${replyCnt}" th:text="${replyCnt}"></span>
                   <span class="view">조회수 </span>
                   <span class="viewCnt" th:text="${board.boardViewCnt}"></span>
         </div>
@@ -82,6 +82,7 @@
           />
           <div class="replyBox">
             <textarea
+                    class="replyTextarea"
               id="boardReplyContent"
               name="boardReplyContent"
               required

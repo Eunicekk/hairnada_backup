@@ -218,17 +218,17 @@
                           ) J ON B.BOARD_NUMBER = J.BOARD_NUMBER
                             LEFT JOIN TBL_USER_FILE UF
                             ON U.USER_NUMBER = UF.USER_NUMBER
-                          <trim prefix="where" prefixOverrides="AND">
-                          <if test="searchVo.boardCategoryNumber != null">
-                              AND BOARD_CATEGORY_NUMBER = #{searchVo.boardCategoryNumber}
-                          </if>
-                          <if test="searchVo.keyword != null">
-                              AND BOARD_TITLE LIKE '%' || #{searchVo.keyword} || '%'
-                          </if>
-                              <if test="searchVo.keyword != null">
-                              AND BOARD_CONTENT LIKE '%' || #{searchVo.keyword} || '%'
-                            </if>
-                          </trim>
+                            <trim prefix="where" prefixOverrides="AND">
+                                <if test="searchVo.boardCategoryNumber != null">
+                                    AND BOARD_CATEGORY_NUMBER = #{searchVo.boardCategoryNumber}
+                                </if>
+                                <if test="searchVo.searchType == 'title'">
+                                    AND BOARD_TITLE LIKE '%' || #{searchVo.keyword} || '%'
+                                </if>
+                                <if test="searchVo.searchType == 'content'">
+                                    AND USER_NICKNAME LIKE '%' || #{searchVo.keyword} || '%'
+                                </if>
+                            </trim>
                           ORDER BY B.BOARD_NUMBER DESC
                       ) S1
 <![CDATA[
@@ -252,15 +252,9 @@
             WHERE RK = 1
         ) J ON B.BOARD_NUMBER = J.BOARD_NUMBER
                  LEFT JOIN TBL_USER_FILE UF ON U.USER_NUMBER = UF.USER_NUMBER
-        <trim prefix="where" prefixOverrides="AND">
+        <trim prefix="WHERE" prefixOverrides="AND">
             <if test="boardCategoryNumber != null">
                 AND BOARD_CATEGORY_NUMBER = #{boardCategoryNumber}
-            </if>
-            <if test="keyword != null">
-                AND BOARD_TITLE LIKE '%' || #{keyword} || '%'
-            </if>
-            <if test="keyword != null">
-                AND BOARD_CONTENT LIKE '%' || #{keyword} || '%'
             </if>
         </trim>
     </select>

@@ -9,9 +9,11 @@
 
     <select id="selectList" resultType="boardReplyDto">
         SELECT BOARD_REPLY_NUMBER, BOARD_REPLY_CONTENT, BOARD_REPLY_REGISTER_DATE, BOARD_REPLY_UPDATE_DATE, BOARD_NUMBER, U.USER_NUMBER,
-               U.USER_NICKNAME
+               U.USER_NICKNAME, M.MEMBERSHIP_NAME
         FROM TBL_USER U JOIN TBL_BOARD_REPLY R
                              ON U.USER_NUMBER = R.USER_NUMBER
+                        JOIN TBL_MEMBERSHIP M
+                             ON M.MEMBERSHIP_NUMBER = U.MEMBERSHIP_NUMBER
         WHERE BOARD_NUMBER = #{boardNumber}
         ORDER BY BOARD_REPLY_NUMBER DESC
     </select>
@@ -36,16 +38,18 @@
 
     <select id="selectListPage" resultType="boardReplyDto">
         SELECT BOARD_REPLY_NUMBER, BOARD_REPLY_CONTENT, BOARD_REPLY_REGISTER_DATE, BOARD_REPLY_UPDATE_DATE, BOARD_NUMBER, USER_NUMBER,
-               USER_NICKNAME
+               USER_NICKNAME, MEMBERSHIP_NAME
         FROM (
                  SELECT ROWNUM RN,
                         BOARD_REPLY_NUMBER, BOARD_REPLY_CONTENT, BOARD_REPLY_REGISTER_DATE, BOARD_REPLY_UPDATE_DATE, BOARD_NUMBER, USER_NUMBER,
-                        USER_NICKNAME
+                        USER_NICKNAME , MEMBERSHIP_NAME
                  FROM(
                          SELECT BOARD_REPLY_NUMBER, BOARD_REPLY_CONTENT, BOARD_REPLY_REGISTER_DATE, BOARD_REPLY_UPDATE_DATE, BOARD_NUMBER, U.USER_NUMBER,
-                                U.USER_NICKNAME
+                                U.USER_NICKNAME, M.MEMBERSHIP_NAME
                          FROM TBL_USER U JOIN TBL_BOARD_REPLY R
-                                ON BOARD_NUMBER = #{boardNumber} AND U.USER_NUMBER = R.USER_NUMBER
+                                              ON BOARD_NUMBER = #{boardNumber} AND U.USER_NUMBER = R.USER_NUMBER
+                                         JOIN TBL_MEMBERSHIP M
+                                              ON U.MEMBERSHIP_NUMBER = M.MEMBERSHIP_NUMBER
                          ORDER BY BOARD_REPLY_NUMBER DESC
                      )
             <![CDATA[
