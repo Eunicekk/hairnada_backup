@@ -424,4 +424,8 @@ $(document).on('click', '.dropdown-buy .dropdown-item', function(){
       createDatePicker();
     }
   })
-})
+});
+
+
+$('.my-basket').css("color", "#FFFFFF");
+$('.my-basket').css("background-color", "#222");
