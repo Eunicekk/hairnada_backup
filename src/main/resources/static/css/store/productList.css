@@ -189,7 +189,7 @@ button{
 }
 
 .product-title {
-  margin: 0;
+  margin-top: 10px;
   font-size: 20px;
   width: 260px;
   color: #222;
@@ -211,7 +211,7 @@ button{
 
 .productCate {
   color: #696969;
-  margin-bottom: 10px;
+  margin: 10px 0;
 }
 
 .productPrice {
