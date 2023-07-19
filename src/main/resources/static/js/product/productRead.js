@@ -328,9 +328,7 @@ function showReply(map) {
 
     text += `
             </div>
-            <div class="comment-content">
-            <p>${r.storeReplyContent}</p>
-            </div>
+            <div class="comment-content">${r.storeReplyContent}</div>
             </li>
             </ul>
     `;
@@ -369,9 +367,7 @@ function appendText(map){
 
     text += `
             </div>
-            <div class="comment-content">
-            <p>${r.storeReplyContent}</p>
-            </div>
+            <div class="comment-content">${r.storeReplyContent}</div>
             </li>
             </ul>     
     `
@@ -414,6 +410,7 @@ $(".bigBox").on('click', '.submit-btn', function (){
   console.log("============================================")
 
   $(".replyCnt").text(test)
+  $('#storeReplyContent').val('');
   // $(".starSecore-avg").text(testAvg)
 
   console.log($('.input-star:checked'))

@@ -79,7 +79,7 @@ public class BoardController {
         redirectAttributes.addFlashAttribute("board", boardVo);
         System.out.println(boardVo);
 
-        if (files != null) {
+        if (files != null && files.isEmpty()) {
             try {
                 boardFileService.registerAndSaveFiles(files, boardDto.getBoardNumber());
             } catch (IOException e) {
@@ -89,6 +89,7 @@ public class BoardController {
 
         return new RedirectView("/board/communityList");
     }
+
 
 
     @GetMapping("/communityRead")
@@ -133,11 +134,9 @@ public class BoardController {
 // 검색기능
 @GetMapping("/search")
 public String search(Criteria03 criteria03, Model model, SearchVo searchVo, HttpServletRequest req) {
-//    Long boardNumber = (Long)req.getSession().getAttribute("boardNumber");
     int total = boardService.getTotal();
 
     List<BoardVo> boardList = boardService.search(criteria03, searchVo);
-//    model.addAttribute("replyCnt", replyCnt);
     model.addAttribute("boardList", boardList);
     model.addAttribute("search", searchVo);
     model.addAttribute("pageInfo", new Page03Vo(criteria03, total));
