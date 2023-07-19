@@ -92,7 +92,7 @@
     animation-name: mainTitle;
     animation-iteration-count: 1;
     position: relative;
-    letter-spacing: -1px;
+    letter-spacing: -2px;
 }
 
 .sub-title {
