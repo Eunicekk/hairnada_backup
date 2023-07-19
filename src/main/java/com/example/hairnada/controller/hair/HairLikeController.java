@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/hairLike/*")
@@ -29,5 +30,12 @@ public class HairLikeController {
         Long userNumber = (Long)req.getSession().getAttribute("userNumber");
         hairLikeDto.setUserNumber(userNumber);
         hairLikeService.subtractLike(hairLikeDto);
+    }
+
+    @GetMapping("/check")
+    public List<Long> checkLike(HttpServletRequest req){
+        Long userNumber = (Long)req.getSession().getAttribute("userNumber");
+        List<Long> likeList = hairLikeService.checkLike(userNumber);
+        return likeList;
     }
 }

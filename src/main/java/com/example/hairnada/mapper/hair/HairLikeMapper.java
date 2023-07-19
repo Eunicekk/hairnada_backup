@@ -5,6 +5,8 @@ import com.example.hairnada.dto.hair.HairLikeDto;
 import com.example.hairnada.dto.hairshop.HairShopLikeDto;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface HairLikeMapper {
     // 좋아요 추가
@@ -12,4 +14,6 @@ public interface HairLikeMapper {
 
     //좋아요 삭제
     public void delete(HairLikeDto hairLikeDto);
+
+    public List<Long> check(Long userNumber);
 }

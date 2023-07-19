@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/storeLike/*")
@@ -30,4 +31,12 @@ public class StoreLikeController {
         storeLikeDto.setUserNumber(userNumber);
         storeLikeService.subtractLike(storeLikeDto);
     }
+
+    @GetMapping("/check")
+    public List<Long> checkLike(HttpServletRequest req){
+        Long userNumber = (Long)req.getSession().getAttribute("userNumber");
+        List<Long> likeList = storeLikeService.checkLike(userNumber);
+        return likeList;
+    }
+
 }

@@ -38,14 +38,16 @@
             </a>
             <div class="buttons">
               <!-- <button id="basketButton" type="button" class="basket">구매</button> -->
-              <button type="button" class="like">하트</button>
+              <button type="button" class="like" th:value="${board.boardNumber}"
+                      th:classappend="${board.likeCnt == 1 ? 'active' : ''}"
+                      th:style="${board.likeCnt == 1 ? 'background-image:url(/img/heart2.png)' : ''}">하트</button>
             </div>
           </div>
-          <a th:href="@{/board/communityRead(boardNumber=${board.boardNumber})}">
+          <a class="like-board-number" th:href="@{/board/communityRead(boardNumber=${board.boardNumber})}">
             <div class="img-list">
-
               <div  class="main-img">
-                <img class="main-img-img" th:src="@{'/upload/' + ${board.boardFileUploadPath} + '/th_' + ${board.boardFileUuid} + '_' + ${board.boardFileName}}">
+                <img class="main-img-img" th:if="${board.boardFileName == null}" src="/img/no-image-box.png">
+                <img class="main-img-img" th:unless="${board.boardFileName == null}" th:src="@{'/upload/' + ${board.boardFileUploadPath} + '/th_' + ${board.boardFileUuid} + '_' + ${board.boardFileName}}">
               </div>
 <!--th:if="${board.boardFileName == null}"
 <div th:if="${board.boardFileName == null}" class="main-img">-->
@@ -93,11 +95,7 @@
   </article>
 </div>
 <footer class="footer" th:replace="fragment/footer :: footer"></footer>
-<script
-        src="https://code.jquery.com/jquery-3.7.0.js"
-        integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
-        crossorigin="anonymous"
-></script>
+<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <script th:src="@{/js/user/myboard.js}"></script>
 <script th:src="@{/js/index/header.js}"></script>
 </body>

@@ -14,4 +14,10 @@
         WHERE HAIR_NUMBER = #{hairNumber} AND USER_NUMBER = #{userNumber}
     </delete>
 
+    <select id="check" resultType="long">
+        SELECT HAIR_NUMBER
+        FROM TBL_HAIR_LIKE
+        WHERE USER_NUMBER = #{userNumber}
+    </select>
+
 </mapper>

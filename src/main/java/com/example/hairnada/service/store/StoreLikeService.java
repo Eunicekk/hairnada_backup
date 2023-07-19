@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -29,4 +32,15 @@ public class StoreLikeService {
         }
         storeLikeMapper.delete(storeLikeDto);
     }
+
+    @Transactional(readOnly = true)
+    public List<Long> checkLike(Long userNumber){
+        if(userNumber == null){
+            throw new IllegalArgumentException("회원 번호가 없습니다.");
+        }
+        return Optional.ofNullable(storeLikeMapper.check(userNumber))
+                .orElseThrow(()->{throw new IllegalArgumentException("회원 번호가 존재하지 않습니다.");});
+    }
+
+
 }

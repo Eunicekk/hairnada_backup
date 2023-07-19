@@ -1,5 +1,4 @@
 function mainPage() {
-
     dropDown();
     userModify();
     checkNickname();
@@ -522,4 +521,7 @@ function tierCheck() {
     });
 }
 
+
+$('.my-info').css("color", "#FFFFFF");
+$('.my-info').css("background-color", "#222");
 

@@ -43,24 +43,23 @@ $(document).ready(function () {
 
 });
 
-function LikeImg() {
-  $(".communityList").ready(function () {
-    $(".buttons").click(function () {
-      // console.log("클릭 한다잇");
-      var buttonImg = $(this).find(".like");
-
-      if (buttonImg.hasClass("active")) {
-        buttonImg.removeClass("active");
-        buttonImg.css("background-image", "url('../img/heart2.png')");
-      } else {
-        buttonImg.addClass("active");
-        buttonImg.css("background-image", "url('../img/heart1.png')");
-      }
-    });
-  });
-
-
-}
+// 좋아요 이미지 처리
+// function LikeImg() {
+//   $(".communityList").ready(function () {
+//     $(".buttons").click(function () {
+//       // console.log("클릭 한다잇");
+//       var buttonImg = $(this).find(".like");
+//
+//       if (buttonImg.hasClass("active")) {
+//         buttonImg.removeClass("active");
+//         buttonImg.css("background-image", "url('../img/heart2.png')");
+//       } else {
+//         buttonImg.addClass("active");
+//         buttonImg.css("background-image", "url('../img/heart1.png')");
+//       }
+//     });
+//   });
+// }
 
 // 커뮤니티 좋아요 모음
 function communityPage(page) {
@@ -75,8 +74,7 @@ function communityPage(page) {
     success: function(result){
       tagList = getCommunity(result.likeboard);
       $(".communityList").html(tagList);
-      LikeImg();
-
+      communityCancle();
       let pageNum = '';
       let pageinfo = result.pageinfo;
 
@@ -107,6 +105,7 @@ communityPage();
 
 $("#my-community-text").on("click", function(){
   communityPage();
+
 });
 
 // 미용실 좋아요 모음
@@ -140,7 +139,7 @@ function hairPage(page){
     success: function(result){
       tagList = getStyle(result.likeStyle);
       $(".communityList").html(tagList);
-      LikeImg();
+      hairCancle();
 
       let pageNum = '';
       let pageinfo = result.pageinfo;
@@ -182,7 +181,7 @@ function storePage(page){
     success: function (result) {
       tagList = getProduct(result.likeStore);
       $(".communityList").html(tagList);
-      LikeImg();
+      productCancle();
 
       // 장바구니 클릭시 나타나는 문구
       $(".basket").click(function () {
@@ -225,8 +224,7 @@ function hairShopPage(page) {
     success: function (result) {
       tagList = getHairShop(result.likeShop);
       $(".communityList").html(tagList);
-      LikeImg();
-      // hairShopCancle();
+      hairShopCancle();
 
       let pageNum = '';
       let pageinfo = result.pageinfo;
@@ -261,7 +259,7 @@ function careShopPage(page) {
     success: function (result) {
       tagList = getCareShop(result.likeCare);
       $(".communityList").html(tagList);
-      LikeImg();
+      careShopCancle();
 
       let pageNum = '';
       let pageinfo = result.pageinfo;
@@ -301,22 +299,26 @@ function getCommunity(obj) {
       <li class="ListLi">
         <div class="profile">
           <a href="#">
-            <div class="profiles profile-img">
-
-               <img class="profile-img-img" src="/upload/${obj[i].userFileUploadPath}/th_${obj[i].userFileUuid}_${obj[i].userFileName}" alt="">
-
-            </div>
+                <div ${obj[i].userFileName ? 'style="display: none;"' : ''} class="profiles profile-img">
+                  <img src="https://www.studiopeople.kr/common/img/default_profile.png" alt="임시 썸네일" class="profile-img-img"/>
+                </div>
+                <div ${obj[i].userFileName ? '' : 'style="display: none;"'} class="profiles profile-img">
+                  <img class="profile-img-img" src="/upload/${obj[i].userFileUploadPath}/th_${obj[i].userFileUuid}_${obj[i].userFileName}" alt="">
+                </div>
             <p class="profiles profile-nick">${obj[i].userNickName}</p>
           </a>
           <div class="buttons">
             <!-- <button id="basketButton" type="button" class="basket">구매</button> -->
-            <button type="button" class="like">하트</button>
+            <button type="button" class="like" value="${obj[i].boardNumber}">하트</button>
           </div>
         </div>
         <a href="/board/communityRead?boardNumber=${obj[i].boardNumber}">
           <div class="img-list">
-            <div class="main-img">
-                <img src="/upload/${obj[i].boardFileUploadPath}/th_${obj[i].boardFileUuid}_${obj[i].boardFileName}"/>
+            <div ${obj[i].boardFileName ? 'style="display: none;"' : ''} class="main-img">
+             <img src="/img/no-image-box.png" alt="썸네일">
+            </div>
+            <div ${obj[i].boardFileName ? '' : 'style="display: none;"'} class="main-img">
+              <img src="/upload/${obj[i].boardFileUploadPath}/th_${obj[i].boardFileUuid}_${obj[i].boardFileName}"/>           
             </div>
           </div>
         </a>
@@ -351,15 +353,18 @@ function getHairShop(obj) {
       <li class="ListLi">
           <a href="/hairshop/read?hairShopNumber=${obj[i].hairShopNumber}">
               <div class="img-list">
-                  <div class="main-img">
-                      <img src="/upload/${obj[i].hairShopFileUploadPath}/th_${obj[i].hairShopFileUuid}_${obj[i].hairShopFileName}" alt="">
-                    </div>
+                  <div ${obj[i].hairShopFileName ? 'style="display: none;"' : ''} class="main-img">
+                   <img src="/img/no-image-box.png" alt="썸네일">
+                  </div>
+                  <div ${obj[i].hairShopFileName ? '' : 'style="display: none;"'} class="main-img">
+                    <img src="/upload/${obj[i].hairShopFileUploadPath}/th_${obj[i].hairShopFileUuid}_${obj[i].hairShopFileName}" alt="">          
+                  </div>
               </div>
           </a>
           <div class="titleAndBtn">
               <p class="shop-title">${obj[i].hairShopName}</p>
               <div class="buttons">
-                  <button type="button" class="like">하트</button>
+                  <button type="button" class="like" value="${obj[i].hairShopNumber}">하트</button>
               </div>
           </div>
           <div class="address-box">
@@ -384,15 +389,18 @@ function getCareShop(obj) {
       <li class="ListLi">
           <a href="/read?careShopNumber=${obj[i].careShopNumber}">
               <div class="img-list">
-                  <div class="main-img">
-                      <img src="/upload/${obj[i].careShopFileUploadPath}/th_${obj[i].careShopFileUuid}_${obj[i].careShopFileName}" alt="썸네일">
-                    </div>
+                  <div ${obj[i].careShopFileName ? 'style="display: none;"' : ''} class="main-img">
+                   <img src="/img/no-image-box.png" alt="썸네일">
+                  </div>
+                  <div ${obj[i].careShopFileName ? '' : 'style="display: none;"'} class="main-img">
+                    <img src="/upload/${obj[i].careShopFileUploadPath}/th_${obj[i].careShopFileUuid}_${obj[i].careShopFileName}" alt="썸네일">
+                  </div>
               </div>
           </a>
           <div class="titleAndBtn">
               <p class="shop-title">${obj[i].careShopName}</p>
               <div class="buttons">
-                  <button type="button" class="like">하트</button>
+                  <button type="button" class="like" value="${obj[i].careShopNumber}">하트</button>
               </div>
           </div>
           <div class="address-box">
@@ -421,21 +429,23 @@ function getProduct(obj) {
               <a href="/store/productRead?storeNumber=${obj[i].storeNumber}">
                 <div class="img-list">
                   <div class="main-img">
-                    <img
+                    <div ${obj[i].storeFileName ? 'style="display: none;"' : ''} class="main-img">
+                     <img src="/img/no-image-box.png" alt="썸네일">
+                    </div>
+                    <div ${obj[i].storeFileName ? '' : 'style="display: none;"'} class="main-img">
+                      <img
                       src="/upload/${obj[i].storeFileUploadPath}/th_${obj[i].storeFileUuid}_${obj[i].storeFileName}"
                       alt="제품 이미지"
-                    />
+                    />                    
+                    </div>   
                   </div>
                 </div>
               </a>
               <div class="titleAndBnt">
                 <p class="product-title">${obj[i].storeTitle}</p>
                 <div class="profile">
-                  <button id="basketButton" type="button" class="basket">
-                    구매
-                  </button>
                   <div class="buttons">
-                    <button type="button" class="like">하트</button>
+                    <button type="button" class="like" value="${obj[i].storeNumber}">하트</button>
                   </div>
                 </div>
               </div>
@@ -465,7 +475,10 @@ function getStyle(obj) {
             <li class="ListLi">
               <a href="/hair/hairStyleRead?hairNumber=${obj[i].hairNumber}">
                 <div class="img-list">
-                  <div class="main-img">
+                  <div ${obj[i].hairFileName ? 'style="display: none;"' : ''} class="main-img">
+                   <img src="/img/no-image-box.png" alt="썸네일">
+                  </div>
+                  <div ${obj[i].hairFileName ? '' : 'style="display: none;"'} class="main-img">
                     <img src="/upload/${obj[i].hairFileUploadPath}/th_${obj[i].hairFileUuid}_${obj[i].hairFileName}" alt="헤어스타일">
                   </div>
                 </div>
@@ -473,7 +486,7 @@ function getStyle(obj) {
               <div class="hairTitle">
                 <p class="product-title">${obj[i].hairName}</p>
                 <div class="buttons">
-                  <button type="button" class="like">하트</button>
+                  <button type="button" class="like" value="${obj[i].hairNumber}">하트</button>
                 </div>
               </div>
             </li>
@@ -533,41 +546,374 @@ careBtn.addEventListener("click", function () {
 
 
 
-// 좋아요 취소 처리
-// $(document).ready(function () {
-//   $(".ListUl").on('click', '.like', function () {
-//     console.log("like 버튼 클릭 !!!!");
-//     var buttonImg = $(this);
-//     var boardNumber = $(this).val();
-//     console.log(boardNumber);
-//
-//     if (buttonImg.hasClass("active")) {
-//       $.ajax({
-//         url: "/boardLike/subtract",
-//         type: "DELETE",
-//         contentType: "application/json",
-//         data: JSON.stringify({ boardNumber: boardNumber }),
-//         success: function(){
-//           console.log("빼기 성공");
-//         }
-//       });
-//
-//       buttonImg.removeClass("active");
-//       buttonImg.css("background-image", "url('/img/heart1.png')");
-//     } else {
-//       $.ajax({
-//         url: "/boardLike/add",
-//         type: "POST",
-//         contentType: "application/json",
-//         data: JSON.stringify({ boardNumber: boardNumber }),
-//         success: function(){
-//           console.log("더하기 성공");
-//         }
-//       });
-//
-//       buttonImg.addClass("active");
-//       buttonImg.css("background-image", "url('/img/heart2.png')");
-//     }
-//   });
-// });
 
+
+
+// 커뮤니티 좋아요 처리
+function communityCancle() {
+  // 좋아요 취소 처리
+  $(document).ready(function () {
+    $(".button").click(function () {
+      $(".button").removeClass("active");
+      $(this).addClass("active");
+    });
+  });
+
+  $(document).ready(function () {
+    $.ajax({
+      url: "/likes/check",
+      type: "GET",
+      contentType: "application/json",
+      success: function (likeList) {
+        console.log(likeList);
+
+        // 좋아요 버튼들에 대한 처리
+        $(".like").each(function () {
+          var buttonImg = $(this);
+          var boardNumber = buttonImg.val();
+
+          if (likeList.includes(Number(boardNumber))) {
+            buttonImg.addClass("active");
+            buttonImg.css("background-image", "url('/img/heart2.png')");
+          } else {
+            buttonImg.removeClass("active");
+            buttonImg.css("background-image", "url('/img/heart1.png')");
+          }
+        });
+      }
+    });
+
+
+    $(".like").on('click', function () {
+      console.log("like 버튼 클릭 !!!!");
+      var buttonImg = $(this);
+      var boardNumber = $(this).val();
+      console.log(buttonImg);
+      console.log(boardNumber);
+
+      if (buttonImg.hasClass("active")) {
+        $.ajax({
+          url: "/likes/delete",
+          type: "DELETE",
+          contentType: "application/json",
+          data: JSON.stringify({boardNumber: boardNumber}),
+          success: function () {
+            console.log("빼기 성공");
+          }
+        });
+
+        buttonImg.removeClass("active");
+        buttonImg.css("background-image", "url('/img/heart1.png')");
+      } else {
+        $.ajax({
+          url: "/likes/add",
+          type: "POST",
+          contentType: "application/json",
+          data: JSON.stringify({boardNumber: boardNumber}),
+          success: function () {
+            console.log("더하기 성공");
+          }
+        });
+
+        buttonImg.addClass("active");
+        buttonImg.css("background-image", "url('/img/heart2.png')");
+      }
+    });
+  });
+}
+
+
+// 미용실 좋아요 처리
+function hairShopCancle() {
+  // 좋아요 취소 처리
+  $(document).ready(function () {
+    $(".button").click(function () {
+      $(".button").removeClass("active");
+      $(this).addClass("active");
+    });
+  });
+
+  $(document).ready(function () {
+    $.ajax({
+      url: "/hairshopLike/check",
+      type: "GET",
+      contentType: "application/json",
+      success: function (likeList) {
+        console.log(likeList);
+
+        // 좋아요 버튼들에 대한 처리
+        $(".like").each(function () {
+          var buttonImg = $(this);
+          var hairShopNumber = buttonImg.val();
+
+          if (likeList.includes(Number(hairShopNumber))) {
+            buttonImg.addClass("active");
+            buttonImg.css("background-image", "url('/img/heart2.png')");
+          } else {
+            buttonImg.removeClass("active");
+            buttonImg.css("background-image", "url('/img/heart1.png')");
+          }
+        });
+      }
+    });
+
+
+    $(".like").on('click', function () {
+      console.log("like 버튼 클릭 !!!!");
+      var buttonImg = $(this);
+      var hairShopNumber = $(this).val();
+      console.log(buttonImg);
+      console.log(hairShopNumber);
+
+      if (buttonImg.hasClass("active")) {
+        $.ajax({
+          url: "/hairshopLike/subtract",
+          type: "DELETE",
+          contentType: "application/json",
+          data: JSON.stringify({hairShopNumber: hairShopNumber}),
+          success: function () {
+            console.log("빼기 성공");
+          }
+        });
+
+        buttonImg.removeClass("active");
+        buttonImg.css("background-image", "url('/img/heart1.png')");
+      } else {
+        $.ajax({
+          url: "/hairshopLike/add",
+          type: "POST",
+          contentType: "application/json",
+          data: JSON.stringify({hairShopNumber: hairShopNumber}),
+          success: function () {
+            console.log("더하기 성공");
+          }
+        });
+
+        buttonImg.addClass("active");
+        buttonImg.css("background-image", "url('/img/heart2.png')");
+      }
+    });
+  });
+}
+
+// 케어샵 좋아요 처리
+function careShopCancle() {
+  // 좋아요 취소 처리
+  $(document).ready(function () {
+    $(".button").click(function () {
+      $(".button").removeClass("active");
+      $(this).addClass("active");
+    });
+  });
+
+  $(document).ready(function () {
+    $.ajax({
+      url: "/careshopLike/check",
+      type: "GET",
+      contentType: "application/json",
+      success: function (likeList) {
+        console.log(likeList);
+
+        // 좋아요 버튼들에 대한 처리
+        $(".like").each(function () {
+          var buttonImg = $(this);
+          var careShopNumber = buttonImg.val();
+
+          if (likeList.includes(Number(careShopNumber))) {
+            buttonImg.addClass("active");
+            buttonImg.css("background-image", "url('/img/heart2.png')");
+          } else {
+            buttonImg.removeClass("active");
+            buttonImg.css("background-image", "url('/img/heart1.png')");
+          }
+        });
+      }
+    });
+
+
+    $(".like").on('click', function () {
+      console.log("like 버튼 클릭 !!!!");
+      var buttonImg = $(this);
+      var careShopNumber = $(this).val();
+      console.log(buttonImg);
+      console.log(careShopNumber);
+
+      if (buttonImg.hasClass("active")) {
+        $.ajax({
+          url: "/careshopLike/subtract",
+          type: "DELETE",
+          contentType: "application/json",
+          data: JSON.stringify({careShopNumber: careShopNumber}),
+          success: function () {
+            console.log("빼기 성공");
+          }
+        });
+
+        buttonImg.removeClass("active");
+        buttonImg.css("background-image", "url('/img/heart1.png')");
+      } else {
+        $.ajax({
+          url: "/careshopLike/add",
+          type: "POST",
+          contentType: "application/json",
+          data: JSON.stringify({careShopNumber: careShopNumber}),
+          success: function () {
+            console.log("더하기 성공");
+          }
+        });
+
+        buttonImg.addClass("active");
+        buttonImg.css("background-image", "url('/img/heart2.png')");
+      }
+    });
+  });
+}
+
+// 제품 좋아요 처리
+function productCancle() {
+  // 좋아요 취소 처리
+  $(document).ready(function () {
+    $(".button").click(function () {
+      $(".button").removeClass("active");
+      $(this).addClass("active");
+    });
+  });
+
+  $(document).ready(function () {
+    $.ajax({
+      url: "/storeLike/check",
+      type: "GET",
+      contentType: "application/json",
+      success: function (likeList) {
+        console.log(likeList);
+
+        // 좋아요 버튼들에 대한 처리
+        $(".like").each(function () {
+          var buttonImg = $(this);
+          var storeNumber = buttonImg.val();
+
+          if (likeList.includes(Number(storeNumber))) {
+            buttonImg.addClass("active");
+            buttonImg.css("background-image", "url('/img/heart2.png')");
+          } else {
+            buttonImg.removeClass("active");
+            buttonImg.css("background-image", "url('/img/heart1.png')");
+          }
+        });
+      }
+    });
+
+
+    $(".like").on('click', function () {
+      console.log("like 버튼 클릭 !!!!");
+      var buttonImg = $(this);
+      var storeNumber = $(this).val();
+      console.log(buttonImg);
+      console.log(storeNumber);
+
+      if (buttonImg.hasClass("active")) {
+        $.ajax({
+          url: "/storeLike/subtract",
+          type: "DELETE",
+          contentType: "application/json",
+          data: JSON.stringify({storeNumber: storeNumber}),
+          success: function () {
+            console.log("빼기 성공");
+          }
+        });
+
+        buttonImg.removeClass("active");
+        buttonImg.css("background-image", "url('/img/heart1.png')");
+      } else {
+        $.ajax({
+          url: "/storeLike/add",
+          type: "POST",
+          contentType: "application/json",
+          data: JSON.stringify({storeNumber: storeNumber}),
+          success: function () {
+            console.log("더하기 성공");
+          }
+        });
+
+        buttonImg.addClass("active");
+        buttonImg.css("background-image", "url('/img/heart2.png')");
+      }
+    });
+  });
+}
+
+// 스타일 좋아요 처리
+function hairCancle() {
+  // 좋아요 취소 처리
+  $(document).ready(function () {
+    $(".button").click(function () {
+      $(".button").removeClass("active");
+      $(this).addClass("active");
+    });
+  });
+
+  $(document).ready(function () {
+    $.ajax({
+      url: "/hairLike/check",
+      type: "GET",
+      contentType: "application/json",
+      success: function (likeList) {
+        console.log(likeList);
+
+        // 좋아요 버튼들에 대한 처리
+        $(".like").each(function () {
+          var buttonImg = $(this);
+          var hairNumber = buttonImg.val();
+
+          if (likeList.includes(Number(hairNumber))) {
+            buttonImg.addClass("active");
+            buttonImg.css("background-image", "url('/img/heart2.png')");
+          } else {
+            buttonImg.removeClass("active");
+            buttonImg.css("background-image", "url('/img/heart1.png')");
+          }
+        });
+      }
+    });
+
+
+    $(".like").on('click', function () {
+      console.log("like 버튼 클릭 !!!!");
+      var buttonImg = $(this);
+      var hairNumber = $(this).val();
+      console.log(buttonImg);
+      console.log(hairNumber);
+
+      if (buttonImg.hasClass("active")) {
+        $.ajax({
+          url: "/hairLike/subtract",
+          type: "DELETE",
+          contentType: "application/json",
+          data: JSON.stringify({hairNumber: hairNumber}),
+          success: function () {
+            console.log("빼기 성공");
+          }
+        });
+
+        buttonImg.removeClass("active");
+        buttonImg.css("background-image", "url('/img/heart1.png')");
+      } else {
+        $.ajax({
+          url: "/hairLike/add",
+          type: "POST",
+          contentType: "application/json",
+          data: JSON.stringify({hairNumber: hairNumber}),
+          success: function () {
+            console.log("더하기 성공");
+          }
+        });
+
+        buttonImg.addClass("active");
+        buttonImg.css("background-image", "url('/img/heart2.png')");
+      }
+    });
+  });
+}
+
+$('.my-like').css("color", "#FFFFFF");
+$('.my-like').css("background-color", "#222");
