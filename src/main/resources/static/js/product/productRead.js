@@ -250,7 +250,8 @@ $(".info3").on("click", function () {
             </div> `);
 
 
-
+  page = 1;
+  storeReply.getListPage({storeNumber : storeNumber, page : page}, showReply, showError);
 
   // 별점
   let $star = $(".star-score label");
