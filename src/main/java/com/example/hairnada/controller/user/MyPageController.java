@@ -83,18 +83,11 @@ public class MyPageController {
     @GetMapping("/myboard")
     public String myboard(HttpServletRequest req, Model model, Criteria03 criteria03){
         Long userNum = (Long)req.getSession().getAttribute("userNumber");
-//        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~" +userNum);
-//        myPageService.myBoard(userNumber);
-//        redirectAttributes.addFlashAttribute("userNumber", userNum);
+        List<BoardVo> boardList = myPageService.myBoard(userNum != null ? userNum : 0, criteria03);
 
-        if(myPageService.getTotal(userNum) == 0){
-           model.addAttribute("test" , 0);
-        } else {
-            model.addAttribute("test", 1);
-        }
 
         model.addAttribute("myList", myPageService.myBoard(userNum, criteria03));
-
+        model.addAttribute("boardList",boardList);
         model.addAttribute("pageInfo",new Page03Vo(criteria03, myPageService.getTotal(userNum)));
 
 
