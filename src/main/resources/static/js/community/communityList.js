@@ -178,6 +178,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // 페이징
       function paging(result) {
+        console.log("페이징 펑션=====================================")
+        console.log(result)
         let pageInfo = result.page;
         let text = '';
 
