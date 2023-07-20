@@ -499,7 +499,7 @@ fieldset {
 }
 
 .comment-content {
-  margin-top: 5px;
+  margin-top: 12px;
 }
 
 .comment-list li {
@@ -511,6 +511,7 @@ fieldset {
 .comment-wrap{
   display: flex;
   justify-content: space-between;
+  height: 36px;
 }
 
 .comment-info {

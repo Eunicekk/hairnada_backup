@@ -45,7 +45,8 @@
                 <div class="starScore-img">
                   <span class="material-symbols-rounded">star</span>
                 </div>
-                <span class="starSecore-avg" th:with="replyAvg = ${replyAvg}" th:text="${replyAvg}"></span>
+<!--                <span class="starSecore-avg" th:with="replyAvg = ${replyAvg}" th:text="${replyAvg}"></span>-->
+                <span class="starSecore-avg" th:text="${store.storeScoreAvg}"></span>
               </div>
               <div class="likeBox">
                 <div class="like-img"></div>

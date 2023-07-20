@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>myboard</title>
+  <title>HairNada</title>
   <link rel="stylesheet" th:href="@{/css/user/myboard.css}" />
   <link rel="stylesheet" th:href="@{/css/reset.css}" />
   <link rel="stylesheet" th:href="@{/css/user/myPage.css}" />
@@ -75,7 +75,7 @@
     <!-- 페이징 처리 -->
     <div class="pagination">
       <ul>
-        <a th:href="@{/user/myboard(page=${pageInfo.startPage - 1}" class="prev" th:if="${pageInfo.prev}">
+        <a th:href="@{/user/myboard(page=${pageInfo.startPage - 1})}" class="prev" th:if="${pageInfo.prev}">
           <li>&laquo;</li>
         </a>
 
