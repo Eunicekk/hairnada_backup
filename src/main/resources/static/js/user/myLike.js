@@ -192,6 +192,8 @@ function storePage(page){
       let pageNum = '';
       let pageinfo = result.pageinfo;
 
+
+
       if (pageinfo.prev) {
         pageNum += `<li class="li_store"><a href="#" class="prev">&laquo;</a></li>`;
       }
@@ -291,10 +293,19 @@ function getCommunity(obj) {
   console.log(obj)
   let text = '';
 
-  text += `<ul class="ListUl">`;
-
-  for(let i=0; i<obj.length; i++){
+  if (obj.length === 0) {
     text += `
+      <tbody style="margin: 80px auto;">
+        <tr>
+          <td colspan="5" class="null-text">좋아요한 게시글이 없습니다.</td>
+        </tr>
+      </tbody>`;
+  } else {
+
+    text += `<ul class="ListUl">`;
+
+    for (let i = 0; i < obj.length; i++) {
+      text += `
       <!-- 첫번째 -->
       <li class="ListLi">
         <div class="profile">
@@ -326,15 +337,16 @@ function getCommunity(obj) {
           <p class="community-title">${obj[i].boardTitle}</p>
           <div class="count">
             <span class="reply"
-              >댓글 <span class="replyCnt">3</span></span
+              >댓글 <span class="replyCnt">${obj[i].replyCnt}</span></span
             >
             <span class="view"
-              >조회수 <span class="viewCnt">5</span></span
+              >조회수 <span class="viewCnt" >${obj[i].boardViewCnt}</span></span
             >
           </div>
         </div>
       </li>
       `;
+    }
   }
   text+= `</ul>`;
 
@@ -346,10 +358,19 @@ function getHairShop(obj) {
   console.log(obj)
   let text = '';
 
-  text += `<ul class="ListUl">`;
-
-  for(let i=0; i<obj.length; i++) {
+  if (obj.length === 0) {
     text += `
+      <tbody style="margin: 80px auto;">
+        <tr>
+          <td colspan="5" class="null-text">좋아요한 미용실이 없습니다.</td>
+        </tr>
+      </tbody>`;
+  } else {
+
+    text += `<ul class="ListUl">`;
+
+    for (let i = 0; i < obj.length; i++) {
+      text += `
       <li class="ListLi">
           <a href="/hairshop/read?hairShopNumber=${obj[i].hairShopNumber}">
               <div class="img-list">
@@ -372,6 +393,7 @@ function getHairShop(obj) {
           </div>
       </li>
   `;
+    }
   }
   text+= `</ul>`;
 
@@ -382,10 +404,19 @@ function getCareShop(obj) {
   console.log(obj)
   let text = '';
 
-  text += `<ul class="ListUl">`;
-
-  for(let i=0; i<obj.length; i++) {
+  if (obj.length === 0) {
     text += `
+      <tbody style="margin: 80px auto;">
+        <tr>
+          <td colspan="5" class="null-text">좋아요한 케어샵이 없습니다.</td>
+        </tr>
+      </tbody>`;
+  } else {
+
+    text += `<ul class="ListUl">`;
+
+    for (let i = 0; i < obj.length; i++) {
+      text += `
       <li class="ListLi">
           <a href="/read?careShopNumber=${obj[i].careShopNumber}">
               <div class="img-list">
@@ -408,6 +439,7 @@ function getCareShop(obj) {
           </div>
       </li>
   `;
+    }
   }
   text+= `</ul>`;
 
@@ -420,10 +452,18 @@ function getProduct(obj) {
   console.log(obj)
   let text = '';
 
+  if (obj.length === 0) {
+    text += `
+      <tbody style="margin: 80px auto;">
+        <tr>
+          <td colspan="5" class="null-text">좋아요한 제품이 없습니다.</td>
+        </tr>
+      </tbody>`;
+  } else {
   text += `<ul class="ListUl">`;
 
-  for(let i=0; i<obj.length; i++){
-    text += `
+  for(let i=0; i<obj.length; i++) {
+      text += `
             <!-- 첫번째 -->
             <li class="ListLi">
               <a href="/store/productRead?storeNumber=${obj[i].storeNumber}">
@@ -457,6 +497,7 @@ function getProduct(obj) {
 
             
   `;
+    }
   }
   text+= `</ul>`;
 
@@ -467,10 +508,19 @@ function getStyle(obj) {
   console.log(obj)
   let text = '';
 
-  text += `<ul class="ListUl">`;
-
-  for(let i=0; i<obj.length; i++) {
+  if (obj.length === 0) {
     text += `
+      <tbody style="margin: 80px auto;">
+        <tr>
+          <td colspan="5" class="null-text">좋아요한 스타일이 없습니다.</td>
+        </tr>
+      </tbody>`;
+  } else {
+
+    text += `<ul class="ListUl">`;
+
+    for (let i = 0; i < obj.length; i++) {
+      text += `
             <!-- 첫번째 -->
             <li class="ListLi">
               <a href="/hair/hairStyleRead?hairNumber=${obj[i].hairNumber}">
@@ -492,6 +542,7 @@ function getStyle(obj) {
             </li>
 
   `;
+    }
   }
   text+= `</ul>`;
 
