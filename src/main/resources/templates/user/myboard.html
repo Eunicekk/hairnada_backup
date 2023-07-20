@@ -21,9 +21,9 @@
 
   <!-- 리스트 -->
   <article class="holder">
-    <div class="communityList cL">
-      <th:block th:each="test : ${test}">
-      <h1 th:if="${test == 0}" class="no-board-msg"> 아직 작성한 게시글이 없습니다 ! </h1>
+    <div class="communityList cL" id="boardList">
+      <th:block th:each="board : ${boardList}">
+      <h1 th:if="${boardList == 0}" class="no-board-msg"> 아직 작성한 게시글이 없습니다 ! </h1>
       </th:block>
       <ul class="ListUl">
         <!-- 첫번째 -->
@@ -60,10 +60,10 @@
             <p class="community-title" th:text="${board.boardTitle}"></p>
             <div class="count">
                   <span class="reply">댓글
-                    <span class="replyCnt" ></span>
+                    <span class="replyCnt" th:text="${board.replyCnt}"></span>
                   </span>
                   <span class="view">조회수
-                <span class="viewCnt" ></span>
+                <span class="viewCnt" th:text="${board.boardViewCnt}"></span>
                   </span>
             </div>
           </div>
