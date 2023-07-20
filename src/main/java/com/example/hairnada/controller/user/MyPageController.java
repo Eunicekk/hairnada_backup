@@ -1,6 +1,8 @@
 package com.example.hairnada.controller.user;
 
 import com.example.hairnada.dto.user.UserDto;
+import com.example.hairnada.service.board.BoardReplyService;
+import com.example.hairnada.service.board.BoardService;
 import com.example.hairnada.service.user.BasketService;
 import com.example.hairnada.service.user.MyPageService;
 import com.example.hairnada.service.user.UserFileService;
@@ -35,7 +37,7 @@ public class MyPageController {
     private final UserService userService;
     private final MyPageService myPageService;
     private final UserFileService userFileService;
-
+    private final BoardReplyService boardReplyService;
 
 
     @GetMapping("/myPageMain")
@@ -84,7 +86,7 @@ public class MyPageController {
     public String myboard(HttpServletRequest req, Model model, Criteria03 criteria03){
         Long userNum = (Long)req.getSession().getAttribute("userNumber");
         List<BoardVo> boardList = myPageService.myBoard(userNum != null ? userNum : 0, criteria03);
-
+//        int replyCnt = boardReplyService.findTotal();
 
         model.addAttribute("myList", myPageService.myBoard(userNum, criteria03));
         model.addAttribute("boardList",boardList);
