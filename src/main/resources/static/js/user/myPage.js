@@ -100,7 +100,7 @@ function getMainJoin(users) {
               />
             </div>
             <span class="pw-err-text"
-              >영문 대소문자 및 숫자 중 2개 이상 조합, 8자리 이상
+              >특수문자 포함 영문 대소문자 및 숫자 중 2개 이상 조합, 8자리 이상
               작성해주세요.</span
             >
             <div class="input-repassword">
