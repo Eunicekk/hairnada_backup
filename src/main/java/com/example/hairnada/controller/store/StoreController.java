@@ -47,14 +47,12 @@ public class StoreController {
     @GetMapping("/productRead")
     public String productRead(Long storeNumber, Model model, HttpServletRequest req){
         Long userNumber = (Long)req.getSession().getAttribute("userNumber");
-        int replyAvg = storeReplyService.replyAvg(storeNumber);
         int likeCnt = storeService.findLikeTotal(storeNumber);
         int replyCnt = storeReplyService.findTotal(storeNumber);
         StoreVo storeVo = storeService.findStore(storeNumber, userNumber != null ? userNumber : 0);
         String storeMainContent = adminService.lookUpStore(storeNumber).getStoreMainContent();
         model.addAttribute("likeCnt", likeCnt);
         model.addAttribute("replyCnt", replyCnt);
-        model.addAttribute("replyAvg", replyAvg);
         model.addAttribute("productList",storeVo);
         model.addAttribute("storeMainContent", storeMainContent);
         System.out.println(storeVo);
