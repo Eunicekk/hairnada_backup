@@ -9,10 +9,8 @@ body {
 }
 
 .container {
-  margin: 0 auto;
+  margin: 0 auto 170px;
   width: 1300px;
-  padding: 20px;
-  margin-bottom: 100px;
 }
 
 .styleInformation {
@@ -55,7 +53,7 @@ body {
   min-height: 140px;
 }
 
-.file-wrap > li:first-child {
+.file-wrap li:first-child {
   position: relative;
   cursor: pointer;
   background-color: #f2f2f2;
