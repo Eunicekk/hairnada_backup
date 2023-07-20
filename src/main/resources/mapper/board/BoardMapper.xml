@@ -256,6 +256,14 @@
             <if test="boardCategoryNumber != null">
                 AND BOARD_CATEGORY_NUMBER = #{boardCategoryNumber}
             </if>
+            <if test="keyword != null">
+                <if test="searchType == 'title'">
+                    AND BOARD_TITLE LIKE '%' || #{keyword} || '%'
+                </if>
+                <if test="searchType == 'content'">
+                    AND USER_NICKNAME LIKE '%' || #{keyword} || '%'
+                </if>
+            </if>
         </trim>
     </select>
     

@@ -36,6 +36,8 @@ public Map<String, Object> searchBoard(Long boardNumber, SearchVo searchVo, @Pat
     Long userNumber = (Long)req.getSession().getAttribute("userNumber");
     Criteria03 criteria03 = new Criteria03(page, 9);
     int total = boardService.findSearchTotal(searchVo);
+    System.out.println("=================total 검색 ==========================");
+    System.out.println(total);
     Page03Vo page03Vo = new Page03Vo(criteria03, total);
     Map<String, Object> map = new HashMap<>();
     List<BoardVo> list = boardService.findBoardList(searchVo, criteria03, userNumber != null ? userNumber : 0);
