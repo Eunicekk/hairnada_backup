@@ -38,6 +38,9 @@
                 <img th:unless="${board.userFileName == null}" th:src="@{'/upload/' + ${board.userFileUploadPath} + '/th_' + ${board.userFileUuid} + '_' + ${board.userFileName}}" alt="프로필">
               </div>
               <p class="profiles profile-nick" th:text="${board.userNickName}"></p>
+              <span class="membership-span" th:if="${board.membershipNumber == 1L}">👤일반 회원</span>
+              <span class="membership-span" th:if="${board.membershipNumber == 2L}">✂️스타일 전문가</span>
+              <span class="membership-span" th:if="${board.membershipNumber == 3L}">🎓케어 전문가</span>
             </a>
         </div>
         <div class="count">

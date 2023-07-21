@@ -23,4 +23,5 @@ public class BoardVo {
     private String userFileUuid;
     private int likeCnt;
     private int replyCnt;
+    private Long membershipNumber;
 }
