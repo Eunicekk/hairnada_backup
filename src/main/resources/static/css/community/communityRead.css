@@ -79,6 +79,7 @@ body {
   padding-bottom: 18px;
   line-height: 20px;
   font-size: 16px;
+  font-weight: 600;
 }
 
 .like {
@@ -126,18 +127,24 @@ button {
   text-align: right;
 }
 
-.btn-modify,.btn-back,.btn-remove{
+.btn-back{
   height: 46.13px;
-  margin: 40px auto;
+  margin: 40px 50px 40px 0;
   position: relative;
-}
-
-.btn-modify,.btn-back,.btn-remove{
   border: 1px solid #222;
   background-color: transparent;
   color: #222;
   padding: 14px 34px;
-  margin-right: 8px;
+}
+
+.btn-modify,.btn-remove{
+  height: 46.13px;
+  margin: 40px 8px 40px 0;
+  position: relative;
+  border: 1px solid #222;
+  background-color: transparent;
+  color: #222;
+  padding: 14px 34px;
 }
 
 .btn-modify,.btn-back,.btn-remove:hover{
@@ -230,7 +237,7 @@ hr {
 }
 
 .comment-content {
-  margin-top: 10px;
+  margin-top: 14px;
 }
 
 .comment-list li {
@@ -308,3 +315,7 @@ hr {
   margin-right: 20px;
 }
 
+.membership-span{
+  font-size: 14px;
+  font-weight: 400;
+}

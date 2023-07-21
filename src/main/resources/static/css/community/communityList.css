@@ -155,7 +155,8 @@ input[type="text"]{
   padding-top: 18px;
   padding-bottom: 18px;
   line-height: 20px;
-  font-size: 15px;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .like {
@@ -261,3 +262,8 @@ label{
   cursor: pointer;
 }
 
+.membership-span{
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 56px;
+}
