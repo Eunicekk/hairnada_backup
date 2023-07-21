@@ -30,7 +30,7 @@
                 WHERE RK = 1
                 ) J ON B.BOARD_NUMBER = J.BOARD_NUMBER
                 LEFT JOIN TBL_USER_FILE UF ON U.USER_NUMBER = UF.USER_NUMBER
-                    WHERE USER_NUMBER = #{userNumber}
+                    WHERE B.USER_NUMBER = #{userNumber}
                 ORDER BY B.BOARD_NUMBER DESC
             ) S1
              <![CDATA[
