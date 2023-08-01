@@ -137,12 +137,13 @@ document.addEventListener('DOMContentLoaded', function() {
           let likeClass = boardList[i].likeCnt == 1 ? 'like ifILike active' : 'like';
 
           // 등급 처리
-          if (boardList[i].membershipNumber === 1) {
-            $('.membership-span').text('👤일반 회원');
-          } else if (boardList[i].membershipNumber === 2) {
-            $('.membership-span').text('✂️스타일 전문가');
-          } else if (boardList[i].membershipNumber === 3) {
-            $('.membership-span').text('🎓케어 전문가');
+          let membershipText;
+          if (boardList[i].membershipNumber == 1) {
+            membershipText = '👤일반 회원'
+          } else if (boardList[i].membershipNumber == 2) {
+            membershipText = '✂️스타일 전문가';
+          } else if (boardList[i].membershipNumber == 3) {
+            membershipText = '🎓케어 전문가';
           }
 
           $('.ListUl').append(`
@@ -157,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   <img src="/upload/${boardList[i].userFileUploadPath}/th_${boardList[i].userFileUuid}_${boardList[i].userFileName}" alt="썸네일"/>
                 </div>
                 <p class="profiles profile-nick">${boardList[i].userNickName}</p>
-                <span class="membership-span"></span>
+                <span class="membership-span">${membershipText}</span>
               </a>
               <div class="buttons">
                 <button type="button"  class="${likeClass}" value="${boardList[i].boardNumber}">하트</button>
