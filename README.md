@@ -1,5 +1,5 @@
 # 헤어나다 (HairNada)
-Spring Boot 기반 헤어 종합 서비스를 제공하 팀 프로젝트
+Spring Boot 기반 헤어 종합 서비스를 제공하는 팀 프로젝트
 <br></br>
 
 ## 🖥️ 프로젝트 소개
