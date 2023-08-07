@@ -37,31 +37,36 @@ Spring Boot 기반 헤어 종합 서비스를 제공하는 팀 프로젝트
   <summary>
       <b>메인</b> : 클릭 시 화면 이미지를 볼 수 있습니다.
   </summary>
-  <img src=""></img>
+  <img src="https://github.com/Eunicekk/hairnada_backup/assets/108565785/f36e3629-f77b-4833-ba71-eea9ff0ca325"></img>
 </details>
 <details>
   <summary>
       <b>헤어샵</b> : 클릭 시 화면 이미지를 볼 수 있습니다.
   </summary>
-  <img src=""></img>
+  <img src="https://github.com/Eunicekk/hairnada_backup/assets/108565785/2eba12c6-60a8-49af-a395-1059183fa0ca"></img>
+  <img src="https://github.com/Eunicekk/hairnada_backup/assets/108565785/e52f0cd6-89b3-488f-9362-8dac344f9fe5"></img>
+  <img src="https://github.com/Eunicekk/hairnada_backup/assets/108565785/057f3f95-37ba-45df-af1e-c589f911012a"></img>
 </details>
 <details>
   <summary>
       <b>케어샵</b> : 클릭 시 화면 이미지를 볼 수 있습니다.
   </summary>
-  <img src=""></img>
+  <img src="https://github.com/Eunicekk/hairnada_backup/assets/108565785/cd85992c-5ff7-4a3a-a28d-a623fe5110ab"></img>
+  <img src="https://github.com/Eunicekk/hairnada_backup/assets/108565785/e7dae611-2dab-4760-ac78-8f05991e3a71"></img>
+  <img src="https://github.com/Eunicekk/hairnada_backup/assets/108565785/592f2964-fa8c-4186-bdcf-d89f7ec4c6a0"></img>
 </details>
 <details>
   <summary>
       <b>장바구니 및 구매완료</b> : 클릭 시 화면 이미지를 볼 수 있습니다.
   </summary>
-  <img src=""></img>
+  <img src="https://github.com/Eunicekk/hairnada_backup/assets/108565785/11061778-e939-494c-83b9-46469504a172"></img>
+  <img src="https://github.com/Eunicekk/hairnada_backup/assets/108565785/3c01ce7b-f702-4bec-819f-59eab807ba31"></img>
 </details>
 <details>
   <summary>
       <b>결제</b> : 클릭 시 화면 이미지를 볼 수 있습니다.
   </summary>
-  <img src=""></img>
+  <img src="https://github.com/Eunicekk/hairnada_backup/assets/108565785/2c41eede-1a00-4d1f-9730-76d87f4430f4"></img>
 </details>
 <br>
 
@@ -91,6 +96,7 @@ Spring Boot 기반 헤어 종합 서비스를 제공하는 팀 프로젝트
 - 장바구니 제품 수량 변경
 - 장바구니에 담긴 지 30일이 지나면 해당 제품 자동 삭제
 - 결제가 완료된 제품에 대한 정보 노출
+- 결제 상태에 따른 필터
 
 ### 결제
 - 결제하고 싶은 제품의 정보 및 가격 노출
